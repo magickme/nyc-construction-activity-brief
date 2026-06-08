@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Weekly Construction Activity Brief</title>
+    <meta name="description" content="A source-linked weekly NYC construction permit activity brief filtered by work type, ZIP, borough, and issued date.">
+    <style>
+      :root {
+        --ink: #17211b;
+        --muted: #536056;
+        --paper: #f6f1e8;
+        --card: #fffaf1;
+        --line: #d7cbb7;
+        --green: #214d35;
+        --gold: #b7791f;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 8% 8%, rgba(183, 121, 31, 0.16), transparent 28rem),
+          linear-gradient(135deg, #f8f3ea 0%, #ece0cf 100%);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.5;
+      }
+      main {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 56px 24px 72px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+        gap: 32px;
+        align-items: start;
+      }
+      h1 {
+        margin: 0 0 18px;
+        max-width: 760px;
+        font-size: clamp(2.5rem, 7vw, 5.4rem);
+        line-height: 0.93;
+        letter-spacing: -0.06em;
+      }
+      h2 {
+        margin: 0 0 14px;
+        font-size: 1.35rem;
+      }
+      p, li {
+        font-size: 1.05rem;
+      }
+      .lede {
+        max-width: 690px;
+        color: var(--muted);
+        font-size: 1.35rem;
+      }
+      .card {
+        border: 1px solid var(--line);
+        background: rgba(255, 250, 241, 0.78);
+        box-shadow: 0 18px 50px rgba(64, 47, 22, 0.13);
+        border-radius: 18px;
+        padding: 24px;
+      }
+      .price {
+        font-size: 3rem;
+        line-height: 1;
+        margin: 8px 0;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 13px 18px;
+        border-radius: 999px;
+        background: var(--green);
+        color: #fffaf1;
+        text-decoration: none;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
+      }
+      .secondary {
+        background: transparent;
+        color: var(--green);
+        border: 1px solid var(--green);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 32px;
+      }
+      .section {
+        margin-top: 40px;
+      }
+      .sample {
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.88rem;
+        white-space: nowrap;
+        background: #1d241f;
+        color: #f4ead7;
+        border-radius: 14px;
+        padding: 18px;
+      }
+      ul {
+        padding-left: 1.25rem;
+      }
+      .fine {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      @media (max-width: 760px) {
+        main { padding: 36px 16px 56px; }
+        .hero, .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <h1>NYC construction permit activity, filtered by work type.</h1>
+          <p class="lede">A weekly source-linked brief for construction-support vendors, suppliers, and specialty subcontractors watching selected NYC DOB work types.</p>
+          <a class="button secondary" href="sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+          <a class="button secondary" href="sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        </div>
+        <aside class="card">
+          <h2>First weekly issue</h2>
+          <p>Prepared to order from the current NYC DOB NOW public dataset for the selected work types and ZIPs below.</p>
+          <div class="price">$49</div>
+          <p class="fine">Delivered by email after purchase. No subscription. No guaranteed leads.</p>
+          <a id="buy-link" class="button" href="mailto:support@magick.me?subject=Buy%20NYC%20Weekly%20Construction%20Activity%20Brief&body=I%20want%20to%20buy%20the%20NYC%20Weekly%20Construction%20Activity%20Brief%20first%20issue.%20Please%20send%20a%20Stripe%20invoice.">Request Stripe invoice</a>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Work types</h2>
+          <p>Sidewalk shed, supported scaffold, construction fence, plumbing, mechanical systems, sprinklers, and structural.</p>
+        </div>
+        <div class="card">
+          <h2>Territories</h2>
+          <p>Initial sample covers 11211, 11206, 10011, 10003, and 11201.</p>
+        </div>
+        <div class="card">
+          <h2>Fields</h2>
+          <p>Work type, ZIP, borough, issued date, status, cost bucket, source link, permit ID, filing number, and short description.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current public sample</h2>
+        <p>Sample range: 2026-06-01 to 2026-06-08. Public preview rows: 192.</p>
+        <div class="sample">Top work types: Plumbing 49 | Sidewalk Shed 37 | Sprinklers 29 | Mechanical Systems 24 | Supported Scaffold 24 | Structural 22 | Construction Fence 7</div>
+      </section>
+
+      <section class="section card">
+        <h2>What is not included</h2>
+        <ul>
+          <li>No owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
+          <li>No enriched contact data, lead scores, buying-intent claims, or revenue predictions.</li>
+          <li>No legal, tax, insurance, accounting, or compliance advice.</li>
+        </ul>
+        <p class="fine">This is a public-record permit signal brief, not a lead list. Source records can be incomplete, delayed, revised, duplicated, or mislabeled. This product is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
+      </section>
+    </main>
+  </body>
+</html>
