@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Mechanical Permit Leads | Public DOB Signals</title>
+    <meta name="description" content="Screen selected NYC mechanical permit signals with ZIP, borough, issued date, status, short description, and public source links.">
+    <link rel="canonical" href="https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-leads.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Mechanical Permit Leads | Public DOB Signals">
+    <meta property="og:description" content="Screen selected NYC mechanical permit signals with ZIP, borough, issued date, status, short description, and public source links.">
+    <meta property="og:url" content="https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-leads.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - First Issue","description":"Screen selected NYC mechanical permit signals with ZIP, borough, issued date, status, short description, and public source links.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://buy.stripe.com/5kQfZhaHvd5UeH58rlcAo0O","priceCurrency":"USD","price":"19.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NYC Construction Activity Brief","item":"https://nyc-construction-activity-brief.vercel.app/"},{"@type":"ListItem","position":2,"name":"NYC mechanical permit lead research from public DOB signals","item":"https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-leads.html"}]}</script>
+
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC mechanical permit lead research from public DOB signals.</h1>
+      <p class="lede">The weekly brief packages selected mechanical systems permit rows for buyers who manually screen building-systems activity.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Who it helps</h2>
+          <p>Mechanical contractors, HVAC suppliers, service firms, and construction-support vendors.</p>
+        </div>
+        <div class="card">
+          <h2>Paid ZIP</h2>
+          <p>CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary in one instant download.</p>
+        </div>
+        <div class="card">
+          <h2>Current sample</h2>
+          <p>The first issue sample includes 24 selected mechanical systems rows from the public-record pull.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Use case</h2>
+        <p>Use the file to spot rows worth checking in the source record. It does not include owner contact data or claim any buyer intent.</p>
+        <div class="sample">Mechanical signal | ZIP | borough | issued date | status | DOB NOW source link</div>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button" href="https://buy.stripe.com/5kQfZhaHvd5UeH58rlcAo0O">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card sample-request">
+        <h2>Request a future sample cut</h2>
+        <p>If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
+        <form data-sample-request-form>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Work type requested
+            <input name="work_type_requested" value="" placeholder="Plumbing, sidewalk shed, structural..." required>
+          </label>
+          <label>
+            ZIP codes or borough
+            <input name="territory_requested" value="" placeholder="11201, Brooklyn, Manhattan..." required>
+          </label>
+          <label>
+            Buyer type
+            <select name="buyer_type" required>
+              <option value="">Choose one</option>
+              <option value="construction-support-vendor">Construction-support vendor</option>
+              <option value="specialty-subcontractor">Specialty subcontractor</option>
+              <option value="supplier">Supplier</option>
+              <option value="local-b2b-service-provider">Local B2B service provider</option>
+              <option value="data-buyer">Data buyer</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>
+            What do you want to monitor?
+            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required></textarea>
+          </label>
+          <label class="checkbox">
+            <input name="consent" type="checkbox" required>
+            You may reply about this public-record sample request.
+          </label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off">
+          <button class="button" type="submit">Send sample request</button>
+          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+        </form>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, or full street addresses are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+    <script>
+      document.addEventListener('submit', async (event) => {
+        const form = event.target.closest('[data-sample-request-form]');
+        if (!form) return;
+        event.preventDefault();
+        const status = form.querySelector('[data-sample-request-status]');
+        const button = form.querySelector('button[type="submit"]');
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.consent = form.querySelector('[name="consent"]').checked;
+        if (status) status.textContent = 'Saving request...';
+        if (button) button.disabled = true;
+        try {
+          const response = await fetch('/api/sample-request', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) throw new Error('request failed');
+          form.reset();
+          if (status) status.textContent = 'Request saved. I will use this to choose future sample cuts.';
+        } catch (error) {
+          if (status) status.textContent = 'Request was not saved. Try again, or buy the current ZIP if it already fits.';
+        } finally {
+          if (button) button.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
