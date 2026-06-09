@@ -25,6 +25,7 @@ const privateDataPatterns = [
   /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/,
   /\b\d{3}[-. ]\d{3}[-. ]\d{4}\b/,
 ];
+const rawCostBucketPattern = /\b(?:under_10k|10k_to_50k|50k_to_100k|100k_to_250k|250k_to_1m|1m_plus)\b/;
 
 function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), 'utf8');
@@ -60,6 +61,8 @@ function assertHtmlPage(relativePath) {
     assert.match(html, /<h2>Sample counts<\/h2>/, `${relativePath} needs sample counts`);
     assert.match(html, /<h2>Example rows from the public preview<\/h2>/, `${relativePath} needs example rows`);
     assert.match(html, /DOB NOW row/, `${relativePath} needs source row links`);
+    assert.match(html, /<h2>Common questions<\/h2>/, `${relativePath} needs buyer-search FAQ copy`);
+    assert.match(html, /"@type":"FAQPage"/, `${relativePath} needs FAQ structured data`);
   }
   for (const pattern of bannedCopyPatterns) {
     assert.doesNotMatch(html, pattern, `${relativePath} contains banned copy pattern ${pattern}`);
@@ -67,11 +70,12 @@ function assertHtmlPage(relativePath) {
   for (const pattern of privateDataPatterns) {
     assert.doesNotMatch(html, pattern, `${relativePath} contains private data pattern ${pattern}`);
   }
+  assert.doesNotMatch(html, rawCostBucketPattern, `${relativePath} contains raw cost bucket labels`);
 }
 
 assert.equal(manifest.sourceRows, 192, 'manifest source row count changed unexpectedly');
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
-assert.ok(manifest.generatedPages >= 40, 'expected at least 40 generated long-tail pages');
+assert.ok(manifest.generatedPages >= 65, 'expected at least 65 generated long-tail pages');
 assert.equal(manifest.totalTopicPages, pages.length, 'manifest topic page count must match slugs');
 
 for (const page of pages) {
