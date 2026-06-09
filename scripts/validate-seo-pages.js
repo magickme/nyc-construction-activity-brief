@@ -119,14 +119,25 @@ for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }
 
+const methodology = read('methodology.html');
+assert.match(methodology, /<title>Methodology \| NYC Construction Activity Brief<\/title>/, 'methodology needs title');
+assert.match(methodology, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/methodology\.html">/, 'methodology needs canonical');
+assert.match(methodology, /NYC DOB NOW: Build - Approved Permits/, 'methodology names source dataset');
+assert.match(methodology, /Latest issued row in the file:/, 'methodology needs source freshness note');
+assert.match(methodology, /The public package excludes owner names/, 'methodology needs privacy boundary');
+assert.match(methodology, /Not a live alert feed\./, 'methodology needs product boundary');
+assert.match(methodology, /No guaranteed leads\./, 'methodology keeps claims boundary visible');
+assert.match(methodology, /href="https:\/\/buy\.stripe\.com\/5kQfZhaHvd5UeH58rlcAo0O"/, 'methodology links checkout');
+assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured data');
+
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'sample-segments.html', ...pages]) {
+for (const page of ['', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 2, 'sitemap URL count must match generated surface');
+assert.equal(sitemapUrlCount, pages.length + 3, 'sitemap URL count must match generated surface');
 
 const robots = read('robots.txt');
 assert.match(robots, /User-agent: \*/);

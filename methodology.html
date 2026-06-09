@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Methodology | NYC Construction Activity Brief</title>
+    <meta name="description" content="How the NYC Weekly Construction Activity Brief uses selected NYC DOB NOW public permit records, removes private-contact fields, and keeps source caveats visible.">
+    <link rel="canonical" href="https://nyc-construction-activity-brief.vercel.app/methodology.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Construction Activity Brief Methodology">
+    <meta property="og:description" content="How the NYC Weekly Construction Activity Brief uses selected NYC DOB NOW public permit records, removes private-contact fields, and keeps source caveats visible.">
+    <meta property="og:url" content="https://nyc-construction-activity-brief.vercel.app/methodology.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does the permit data come from?","acceptedAnswer":{"@type":"Answer","text":"The current issue uses selected rows from NYC DOB NOW: Build - Approved Permits, published through NYC Open Data."}},{"@type":"Question","name":"Does the brief include owner contact data?","acceptedAnswer":{"@type":"Answer","text":"No. The public package excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data."}},{"@type":"Question","name":"Is this a live alert service?","acceptedAnswer":{"@type":"Answer","text":"No. The first product is a weekly CSV and Markdown brief. It is not a live alert feed, full permit database, API, or CRM sync."}}]}</script>
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Methodology and source boundary.</h1>
+      <p class="lede">The current issue is a small source-linked screening file, not a complete permit database or a contact-enriched lead list.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Source</h2>
+          <p>NYC DOB NOW: Build - Approved Permits, published through NYC Open Data.</p>
+        </div>
+        <div class="card">
+          <h2>Current issue</h2>
+          <p>192 public preview rows. Query window: 2026-06-01 to 2026-06-08. Latest issued row in the file: 2026-06-05.</p>
+        </div>
+        <div class="card">
+          <h2>Delivery</h2>
+          <p>One ZIP after Stripe checkout: CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Included fields</h2>
+        <p>The public CSV includes source name, source URL, source fetch date, borough, ZIP, work type, issued date, permit status, cost bucket, permit ID, work permit, job filing number, short description, and source caveat.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Excluded fields</h2>
+        <p>The public package excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data. A private QA file may exist locally during build checks, but it is not included in the buyer ZIP or public site.</p>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Work type mix</h2>
+          <ul>
+          <li>Construction Fence: 7 rows</li>
+          <li>Mechanical Systems: 24 rows</li>
+          <li>Plumbing: 49 rows</li>
+          <li>Sidewalk Shed: 37 rows</li>
+          <li>Sprinklers: 29 rows</li>
+          <li>Structural: 22 rows</li>
+          <li>Supported Scaffold: 24 rows</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Territory mix</h2>
+          <ul>
+          <li>Brooklyn 11201: 36 rows</li>
+          <li>Brooklyn 11206: 24 rows</li>
+          <li>Brooklyn 11211: 29 rows</li>
+          <li>Manhattan 10003: 50 rows</li>
+          <li>Manhattan 10011: 53 rows</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>What it is not</h2>
+          <ul>
+            <li>Not a live alert feed.</li>
+            <li>Not a full DOB permit database.</li>
+            <li>Not an API or CRM sync.</li>
+            <li>Not a lead guarantee.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Source caveat</h2>
+        <p>No guaranteed leads. Source records can be incomplete, delayed, revised, duplicated, or mislabeled. This product is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button" href="https://buy.stripe.com/5kQfZhaHvd5UeH58rlcAo0O">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>
