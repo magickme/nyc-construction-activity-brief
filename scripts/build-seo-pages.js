@@ -209,6 +209,14 @@ function sampleRows(rows) {
     }));
 }
 
+function sampleRange(rows) {
+  const dates = rows.map((row) => formatDate(row.issued_date)).filter(Boolean).sort();
+  return {
+    firstIssuedDate: dates[0] || '',
+    latestIssuedDate: dates[dates.length - 1] || '',
+  };
+}
+
 function productJsonLd(description, url = checkoutUrl) {
   return {
     '@context': 'https://schema.org',
@@ -499,8 +507,137 @@ ${sampleRequestSection()}
 `;
 }
 
+function methodologyHtml(rows) {
+  const description = 'How the NYC Weekly Construction Activity Brief uses selected NYC DOB NOW public permit records, removes private-contact fields, and keeps source caveats visible.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypes = [...countBy(rows, (row) => row.work_type).entries()]
+    .sort((left, right) => left[0].localeCompare(right[0]))
+    .map(([name, count]) => `          <li>${escapeHtml(name)}: ${count} rows</li>`)
+    .join('\n');
+  const territories = [...countBy(rows, (row) => `${titleCase(row.borough)} ${row.zip_code}`).entries()]
+    .sort((left, right) => left[0].localeCompare(right[0]))
+    .map(([name, count]) => `          <li>${escapeHtml(name)}: ${count} rows</li>`)
+    .join('\n');
+
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Where does the permit data come from?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The current issue uses selected rows from NYC DOB NOW: Build - Approved Permits, published through NYC Open Data.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the brief include owner contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The public package excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is this a live alert service?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The first product is a weekly CSV and Markdown brief. It is not a live alert feed, full permit database, API, or CRM sync.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Methodology | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/methodology.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Construction Activity Brief Methodology">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/methodology.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Methodology and source boundary.</h1>
+      <p class="lede">The current issue is a small source-linked screening file, not a complete permit database or a contact-enriched lead list.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Source</h2>
+          <p>NYC DOB NOW: Build - Approved Permits, published through NYC Open Data.</p>
+        </div>
+        <div class="card">
+          <h2>Current issue</h2>
+          <p>${escapeHtml(rows.length)} public preview rows. Query window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}. Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</p>
+        </div>
+        <div class="card">
+          <h2>Delivery</h2>
+          <p>One ZIP after Stripe checkout: CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Included fields</h2>
+        <p>The public CSV includes source name, source URL, source fetch date, borough, ZIP, work type, issued date, permit status, cost bucket, permit ID, work permit, job filing number, short description, and source caveat.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Excluded fields</h2>
+        <p>The public package excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data. A private QA file may exist locally during build checks, but it is not included in the buyer ZIP or public site.</p>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Work type mix</h2>
+          <ul>
+${workTypes}
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Territory mix</h2>
+          <ul>
+${territories}
+          </ul>
+        </div>
+        <div class="card">
+          <h2>What it is not</h2>
+          <ul>
+            <li>Not a live alert feed.</li>
+            <li>Not a full DOB permit database.</li>
+            <li>Not an API or CRM sync.</li>
+            <li>Not a lead guarantee.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Source caveat</h2>
+        <p>No guaranteed leads. Source records can be incomplete, delayed, revised, duplicated, or mislabeled. This product is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
 function sitemapXml(pages) {
-  const urls = ['', 'sample-segments.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((url) => `  <url>
@@ -532,6 +669,7 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
+        <p><a class="button secondary" href="/methodology.html">Read methodology and source boundary</a></p>
         <details>
           <summary>Generated data-backed pages</summary>
           <ul>
@@ -820,6 +958,7 @@ for (const page of pages) {
   fs.writeFileSync(path.join(root, 'topics', `${page.slug}.html`), pageHtml(page));
 }
 fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages));
+fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),
