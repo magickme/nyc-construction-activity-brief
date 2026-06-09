@@ -11,7 +11,19 @@ assert.equal(validSessionId(undefined), false);
 
 const originalAllowedPaymentLinkIds = process.env.ALLOWED_PAYMENT_LINK_IDS;
 delete process.env.ALLOWED_PAYMENT_LINK_IDS;
-assert.deepEqual(allowedPaymentLinkIds(), ['plink_1TgClADmKyUECkDHS6FKhOXp']);
+assert.deepEqual(allowedPaymentLinkIds(), [
+  'plink_1TgEa1DmKyUECkDHzfi9Cf2o',
+  'plink_1TgClADmKyUECkDHS6FKhOXp',
+]);
+
+assert.equal(
+  authorizedSession({
+    payment_status: 'paid',
+    status: 'complete',
+    payment_link: 'plink_1TgEa1DmKyUECkDHzfi9Cf2o',
+  }),
+  true,
+);
 
 assert.equal(
   authorizedSession({

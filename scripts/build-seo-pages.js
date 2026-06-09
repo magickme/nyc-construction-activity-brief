@@ -3,7 +3,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
-const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N';
+const checkoutUrl = 'https://buy.stripe.com/5kQfZhaHvd5UeH58rlcAo0O';
 const sampleCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const manualPages = require('./seo-pages.json').map((page) => ({ ...page, group: 'core' }));
 
@@ -194,7 +194,7 @@ function productJsonLd(description, url = checkoutUrl) {
       '@type': 'Offer',
       url,
       priceCurrency: 'USD',
-      price: '49.00',
+      price: '19.00',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
     },
