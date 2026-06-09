@@ -64,6 +64,13 @@ function jsonScript(value) {
   return JSON.stringify(value).replaceAll('<', '\\u003c');
 }
 
+function analyticsSnippet() {
+  return `<script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>`;
+}
+
 function titleCase(value) {
   return String(value)
     .toLowerCase()
@@ -268,6 +275,7 @@ function pageHtml(page) {
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(breadcrumb)}</script>
+    ${analyticsSnippet()}
   </head>
   <body>
     <main>
@@ -334,6 +342,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
     <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
+    ${analyticsSnippet()}
   </head>
   <body>
     <main>
