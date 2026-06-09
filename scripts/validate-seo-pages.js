@@ -92,7 +92,9 @@ assert.match(index, /<meta property="og:title" content="[^"]+">/, 'index needs O
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
 assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytics script');
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
-assert.match(index, /Download after completed Stripe checkout/, 'index needs current automated delivery copy');
+assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
+assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
+assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 for (const page of pages) {
   assert.match(index, new RegExp(`href="/${page}"`), `index links ${page}`);
 }
