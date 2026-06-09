@@ -376,7 +376,10 @@ function generatedPageLinks(pages) {
 function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
   const indexPath = path.join(root, 'index.html');
   let index = fs.readFileSync(indexPath, 'utf8');
-  const replacement = `        <ul>
+  const replacement = `      <section class="section card">
+        <h2>Permit topics</h2>
+        <p class="fine">These pages explain the current sample by buyer search intent and link back to the same source-linked files.</p>
+        <ul>
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
         <p><a class="button secondary" href="/sample-segments.html">Browse ZIP and work-type pages</a></p>
@@ -385,8 +388,12 @@ ${manualPageLinks(manualPagesForLinks)}
           <ul>
 ${generatedPageLinks(generatedPagesForLinks)}
           </ul>
-        </details>`;
-  index = index.replace(/        <ul>\n(?:          <li><a href="\/topics\/[^"]+">[^<]+<\/a><\/li>\n)+        <\/ul>/, replacement);
+        </details>
+      </section>`;
+  index = index.replace(
+    /      <section class="section card">\n        <h2>Permit topics<\/h2>[\s\S]*?\n      <\/section>\n\n      <section class="section card">\n        <h2>What is not included<\/h2>/,
+    `${replacement}\n\n      <section class="section card">\n        <h2>What is not included</h2>`,
+  );
   fs.writeFileSync(indexPath, index);
 }
 
