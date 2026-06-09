@@ -119,4 +119,7 @@ const robots = read('robots.txt');
 assert.match(robots, /User-agent: \*/);
 assert.match(robots, new RegExp(`Sitemap: ${baseUrl}/sitemap.xml`));
 
+const indexNowKey = read('320c87511764a53abe2cd8aa0481f1bc.txt').trim();
+assert.equal(indexNowKey, '320c87511764a53abe2cd8aa0481f1bc', 'IndexNow key file must match submission script');
+
 console.log('seo page validation passed');
