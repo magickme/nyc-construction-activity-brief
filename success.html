@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Download your NYC Construction Activity Brief</title>
+    <meta name="robots" content="noindex">
+    <style>
+      :root {
+        --ink: #17211b;
+        --muted: #536056;
+        --paper: #f6f1e8;
+        --line: #d7cbb7;
+        --green: #214d35;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 10%, rgba(183, 121, 31, 0.16), transparent 26rem),
+          linear-gradient(135deg, #f8f3ea 0%, #ece0cf 100%);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.5;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 72px 20px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 250, 241, 0.84);
+        box-shadow: 0 18px 50px rgba(64, 47, 22, 0.13);
+        padding: 28px;
+      }
+      h1 {
+        margin: 0 0 16px;
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+      }
+      p {
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 18px;
+        padding: 13px 18px;
+        border-radius: 999px;
+        background: var(--green);
+        color: #fffaf1;
+        text-decoration: none;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
+      }
+      .hidden { display: none; }
+      .fine { font-size: 0.95rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card">
+        <h1>Your first issue package is ready.</h1>
+        <p>Download the NYC Weekly Construction Activity Brief first issue sample pack below. The link verifies your completed Stripe checkout before serving the file.</p>
+        <a id="download-link" class="button hidden" href="#">Download ZIP</a>
+        <p id="missing-session" class="fine hidden">This page is missing a Stripe checkout session ID. Return from the Stripe confirmation page or contact support with your receipt email.</p>
+        <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list.</p>
+      </section>
+    </main>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const link = document.getElementById('download-link');
+      const missing = document.getElementById('missing-session');
+
+      if (sessionId && /^cs_(live|test)_[A-Za-z0-9]+$/.test(sessionId)) {
+        link.href = `/api/download?session_id=${encodeURIComponent(sessionId)}`;
+        link.classList.remove('hidden');
+      } else {
+        missing.classList.remove('hidden');
+      }
+    </script>
+  </body>
+</html>
