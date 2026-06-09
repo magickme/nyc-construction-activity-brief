@@ -49,13 +49,13 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /<meta name="twitter:card" content="summary">/, `${relativePath} needs Twitter card`);
   assert.match(html, /"@type":"Product"/, `${relativePath} needs Product structured data`);
   assert.match(html, /"@type":"Offer"/, `${relativePath} needs Offer structured data`);
-  assert.match(html, /"price":"49.00"/, `${relativePath} needs current price structured data`);
+  assert.match(html, /"price":"19.00"/, `${relativePath} needs current price structured data`);
   assert.match(html, /"@type":"BreadcrumbList"/, `${relativePath} needs breadcrumb structured data`);
   assert.match(html, /\/_vercel\/insights\/script\.js/, `${relativePath} needs Web Analytics script`);
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
-  assert.match(html, /href="https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N"/, `${relativePath} links checkout`);
+  assert.match(html, /href="https:\/\/buy\.stripe\.com\/5kQfZhaHvd5UeH58rlcAo0O"/, `${relativePath} links checkout`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
   if (generatedPages.includes(relativePath)) {
     assert.match(html, /<h2>Sample counts<\/h2>/, `${relativePath} needs sample counts`);
