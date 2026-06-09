@@ -50,6 +50,7 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /"@type":"Offer"/, `${relativePath} needs Offer structured data`);
   assert.match(html, /"price":"49.00"/, `${relativePath} needs current price structured data`);
   assert.match(html, /"@type":"BreadcrumbList"/, `${relativePath} needs breadcrumb structured data`);
+  assert.match(html, /\/_vercel\/insights\/script\.js/, `${relativePath} needs Web Analytics script`);
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
@@ -85,6 +86,7 @@ assert.match(
 );
 assert.match(index, /<meta property="og:title" content="[^"]+">/, 'index needs OG title');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
+assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytics script');
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
 assert.match(index, /Download after completed Stripe checkout/, 'index needs current automated delivery copy');
 for (const page of pages) {
@@ -95,6 +97,7 @@ assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub')
 const hub = read('sample-segments.html');
 assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
 assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html">/, 'hub needs canonical');
+assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }
