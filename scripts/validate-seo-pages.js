@@ -65,6 +65,8 @@ assert.match(
 );
 assert.match(index, /<meta property="og:title" content="[^"]+">/, 'index needs OG title');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
+assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
+assert.match(index, /Download after completed Stripe checkout/, 'index needs current automated delivery copy');
 for (const page of pages) {
   assert.match(index, new RegExp(`href="/${page}"`), `index links ${page}`);
 }
