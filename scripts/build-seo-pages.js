@@ -333,8 +333,8 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
           <p>${escapeHtml(page.audience)}</p>
         </div>
         <div class="card">
-          <h2>What you get</h2>
-          <p>Work type, ZIP, borough, issued date, status, cost bucket, source link, permit ID, filing number, and short description.</p>
+          <h2>Paid ZIP</h2>
+          <p>CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary in one instant download.</p>
         </div>
         <div class="card">
           <h2>Current sample</h2>
@@ -348,7 +348,7 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <div class="sample">${escapeHtml(page.sampleLine)}</div>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
-        <a class="button" href="${checkoutUrl}">Buy first issue package</a>
+        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
       </section>
 
 ${sampleStats(page)}${sampleTable(page)}${faqSection(page)}      <section class="section card">

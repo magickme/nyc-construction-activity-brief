@@ -1,4 +1,4 @@
-const PAYMENT_LINK_ID = 'plink_1TgClADmKyUECkDHS6FKhOXp';
+const DEFAULT_PAYMENT_LINK_IDS = ['plink_1TgClADmKyUECkDHS6FKhOXp'];
 const ZIP_NAME = 'nyc-weekly-construction-activity-brief-v0.1.zip';
 
 function sendJson(res, status, payload) {
@@ -9,6 +9,16 @@ function sendJson(res, status, payload) {
 
 function validSessionId(value) {
   return typeof value === 'string' && /^cs_(live|test)_[A-Za-z0-9]+$/.test(value);
+}
+
+function allowedPaymentLinkIds() {
+  const configured = process.env.ALLOWED_PAYMENT_LINK_IDS;
+  if (!configured) return DEFAULT_PAYMENT_LINK_IDS;
+  const ids = configured
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return ids.length ? ids : DEFAULT_PAYMENT_LINK_IDS;
 }
 
 async function retrieveSession(sessionId) {
@@ -42,7 +52,7 @@ function authorizedSession(session) {
     session &&
     session.payment_status === 'paid' &&
     session.status === 'complete' &&
-    session.payment_link === PAYMENT_LINK_ID
+    allowedPaymentLinkIds().includes(session.payment_link)
   );
 }
 
@@ -83,5 +93,6 @@ module.exports = async function handler(req, res) {
 
 module.exports._private = {
   authorizedSession,
+  allowedPaymentLinkIds,
   validSessionId,
 };
