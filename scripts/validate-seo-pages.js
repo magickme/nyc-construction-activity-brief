@@ -5,7 +5,10 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const pageData = require('./seo-pages.json');
-const pages = pageData.map((page) => `topics/${page.slug}.html`);
+const manifest = require('./generated-pages-manifest.json');
+const pages = manifest.slugs.map((slug) => `topics/${slug}.html`);
+const manualPages = pageData.map((page) => `topics/${page.slug}.html`);
+const generatedPages = pages.filter((page) => !manualPages.includes(page));
 const bannedCopyPatterns = [
   /\bdelve\b/i,
   /\bleverage\b/i,
@@ -17,6 +20,10 @@ const bannedCopyPatterns = [
   /\bhere's the thing\b/i,
   /\blet's break\b/i,
   /\bimagine a world\b/i,
+];
+const privateDataPatterns = [
+  /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/,
+  /\b\d{3}[-. ]\d{3}[-. ]\d{4}\b/,
 ];
 
 function read(relativePath) {
@@ -48,10 +55,23 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
   assert.match(html, /href="https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N"/, `${relativePath} links checkout`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
+  if (generatedPages.includes(relativePath)) {
+    assert.match(html, /<h2>Sample counts<\/h2>/, `${relativePath} needs sample counts`);
+    assert.match(html, /<h2>Example rows from the public preview<\/h2>/, `${relativePath} needs example rows`);
+    assert.match(html, /DOB NOW row/, `${relativePath} needs source row links`);
+  }
   for (const pattern of bannedCopyPatterns) {
     assert.doesNotMatch(html, pattern, `${relativePath} contains banned copy pattern ${pattern}`);
   }
+  for (const pattern of privateDataPatterns) {
+    assert.doesNotMatch(html, pattern, `${relativePath} contains private data pattern ${pattern}`);
+  }
 }
+
+assert.equal(manifest.sourceRows, 192, 'manifest source row count changed unexpectedly');
+assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
+assert.ok(manifest.generatedPages >= 40, 'expected at least 40 generated long-tail pages');
+assert.equal(manifest.totalTopicPages, pages.length, 'manifest topic page count must match slugs');
 
 for (const page of pages) {
   assertHtmlPage(page);
@@ -70,13 +90,23 @@ assert.match(index, /Download after completed Stripe checkout/, 'index needs cur
 for (const page of pages) {
   assert.match(index, new RegExp(`href="/${page}"`), `index links ${page}`);
 }
+assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub');
+
+const hub = read('sample-segments.html');
+assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
+assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html">/, 'hub needs canonical');
+for (const page of generatedPages) {
+  assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
+}
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', ...pages]) {
+for (const page of ['', 'sample-segments.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
+const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
+assert.equal(sitemapUrlCount, pages.length + 2, 'sitemap URL count must match generated surface');
 
 const robots = read('robots.txt');
 assert.match(robots, /User-agent: \*/);
