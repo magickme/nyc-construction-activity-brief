@@ -1,0 +1,134 @@
+[
+  {
+    "slug": "nyc-sidewalk-shed-permits",
+    "title": "NYC Sidewalk Shed Permit Activity | Weekly DOB Brief",
+    "description": "Track selected NYC sidewalk shed permit activity by ZIP, borough, issued date, permit ID, filing number, source link, and cost bucket.",
+    "h1": "NYC sidewalk shed permit activity by ZIP and issued date.",
+    "lede": "The weekly brief filters NYC DOB NOW public records for selected sidewalk shed activity, then packages the result into a CSV preview and a short source-linked brief.",
+    "audience": "Scaffold firms, sidewalk shed vendors, site-service providers, and suppliers that watch where exterior work is starting.",
+    "currentSample": "The first issue sample includes 37 sidewalk shed rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the brief to spot fresh sidewalk shed permit activity in selected NYC ZIP codes before spending time in DOB search screens. It is meant for weekly territory review, not automated bidding or guaranteed sales.",
+    "sampleLine": "Sidewalk Shed | ZIP and borough | issued date | status | cost bucket | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-supported-scaffold-permits",
+    "title": "NYC Supported Scaffold Permits | Weekly DOB Activity",
+    "description": "Review selected NYC supported scaffold permit activity with source links, ZIP, borough, issued date, status, filing number, and cost bucket.",
+    "h1": "NYC supported scaffold permit activity for weekly review.",
+    "lede": "The brief groups selected supported scaffold records from NYC DOB NOW public data into a small weekly CSV and Markdown package.",
+    "audience": "Scaffold contractors, site-access vendors, construction suppliers, and sales teams watching exterior and access-related work.",
+    "currentSample": "The first issue sample includes 24 supported scaffold rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the CSV to scan supported scaffold activity by ZIP, borough, and issued date before opening individual source records for closer review.",
+    "sampleLine": "Supported Scaffold | ZIP and borough | issued date | status | filing number | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-construction-fence-permits",
+    "title": "NYC Construction Fence Permits | Weekly Activity Brief",
+    "description": "Review selected NYC construction fence permit activity with ZIP, borough, issued date, source link, permit ID, filing number, and cost bucket.",
+    "h1": "NYC construction fence permits in a weekly source-linked brief.",
+    "lede": "The brief pulls selected public DOB NOW construction fence records into a small weekly package for construction-support vendors watching early site activity.",
+    "audience": "Fence companies, temporary site vendors, site-security firms, and suppliers that need a fast read on new project activity.",
+    "currentSample": "The first issue sample includes 7 construction fence rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the page and sample files to check whether construction fence activity in the selected ZIP codes is worth deeper review. The package saves sorting time; it does not replace source-record verification.",
+    "sampleLine": "Construction Fence | ZIP and borough | issued date | status | filing number | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-plumbing-permit-activity",
+    "title": "NYC Plumbing Permit Activity | Weekly DOB CSV Brief",
+    "description": "Track selected NYC plumbing permit activity in a weekly CSV brief with ZIP, borough, issued date, status, source link, and cost bucket.",
+    "h1": "NYC plumbing permit activity filtered into a weekly CSV brief.",
+    "lede": "The first issue package tracks selected plumbing permit activity from NYC DOB NOW public records for vendors and subcontractors reviewing where work is moving.",
+    "audience": "Plumbing contractors, supply houses, maintenance vendors, and construction-support teams reviewing fresh public permit activity.",
+    "currentSample": "The first issue sample includes 49 plumbing rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the CSV to scan new plumbing activity by ZIP and issued date, then open source links only for rows that look relevant. The brief is a screening tool, not a contact database.",
+    "sampleLine": "Plumbing | ZIP and borough | issued date | status | cost bucket | permit ID | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-mechanical-permit-activity",
+    "title": "NYC Mechanical Permit Activity | Weekly Permit Brief",
+    "description": "Review selected NYC mechanical systems permit activity by ZIP, borough, issued date, status, permit ID, filing number, and source link.",
+    "h1": "NYC mechanical permit activity for weekly territory review.",
+    "lede": "The brief extracts selected mechanical systems records from NYC DOB NOW public data and packages them for quick review by work type, ZIP, and issue date.",
+    "audience": "Mechanical contractors, HVAC suppliers, specialty subcontractors, and service firms watching building-system work.",
+    "currentSample": "The first issue sample includes 24 mechanical systems rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the sample to review mechanical activity in selected NYC territories before deciding which source records deserve more attention. The files keep source links visible so each row can be checked.",
+    "sampleLine": "Mechanical Systems | ZIP and borough | issued date | status | short description | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-sprinkler-permit-activity",
+    "title": "NYC Sprinkler Permit Activity | Weekly DOB CSV Brief",
+    "description": "Track selected NYC sprinkler permit activity with ZIP, borough, issued date, status, source links, permit IDs, and weekly counts.",
+    "h1": "NYC sprinkler permit activity in a weekly CSV brief.",
+    "lede": "The brief filters selected sprinkler records from NYC DOB NOW public data so vendors can review current activity without rebuilding the same search each week.",
+    "audience": "Sprinkler contractors, fire-protection suppliers, service firms, and construction-support teams watching active building work.",
+    "currentSample": "The first issue sample includes 29 sprinkler rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the weekly file to sort sprinkler activity by territory and issue date, then verify promising rows directly in the source record.",
+    "sampleLine": "Sprinklers | ZIP and borough | issued date | status | permit ID | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-structural-permit-activity",
+    "title": "NYC Structural Permit Activity | Weekly DOB Brief",
+    "description": "Review selected NYC structural permit activity by work type, ZIP, borough, issued date, status, source link, permit ID, and cost bucket.",
+    "h1": "NYC structural permit activity for weekly screening.",
+    "lede": "The brief packages selected structural permit activity from NYC DOB NOW public records into buyer-safe fields with source links kept visible.",
+    "audience": "Structural contractors, construction suppliers, inspection-adjacent vendors, and sales teams reviewing active project signals.",
+    "currentSample": "The first issue sample includes 22 structural rows from the 2026-06-01 to 2026-06-08 public-record pull.",
+    "useCase": "Use the structural page to decide whether the current sample covers enough relevant activity for deeper source-record review.",
+    "sampleLine": "Structural | ZIP and borough | issued date | status | cost bucket | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-dob-permit-monitoring",
+    "title": "NYC DOB Permit Monitoring | Weekly Construction Brief",
+    "description": "A weekly NYC DOB permit monitoring brief for selected work types, ZIP codes, issue dates, statuses, source links, and cost buckets.",
+    "h1": "NYC DOB permit monitoring for selected construction work types.",
+    "lede": "The NYC Weekly Construction Activity Brief turns selected DOB NOW public permit records into a simple weekly CSV and Markdown brief for territory review.",
+    "audience": "Construction-support vendors, specialty subcontractors, suppliers, and small teams that want a faster weekly review workflow.",
+    "currentSample": "The first issue sample includes 192 public preview rows from the 2026-06-01 to 2026-06-08 pull.",
+    "useCase": "Use this product when DOB search screens are too slow for weekly review. The files are designed for quick filtering by work type, territory, and issued date before manual source checks.",
+    "sampleLine": "Work type | ZIP | borough | issued date | status | cost bucket | permit ID | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-dob-permit-csv",
+    "title": "NYC DOB Permit CSV | Weekly Construction Activity File",
+    "description": "Download a source-linked NYC DOB permit CSV sample for selected work types, ZIP codes, issued dates, statuses, source links, and cost buckets.",
+    "h1": "NYC DOB permit CSV sample for construction activity review.",
+    "lede": "The first issue package includes a public CSV preview and Markdown brief built from selected NYC DOB NOW records for a specific weekly window.",
+    "audience": "Small construction vendors and subcontractors that need a spreadsheet-friendly way to review current public permit activity.",
+    "currentSample": "The public CSV preview includes 192 rows across seven selected work types and five selected ZIP codes.",
+    "useCase": "Use the CSV page if your main need is filtering and sorting. It is built for spreadsheet review, not CRM import or automated contact scraping.",
+    "sampleLine": "CSV columns | work type | ZIP | borough | issued date | status | cost bucket | source link"
+  },
+  {
+    "slug": "brooklyn-construction-permit-activity",
+    "title": "Brooklyn Construction Permit Activity | Weekly NYC DOB Brief",
+    "description": "Review selected Brooklyn construction permit activity from NYC DOB NOW with ZIP, borough, issued date, work type, status, and source links.",
+    "h1": "Brooklyn construction permit activity in the current weekly sample.",
+    "lede": "The first issue includes selected Brooklyn ZIP codes from NYC DOB NOW public data, packaged for quick weekly review by work type and issue date.",
+    "audience": "Brooklyn-focused subcontractors, suppliers, and construction-support vendors watching local project signals.",
+    "currentSample": "The first issue sample covers selected Brooklyn ZIP codes including 11211, 11206, and 11201.",
+    "useCase": "Use this page to evaluate whether the current Brooklyn coverage matches your territory before buying the first issue package.",
+    "sampleLine": "Brooklyn ZIP | work type | issued date | status | cost bucket | DOB NOW source link"
+  },
+  {
+    "slug": "manhattan-construction-permit-activity",
+    "title": "Manhattan Construction Permit Activity | Weekly NYC DOB Brief",
+    "description": "Review selected Manhattan construction permit activity from NYC DOB NOW with ZIP, borough, issued date, work type, status, and source links.",
+    "h1": "Manhattan construction permit activity in the current weekly sample.",
+    "lede": "The first issue includes selected Manhattan ZIP codes from NYC DOB NOW public data, packaged for quick weekly review by work type and issue date.",
+    "audience": "Manhattan-focused subcontractors, suppliers, and construction-support vendors watching public permit activity.",
+    "currentSample": "The first issue sample covers selected Manhattan ZIP codes including 10011 and 10003.",
+    "useCase": "Use this page to check whether the current Manhattan sample is relevant before spending time in source search tools.",
+    "sampleLine": "Manhattan ZIP | work type | issued date | status | cost bucket | DOB NOW source link"
+  },
+  {
+    "slug": "construction-lead-research-nyc",
+    "title": "NYC Construction Lead Research | Public Permit Signal Brief",
+    "description": "Use a weekly NYC public permit signal brief to screen selected construction activity by work type, ZIP, issued date, status, and source link.",
+    "h1": "NYC construction lead research from public permit signals.",
+    "lede": "This product is for early screening: it packages selected public permit activity so vendors can decide which records deserve manual source review.",
+    "audience": "Small sales teams, owner-operators, vendors, and specialty subcontractors that do their own market research.",
+    "currentSample": "The first issue sample includes 192 buyer-safe public preview rows and excludes personal contact fields.",
+    "useCase": "Use the brief to narrow a research session. It does not provide buying-intent scores, private contact data, or guaranteed leads.",
+    "sampleLine": "Work type | territory | issued date | status | public source link | manual follow-up needed"
+  }
+]

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nyc-construction-activity-brief.vercel.app/sitemap.xml
