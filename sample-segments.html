@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NYC Permit Activity Segments | ZIP and Work Type Pages</title>
-    <meta name="description" content="Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, and work type.">
+    <meta name="description" content="Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, work type, date, and cost bucket.">
     <link rel="canonical" href="https://nyc-construction-activity-brief.vercel.app/sample-segments.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="NYC Permit Activity Segments">
-    <meta property="og:description" content="Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, and work type.">
+    <meta property="og:description" content="Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, work type, date, and cost bucket.">
     <meta property="og:url" content="https://nyc-construction-activity-brief.vercel.app/sample-segments.html">
     <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="/styles.css">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - First Issue","description":"Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, and work type.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/sample-segments.html","priceCurrency":"USD","price":"49.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - First Issue","description":"Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, work type, date, and cost bucket.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/sample-segments.html","priceCurrency":"USD","price":"49.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -22,7 +22,7 @@
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>NYC permit activity segments from the current public preview.</h1>
-      <p class="lede">These pages are generated from the 192-row public CSV preview. Each page keeps counts, source links, and claims boundaries visible.</p>
+      <p class="lede">These pages are generated from the 192-row public CSV preview. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
 
       <section class="section card">
         <h2>ZIP pages</h2>
@@ -81,6 +81,51 @@
           <li><a href="/topics/mechanical-systems-permits-zip-11206.html">Mechanical Systems permits in 11206</a> <span class="fine">(4 rows)</span></li>
           <li><a href="/topics/structural-permits-zip-10003.html">Structural permits in 10003</a> <span class="fine">(3 rows)</span></li>
           <li><a href="/topics/supported-scaffold-permits-zip-11211.html">Supported Scaffold permits in 11211</a> <span class="fine">(3 rows)</span></li>
+        </ul>
+      </section>
+      <section class="section card">
+        <h2>Work type sample pages</h2>
+        <ul>
+          <li><a href="/topics/nyc-plumbing-permit-csv-sample.html">NYC Plumbing permit CSV sample</a> <span class="fine">(49 rows)</span></li>
+          <li><a href="/topics/nyc-sidewalk-shed-permit-csv-sample.html">NYC Sidewalk Shed permit CSV sample</a> <span class="fine">(37 rows)</span></li>
+          <li><a href="/topics/nyc-sprinkler-permit-csv-sample.html">NYC Sprinkler permit CSV sample</a> <span class="fine">(29 rows)</span></li>
+          <li><a href="/topics/nyc-mechanical-systems-permit-csv-sample.html">NYC Mechanical Systems permit CSV sample</a> <span class="fine">(24 rows)</span></li>
+          <li><a href="/topics/nyc-supported-scaffold-permit-csv-sample.html">NYC Supported Scaffold permit CSV sample</a> <span class="fine">(24 rows)</span></li>
+          <li><a href="/topics/nyc-structural-permit-csv-sample.html">NYC Structural permit CSV sample</a> <span class="fine">(22 rows)</span></li>
+          <li><a href="/topics/nyc-construction-fence-permit-csv-sample.html">NYC Construction Fence permit CSV sample</a> <span class="fine">(7 rows)</span></li>
+        </ul>
+      </section>
+      <section class="section card">
+        <h2>Buyer research pages</h2>
+        <ul>
+          <li><a href="/topics/plumbing-contractor-permit-research-nyc.html">Plumbing contractor permit research</a> <span class="fine">(49 rows)</span></li>
+          <li><a href="/topics/sidewalk-shed-contractor-permit-research-nyc.html">Sidewalk Shed contractor permit research</a> <span class="fine">(37 rows)</span></li>
+          <li><a href="/topics/sprinkler-contractor-permit-research-nyc.html">Sprinkler contractor permit research</a> <span class="fine">(29 rows)</span></li>
+          <li><a href="/topics/mechanical-systems-contractor-permit-research-nyc.html">Mechanical Systems contractor permit research</a> <span class="fine">(24 rows)</span></li>
+          <li><a href="/topics/supported-scaffold-contractor-permit-research-nyc.html">Supported Scaffold contractor permit research</a> <span class="fine">(24 rows)</span></li>
+          <li><a href="/topics/structural-contractor-permit-research-nyc.html">Structural contractor permit research</a> <span class="fine">(22 rows)</span></li>
+          <li><a href="/topics/construction-fence-contractor-permit-research-nyc.html">Construction Fence contractor permit research</a> <span class="fine">(7 rows)</span></li>
+        </ul>
+      </section>
+      <section class="section card">
+        <h2>Cost bucket pages</h2>
+        <ul>
+          <li><a href="/topics/nyc-construction-permits-under-10k.html">NYC construction permits under $10k</a> <span class="fine">(79 rows)</span></li>
+          <li><a href="/topics/nyc-construction-permits-10k-to-50k.html">NYC construction permits $10k to $50k</a> <span class="fine">(51 rows)</span></li>
+          <li><a href="/topics/nyc-construction-permits-50k-to-100k.html">NYC construction permits $50k to $100k</a> <span class="fine">(27 rows)</span></li>
+          <li><a href="/topics/nyc-construction-permits-100k-to-250k.html">NYC construction permits $100k to $250k</a> <span class="fine">(16 rows)</span></li>
+          <li><a href="/topics/nyc-construction-permits-250k-to-1m.html">NYC construction permits $250k to $1m</a> <span class="fine">(13 rows)</span></li>
+          <li><a href="/topics/nyc-construction-permits-1m-plus.html">NYC construction permits $1m plus</a> <span class="fine">(6 rows)</span></li>
+        </ul>
+      </section>
+      <section class="section card">
+        <h2>Issued date pages</h2>
+        <ul>
+          <li><a href="/topics/nyc-dob-permits-issued-2026-06-05.html">NYC DOB permits issued 2026-06-05</a> <span class="fine">(45 rows)</span></li>
+          <li><a href="/topics/nyc-dob-permits-issued-2026-06-04.html">NYC DOB permits issued 2026-06-04</a> <span class="fine">(33 rows)</span></li>
+          <li><a href="/topics/nyc-dob-permits-issued-2026-06-03.html">NYC DOB permits issued 2026-06-03</a> <span class="fine">(49 rows)</span></li>
+          <li><a href="/topics/nyc-dob-permits-issued-2026-06-02.html">NYC DOB permits issued 2026-06-02</a> <span class="fine">(37 rows)</span></li>
+          <li><a href="/topics/nyc-dob-permits-issued-2026-06-01.html">NYC DOB permits issued 2026-06-01</a> <span class="fine">(28 rows)</span></li>
         </ul>
       </section>
     </main>

@@ -93,6 +93,21 @@ function sentenceCase(value) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+function formatDate(value) {
+  return String(value).slice(0, 10);
+}
+
+function costBucketLabel(value) {
+  return {
+    under_10k: 'under $10k',
+    '10k_to_50k': '$10k to $50k',
+    '50k_to_100k': '$50k to $100k',
+    '100k_to_250k': '$100k to $250k',
+    '250k_to_1m': '$250k to $1m',
+    '1m_plus': '$1m plus',
+  }[value] || titleCase(String(value).replace(/_/g, ' '));
+}
+
 function parseCsvLine(line) {
   const values = [];
   let current = '';
@@ -159,7 +174,7 @@ function sampleRows(rows) {
       zipCode: row.zip_code,
       issuedDate: row.issued_date.slice(0, 10),
       status: row.permit_status,
-      costBucket: row.estimated_job_cost_bucket,
+      costBucket: costBucketLabel(row.estimated_job_cost_bucket),
       sourceUrl: row.source_url,
     }));
 }
@@ -207,6 +222,22 @@ function breadcrumbJsonLd(page) {
   };
 }
 
+function faqJsonLd(page) {
+  if (!page.faqs || !page.faqs.length) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: page.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
 function sampleStats(page) {
   if (!page.stats || !page.stats.length) return '';
   return `      <section class="section card">
@@ -214,6 +245,17 @@ function sampleStats(page) {
         <ul>
 ${page.stats.map((item) => `          <li>${escapeHtml(item)}</li>`).join('\n')}
         </ul>
+      </section>
+
+`;
+}
+
+function faqSection(page) {
+  if (!page.faqs || !page.faqs.length) return '';
+  return `      <section class="section card">
+        <h2>Common questions</h2>
+${page.faqs.map((faq) => `        <h3>${escapeHtml(faq.question)}</h3>
+        <p>${escapeHtml(faq.answer)}</p>`).join('\n')}
       </section>
 
 `;
@@ -258,6 +300,7 @@ function pageHtml(page) {
   const escapedDescription = escapeHtml(page.description);
   const product = productJsonLd(page.description);
   const breadcrumb = breadcrumbJsonLd(page);
+  const faq = faqJsonLd(page);
 
   return `<!doctype html>
 <html lang="en">
@@ -275,6 +318,7 @@ function pageHtml(page) {
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(breadcrumb)}</script>
+${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` : ''}
     ${analyticsSnippet()}
   </head>
   <body>
@@ -307,7 +351,7 @@ function pageHtml(page) {
         <a class="button" href="${checkoutUrl}">Buy first issue package</a>
       </section>
 
-${sampleStats(page)}${sampleTable(page)}      <section class="section card">
+${sampleStats(page)}${sampleTable(page)}${faqSection(page)}      <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, or full street addresses are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
@@ -318,14 +362,14 @@ ${sampleStats(page)}${sampleTable(page)}      <section class="section card">
 }
 
 function hubHtml(pages) {
-  const description = 'Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, and work type.';
+  const description = 'Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, work type, date, and cost bucket.';
   const product = productJsonLd(description, `${baseUrl}/sample-segments.html`);
-  const section = (heading, rows) => `      <section class="section card">
+  const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
 ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.html">${escapeHtml(page.linkText)}</a> <span class="fine">(${escapeHtml(page.count)} rows)</span></li>`).join('\n')}
         </ul>
-      </section>`;
+      </section>` : '';
 
   return `<!doctype html>
 <html lang="en">
@@ -348,11 +392,15 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>NYC permit activity segments from the current public preview.</h1>
-      <p class="lede">These pages are generated from the 192-row public CSV preview. Each page keeps counts, source links, and claims boundaries visible.</p>
+      <p class="lede">These pages are generated from the 192-row public CSV preview. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
 
 ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
 ${section('Borough and work type pages', pages.filter((page) => page.group === 'borough-work-type'))}
 ${section('ZIP and work type pages', pages.filter((page) => page.group === 'zip-work-type'))}
+${section('Work type sample pages', pages.filter((page) => page.group === 'work-type'))}
+${section('Buyer research pages', pages.filter((page) => page.group === 'buyer'))}
+${section('Cost bucket pages', pages.filter((page) => page.group === 'cost-bucket'))}
+${section('Issued date pages', pages.filter((page) => page.group === 'issued-date'))}
     </main>
   </body>
 </html>
@@ -391,9 +439,9 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
         <ul>
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
-        <p><a class="button secondary" href="/sample-segments.html">Browse ZIP and work-type pages</a></p>
+        <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
         <details>
-          <summary>Generated sample segment pages</summary>
+          <summary>Generated data-backed pages</summary>
           <ul>
 ${generatedPageLinks(generatedPagesForLinks)}
           </ul>
@@ -408,6 +456,8 @@ ${generatedPageLinks(generatedPagesForLinks)}
 
 function buildGeneratedPages(rows) {
   const pages = [];
+  const dates = rows.map((row) => formatDate(row.issued_date)).filter(Boolean).sort();
+  const range = `${dates[0]} to ${dates[dates.length - 1]}`;
   for (const [zipCode, count] of [...countBy(rows, (row) => row.zip_code).entries()].filter(([zip]) => zip).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))) {
     const matchingRows = rows.filter((row) => row.zip_code === zipCode);
     const boroughs = [...new Set(matchingRows.map((row) => titleCase(row.borough)))].join(' and ');
@@ -426,7 +476,17 @@ function buildGeneratedPages(rows) {
       stats: [
         `${count} public preview rows in ZIP ${zipCode}.`,
         `Top work types: ${describeCounts(matchingRows, (row) => row.work_type)}.`,
-        `Cost buckets: ${describeCounts(matchingRows, (row) => row.estimated_job_cost_bucket)}.`,
+        `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
+      ],
+      faqs: [
+        {
+          question: `Does this include private contact data for ZIP ${zipCode}?`,
+          answer: 'No. The package uses public permit fields and source links only. It does not include owner names, emails, phone numbers, or full street addresses.',
+        },
+        {
+          question: 'What should I verify before using a row?',
+          answer: 'Open the DOB NOW source link and check the current record state before making business decisions from any row.',
+        },
       ],
       count,
       linkText: `ZIP ${zipCode} permit activity`,
@@ -458,7 +518,17 @@ function buildGeneratedPages(rows) {
       stats: [
         `${count} public preview rows for ${work.lowerLabel} in ${boroughName}.`,
         `ZIP mix: ${describeCounts(matchingRows, (row) => row.zip_code)}.`,
-        `Cost buckets: ${describeCounts(matchingRows, (row) => row.estimated_job_cost_bucket)}.`,
+        `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
+      ],
+      faqs: [
+        {
+          question: `Is this a ${work.lowerLabel} lead list?`,
+          answer: 'No. It is a public-record screening file. It can help narrow manual research, but it does not provide private contacts or promise sales opportunities.',
+        },
+        {
+          question: 'Why use the brief instead of searching DOB NOW manually?',
+          answer: 'The brief packages selected rows into a spreadsheet-friendly file with source links still visible, which can reduce repeated weekly sorting work.',
+        },
       ],
       count,
       linkText: `${boroughName} ${work.lowerLabel} permit activity`,
@@ -490,10 +560,160 @@ function buildGeneratedPages(rows) {
       stats: [
         `${count} public preview rows for ${work.lowerLabel} in ZIP ${zipCode}.`,
         `Borough: ${boroughName}.`,
-        `Cost buckets: ${describeCounts(matchingRows, (row) => row.estimated_job_cost_bucket)}.`,
+        `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
+      ],
+      faqs: [
+        {
+          question: `Can I use this to monitor ${work.lowerLabel} activity in ${zipCode}?`,
+          answer: 'Yes, for screening selected public permit activity. Source records should still be checked directly before outreach, quoting, or planning.',
+        },
+        {
+          question: 'How current is the sample?',
+          answer: `The current public preview covers selected issued dates from ${range}.`,
+        },
       ],
       count,
       linkText: `${work.label} permits in ${zipCode}`,
+    });
+  }
+
+  for (const [workType, count] of [...countBy(rows, (row) => row.work_type).entries()].filter(([type]) => type).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))) {
+    const matchingRows = rows.filter((row) => row.work_type === workType);
+    const work = workTypeCopy[workType] || {
+      slug: slugify(workType),
+      label: workType,
+      lowerLabel: workType.toLowerCase(),
+      buyer: 'construction vendors',
+    };
+    pages.push({
+      group: 'work-type',
+      slug: `nyc-${work.slug}-permit-csv-sample`,
+      title: `NYC ${work.label} Permit CSV Sample | DOB Activity`,
+      description: `Review ${count} selected NYC ${work.lowerLabel} permit rows from the public CSV preview with ZIP, borough, issued date, status, and source links.`,
+      h1: `NYC ${work.lowerLabel} permit CSV sample.`,
+      lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows from ${range}.`,
+      audience: `${sentenceCase(work.buyer)} comparing public permit activity across selected NYC ZIP codes.`,
+      currentSample: `${work.label} has ${count} rows in the current 192-row public preview.`,
+      useCase: `Use this page to inspect the ${work.lowerLabel} sample before downloading the public CSV or buying the first issue package.`,
+      sampleLine: `${work.label} | top ZIPs: ${describeCounts(matchingRows, (row) => row.zip_code)}`,
+      rows: sampleRows(matchingRows),
+      stats: [
+        `${count} public preview rows for ${work.lowerLabel}.`,
+        `ZIP mix: ${describeCounts(matchingRows, (row) => row.zip_code)}.`,
+        `Issued dates: ${describeCounts(matchingRows, (row) => formatDate(row.issued_date))}.`,
+      ],
+      faqs: [
+        {
+          question: `What fields are included for ${work.lowerLabel} rows?`,
+          answer: 'The preview includes work type, ZIP, borough, issued date, status, cost bucket, permit ID, filing number, short description, and source link.',
+        },
+        {
+          question: 'Does the paid package include more private details?',
+          answer: 'No. The paid package keeps the same public-record boundary. It packages selected source-linked activity for faster review.',
+        },
+      ],
+      count,
+      linkText: `NYC ${work.label} permit CSV sample`,
+    });
+
+    pages.push({
+      group: 'buyer',
+      slug: `${work.slug}-contractor-permit-research-nyc`,
+      title: `NYC ${work.label} Contractor Permit Research`,
+      description: `A source-linked NYC permit activity brief for reviewing selected ${work.lowerLabel} rows by ZIP, borough, issued date, status, and cost bucket.`,
+      h1: `NYC ${work.lowerLabel} permit research for contractors and vendors.`,
+      lede: `This page shows how the current ${work.lowerLabel} sample can support weekly research for ${work.buyer}.`,
+      audience: `${sentenceCase(work.buyer)} that want a spreadsheet-friendly screen before opening individual DOB NOW records.`,
+      currentSample: `${count} selected ${work.lowerLabel} rows appear in the ${range} public preview.`,
+      useCase: `Use the brief to reduce repeated sorting work when checking selected public permit activity. It does not replace manual source verification or provide private contacts.`,
+      sampleLine: `${work.label} research fields | ZIP | borough | issued date | status | cost bucket | source link`,
+      rows: sampleRows(matchingRows),
+      stats: [
+        `${count} selected ${work.lowerLabel} rows in the current preview.`,
+        `Top territories: ${describeCounts(matchingRows, (row) => `${titleCase(row.borough)} ${row.zip_code}`)}.`,
+        `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
+      ],
+      faqs: [
+        {
+          question: 'Can this be imported into a CRM?',
+          answer: 'The CSV can be opened in spreadsheet tools. It is not packaged as a CRM integration and it does not include private contact records.',
+        },
+        {
+          question: 'Does this predict buying intent?',
+          answer: 'No. It shows selected public permit activity and source links. Any sales or research judgment stays manual.',
+        },
+      ],
+      count,
+      linkText: `${work.label} contractor permit research`,
+    });
+  }
+
+  for (const [bucket, count] of [...countBy(rows, (row) => row.estimated_job_cost_bucket).entries()].filter(([item]) => item).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))) {
+    const matchingRows = rows.filter((row) => row.estimated_job_cost_bucket === bucket);
+    const label = costBucketLabel(bucket);
+    pages.push({
+      group: 'cost-bucket',
+      slug: `nyc-construction-permits-${slugify(label)}`,
+      title: `NYC Construction Permits ${label} | DOB Sample`,
+      description: `Review ${count} selected NYC construction permit rows in the ${label} cost bucket with work type, ZIP, borough, issued date, and source links.`,
+      h1: `NYC construction permit activity in the ${label} cost bucket.`,
+      lede: `The current public preview includes ${count} selected permit rows marked in the ${label} estimated job cost bucket.`,
+      audience: 'Construction-support vendors and subcontractors screening public permit activity by estimated job cost range.',
+      currentSample: `${count} rows in the ${range} public preview use the ${label} cost bucket.`,
+      useCase: `Use this page to see whether the selected sample includes enough ${label} activity to justify deeper source-record review.`,
+      sampleLine: `${label} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
+      rows: sampleRows(matchingRows),
+      stats: [
+        `${count} public preview rows in the ${label} cost bucket.`,
+        `Work type mix: ${describeCounts(matchingRows, (row) => row.work_type)}.`,
+        `ZIP mix: ${describeCounts(matchingRows, (row) => row.zip_code)}.`,
+      ],
+      faqs: [
+        {
+          question: 'Are cost buckets exact project values?',
+          answer: 'No. They are broad screening buckets from the source sample and should be checked against the current DOB NOW source record.',
+        },
+        {
+          question: 'Why filter by cost bucket?',
+          answer: 'Cost buckets can help a vendor decide which rows are worth manual review first, but they do not prove project value or buying intent.',
+        },
+      ],
+      count,
+      linkText: `NYC construction permits ${label}`,
+    });
+  }
+
+  for (const [issuedDate, count] of [...countBy(rows, (row) => formatDate(row.issued_date)).entries()].filter(([date]) => date).sort((a, b) => b[0].localeCompare(a[0]))) {
+    const matchingRows = rows.filter((row) => formatDate(row.issued_date) === issuedDate);
+    pages.push({
+      group: 'issued-date',
+      slug: `nyc-dob-permits-issued-${issuedDate}`,
+      title: `NYC DOB Permits Issued ${issuedDate} | Sample`,
+      description: `Review ${count} selected NYC DOB permit rows issued on ${issuedDate} with work type, ZIP, borough, status, cost bucket, and source links.`,
+      h1: `NYC DOB permit rows issued on ${issuedDate}.`,
+      lede: `The current public preview includes ${count} selected DOB NOW permit rows issued on ${issuedDate}.`,
+      audience: 'Construction-support vendors checking recent permit activity by issue date before opening individual source records.',
+      currentSample: `${issuedDate} has ${count} selected rows in the current public preview.`,
+      useCase: `Use this page to scan one issued-date slice of the sample before sorting the full CSV by work type or territory.`,
+      sampleLine: `${issuedDate} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
+      rows: sampleRows(matchingRows),
+      stats: [
+        `${count} public preview rows issued on ${issuedDate}.`,
+        `Work type mix: ${describeCounts(matchingRows, (row) => row.work_type)}.`,
+        `Territory mix: ${describeCounts(matchingRows, (row) => `${titleCase(row.borough)} ${row.zip_code}`)}.`,
+      ],
+      faqs: [
+        {
+          question: 'Can issued-date pages become outdated?',
+          answer: 'Yes. This page describes the current first issue sample only. Use the source link for the current public record state.',
+        },
+        {
+          question: 'Why include issued-date pages?',
+          answer: 'Some buyers screen by recency first, then narrow by ZIP or work type. These pages make that slice visible before purchase.',
+        },
+      ],
+      count,
+      linkText: `NYC DOB permits issued ${issuedDate}`,
     });
   }
 
