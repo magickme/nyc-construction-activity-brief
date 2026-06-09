@@ -31,6 +31,41 @@ function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), 'utf8');
 }
 
+function parseCsvLine(line) {
+  const values = [];
+  let current = '';
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === '"' && quoted && next === '"') {
+      current += '"';
+      index += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === ',' && !quoted) {
+      values.push(current);
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  values.push(current);
+  return values;
+}
+
+function sourceDateRange() {
+  const lines = read(manifest.source).trim().split(/\r?\n/);
+  const headers = parseCsvLine(lines.shift());
+  const issuedDateIndex = headers.indexOf('issued_date');
+  const dates = lines
+    .map((line) => parseCsvLine(line)[issuedDateIndex])
+    .filter(Boolean)
+    .map((date) => date.slice(0, 10))
+    .sort();
+  return `${dates[0]}/${dates[dates.length - 1]}`;
+}
+
 function assertHtmlPage(relativePath) {
   const html = read(relativePath);
   assert.match(html, /<title>[^<]{25,70}<\/title>/, `${relativePath} needs a specific title`);
@@ -128,6 +163,10 @@ assert.match(methodology, /The public package excludes owner names/, 'methodolog
 assert.match(methodology, /Not a live alert feed\./, 'methodology needs product boundary');
 assert.match(methodology, /No guaranteed leads\./, 'methodology keeps claims boundary visible');
 assert.match(methodology, /href="https:\/\/buy\.stripe\.com\/5kQfZhaHvd5UeH58rlcAo0O"/, 'methodology links checkout');
+assert.match(methodology, /"@type":"Dataset"/, 'methodology needs Dataset structured data');
+assert.match(methodology, /"@type":"DataDownload"/, 'methodology needs DataDownload structured data');
+assert.match(methodology, /"contentUrl":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample\/nyc-construction-activity-preview\.csv"/, 'methodology Dataset links CSV preview');
+assert.match(methodology, new RegExp(`"temporalCoverage":"${sourceDateRange()}"`), 'methodology Dataset needs current temporal coverage');
 assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured data');
 
 const sitemap = read('sitemap.xml');
@@ -138,6 +177,8 @@ for (const page of ['', 'sample-segments.html', 'methodology.html', ...pages]) {
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
 assert.equal(sitemapUrlCount, pages.length + 3, 'sitemap URL count must match generated surface');
+const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
+assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
 const robots = read('robots.txt');
 assert.match(robots, /User-agent: \*/);

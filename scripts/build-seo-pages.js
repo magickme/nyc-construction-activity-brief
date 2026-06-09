@@ -239,6 +239,74 @@ function productJsonLd(description, url = checkoutUrl) {
   };
 }
 
+function datasetJsonLd(rows) {
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypes = [...countBy(rows, (row) => row.work_type).keys()].filter(Boolean).sort();
+  const territories = [...countBy(rows, (row) => row.zip_code).keys()].filter(Boolean).sort();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'NYC Weekly Construction Activity Brief - First Issue Public Preview',
+    description:
+      'Selected NYC DOB NOW approved permit rows packaged as a weekly public-record construction activity CSV preview and buyer brief.',
+    url: `${baseUrl}/methodology.html`,
+    isBasedOn: {
+      '@type': 'Dataset',
+      name: 'NYC DOB NOW: Build - Approved Permits',
+      url: 'https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4',
+    },
+    creator: {
+      '@type': 'Organization',
+      name: 'NYC Weekly Construction Activity Brief',
+      url: baseUrl,
+    },
+    spatialCoverage: {
+      '@type': 'Place',
+      name: 'New York City',
+    },
+    temporalCoverage: `${range.firstIssuedDate}/${range.latestIssuedDate}`,
+    dateModified: fetchDate,
+    keywords: [
+      'NYC DOB permits',
+      'construction permit activity',
+      'building permit CSV',
+      'permit alerts',
+      ...workTypes,
+      ...territories.map((zipCode) => `ZIP ${zipCode}`),
+    ],
+    variableMeasured: [
+      'source_url',
+      'source_fetch_date',
+      'borough',
+      'zip_code',
+      'work_type',
+      'issued_date',
+      'permit_status',
+      'estimated_job_cost_bucket',
+      'permit_id',
+      'work_permit',
+      'job_filing_number',
+      'job_description_short',
+      'source_caveat',
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        name: 'Public CSV preview',
+        encodingFormat: 'text/csv',
+        contentUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Public Markdown sample brief',
+        encodingFormat: 'text/markdown',
+        contentUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
+      },
+    ],
+  };
+}
+
 function breadcrumbJsonLd(page) {
   return {
     '@context': 'https://schema.org',
@@ -511,6 +579,7 @@ function methodologyHtml(rows) {
   const description = 'How the NYC Weekly Construction Activity Brief uses selected NYC DOB NOW public permit records, removes private-contact fields, and keeps source caveats visible.';
   const range = sampleRange(rows);
   const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const dataset = datasetJsonLd(rows);
   const workTypes = [...countBy(rows, (row) => row.work_type).entries()]
     .sort((left, right) => left[0].localeCompare(right[0]))
     .map(([name, count]) => `          <li>${escapeHtml(name)}: ${count} rows</li>`)
@@ -565,6 +634,7 @@ function methodologyHtml(rows) {
     <meta property="og:url" content="${baseUrl}/methodology.html">
     <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
     <script type="application/ld+json">${jsonScript(faq)}</script>
     ${analyticsSnippet()}
   </head>
@@ -638,10 +708,13 @@ ${territories}
 
 function sitemapXml(pages) {
   const urls = ['', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
+  const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((url) => `  <url>
     <loc>${baseUrl}/${url}</loc>
+    <lastmod>${lastmod}</lastmod>
   </url>`).join('\n')}
 </urlset>
 `;
