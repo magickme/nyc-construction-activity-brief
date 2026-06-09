@@ -71,6 +71,36 @@ function analyticsSnippet() {
     <script defer src="/_vercel/insights/script.js"></script>`;
 }
 
+function sampleRequestScript() {
+  return `<script>
+      document.addEventListener('submit', async (event) => {
+        const form = event.target.closest('[data-sample-request-form]');
+        if (!form) return;
+        event.preventDefault();
+        const status = form.querySelector('[data-sample-request-status]');
+        const button = form.querySelector('button[type="submit"]');
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.consent = form.querySelector('[name="consent"]').checked;
+        if (status) status.textContent = 'Saving request...';
+        if (button) button.disabled = true;
+        try {
+          const response = await fetch('/api/sample-request', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) throw new Error('request failed');
+          form.reset();
+          if (status) status.textContent = 'Request saved. I will use this to choose future sample cuts.';
+        } catch (error) {
+          if (status) status.textContent = 'Request was not saved. Try again, or buy the current ZIP if it already fits.';
+        } finally {
+          if (button) button.disabled = false;
+        }
+      });
+    </script>`;
+}
+
 function titleCase(value) {
   return String(value)
     .toLowerCase()
@@ -261,6 +291,54 @@ ${page.faqs.map((faq) => `        <h3>${escapeHtml(faq.question)}</h3>
 `;
 }
 
+function sampleRequestSection(context = {}) {
+  const workType = escapeHtml(context.workType || '');
+  const territory = escapeHtml(context.territory || '');
+  return `      <section class="section card sample-request">
+        <h2>Request a future sample cut</h2>
+        <p>If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
+        <form data-sample-request-form>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Work type requested
+            <input name="work_type_requested" value="${workType}" placeholder="Plumbing, sidewalk shed, structural..." required>
+          </label>
+          <label>
+            ZIP codes or borough
+            <input name="territory_requested" value="${territory}" placeholder="11201, Brooklyn, Manhattan..." required>
+          </label>
+          <label>
+            Buyer type
+            <select name="buyer_type" required>
+              <option value="">Choose one</option>
+              <option value="construction-support-vendor">Construction-support vendor</option>
+              <option value="specialty-subcontractor">Specialty subcontractor</option>
+              <option value="supplier">Supplier</option>
+              <option value="local-b2b-service-provider">Local B2B service provider</option>
+              <option value="data-buyer">Data buyer</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>
+            What do you want to monitor?
+            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required></textarea>
+          </label>
+          <label class="checkbox">
+            <input name="consent" type="checkbox" required>
+            You may reply about this public-record sample request.
+          </label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off">
+          <button class="button" type="submit">Send sample request</button>
+          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+        </form>
+      </section>
+
+`;
+}
+
 function sampleTable(page) {
   if (!page.rows || !page.rows.length) return '';
   return `      <section class="section card">
@@ -351,11 +429,15 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
       </section>
 
-${sampleStats(page)}${sampleTable(page)}${faqSection(page)}      <section class="section card">
+${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
+    workType: page.workTypeRequest,
+    territory: page.territoryRequest,
+  })}${faqSection(page)}      <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, or full street addresses are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -401,7 +483,9 @@ ${section('Work type sample pages', pages.filter((page) => page.group === 'work-
 ${section('Buyer research pages', pages.filter((page) => page.group === 'buyer'))}
 ${section('Cost bucket pages', pages.filter((page) => page.group === 'cost-bucket'))}
 ${section('Issued date pages', pages.filter((page) => page.group === 'issued-date'))}
+${sampleRequestSection()}
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;

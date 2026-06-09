@@ -56,6 +56,9 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
   assert.match(html, /href="https:\/\/buy\.stripe\.com\/5kQfZhaHvd5UeH58rlcAo0O"/, `${relativePath} links checkout`);
+  assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
+  assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
+  assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
   if (generatedPages.includes(relativePath)) {
     assert.match(html, /<h2>Sample counts<\/h2>/, `${relativePath} needs sample counts`);
@@ -95,6 +98,9 @@ assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
+assert.match(index, /data-sample-request-form/, 'index needs sample request form');
+assert.match(index, /\/api\/sample-request/, 'index posts sample requests to API');
+assert.match(index, /This does not join the MagickMe newsletter\./, 'index needs list-separation copy');
 for (const page of pages) {
   assert.match(index, new RegExp(`href="/${page}"`), `index links ${page}`);
 }
@@ -104,6 +110,8 @@ const hub = read('sample-segments.html');
 assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
 assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html">/, 'hub needs canonical');
 assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
+assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
+assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }

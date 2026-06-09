@@ -145,6 +145,69 @@ summary {
   font-weight: 700;
 }
 
+.sample-request form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffdf8;
+  color: var(--ink);
+  font: inherit;
+  padding: 12px 13px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+.checkbox input {
+  width: auto;
+  margin-top: 0.35rem;
+}
+
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+button.button {
+  border: 0;
+  cursor: pointer;
+  justify-self: start;
+}
+
+button.button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
 .fine {
   color: var(--muted);
   font-size: 0.95rem;
