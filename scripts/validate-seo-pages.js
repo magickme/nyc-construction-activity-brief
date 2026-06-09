@@ -112,6 +112,9 @@ assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activi
 assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
 assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
+assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
+assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
+assert.match(hub, /href="https:\/\/buy\.stripe\.com\/5kQfZhaHvd5UeH58rlcAo0O"/, 'hub links checkout');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }

@@ -476,6 +476,14 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
       <h1>NYC permit activity segments from the current public preview.</h1>
       <p class="lede">These pages are generated from the 192-row public CSV preview. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
 
+      <section class="section card">
+        <h2>Get the current issue</h2>
+        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-01 to 2026-06-08 issue.</p>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+      </section>
+
 ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
 ${section('Borough and work type pages', pages.filter((page) => page.group === 'borough-work-type'))}
 ${section('ZIP and work type pages', pages.filter((page) => page.group === 'zip-work-type'))}
