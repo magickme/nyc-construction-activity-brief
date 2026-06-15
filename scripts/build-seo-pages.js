@@ -6,9 +6,10 @@ const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
 const checkoutUrl = `${baseUrl}/checkout.html`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
+const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
   ? fullIssueCsvPath
-  : path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
+  : publicPreviewCsvPath;
 const manualPages = require('./seo-pages.json').map((page) => ({ ...page, group: 'core' }));
 
 const workTypeCopy = {
@@ -293,6 +294,18 @@ function sampleRows(rows) {
       costBucket: costBucketLabel(row.estimated_job_cost_bucket),
       sourceUrl: row.source_url,
     }));
+}
+
+function previewRows(rows) {
+  return sortRows(rows).map((row) => ({
+    workType: row.work_type,
+    borough: titleCase(row.borough),
+    zipCode: row.zip_code,
+    issuedDate: row.issued_date.slice(0, 10),
+    status: row.permit_status,
+    costBucket: costBucketLabel(row.estimated_job_cost_bucket),
+    sourceUrl: row.source_url,
+  }));
 }
 
 function sampleRange(rows) {
@@ -683,6 +696,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
       <section class="section card">
         <h2>Get the current issue</h2>
         <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
@@ -944,6 +958,7 @@ function buyerGuideHtml(rows) {
           <li>Read the delivery steps and methodology page if source limits matter for your use case.</li>
           <li>Buy the ZIP only if the current issue saves enough sorting time to justify a one-time $49 purchase.</li>
         </ol>
+        <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
@@ -1050,6 +1065,7 @@ function deliveryHtml(rows) {
         <h2>Download gate</h2>
         <p>The download endpoint rejects missing, invalid, or unpaid sessions. A direct visit without a valid paid session returns an error instead of the ZIP.</p>
         <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list and is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button" href="${checkoutHref('delivery')}">Buy instant ZIP</a>
@@ -1060,8 +1076,121 @@ function deliveryHtml(rows) {
 `;
 }
 
+function previewHtml(fullRows) {
+  const publicRows = parseCsv(fs.readFileSync(publicPreviewCsvPath, 'utf8'));
+  const rows = previewRows(publicRows);
+  const range = sampleRange(fullRows);
+  const fetchDate = fullRows[0] && fullRows[0].source_fetch_date;
+  const description = `Browse the ${rows.length}-row public preview for the current NYC construction activity brief before buying the full ${fullRows.length}-row ZIP.`;
+  const product = productJsonLd(description, checkoutHref('preview'));
+  const dataset = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'NYC Weekly Construction Activity Brief - Public Preview',
+    description,
+    url: `${baseUrl}/preview.html`,
+    isBasedOn: {
+      '@type': 'Dataset',
+      name: 'NYC DOB NOW: Build - Approved Permits',
+      url: 'https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4',
+    },
+    temporalCoverage: `${range.firstIssuedDate}/${range.latestIssuedDate}`,
+    dateModified: fetchDate,
+    distribution: {
+      '@type': 'DataDownload',
+      name: 'Public CSV preview',
+      encodingFormat: 'text/csv',
+      contentUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
+    },
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Public Preview | NYC Construction Activity Brief</title>
+    <meta name="description" content="${escapeHtml(description)}">
+    <link rel="canonical" href="${baseUrl}/preview.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Public Preview | NYC Construction Activity Brief">
+    <meta property="og:description" content="${escapeHtml(description)}">
+    <meta property="og:url" content="${baseUrl}/preview.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Public preview for the current NYC construction activity brief.</h1>
+      <p class="lede">Review the ${rows.length}-row browser preview before buying the full ${fullRows.length}-row ZIP. The paid ZIP adds the complete current CSV, buyer workbook, priority-slices CSV, QA report, source registry, and buyer README.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Preview rows</h2>
+          <p>${rows.length} rows from the current public preview.</p>
+        </div>
+        <div class="card">
+          <h2>Paid ZIP rows</h2>
+          <p>${fullRows.length} source-linked rows in the current issue.</p>
+        </div>
+        <div class="card">
+          <h2>Source window</h2>
+          <p>${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}. Latest issued row: ${escapeHtml(range.latestIssuedDate)}.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Sample rows</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Work type</th>
+                <th>Territory</th>
+                <th>Issued</th>
+                <th>Status</th>
+                <th>Cost bucket</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+${rows.map((row) => `              <tr>
+                <td>${escapeHtml(row.workType)}</td>
+                <td>${escapeHtml(`${row.borough} ${row.zipCode}`)}</td>
+                <td>${escapeHtml(row.issuedDate)}</td>
+                <td>${escapeHtml(row.status)}</td>
+                <td>${escapeHtml(row.costBucket)}</td>
+                <td><a href="${escapeHtml(row.sourceUrl)}">DOB NOW row</a></td>
+              </tr>`).join('\n')}
+            </tbody>
+          </table>
+        </div>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download preview CSV</a>
+        <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button" href="${checkoutHref('preview')}">Buy instant ZIP</a>
+      </section>
+
+${sampleRequestSection()}      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/methodology.html">Read methodology</a>
+      </section>
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'preview.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1095,6 +1224,7 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
         <ul>
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
+        <p><a class="button secondary" href="/preview.html">View public preview</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
@@ -1429,6 +1559,7 @@ fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
+fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(

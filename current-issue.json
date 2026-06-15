@@ -12,6 +12,7 @@
   "publicPreview": {
     "rowCount": 25,
     "fullIssueRowCount": 142,
+    "previewUrl": "https://nyc-construction-activity-brief.vercel.app/preview.html",
     "csvUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
     "sampleBriefUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
     "buyerGuideUrl": "https://nyc-construction-activity-brief.vercel.app/buyer-guide.html",

@@ -20,6 +20,13 @@
       <description>ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current 142-row paid issue.</description>
     </item>
     <item>
+      <title>Browser preview for the current issue</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/preview.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/preview.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Browse the free 25-row public preview in the browser before buying the full 142-row ZIP.</description>
+    </item>
+    <item>
       <title>Buyer guide for the current ZIP</title>
       <link>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</guid>

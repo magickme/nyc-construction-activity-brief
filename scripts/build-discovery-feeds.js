@@ -103,6 +103,7 @@ function buildCurrentIssueJson(rows, manifest) {
     publicPreview: {
       rowCount: previewRows,
       fullIssueRowCount: stats.rowCount,
+      previewUrl: `${baseUrl}/preview.html`,
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -178,6 +179,11 @@ function buildFeedXml(rows, manifest) {
       description: `ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current ${stats.rowCount}-row paid issue.`,
     },
     {
+      title: 'Browser preview for the current issue',
+      url: `${baseUrl}/preview.html`,
+      description: `Browse the free ${previewRows}-row public preview in the browser before buying the full ${stats.rowCount}-row ZIP.`,
+    },
+    {
       title: 'Buyer guide for the current ZIP',
       url: `${baseUrl}/buyer-guide.html`,
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
@@ -240,6 +246,7 @@ Primary pages:
 - Home: ${baseUrl}/
 - Current issue JSON: ${baseUrl}/current-issue.json
 - RSS feed: ${baseUrl}/feed.xml
+- Public preview: ${baseUrl}/preview.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
@@ -296,7 +303,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'preview.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
