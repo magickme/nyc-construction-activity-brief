@@ -152,6 +152,10 @@ function checkoutHref(source = 'site') {
   return `${checkoutUrl}?source=${encodeURIComponent(source)}`;
 }
 
+function topicCheckoutSource(page) {
+  return `topic-${page.slug}`.slice(0, 80);
+}
+
 function analyticsSnippet() {
   return `<script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -165,6 +169,11 @@ function socialImageMeta() {
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="${socialImageUrl}">`;
+}
+
+function alternateDiscoveryLinks() {
+  return `    <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="${baseUrl}/feed.xml">
+    <link rel="alternate" type="application/json" title="NYC Weekly Construction Activity Brief current issue" href="${baseUrl}/current-issue.json">`;
 }
 
 function sampleRequestScript() {
@@ -372,7 +381,16 @@ function checkoutHtml() {
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
         <p class="fine">If the redirect does not start, use the button below. The current launch price is $24.50. No promo code is required.</p>
-        <a id="stripe-link" class="button" href="${stripeCheckoutUrl}">Continue to Stripe</a>
+        <ul>
+          <li>Instant browser download after completed Stripe checkout.</li>
+          <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
+          <li>No private contact data, owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
+        </ul>
+        <a id="stripe-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static&amp;client_reference_id=ncab_checkout_static">Continue to Stripe</a>
+        <p class="fine">Stripe handles payment. The success page uses the paid Checkout Session to unlock the ZIP.</p>
+        <noscript>
+          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout.</p>
+        </noscript>
       </section>
     </main>
     <script>
@@ -389,6 +407,12 @@ function checkoutHtml() {
       const stripeUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
       link.href = stripeUrl;
+      link.addEventListener('click', () => {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name: 'checkout_continue_clicked', data: { source } });
+        } catch (error) {}
+      });
       try {
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         window.va('event', { name: 'checkout_intent', data: { source } });
@@ -668,7 +692,7 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
-        <a class="button" href="${checkoutHref('topic')}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutHref(topicCheckoutSource(page))}">Buy instant ZIP</a>
       </section>
 
 ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
@@ -703,6 +727,8 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
     <title>NYC Permit Activity Segments | ZIP and Work Type Pages</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/sample-segments.html">
+    <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="${baseUrl}/feed.xml">
+    <link rel="alternate" type="application/json" title="NYC Weekly Construction Activity Brief current issue" href="${baseUrl}/current-issue.json">
     <meta property="og:type" content="website">
     <meta property="og:title" content="NYC Permit Activity Segments">
     <meta property="og:description" content="${description}">
@@ -806,6 +832,7 @@ function methodologyHtml(rows) {
     <title>Methodology | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/methodology.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="NYC Construction Activity Brief Methodology">
     <meta property="og:description" content="${description}">
@@ -936,6 +963,7 @@ function buyerGuideHtml(rows) {
     <title>Buyer Guide | NYC Construction Activity ZIP</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/buyer-guide.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Buyer Guide | NYC Construction Activity ZIP">
     <meta property="og:description" content="${description}">
@@ -1087,6 +1115,7 @@ function csvFieldGuideHtml(rows) {
     <title>CSV Field Guide | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/csv-field-guide.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="CSV Field Guide | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
@@ -1243,6 +1272,7 @@ function freeVsPaidHtml(rows) {
     <title>Free Preview vs Paid ZIP | NYC Construction Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/free-vs-paid.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Free Preview vs Paid ZIP | NYC Construction Brief">
     <meta property="og:description" content="${description}">
@@ -1389,6 +1419,7 @@ function researchWorkflowHtml(rows) {
     <title>Permit Research Workflow | NYC Construction Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/permit-research-workflow.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Permit Research Workflow | NYC Construction Brief">
     <meta property="og:description" content="${description}">
@@ -1524,6 +1555,7 @@ function contractorSupplierHtml(rows) {
     <title>Contractor and Supplier Permit Research | NYC Construction Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/contractor-supplier-permit-research.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Contractor and Supplier Permit Research | NYC Construction Brief">
     <meta property="og:description" content="${description}">
@@ -1661,6 +1693,7 @@ function brokerDeveloperHtml(rows) {
     <title>Broker and Developer Permit Research | NYC Construction Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/broker-developer-permit-research.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Broker and Developer Permit Research | NYC Construction Brief">
     <meta property="og:description" content="${description}">
@@ -1800,6 +1833,7 @@ function permitExpediterHtml(rows) {
     <title>Permit Expediter Research | NYC Construction Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/permit-expediter-research.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Permit Expediter Research | NYC Construction Brief">
     <meta property="og:description" content="${description}">
@@ -1941,6 +1975,7 @@ function currentIssueHtml(rows) {
     <title>Current Issue | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/current-issue.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Current Issue | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
@@ -2065,6 +2100,7 @@ function timeSavedCalculatorHtml(rows) {
     <title>Time Saved Calculator | NYC Construction Activity ZIP</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/time-saved-calculator.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Time Saved Calculator | NYC Construction Activity ZIP">
     <meta property="og:description" content="${description}">
@@ -2243,6 +2279,7 @@ function whoShouldBuyHtml(rows) {
     <title>Who Should Buy | NYC Construction Activity ZIP</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/who-should-buy.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Who Should Buy | NYC Construction Activity ZIP">
     <meta property="og:description" content="${description}">
@@ -2381,6 +2418,7 @@ function deliveryHtml(rows) {
     <title>Delivery | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/delivery.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Delivery | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
@@ -2488,6 +2526,7 @@ function pricingHtml(rows) {
     <title>Pricing and ROI | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/pricing.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Pricing and ROI | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
@@ -2684,6 +2723,7 @@ function insideZipHtml(rows) {
     <title>Inside the ZIP | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/inside-the-zip.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Inside the ZIP | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
@@ -2823,6 +2863,7 @@ function supportHtml(rows) {
     <title>Support and Refunds | NYC Construction Activity Brief</title>
     <meta name="description" content="${description}">
     <link rel="canonical" href="${baseUrl}/support.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Support and Refunds | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
@@ -2950,6 +2991,7 @@ function previewHtml(fullRows) {
     <title>Public Preview | NYC Construction Activity Brief</title>
     <meta name="description" content="${escapeHtml(description)}">
     <link rel="canonical" href="${baseUrl}/preview.html">
+${alternateDiscoveryLinks()}
     <meta property="og:type" content="website">
     <meta property="og:title" content="Public Preview | NYC Construction Activity Brief">
     <meta property="og:description" content="${escapeHtml(description)}">
@@ -3044,7 +3086,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>

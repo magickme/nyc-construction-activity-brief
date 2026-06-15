@@ -102,6 +102,15 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
   assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links tracked checkout`);
+  if (relativePath.startsWith('topics/')) {
+    const slug = relativePath.replace(/^topics\//, '').replace(/\.html$/, '');
+    assert.match(
+      html,
+      new RegExp(`href="${baseUrl}/checkout\\.html\\?source=topic-${slug}"`),
+      `${relativePath} uses page-specific checkout attribution`,
+    );
+    assert.doesNotMatch(html, /href="(?:https:\/\/nyc-construction-activity-brief\.vercel\.app)?\/checkout\.html\?source=topic"/, `${relativePath} must not use generic topic attribution`);
+  }
   assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
   assert.match(html, /data\.source_path = window\.location\.pathname;/, `${relativePath} sends source path with sample request`);
@@ -197,6 +206,11 @@ assert.match(checkout, /utm_campaign: 'current_issue_launch'/, 'checkout page pa
 assert.match(checkout, /utm_content: source/, 'checkout page passes source as UTM content to Stripe');
 assert.match(checkout, /client_reference_id: \['ncab', source\.replace/, 'checkout page passes non-sensitive client reference to Stripe');
 assert.match(checkout, /Continue to Stripe/, 'checkout page has fallback link');
+assert.match(checkout, /client_reference_id=ncab_checkout_static/, 'checkout page static fallback has client reference');
+assert.match(checkout, /utm_content=checkout_static/, 'checkout page static fallback has UTM content');
+assert.match(checkout, /checkout_continue_clicked/, 'checkout page tracks manual continue clicks');
+assert.match(checkout, /Instant browser download after completed Stripe checkout\./, 'checkout page has buyer reassurance copy');
+assert.match(checkout, /<noscript>/, 'checkout page has no-JavaScript fallback copy');
 assert.match(checkout, /\/_vercel\/insights\/script\.js/, 'checkout page needs Web Analytics script');
 
 const preview = read('preview.html');
