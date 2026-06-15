@@ -365,7 +365,13 @@
             status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
-          if (status) status.textContent = 'Request was not saved. Try again, or buy the current ZIP if it already fits.';
+          try {
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+            window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
+          } catch (trackingError) {}
+          if (status) {
+            status.innerHTML = 'Request was not saved. Try again, or <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+          }
         } finally {
           if (button) button.disabled = false;
         }
