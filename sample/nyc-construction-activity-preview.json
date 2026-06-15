@@ -8,6 +8,34 @@
   "latest_issued_date": "2026-06-12",
   "public_preview_rows": 25,
   "paid_zip_rows": 142,
+  "purchase": {
+    "buy_url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-json",
+    "pricing_url": "https://nyc-construction-activity-brief.vercel.app/pricing.html",
+    "support_url": "https://nyc-construction-activity-brief.vercel.app/support.html",
+    "price_usd": "9.50",
+    "delivery": "Instant browser download after completed Stripe checkout."
+  },
+  "sample_urls": {
+    "csv": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
+    "json": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json",
+    "jsonl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl",
+    "markdown_brief": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
+    "preview_page": "https://nyc-construction-activity-brief.vercel.app/preview.html"
+  },
+  "paid_zip": {
+    "rows": 142,
+    "files": [
+      "nyc-construction-activity-preview.csv",
+      "nyc-construction-activity-preview.md",
+      "buyer-workbook.md",
+      "buyer-priority-slices.csv",
+      "source-registry.md",
+      "qa-report.json",
+      "buyer-readme.md",
+      "privacy-and-claims-boundary.md",
+      "version.txt"
+    ]
+  },
   "boundary": {
     "no_private_contact_data": true,
     "no_owner_names": true,

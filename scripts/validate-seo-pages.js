@@ -2193,6 +2193,17 @@ assert.equal(publicCsv.length - 1, 25, 'public CSV preview must stay limited to 
 const publicJson = JSON.parse(read('sample/nyc-construction-activity-preview.json'));
 assert.equal(publicJson.public_preview_rows, 25, 'public JSON preview declares 25 preview rows');
 assert.equal(publicJson.paid_zip_rows, 142, 'public JSON preview declares paid ZIP row count');
+assert.equal(publicJson.purchase.buy_url, 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-json', 'public JSON preview links tracked buy page');
+assert.equal(publicJson.purchase.pricing_url, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'public JSON preview links pricing page');
+assert.equal(publicJson.purchase.support_url, 'https://nyc-construction-activity-brief.vercel.app/support.html', 'public JSON preview links support page');
+assert.equal(publicJson.purchase.price_usd, '9.50', 'public JSON preview exposes current launch price');
+assert.equal(publicJson.sample_urls.csv, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv', 'public JSON preview links CSV sample');
+assert.equal(publicJson.sample_urls.json, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json', 'public JSON preview links JSON sample');
+assert.equal(publicJson.sample_urls.jsonl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl', 'public JSON preview links JSONL sample');
+assert.equal(publicJson.sample_urls.markdown_brief, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md', 'public JSON preview links Markdown brief sample');
+assert.equal(publicJson.paid_zip.rows, 142, 'public JSON preview repeats paid ZIP row count');
+assert.ok(publicJson.paid_zip.files.includes('buyer-workbook.md'), 'public JSON preview lists buyer workbook');
+assert.ok(publicJson.paid_zip.files.includes('buyer-priority-slices.csv'), 'public JSON preview lists priority slices');
 assert.equal(publicJson.rows.length, 25, 'public JSON preview must stay limited to 25 rows');
 assert.equal(publicJson.boundary.no_private_contact_data, true, 'public JSON preview keeps private-contact boundary');
 assert.equal(publicJson.boundary.no_guaranteed_leads, true, 'public JSON preview keeps claims boundary');

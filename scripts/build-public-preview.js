@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
+const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const packageDir = path.resolve(root, '..', 'package');
 const fullCsvPath = path.join(packageDir, 'nyc-construction-activity-preview.csv');
 const publicCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
@@ -91,6 +92,34 @@ function writePublicJson(headers, rows) {
     latest_issued_date: issuedDates.at(-1) || null,
     public_preview_rows: previewRows.length,
     paid_zip_rows: rows.length,
+    purchase: {
+      buy_url: `${baseUrl}/buy.html?source=sample-json`,
+      pricing_url: `${baseUrl}/pricing.html`,
+      support_url: `${baseUrl}/support.html`,
+      price_usd: '9.50',
+      delivery: 'Instant browser download after completed Stripe checkout.',
+    },
+    sample_urls: {
+      csv: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
+      json: `${baseUrl}/sample/nyc-construction-activity-preview.json`,
+      jsonl: `${baseUrl}/sample/nyc-construction-activity-preview.jsonl`,
+      markdown_brief: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
+      preview_page: `${baseUrl}/preview.html`,
+    },
+    paid_zip: {
+      rows: rows.length,
+      files: [
+        'nyc-construction-activity-preview.csv',
+        'nyc-construction-activity-preview.md',
+        'buyer-workbook.md',
+        'buyer-priority-slices.csv',
+        'source-registry.md',
+        'qa-report.json',
+        'buyer-readme.md',
+        'privacy-and-claims-boundary.md',
+        'version.txt',
+      ],
+    },
     boundary: {
       no_private_contact_data: true,
       no_owner_names: true,
