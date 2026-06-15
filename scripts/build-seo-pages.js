@@ -314,6 +314,7 @@ const coreConversionPages = [
   ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-sticky'],
   ['nyc-dob-now-approved-permits.html', 'nyc-dob-now-approved-permits-sticky'],
   ['dob-now-build-approved-permits.html', 'dob-now-build-approved-permits-sticky'],
+  ['nyc-dob-permit-alerts.html', 'nyc-dob-permit-alerts-sticky'],
   ['nyc-construction-permit-search.html', 'nyc-construction-permit-search-sticky'],
   ['nyc-dob-permit-lookup.html', 'nyc-dob-permit-lookup-sticky'],
   ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-sticky'],
@@ -2424,6 +2425,150 @@ ${sampleRequestSection({
         workType: 'Selected DOB work types',
         territory: 'NYC',
       })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
+function dobPermitAlertsHtml(rows) {
+  const description = 'NYC DOB permit alerts alternative for weekly source-linked screening by work type, ZIP, borough, issued date, status, cost bucket, and source link.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 6);
+  const boroughMix = describeCounts(rows, (row) => titleCase(row.borough), 5);
+  const costMix = describeCounts(rows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 6);
+  const product = productJsonLd(description, checkoutHref('nyc-dob-permit-alerts'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is this a real-time NYC DOB permit alert service?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It is a current issue ZIP for weekly permit screening. It does not send real-time alerts, push notifications, email alerts, API webhooks, or CRM syncs.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does the current issue include?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The paid ZIP includes ${rows.length} selected public DOB NOW rows, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, version file, and claims boundary.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I inspect the alert-style sample before buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The public preview, sample brief, current issue page, segment hub, field guide, and delivery page are available before checkout.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC DOB Permit Alerts Alternative | Construction Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/nyc-dob-permit-alerts.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC DOB Permit Alerts Alternative | Construction Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/nyc-dob-permit-alerts.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC DOB permit alerts alternative for weekly review.</h1>
+      <p class="lede">Use the current issue as an alert-style weekly screening file: selected public DOB NOW rows with ZIP, borough, work type, issued date, status, cost bucket, and source link.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current issue</h2>
+          <p>${escapeHtml(rows.length)} selected DOB NOW rows for ${escapeHtml(range.firstIssuedDate)} through ${escapeHtml(fetchDate || range.latestIssuedDate)}.</p>
+        </div>
+        <div class="card">
+          <h2>Alert-style fields</h2>
+          <p>Work type, borough, ZIP, issued date, status, cost bucket, filing identifiers, short description, and source URL.</p>
+        </div>
+        <div class="card">
+          <h2>Checkout</h2>
+          <p class="price">$9.50</p>
+          <p>One-time Stripe checkout with browser download after payment.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current alert-style snapshot</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}. Free preview rows: 25.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+          <li>Borough mix: ${escapeHtml(boroughMix)}.</li>
+          <li>Cost buckets: ${escapeHtml(costMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Use it as a weekly alert pass</h2>
+        <ol>
+          <li>Open the free preview and confirm the fields match the alert view you want.</li>
+          <li>Check segment pages for the ZIPs, boroughs, and work types you care about.</li>
+          <li>Buy the ZIP only if the full current issue saves enough sorting time.</li>
+          <li>After checkout, use <code>buyer-priority-slices.csv</code> and <code>buyer-workbook.md</code> to review likely rows first.</li>
+          <li>Before outreach, quoting, routing, underwriting, or planning, open <code>source_url</code> and verify the current public record.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>What this is not</h2>
+        <p>This is not a live alert feed, email alert service, webhook, complete DOB database, CRM sync, agency system, or lead guarantee. It is a weekly current-issue ZIP for faster manual screening.</p>
+      </section>
+
+${sampleRequestSection({
+        workType: 'NYC DOB permit alerts alternative',
+        territory: 'NYC',
+      })}
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, real-time monitoring, legal advice, or procurement advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a>
+        <a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a>
+        <a class="button secondary" href="/nyc-dob-permit-search.html">DOB permit search companion</a>
+        <a class="button secondary" href="/nyc-dob-permit-lookup.html">DOB permit lookup companion</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/delivery.html">Delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('nyc-dob-permit-alerts')}">Buy instant ZIP</a>
+      </section>
     </main>
     ${sampleRequestScript()}
   </body>
@@ -7673,7 +7818,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -7734,6 +7879,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/nyc-dob-permit-data-download.html">NYC DOB permit data download</a></p>
         <p><a class="button secondary" href="/nyc-dob-approved-permits.html">NYC DOB approved permits</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-search.html">NYC DOB permit search companion</a></p>
+        <p><a class="button secondary" href="/nyc-dob-permit-alerts.html">NYC DOB permit alerts alternative</a></p>
         <p><a class="button secondary" href="/nyc-construction-permit-search.html">NYC construction permit search companion</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-lookup.html">NYC DOB permit lookup companion</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a></p>
@@ -8093,6 +8239,7 @@ fs.writeFileSync(path.join(root, 'nyc-building-permit-data.html'), buildingPermi
 fs.writeFileSync(path.join(root, 'nyc-dob-approved-permits.html'), dobApprovedPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-now-approved-permits.html'), dobNowApprovedPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'dob-now-build-approved-permits.html'), dobNowBuildApprovedPermitsHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-dob-permit-alerts.html'), dobPermitAlertsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-permit-search.html'), dobPermitSearchHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-construction-permit-search.html'), constructionPermitSearchHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-permit-lookup.html'), dobPermitLookupHtml(rows));

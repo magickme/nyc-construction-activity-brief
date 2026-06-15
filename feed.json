@@ -78,6 +78,13 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html",
+      "title": "NYC DOB permit alerts alternative",
+      "content_text": "Alert-style buyer page for using the current 142-row ZIP as a weekly screening file without real-time alerts or private contact data.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html",
       "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html",
       "title": "NYC DOB permit search companion",

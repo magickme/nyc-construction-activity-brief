@@ -216,6 +216,13 @@
       <description>Dataset-name buyer page for reviewing selected DOB NOW: Build approved permit rows from the current 142-row weekly CSV ZIP.</description>
     </item>
     <item>
+      <title>NYC DOB permit alerts alternative</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Alert-style buyer page for using the current 142-row ZIP as a weekly screening file without real-time alerts or private contact data.</description>
+    </item>
+    <item>
       <title>NYC DOB permit search companion</title>
       <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html</guid>
