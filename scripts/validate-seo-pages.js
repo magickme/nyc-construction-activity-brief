@@ -97,6 +97,8 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /"@type":"Product"/, `${relativePath} needs Product structured data`);
   assert.match(html, /"@type":"Offer"/, `${relativePath} needs Offer structured data`);
   assert.match(html, /"price":"9.50"/, `${relativePath} needs current price structured data`);
+  assert.match(html, /"@type":"Dataset"/, `${relativePath} needs Dataset structured data`);
+  assert.match(html, /"isPartOf":{"@type":"Dataset"/, `${relativePath} needs current issue Dataset relationship`);
   assert.match(html, /"@type":"BreadcrumbList"/, `${relativePath} needs breadcrumb structured data`);
   assert.match(html, /\/_vercel\/insights\/script\.js/, `${relativePath} needs Web Analytics script`);
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
@@ -366,6 +368,9 @@ assert.match(index, /<meta name="twitter:card" content="summary_large_image">/, 
 assert.match(index, new RegExp(`<meta name="twitter:image" content="${socialImageUrl}">`), 'index needs Twitter image');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
 assert.match(index, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=home-schema/, 'index Product schema points to buy page');
+assert.match(index, /"@type":"Organization"/, 'index needs Organization structured data');
+assert.match(index, /"@type":"WebSite"/, 'index needs WebSite structured data');
+assert.match(index, /"publisher":{"@type":"Organization","name":"NYC Weekly Construction Activity Brief"/, 'index WebSite schema names publisher');
 assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytics script');
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
@@ -2882,6 +2887,9 @@ assert.match(hub, /href="\/support\.html"/, 'hub links support page');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
 assert.match(hub, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub Product schema links checkout bridge');
+assert.match(hub, /"@type":"ItemList"/, 'hub needs ItemList structured data');
+assert.match(hub, new RegExp(`"numberOfItems":${generatedPages.length}`), 'hub ItemList count matches generated segment pages');
+assert.match(hub, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-dob-permits-zip-10003\.html"/, 'hub ItemList includes generated segment URLs');
 assert.match(hub, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub post-review CTA links checkout bridge');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);

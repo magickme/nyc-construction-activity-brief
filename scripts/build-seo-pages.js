@@ -1184,6 +1184,75 @@ function datasetJsonLd(rows) {
   };
 }
 
+function topicDatasetJsonLd(page) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `${page.h1.replace(/\.$/, '')} - current issue sample`,
+    description: page.description,
+    url: `${baseUrl}/topics/${page.slug}.html`,
+    isPartOf: {
+      '@type': 'Dataset',
+      name: 'NYC Weekly Construction Activity Brief - Current Issue Public Preview',
+      url: `${baseUrl}/methodology.html`,
+    },
+    creator: {
+      '@type': 'Organization',
+      name: 'NYC Weekly Construction Activity Brief',
+      url: baseUrl,
+    },
+    spatialCoverage: {
+      '@type': 'Place',
+      name: 'New York City',
+    },
+    keywords: [
+      'NYC DOB permits',
+      'construction permit activity',
+      page.h1.replace(/\.$/, ''),
+      page.sampleLine,
+    ].filter(Boolean),
+    variableMeasured: [
+      'source_url',
+      'borough',
+      'zip_code',
+      'work_type',
+      'issued_date',
+      'permit_status',
+      'estimated_job_cost_bucket',
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        name: 'Public CSV preview',
+        encodingFormat: 'text/csv',
+        contentUrl: sampleCsvUrl,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Public JSON preview',
+        encodingFormat: 'application/json',
+        contentUrl: sampleJsonUrl,
+      },
+    ],
+  };
+}
+
+function itemListJsonLd(name, url, pages) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    url,
+    numberOfItems: pages.length,
+    itemListElement: pages.map((page, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: page.linkText || page.h1.replace(/\.$/, ''),
+      url: `${baseUrl}/topics/${page.slug}.html`,
+    })),
+  };
+}
+
 function breadcrumbJsonLd(page) {
   return {
     '@context': 'https://schema.org',
@@ -1359,6 +1428,7 @@ function pageHtml(page) {
   const escapedDescription = escapeHtml(page.description);
   const trackedCheckoutUrl = checkoutHref(topicCheckoutSource(page));
   const product = productJsonLd(page.description, trackedCheckoutUrl);
+  const dataset = topicDatasetJsonLd(page);
   const breadcrumb = breadcrumbJsonLd(page);
   const faq = faqJsonLd(page);
 
@@ -1380,6 +1450,7 @@ function pageHtml(page) {
 ${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
     <script type="application/ld+json">${jsonScript(breadcrumb)}</script>
 ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` : ''}
     ${analyticsSnippet()}
@@ -1442,6 +1513,7 @@ ${conversionBar(topicCheckoutSource(page))}
 function hubHtml(pages) {
   const description = 'Browse data-backed NYC construction permit activity pages generated from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
   const product = productJsonLd(description, checkoutBridgeHref('segment-hub'));
+  const itemList = itemListJsonLd('NYC permit activity segment pages', `${baseUrl}/sample-segments.html`, pages);
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
@@ -1467,6 +1539,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
 ${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(itemList)}</script>
     ${analyticsSnippet()}
   </head>
   <body>
