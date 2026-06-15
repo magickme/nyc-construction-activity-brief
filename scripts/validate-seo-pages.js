@@ -166,7 +166,9 @@ function assertSampleRequestForm(html, label) {
 }
 
 function assertConversionBar(html, label, source) {
-  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/checkout.html?source=${source}`;
+  const expectedCheckout = label === 'index.html'
+    ? `https://nyc-construction-activity-brief.vercel.app/buy.html?source=${source}`
+    : `https://nyc-construction-activity-brief.vercel.app/checkout.html?source=${source}`;
   assert.match(html, /class="[^"]*has-conversion-bar[^"]*"/, `${label} uses sticky conversion bar layout`);
   assert.match(html, /data-conversion-bar/, `${label} needs sticky conversion bar`);
   assert.match(html, /Sample request/, `${label} conversion bar links sample request`);
@@ -238,11 +240,15 @@ assert.match(index, /<meta property="og:image:height" content="630">/, 'index ne
 assert.match(index, /<meta name="twitter:card" content="summary_large_image">/, 'index needs large Twitter card');
 assert.match(index, new RegExp(`<meta name="twitter:image" content="${socialImageUrl}">`), 'index needs Twitter image');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
+assert.match(index, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=home-schema/, 'index Product schema points to buy page');
 assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytics script');
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
-assert.match(index, new RegExp(`href="${relativeCheckoutUrl}"`), 'index links tracked checkout');
+assert.match(index, /href="\/buy\.html\?source=home-hero"/, 'index hero links buy page');
+assert.match(index, /href="\/buy\.html\?source=home-card"/, 'index card links buy page');
+assert.match(index, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=home-sticky"/, 'index sticky bar links buy page');
+assert.match(index, /href="\/checkout\.html\?source=' \+ encodeURIComponent\(requestSource\)/, 'index sample request fallback links tracked checkout');
 assert.match(index, /Launch price is \$9\.50 for the current issue/, 'index needs launch price copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
@@ -331,6 +337,8 @@ assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
 assert.match(buy, /buy_page_viewed/, 'buy page tracks page view');
 assert.match(buy, /buy_page_continue_clicked/, 'buy page tracks manual continue click');
 assert.match(buy, /buy_page_auto_redirect/, 'buy page tracks automatic redirect');
+assert.match(buy, /const rawSource = params\.get\('source'\) \|\| 'buy-page';/, 'buy page reads source query');
+assert.match(buy, /checkout\.html\?source=' \+ encodeURIComponent\(source\)/, 'buy page forwards source to checkout');
 assert.match(buy, /window\.location\.replace\(checkoutUrl\);/, 'buy page redirects to checkout bridge');
 assert.match(buy, /href="\/preview\.html"/, 'buy page links preview');
 assert.match(buy, /href="\/inside-the-zip\.html"/, 'buy page links ZIP contents');

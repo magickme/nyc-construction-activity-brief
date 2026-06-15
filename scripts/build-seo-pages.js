@@ -236,11 +236,14 @@ function topicCheckoutSource(page) {
 }
 
 function conversionBar(source) {
+  const buyHref = source === 'home-sticky'
+    ? `${baseUrl}/buy.html?source=home-sticky`
+    : checkoutHref(source);
   return `    <aside class="conversion-bar" data-conversion-bar>
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
       <div class="conversion-actions">
         <a class="button secondary" href="#sample-request">Sample request</a>
-        <a class="button" href="${checkoutHref(source)}">Buy ZIP</a>
+        <a class="button" href="${buyHref}">Buy ZIP</a>
       </div>
     </aside>
 `;
@@ -652,22 +655,26 @@ ${socialImageMeta()}
       </section>
     </main>
     <script>
-      const checkoutUrl = '${checkout}';
+      const params = new URLSearchParams(window.location.search);
+      const rawSource = params.get('source') || '${source}';
+      const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : '${source}';
+      const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=' + encodeURIComponent(source);
       const link = document.getElementById('buy-link');
+      link.href = checkoutUrl;
       link.addEventListener('click', () => {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'buy_page_continue_clicked', data: { source: '${source}' } });
+          window.va('event', { name: 'buy_page_continue_clicked', data: { source } });
         } catch (error) {}
       });
       try {
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-        window.va('event', { name: 'buy_page_viewed', data: { source: '${source}' } });
+        window.va('event', { name: 'buy_page_viewed', data: { source } });
       } catch (error) {}
       window.setTimeout(() => {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'buy_page_auto_redirect', data: { source: '${source}' } });
+          window.va('event', { name: 'buy_page_auto_redirect', data: { source } });
         } catch (error) {}
         window.location.replace(checkoutUrl);
       }, 1200);

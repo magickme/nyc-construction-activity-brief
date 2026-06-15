@@ -58,22 +58,26 @@
       </section>
     </main>
     <script>
-      const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page';
+      const params = new URLSearchParams(window.location.search);
+      const rawSource = params.get('source') || 'buy-page';
+      const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'buy-page';
+      const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=' + encodeURIComponent(source);
       const link = document.getElementById('buy-link');
+      link.href = checkoutUrl;
       link.addEventListener('click', () => {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'buy_page_continue_clicked', data: { source: 'buy-page' } });
+          window.va('event', { name: 'buy_page_continue_clicked', data: { source } });
         } catch (error) {}
       });
       try {
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-        window.va('event', { name: 'buy_page_viewed', data: { source: 'buy-page' } });
+        window.va('event', { name: 'buy_page_viewed', data: { source } });
       } catch (error) {}
       window.setTimeout(() => {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'buy_page_auto_redirect', data: { source: 'buy-page' } });
+          window.va('event', { name: 'buy_page_auto_redirect', data: { source } });
         } catch (error) {}
         window.location.replace(checkoutUrl);
       }, 1200);
