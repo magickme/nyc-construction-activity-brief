@@ -119,6 +119,7 @@ function buildCurrentIssueJson(rows, manifest) {
       permitExpediterGuideUrl: `${baseUrl}/permit-expediter-research.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
+      permitCsvUrl: `${baseUrl}/nyc-dob-permit-csv.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
@@ -147,6 +148,7 @@ function buildCurrentIssueJson(rows, manifest) {
       permitExpediterGuideUrl: `${baseUrl}/permit-expediter-research.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
+      permitCsvUrl: `${baseUrl}/nyc-dob-permit-csv.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
@@ -268,6 +270,11 @@ function buildFeedXml(rows, manifest) {
       description: `Column-by-column guide to the public preview and paid CSV fields for the current ${stats.rowCount}-row issue.`,
     },
     {
+      title: 'NYC DOB permit CSV preview',
+      url: `${baseUrl}/nyc-dob-permit-csv.html`,
+      description: `Preview the public ${previewRows}-row NYC DOB permit CSV before buying the full ${stats.rowCount}-row current issue ZIP.`,
+    },
+    {
       title: 'Buyer guide for the current ZIP',
       url: `${baseUrl}/buyer-guide.html`,
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
@@ -355,6 +362,7 @@ Primary pages:
 - Permit expediter guide: ${baseUrl}/permit-expediter-research.html
 - Inside the ZIP: ${baseUrl}/inside-the-zip.html
 - CSV field guide: ${baseUrl}/csv-field-guide.html
+- NYC DOB permit CSV: ${baseUrl}/nyc-dob-permit-csv.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Support and refunds: ${baseUrl}/support.html
@@ -413,7 +421,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

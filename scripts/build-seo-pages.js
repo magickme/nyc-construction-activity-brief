@@ -179,6 +179,7 @@ const coreConversionPages = [
   ['delivery.html', 'delivery-sticky'],
   ['support.html', 'support-sticky'],
   ['sample-request.html', 'sample-request-sticky'],
+  ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-sticky'],
   ['methodology.html', 'methodology-sticky'],
   ['time-saved-calculator.html', 'time-saved-calculator-sticky'],
   ['who-should-buy.html', 'who-should-buy-sticky'],
@@ -1350,6 +1351,138 @@ ${fields.map(([name, use]) => `              <tr>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('csv-field-guide')}">Buy instant ZIP</a>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
+function permitCsvHtml(rows) {
+  const description = 'NYC DOB permit CSV preview and paid weekly ZIP for screening selected construction activity by work type, ZIP, borough, issued date, and source link.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 6);
+  const product = productJsonLd(description, checkoutHref('nyc-dob-permit-csv'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Can I preview the NYC DOB permit CSV before buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The public preview has 25 rows with the same public-facing field structure as the paid current issue CSV.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does the paid CSV add?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The paid ZIP adds the full ${rows.length}-row current issue CSV, buyer workbook, priority-slices CSV, source registry, QA report, and package notes.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the CSV include owner or applicant contacts?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC DOB Permit CSV | Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/nyc-dob-permit-csv.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC DOB Permit CSV | Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/nyc-dob-permit-csv.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC DOB permit CSV for weekly construction activity research.</h1>
+      <p class="lede">Preview 25 public rows before buying the full ${escapeHtml(rows.length)}-row current issue ZIP.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Free preview</h2>
+          <p>25 source-linked rows with work type, borough, ZIP, issued date, status, cost bucket, and DOB NOW source links.</p>
+        </div>
+        <div class="card">
+          <h2>Paid ZIP</h2>
+          <p>${escapeHtml(rows.length)} current issue rows plus buyer workbook, priority slices, QA report, and source registry.</p>
+        </div>
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$24.50</p>
+          <p>Instant browser download after completed Stripe checkout.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current CSV scope</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Common CSV checks</h2>
+        <ol>
+          <li>Filter by <code>work_type</code> for the trade or filing category you care about.</li>
+          <li>Filter by <code>zip_code</code> or <code>borough</code> for territory fit.</li>
+          <li>Sort by <code>issued_date</code> to review recent source rows first.</li>
+          <li>Use <code>source_url</code> to verify any row before outreach, quoting, routing, or planning.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>What is excluded</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('nyc-dob-permit-csv')}">Buy instant ZIP</a>
       </section>
 
 ${sampleRequestSection({
@@ -3417,7 +3550,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -3463,6 +3596,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
+        <p><a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
@@ -3799,6 +3933,7 @@ fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'csv-field-guide.html'), csvFieldGuideHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-dob-permit-csv.html'), permitCsvHtml(rows));
 fs.writeFileSync(path.join(root, 'free-vs-paid.html'), freeVsPaidHtml(rows));
 fs.writeFileSync(path.join(root, 'permit-research-workflow.html'), researchWorkflowHtml(rows));
 fs.writeFileSync(path.join(root, 'contractor-supplier-permit-research.html'), contractorSupplierHtml(rows));

@@ -33,6 +33,7 @@ Primary pages:
 - Permit expediter guide: https://nyc-construction-activity-brief.vercel.app/permit-expediter-research.html
 - Inside the ZIP: https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html
 - CSV field guide: https://nyc-construction-activity-brief.vercel.app/csv-field-guide.html
+- NYC DOB permit CSV: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-csv.html
 - Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html
 - Delivery steps: https://nyc-construction-activity-brief.vercel.app/delivery.html
 - Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
