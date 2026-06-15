@@ -297,6 +297,7 @@ assert.match(pricing, /href="\/buyer-guide\.html"/, 'pricing page links buyer gu
 assert.match(pricing, /href="\/delivery\.html"/, 'pricing page links delivery page');
 assert.match(pricing, /href="\/support\.html"/, 'pricing page links support page');
 assert.match(pricing, new RegExp(`href="${checkoutUrl}"`), 'pricing page links tracked checkout');
+assertSampleRequestForm(pricing, 'pricing page');
 assert.match(pricing, /No guaranteed leads\./, 'pricing page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(pricing, pattern, `pricing.html contains banned copy pattern ${pattern}`);
