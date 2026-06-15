@@ -430,8 +430,12 @@ function checkoutHtml() {
         window.va('event', { name: 'checkout_intent', data: { source } });
       } catch (error) {}
       window.setTimeout(() => {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name: 'checkout_auto_redirect', data: { source } });
+        } catch (error) {}
         window.location.replace(stripeUrl);
-      }, 1800);
+      }, 650);
     </script>
   </body>
 </html>
