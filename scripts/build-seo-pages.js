@@ -824,7 +824,20 @@ function checkoutHtml(rows) {
           <p><a class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue with Stripe fallback</a></p>
         </noscript>
       </section>
+${sampleRequestSection({
+  heading: 'Request a fit check before paying',
+  intro: 'If you reached checkout but are not sure the current ZIP matches your work type, territory, or buyer use case, send a short fit request instead of abandoning the page.',
+  workType: 'Current issue checkout fit',
+  territory: 'NYC',
+  monitoringGoal: 'I reached checkout and want to confirm whether the current issue fits my work type, ZIP, or buyer use case.',
+  buttonCopy: 'Send fit request',
+  fallbackSubject: 'NYC Construction Brief checkout fit request',
+  fallbackSourceLabel: 'Checkout fit request source',
+  successCopy: 'Fit request saved. I will use this to choose future sample cuts.',
+  failedCopy: 'Fit request was not saved.',
+})}
     </main>
+    ${sampleRequestScript()}
     <script>
       const params = new URLSearchParams(window.location.search);
       const rawSource = params.get('source') || 'site';

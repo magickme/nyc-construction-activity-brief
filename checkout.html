@@ -65,7 +65,119 @@
           <p><a class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue with Stripe fallback</a></p>
         </noscript>
       </section>
+      <section id="sample-request" class="section card sample-request">
+        <h2>Request a fit check before paying</h2>
+        <p>If you reached checkout but are not sure the current ZIP matches your work type, territory, or buyer use case, send a short fit request instead of abandoning the page.</p>
+        <form data-sample-request-form data-fallback-subject="NYC Construction Brief checkout fit request" data-fallback-source-label="Checkout fit request source" data-success-copy="Fit request saved. I will use this to choose future sample cuts." data-failed-copy="Fit request was not saved.">
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Work type requested
+            <input name="work_type_requested" value="Current issue checkout fit" placeholder="Plumbing, sidewalk shed, structural..." required>
+          </label>
+          <label>
+            ZIP codes or borough
+            <input name="territory_requested" value="NYC" placeholder="11201, Brooklyn, Manhattan..." required>
+          </label>
+          <label>
+            Buyer type
+            <select name="buyer_type" required>
+              <option value="">Choose one</option>
+              <option value="construction-support-vendor">Construction-support vendor</option>
+              <option value="specialty-subcontractor">Specialty subcontractor</option>
+              <option value="supplier">Supplier</option>
+              <option value="local-b2b-service-provider">Local B2B service provider</option>
+              <option value="real-estate-investor">Real estate investor or acquisition researcher</option>
+              <option value="broker-developer">Broker or developer</option>
+              <option value="permit-expediter">Permit expediter or filing consultant</option>
+              <option value="risk-researcher">Risk, lending, or compliance researcher</option>
+              <option value="consultant-analyst">Consultant or analyst</option>
+              <option value="property-manager">Property manager or facilities team</option>
+              <option value="data-buyer">Data buyer</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>
+            What do you want to monitor?
+            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required>I reached checkout and want to confirm whether the current issue fits my work type, ZIP, or buyer use case.</textarea>
+          </label>
+          <label class="checkbox">
+            <input name="consent" type="checkbox" required>
+            You may reply about this public-record sample request.
+          </label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off">
+          <button class="button" type="submit">Send fit request</button>
+          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+        </form>
+      </section>
+
+
     </main>
+    <script>
+      function sampleRequestFallbackHref(data, source, form) {
+        const subject = form && form.dataset.fallbackSubject
+          ? form.dataset.fallbackSubject
+          : 'NYC Construction Brief sample request';
+        const lines = [
+          (form && form.dataset.fallbackSourceLabel ? form.dataset.fallbackSourceLabel : 'Sample request source') + ': ' + source,
+          'Email: ' + (data.email || ''),
+          'Work type: ' + (data.work_type_requested || ''),
+          'Territory: ' + (data.territory_requested || ''),
+          'Buyer type: ' + (data.buyer_type || ''),
+          'Entry source: ' + (data.entry_source || ''),
+          'Monitoring goal: ' + (data.monitoring_goal || ''),
+        ];
+        const supportAddress = ['support', 'magick.me'].join('@');
+        return 'mailto:' + supportAddress + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+      }
+      document.addEventListener('submit', async (event) => {
+        const form = event.target.closest('[data-sample-request-form]');
+        if (!form) return;
+        event.preventDefault();
+        const status = form.querySelector('[data-sample-request-status]');
+        const button = form.querySelector('button[type="submit"]');
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.consent = form.querySelector('[name="consent"]').checked;
+        data.source_path = window.location.pathname;
+        const rawEntrySource = new URLSearchParams(window.location.search).get('source') || '';
+        data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
+        const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
+        const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
+        if (status) status.textContent = 'Saving request...';
+        if (button) button.disabled = true;
+        try {
+          const response = await fetch('/api/sample-request', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) throw new Error('request failed');
+          form.reset();
+          try {
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+            window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
+          } catch (error) {}
+          if (status) {
+            const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
+            status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+          }
+        } catch (error) {
+          try {
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+            window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
+          } catch (trackingError) {}
+          if (status) {
+            const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
+            const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
+            status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+          }
+        } finally {
+          if (button) button.disabled = false;
+        }
+      });
+    </script>
     <script>
       const params = new URLSearchParams(window.location.search);
       const rawSource = params.get('source') || 'site';

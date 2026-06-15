@@ -502,6 +502,13 @@ assert.match(checkout, /Public-record screening file only/, 'checkout page state
 assert.match(checkout, /href="\/invoice-request\.html\?source=checkout-bridge">Need invoice help\?<\/a>/, 'checkout bridge routes procurement-blocked buyers to invoice help before Stripe');
 assert.match(checkout, /href="\/sample-request\.html\?source=checkout-bridge-sample">Need a different sample\?<\/a>/, 'checkout bridge routes non-ready buyers to sample request before Stripe');
 assert.match(checkout, /If the current work type or ZIP mix is close but not exact, send a product-specific sample request before paying\./, 'checkout page captures sample-fit hesitation before Stripe');
+assert.match(checkout, /<h2>Request a fit check before paying<\/h2>/, 'checkout page embeds a fit request form before Stripe');
+assert.match(checkout, /If you reached checkout but are not sure the current ZIP matches your work type, territory, or buyer use case/, 'checkout page explains checkout fit request path');
+assert.match(checkout, /data-fallback-subject="NYC Construction Brief checkout fit request"/, 'checkout fit request has a checkout-specific email subject');
+assert.match(checkout, /data-fallback-source-label="Checkout fit request source"/, 'checkout fit request labels fallback source');
+assert.match(checkout, /value="Current issue checkout fit"/, 'checkout fit request seeds checkout work type');
+assert.match(checkout, /Send fit request/, 'checkout fit request has specific button copy');
+assert.match(checkout, /\/api\/sample-request/, 'checkout page posts fit requests to the sample request API');
 assert.match(checkout, /href="\/preview\.html"/, 'checkout page links preview for buyer reassurance');
 assert.match(checkout, /href="\/inside-the-zip\.html"/, 'checkout page links ZIP contents for buyer reassurance');
 assert.match(checkout, /href="\/support\.html"/, 'checkout page links support and refund boundary');
