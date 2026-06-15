@@ -4,6 +4,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
+const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N\\?prefilled_promo_code=NCAB25';
 const pageData = require('./seo-pages.json');
 const manifest = require('./generated-pages-manifest.json');
 const pages = manifest.slugs.map((slug) => `topics/${slug}.html`);
@@ -92,7 +93,7 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
-  assert.match(html, /href="https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N"/, `${relativePath} links checkout`);
+  assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links promo-prefilled checkout`);
   assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
   assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
@@ -159,7 +160,7 @@ assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
-assert.match(hub, /href="https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N"/, 'hub links checkout');
+assert.match(hub, new RegExp(`href="${checkoutUrl}"`), 'hub links promo-prefilled checkout');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }
@@ -174,7 +175,7 @@ assert.match(methodology, /Latest issued row in the file:/, 'methodology needs s
 assert.match(methodology, /The public package excludes owner names/, 'methodology needs privacy boundary');
 assert.match(methodology, /Not a live alert feed\./, 'methodology needs product boundary');
 assert.match(methodology, /No guaranteed leads\./, 'methodology keeps claims boundary visible');
-assert.match(methodology, /href="https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N"/, 'methodology links checkout');
+assert.match(methodology, new RegExp(`href="${checkoutUrl}"`), 'methodology links promo-prefilled checkout');
 assert.match(methodology, /"@type":"Dataset"/, 'methodology needs Dataset structured data');
 assert.match(methodology, /"@type":"DataDownload"/, 'methodology needs DataDownload structured data');
 assert.match(methodology, /"contentUrl":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample\/nyc-construction-activity-preview\.csv"/, 'methodology Dataset links CSV preview');
@@ -206,7 +207,7 @@ assert.equal(currentIssue.product, 'NYC Weekly Construction Activity Brief', 'cu
 assert.equal(currentIssue.issue, 'current', 'current issue JSON marks current issue');
 assert.equal(currentIssue.publicPreview.rowCount, 25, 'current issue JSON row count matches public preview');
 assert.equal(currentIssue.publicPreview.fullIssueRowCount, manifest.sourceRows, 'current issue JSON full issue row count matches manifest');
-assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N', 'current issue JSON links checkout');
+assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25', 'current issue JSON links promo-prefilled checkout');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
 assert.equal(currentIssue.paidZip.promotion.code, 'NCAB25', 'current issue JSON lists promo code');

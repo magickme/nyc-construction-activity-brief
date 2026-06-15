@@ -16,11 +16,11 @@
     "sampleBriefUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
     "methodologyUrl": "https://nyc-construction-activity-brief.vercel.app/methodology.html",
     "segmentHubUrl": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
-    "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N",
+    "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25",
     "priceUsd": 49
   },
   "paidZip": {
-    "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N",
+    "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25",
     "priceUsd": 49,
     "rowCount": 142,
     "promotion": {

@@ -8,7 +8,7 @@ Current issue:
 - Free CSV preview rows: 25
 - Source fetch date: 2026-06-15
 - Issued dates in preview: 2026-06-09 to 2026-06-12
-- Checkout: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N
+- Checkout: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25
 - Price: $49 one-time ZIP download
 - Promo code: NCAB25 for 25% off while redemptions remain
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
