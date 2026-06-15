@@ -133,6 +133,12 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, `${relativePath} builds page-specific sample request checkout source`);
   assert.match(html, /sample_request_saved/, `${relativePath} tracks saved sample requests`);
   assert.match(html, /sample_request_failed/, `${relativePath} tracks failed sample requests`);
+  assert.match(html, /sampleRequestFallbackHref/, `${relativePath} builds email fallback for failed sample requests`);
+  assert.match(html, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, `${relativePath} email fallback uses support address without exposing it directly`);
+  assert.match(html, /'mailto:' \+ supportAddress/, `${relativePath} email fallback builds mailto link`);
+  assert.match(html, /NYC Construction Brief sample request/, `${relativePath} email fallback has product-specific subject`);
+  assert.match(html, /Monitoring goal: /, `${relativePath} email fallback preserves request details`);
+  assert.match(html, /Email this request/, `${relativePath} failed sample request copy preserves buyer intent`);
   assert.match(html, /encodeURIComponent\(requestSource\)/, `${relativePath} links buy page with page-specific sample request source`);
   assert.match(html, /class="has-conversion-bar"/, `${relativePath} uses sticky conversion bar layout`);
   assert.match(html, /data-conversion-bar/, `${relativePath} needs sticky conversion bar`);
@@ -168,6 +174,12 @@ function assertSampleRequestForm(html, label) {
   assert.match(html, /data\.source_path = window\.location\.pathname;/, `${label} sends source path with sample request`);
   assert.match(html, /sample_request_saved/, `${label} tracks saved sample requests`);
   assert.match(html, /sample_request_failed/, `${label} tracks failed sample requests`);
+  assert.match(html, /sampleRequestFallbackHref/, `${label} builds email fallback for failed sample requests`);
+  assert.match(html, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, `${label} email fallback uses support address without exposing it directly`);
+  assert.match(html, /'mailto:' \+ supportAddress/, `${label} email fallback builds mailto link`);
+  assert.match(html, /NYC Construction Brief sample request/, `${label} email fallback has product-specific subject`);
+  assert.match(html, /Monitoring goal: /, `${label} email fallback preserves request details`);
+  assert.match(html, /Email this request/, `${label} failed sample request copy preserves buyer intent`);
   assert.match(html, /This does not join the MagickMe newsletter\./, `${label} keeps list-separation copy`);
 }
 
@@ -349,6 +361,12 @@ assert.match(index, /data\.source_path = window\.location\.pathname;/, 'index se
 assert.match(index, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'index builds page-specific sample request checkout source');
 assert.match(index, /sample_request_saved/, 'index tracks saved sample requests');
 assert.match(index, /sample_request_failed/, 'index tracks failed sample requests');
+assert.match(index, /sampleRequestFallbackHref/, 'index builds email fallback for failed sample requests');
+assert.match(index, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, 'index email fallback uses support address without exposing it directly');
+assert.match(index, /'mailto:' \+ supportAddress/, 'index email fallback builds mailto link');
+assert.match(index, /NYC Construction Brief sample request/, 'index email fallback has product-specific subject');
+assert.match(index, /Monitoring goal: /, 'index email fallback preserves request details');
+assert.match(index, /Email this request/, 'index failed sample request copy preserves buyer intent');
 assert.match(index, /encodeURIComponent\(requestSource\)/, 'index links buy page with page-specific sample request source');
 assert.match(index, /This does not join the MagickMe newsletter\./, 'index needs list-separation copy');
 assert.match(index, /href="\/current-issue\.html"/, 'index links current issue page');

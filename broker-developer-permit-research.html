@@ -159,6 +159,19 @@
       </section>
     </main>
     <script>
+      function sampleRequestFallbackHref(data, source) {
+        const subject = 'NYC Construction Brief sample request';
+        const lines = [
+          'Sample request source: ' + source,
+          'Email: ' + (data.email || ''),
+          'Work type: ' + (data.work_type_requested || ''),
+          'Territory: ' + (data.territory_requested || ''),
+          'Buyer type: ' + (data.buyer_type || ''),
+          'Monitoring goal: ' + (data.monitoring_goal || ''),
+        ];
+        const supportAddress = ['support', 'magick.me'].join('@');
+        return 'mailto:' + supportAddress + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+      }
       document.addEventListener('submit', async (event) => {
         const form = event.target.closest('[data-sample-request-form]');
         if (!form) return;
@@ -169,6 +182,7 @@
         data.consent = form.querySelector('[name="consent"]').checked;
         data.source_path = window.location.pathname;
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
+        const fallbackHref = sampleRequestFallbackHref(data, requestSource);
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
@@ -192,7 +206,7 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. Try again, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            status.innerHTML = 'Request was not saved. <a href="' + fallbackHref + '">Email this request</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
