@@ -46,6 +46,7 @@ Primary pages:
 - Property manager guide: https://nyc-construction-activity-brief.vercel.app/property-manager-permit-research.html
 - Inside the ZIP: https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html
 - CSV field guide: https://nyc-construction-activity-brief.vercel.app/csv-field-guide.html
+- NYC building permits: https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html
 - NYC building permit data: https://nyc-construction-activity-brief.vercel.app/nyc-building-permit-data.html
 - NYC DOB permit data download: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html
 - NYC DOB approved permits: https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html

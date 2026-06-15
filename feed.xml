@@ -174,6 +174,13 @@
       <description>Free 25-row NYC building permit data preview with source links, CSV samples, package metadata, and the full 142-row paid ZIP path.</description>
     </item>
     <item>
+      <title>NYC building permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Search-focused buyer page for reviewing selected NYC building permit rows from the current 142-row weekly CSV ZIP.</description>
+    </item>
+    <item>
       <title>NYC DOB permit CSV preview</title>
       <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-csv.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-csv.html</guid>
