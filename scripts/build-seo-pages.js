@@ -717,7 +717,17 @@ ${socialImageMeta()}
             <p>No private contacts, owner names, applicant names, full street addresses, agency endorsement, guaranteed leads, or revenue estimate.</p>
           </div>
         </div>
-        <a id="buy-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Continue to Stripe</a>
+        <a id="buy-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+        <p class="fine">Stripe creates the paid session, then the success page unlocks the ZIP in your browser.</p>
+        <section class="section">
+          <h2>Inspect before checkout</h2>
+          <p>Use the samples and package manifest before paying. The manifest is a JSON summary of the source, preview files, paid ZIP contents, price, delivery path, and claims boundary.</p>
+          <p>
+            <a class="button secondary" href="/data-package.json">Data package JSON</a>
+            <a class="button secondary" href="/delivery.html">Delivery steps</a>
+            <a class="button secondary" href="/pricing.html">Pricing</a>
+          </p>
+        </section>
         <p class="fine">Want to inspect the public row shape first? Open the sample files before paying.</p>
         <p>
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">CSV sample</a>

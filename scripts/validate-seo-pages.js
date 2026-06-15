@@ -356,9 +356,16 @@ assert.match(buy, /<meta property="og:url" content="https:\/\/nyc-construction-a
 assert.match(buy, /"@type":"Product"/, 'buy page needs Product structured data');
 assert.match(buy, /"price":"9.50"/, 'buy page needs current price structured data');
 assert.match(buy, /href="https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q\?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static"/, 'buy page static fallback links Stripe with attribution');
+assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
 assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
+assert.match(buy, /Stripe creates the paid session, then the success page unlocks the ZIP in your browser\./, 'buy page explains post-checkout delivery path');
+assert.match(buy, /<h2>Inspect before checkout<\/h2>/, 'buy page has inspect-before-checkout section');
+assert.match(buy, /href="\/data-package\.json"/, 'buy page links data package manifest');
+assert.match(buy, /Data package JSON/, 'buy page labels data package manifest');
+assert.match(buy, /href="\/delivery\.html"/, 'buy page links delivery steps');
+assert.match(buy, /href="\/pricing\.html"/, 'buy page links pricing');
 assert.match(buy, /buy_page_viewed/, 'buy page tracks page view');
 assert.match(buy, /buy_page_continue_clicked/, 'buy page tracks manual continue click');
 assert.match(buy, /const rawSource = params\.get\('source'\) \|\| 'buy-page';/, 'buy page reads source query');
