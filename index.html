@@ -89,6 +89,15 @@
         font-family: ui-sans-serif, system-ui, sans-serif;
         font-weight: 700;
       }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .hero-actions .button {
+        margin-top: 0;
+      }
       .secondary {
         background: transparent;
         color: var(--green);
@@ -183,8 +192,12 @@
         <div>
           <h1>NYC construction permit activity for vendor research.</h1>
           <p class="lede">A weekly source-linked brief for construction-support vendors, suppliers, and specialty subcontractors watching selected NYC DOB work types.</p>
-          <a class="button secondary" href="sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
-          <a class="button secondary" href="sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+          <div class="hero-actions">
+            <a class="button" href="https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N">Buy $49 ZIP</a>
+            <a class="button secondary" href="#sample-request">Request sample cut</a>
+            <a class="button secondary" href="sample/nyc-construction-activity-preview.csv">Download CSV preview</a>
+            <a class="button secondary" href="sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+          </div>
         </div>
         <aside class="card">
           <h2>First issue ZIP</h2>
@@ -226,7 +239,7 @@
         <p class="fine">Buy this if you want the issue packaged for reuse. Use the free preview first if you only need to inspect the sample.</p>
       </section>
 
-      <section class="section card sample-request">
+      <section id="sample-request" class="section card sample-request">
         <h2>Request a future sample cut</h2>
         <p>If the current issue is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
         <form data-sample-request-form>

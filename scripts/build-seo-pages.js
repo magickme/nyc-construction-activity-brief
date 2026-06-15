@@ -370,7 +370,7 @@ ${page.faqs.map((faq) => `        <h3>${escapeHtml(faq.question)}</h3>
 function sampleRequestSection(context = {}) {
   const workType = escapeHtml(context.workType || '');
   const territory = escapeHtml(context.territory || '');
-  return `      <section class="section card sample-request">
+  return `      <section id="sample-request" class="section card sample-request">
         <h2>Request a future sample cut</h2>
         <p>If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
         <form data-sample-request-form>
@@ -502,6 +502,7 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <div class="sample">${escapeHtml(page.sampleLine)}</div>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
       </section>
 
@@ -557,6 +558,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
         <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-01 to 2026-06-08 issue.</p>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
       </section>
 
