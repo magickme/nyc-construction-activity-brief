@@ -173,6 +173,7 @@ assert.match(index, /href="\/time-saved-calculator\.html"/, 'index links time sa
 assert.match(index, /href="\/who-should-buy\.html"/, 'index links who should buy page');
 assert.match(index, /href="\/free-vs-paid\.html"/, 'index links free vs paid page');
 assert.match(index, /href="\/permit-research-workflow\.html"/, 'index links research workflow page');
+assert.match(index, /href="\/contractor-supplier-permit-research\.html"/, 'index links contractor and supplier guide');
 assert.match(index, /href="\/inside-the-zip\.html"/, 'index links inside the ZIP page');
 assert.match(index, /href="\/csv-field-guide\.html"/, 'index links CSV field guide');
 assert.match(index, /href="\/support\.html"/, 'index links support page');
@@ -280,6 +281,7 @@ assert.match(currentIssuePage, /href="\/who-should-buy\.html"/, 'current issue p
 assert.match(currentIssuePage, /href="\/time-saved-calculator\.html"/, 'current issue page links time saved calculator');
 assert.match(currentIssuePage, /href="\/free-vs-paid\.html"/, 'current issue page links free vs paid page');
 assert.match(currentIssuePage, /href="\/permit-research-workflow\.html"/, 'current issue page links research workflow page');
+assert.match(currentIssuePage, /href="\/contractor-supplier-permit-research\.html"/, 'current issue page links contractor and supplier guide');
 assert.match(currentIssuePage, /href="\/inside-the-zip\.html"/, 'current issue page links inside ZIP');
 assert.match(currentIssuePage, /href="\/csv-field-guide\.html"/, 'current issue page links CSV field guide');
 assert.match(currentIssuePage, /href="\/pricing\.html"/, 'current issue page links pricing');
@@ -316,6 +318,7 @@ assert.match(timeSavedCalculator, /href="\/sample\/nyc-construction-activity-pre
 assert.match(timeSavedCalculator, /href="\/who-should-buy\.html"/, 'time saved calculator links who should buy page');
 assert.match(timeSavedCalculator, /href="\/free-vs-paid\.html"/, 'time saved calculator links free vs paid page');
 assert.match(timeSavedCalculator, /href="\/permit-research-workflow\.html"/, 'time saved calculator links research workflow page');
+assert.match(timeSavedCalculator, /href="\/contractor-supplier-permit-research\.html"/, 'time saved calculator links contractor and supplier guide');
 assert.match(timeSavedCalculator, /href="\/inside-the-zip\.html"/, 'time saved calculator links inside ZIP');
 assert.match(timeSavedCalculator, /href="\/csv-field-guide\.html"/, 'time saved calculator links CSV field guide');
 assert.match(timeSavedCalculator, /href="\/pricing\.html"/, 'time saved calculator links pricing');
@@ -351,6 +354,7 @@ assert.match(whoShouldBuy, /href="\/sample\/nyc-construction-activity-preview\.c
 assert.match(whoShouldBuy, /href="\/sample-segments\.html"/, 'who should buy page links segment hub');
 assert.match(whoShouldBuy, /href="\/free-vs-paid\.html"/, 'who should buy page links free vs paid page');
 assert.match(whoShouldBuy, /href="\/permit-research-workflow\.html"/, 'who should buy page links research workflow page');
+assert.match(whoShouldBuy, /href="\/contractor-supplier-permit-research\.html"/, 'who should buy page links contractor and supplier guide');
 assert.match(whoShouldBuy, /href="\/inside-the-zip\.html"/, 'who should buy page links inside the ZIP page');
 assert.match(whoShouldBuy, /href="\/csv-field-guide\.html"/, 'who should buy page links CSV field guide');
 assert.match(whoShouldBuy, /href="\/pricing\.html"/, 'who should buy page links pricing page');
@@ -461,6 +465,7 @@ assert.match(freeVsPaid, /href="\/preview\.html"/, 'free vs paid page links prev
 assert.match(freeVsPaid, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'free vs paid page links sample CSV');
 assert.match(freeVsPaid, /href="\/csv-field-guide\.html"/, 'free vs paid page links CSV field guide');
 assert.match(freeVsPaid, /href="\/permit-research-workflow\.html"/, 'free vs paid page links research workflow page');
+assert.match(freeVsPaid, /href="\/contractor-supplier-permit-research\.html"/, 'free vs paid page links contractor and supplier guide');
 assert.match(freeVsPaid, /href="\/sample-segments\.html"/, 'free vs paid page links segment hub');
 assert.match(freeVsPaid, /href="\/inside-the-zip\.html"/, 'free vs paid page links inside ZIP');
 assert.match(freeVsPaid, /href="\/who-should-buy\.html"/, 'free vs paid page links who should buy page');
@@ -498,6 +503,7 @@ assert.match(researchWorkflow, /href="\/free-vs-paid\.html"/, 'research workflow
 assert.match(researchWorkflow, /href="\/sample-segments\.html"/, 'research workflow page links segment hub');
 assert.match(researchWorkflow, /href="\/inside-the-zip\.html"/, 'research workflow page links inside ZIP');
 assert.match(researchWorkflow, /href="\/who-should-buy\.html"/, 'research workflow page links who should buy page');
+assert.match(researchWorkflow, /href="\/contractor-supplier-permit-research\.html"/, 'research workflow page links contractor and supplier guide');
 assert.match(researchWorkflow, /href="\/time-saved-calculator\.html"/, 'research workflow page links time saved calculator');
 assert.match(researchWorkflow, /href="\/pricing\.html"/, 'research workflow page links pricing');
 assert.match(researchWorkflow, /href="\/support\.html"/, 'research workflow page links support');
@@ -508,6 +514,50 @@ for (const pattern of bannedCopyPatterns) {
 }
 for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(researchWorkflow, pattern, `permit-research-workflow.html contains private data pattern ${pattern}`);
+}
+
+const contractorSupplier = read('contractor-supplier-permit-research.html');
+assert.match(contractorSupplier, /<title>Contractor and Supplier Permit Research \| NYC Construction Brief<\/title>/, 'contractor and supplier guide needs title');
+assert.match(contractorSupplier, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/contractor-supplier-permit-research\.html">/, 'contractor and supplier guide needs canonical');
+assert.match(contractorSupplier, /<meta property="og:title" content="Contractor and Supplier Permit Research \| NYC Construction Brief">/, 'contractor and supplier guide needs OG title');
+assert.match(contractorSupplier, /src="\/assets\/current-issue-snapshot\.png"/, 'contractor and supplier guide needs current issue snapshot image');
+assert.match(contractorSupplier, /"@type":"Product"/, 'contractor and supplier guide needs Product structured data');
+assert.match(contractorSupplier, /"@type":"Dataset"/, 'contractor and supplier guide needs Dataset structured data');
+assert.match(contractorSupplier, /"@type":"FAQPage"/, 'contractor and supplier guide needs FAQ structured data');
+assert.match(contractorSupplier, /"price":"24.50"/, 'contractor and supplier guide needs current price structured data');
+assert.match(contractorSupplier, /\/_vercel\/insights\/script\.js/, 'contractor and supplier guide needs Web Analytics script');
+assert.match(contractorSupplier, /NYC permit research for contractors and suppliers/, 'contractor and supplier guide needs headline');
+assert.match(contractorSupplier, /Vendor review path/, 'contractor and supplier guide needs review path');
+assert.match(contractorSupplier, /Useful buyer pages/, 'contractor and supplier guide needs buyer page links');
+assert.match(contractorSupplier, /buyer-workbook\.md/, 'contractor and supplier guide mentions buyer workbook');
+assert.match(contractorSupplier, /buyer-priority-slices\.csv/, 'contractor and supplier guide mentions priority slices');
+assert.match(contractorSupplier, /source_url/, 'contractor and supplier guide mentions source_url');
+assert.match(contractorSupplier, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'contractor and supplier guide needs row counts');
+assert.match(contractorSupplier, /Top work types: Sidewalk Shed 40/, 'contractor and supplier guide needs work type mix');
+assert.match(contractorSupplier, /href="\/topics\/nyc-construction-supplier-permit-research\.html"/, 'contractor and supplier guide links construction supplier topic');
+assert.match(contractorSupplier, /href="\/topics\/nyc-plumbing-supplier-permit-research\.html"/, 'contractor and supplier guide links plumbing supplier topic');
+assert.match(contractorSupplier, /href="\/topics\/nyc-hvac-mechanical-permit-research\.html"/, 'contractor and supplier guide links HVAC topic');
+assert.match(contractorSupplier, /href="\/topics\/nyc-fire-protection-permit-research\.html"/, 'contractor and supplier guide links fire protection topic');
+assert.match(contractorSupplier, /href="\/topics\/nyc-sidewalk-shed-vendor-permit-research\.html"/, 'contractor and supplier guide links sidewalk shed topic');
+assert.match(contractorSupplier, /href="\/preview\.html"/, 'contractor and supplier guide links preview');
+assert.match(contractorSupplier, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'contractor and supplier guide links sample CSV');
+assert.match(contractorSupplier, /href="\/sample-segments\.html"/, 'contractor and supplier guide links segment hub');
+assert.match(contractorSupplier, /href="\/who-should-buy\.html"/, 'contractor and supplier guide links who should buy page');
+assert.match(contractorSupplier, /href="\/free-vs-paid\.html"/, 'contractor and supplier guide links free vs paid page');
+assert.match(contractorSupplier, /href="\/permit-research-workflow\.html"/, 'contractor and supplier guide links research workflow page');
+assert.doesNotMatch(contractorSupplier, /href="\/contractor-supplier-permit-research\.html"/, 'contractor and supplier guide must not self-link');
+assert.match(contractorSupplier, /href="\/inside-the-zip\.html"/, 'contractor and supplier guide links inside ZIP');
+assert.match(contractorSupplier, /href="\/csv-field-guide\.html"/, 'contractor and supplier guide links CSV field guide');
+assert.match(contractorSupplier, /href="\/time-saved-calculator\.html"/, 'contractor and supplier guide links time saved calculator');
+assert.match(contractorSupplier, /href="\/pricing\.html"/, 'contractor and supplier guide links pricing');
+assert.match(contractorSupplier, /href="\/support\.html"/, 'contractor and supplier guide links support');
+assert.match(contractorSupplier, new RegExp(`href="${checkoutUrl}"`), 'contractor and supplier guide links tracked checkout');
+assert.match(contractorSupplier, /No guaranteed leads\./, 'contractor and supplier guide keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(contractorSupplier, pattern, `contractor-supplier-permit-research.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(contractorSupplier, pattern, `contractor-supplier-permit-research.html contains private data pattern ${pattern}`);
 }
 
 const buyerGuide = read('buyer-guide.html');
@@ -658,7 +708,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -666,7 +716,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 19, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 20, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -688,6 +738,7 @@ assert.equal(currentIssue.publicPreview.timeSavedCalculatorUrl, 'https://nyc-con
 assert.equal(currentIssue.publicPreview.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON public preview links who should buy page');
 assert.equal(currentIssue.publicPreview.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON public preview links free vs paid page');
 assert.equal(currentIssue.publicPreview.researchWorkflowUrl, 'https://nyc-construction-activity-brief.vercel.app/permit-research-workflow.html', 'current issue JSON public preview links research workflow page');
+assert.equal(currentIssue.publicPreview.contractorSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html', 'current issue JSON public preview links contractor and supplier guide');
 assert.equal(currentIssue.publicPreview.insideZipUrl, 'https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html', 'current issue JSON public preview links inside ZIP page');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
 assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P', 'current issue JSON keeps Stripe checkout URL');
@@ -707,6 +758,7 @@ assert.equal(currentIssue.paidZip.timeSavedCalculatorUrl, 'https://nyc-construct
 assert.equal(currentIssue.paidZip.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON paid ZIP links who should buy page');
 assert.equal(currentIssue.paidZip.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON paid ZIP links free vs paid page');
 assert.equal(currentIssue.paidZip.researchWorkflowUrl, 'https://nyc-construction-activity-brief.vercel.app/permit-research-workflow.html', 'current issue JSON paid ZIP links research workflow page');
+assert.equal(currentIssue.paidZip.contractorSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html', 'current issue JSON paid ZIP links contractor and supplier guide');
 assert.equal(currentIssue.paidZip.insideZipUrl, 'https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html', 'current issue JSON paid ZIP links inside ZIP page');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
@@ -733,6 +785,7 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/time
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/who-should-buy\.html/, 'RSS feed links who should buy page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html/, 'RSS feed links free vs paid page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/permit-research-workflow\.html/, 'RSS feed links research workflow page');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/contractor-supplier-permit-research\.html/, 'RSS feed links contractor and supplier guide');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/inside-the-zip\.html/, 'RSS feed links inside the ZIP page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'RSS feed links buyer guide');
@@ -749,6 +802,7 @@ assert.match(llms, /Time saved calculator: https:\/\/nyc-construction-activity-b
 assert.match(llms, /Who should buy: https:\/\/nyc-construction-activity-brief\.vercel\.app\/who-should-buy\.html/, 'llms.txt links who should buy page');
 assert.match(llms, /Free preview vs paid ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html/, 'llms.txt links free vs paid page');
 assert.match(llms, /Research workflow: https:\/\/nyc-construction-activity-brief\.vercel\.app\/permit-research-workflow\.html/, 'llms.txt links research workflow page');
+assert.match(llms, /Contractor and supplier guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/contractor-supplier-permit-research\.html/, 'llms.txt links contractor and supplier guide');
 assert.match(llms, /Inside the ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/inside-the-zip\.html/, 'llms.txt links inside the ZIP page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
