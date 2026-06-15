@@ -361,5 +361,60 @@
     "currentSample": "The paid ZIP includes 142 selected rows across seven work types and five ZIP codes. The free CSV preview is limited to 25 rows.",
     "useCase": "Use this page if you want a weekly construction activity report that starts with public permit records and keeps source links visible. It does not include private contacts, bid timing, or agency endorsement.",
     "sampleLine": "Construction activity report | work type | ZIP | issued date | status | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-sprinkler-fire-protection-permit-research",
+    "title": "NYC Fire Protection Permit Research | Weekly CSV",
+    "description": "A weekly NYC fire protection permit research screen for selected sprinkler rows with ZIP, issue date, status, and source links.",
+    "h1": "NYC fire protection permit research from selected sprinkler rows.",
+    "lede": "The current issue helps fire-protection buyers review selected sprinkler activity without rebuilding the same DOB sort from scratch.",
+    "audience": "Fire-protection contractors, sprinkler suppliers, service firms, and construction-support teams that manually verify source records before acting.",
+    "currentSample": "The current issue sample includes 21 selected sprinkler rows from the 2026-06-09 to 2026-06-15 public-record pull.",
+    "useCase": "Use this page to decide whether the current sprinkler sample is worth deeper source-record review. It does not include private contacts, bid timing, or guaranteed work.",
+    "sampleLine": "Sprinkler research row | ZIP | borough | issued date | status | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-hvac-permit-research",
+    "title": "NYC HVAC Permit Research | Mechanical Permit Signals",
+    "description": "A weekly NYC HVAC permit research screen for selected mechanical systems rows with ZIP, issue date, status, and source links.",
+    "h1": "NYC HVAC permit research from selected mechanical systems activity.",
+    "lede": "The brief packages selected mechanical systems permit rows for HVAC-adjacent buyers who need a fast weekly research screen.",
+    "audience": "HVAC contractors, mechanical suppliers, maintenance vendors, and service firms reviewing public building-systems activity.",
+    "currentSample": "The current issue sample includes 18 selected mechanical systems rows with source links and buyer-safe fields.",
+    "useCase": "Use the file to sort mechanical activity by ZIP, borough, and issued date before opening source records. It is not a contact list or a live alert feed.",
+    "sampleLine": "HVAC research signal | mechanical systems | ZIP | issued date | status | source link"
+  },
+  {
+    "slug": "nyc-construction-material-suppliers",
+    "title": "NYC Construction Permit Signals for Suppliers",
+    "description": "A weekly NYC construction permit signal brief for material suppliers screening selected work types, ZIPs, dates, and source links.",
+    "h1": "NYC construction permit signals for material suppliers.",
+    "lede": "The current issue gives suppliers a small source-linked file for selected public permit activity by work type and territory.",
+    "audience": "Material suppliers, distributors, rental desks, and local B2B vendors that use permit records as one input for manual territory research.",
+    "currentSample": "The paid ZIP includes 142 selected rows across plumbing, mechanical, sprinkler, structural, scaffold, sidewalk shed, and fence activity.",
+    "useCase": "Use this page to check whether the current work-type mix overlaps with your supply category. The product does not identify purchasing contacts or claim purchase intent.",
+    "sampleLine": "Supplier screen | work type | territory | issued date | cost bucket | public source link"
+  },
+  {
+    "slug": "nyc-local-service-provider-permit-research",
+    "title": "NYC Permit Research for Local Service Providers",
+    "description": "A weekly NYC permit research brief for local B2B service providers screening selected construction activity by ZIP and work type.",
+    "h1": "NYC permit research for local service providers.",
+    "lede": "The weekly brief helps local service providers scan selected construction activity before deciding which public records deserve review.",
+    "audience": "Security firms, waste services, equipment rental teams, cleaning vendors, and other local B2B providers that research active construction signals.",
+    "currentSample": "The current issue covers selected Manhattan and Brooklyn ZIP codes with buyer-safe fields and source links.",
+    "useCase": "Use the brief as a research starting point when ZIP, work type, and issued date are enough to choose records for manual checking.",
+    "sampleLine": "Local service research | ZIP | work type | issued date | status | source link"
+  },
+  {
+    "slug": "nyc-permit-research-for-brokers",
+    "title": "NYC Permit Research for Brokers | Weekly DOB Signals",
+    "description": "A weekly NYC permit research screen for brokers reviewing selected construction activity by ZIP, work type, date, and source link.",
+    "h1": "NYC permit research for brokers watching construction activity.",
+    "lede": "The current issue gives brokers a compact view of selected public permit activity for weekly market and territory research.",
+    "audience": "Commercial brokers, tenant-rep teams, investment sales researchers, and consultants who use public construction signals in market review.",
+    "currentSample": "The paid ZIP includes 142 selected rows across five ZIP codes and seven work types. The free CSV preview is limited to 25 rows.",
+    "useCase": "Use this page to check active permit signals before deeper source review. It does not include private contacts, owner names, deal intent, or guaranteed opportunities.",
+    "sampleLine": "Broker research signal | ZIP | work type | issued date | source link | manual review"
   }
 ]
