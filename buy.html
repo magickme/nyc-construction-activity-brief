@@ -31,6 +31,10 @@
         <h1>Buy the current issue ZIP.</h1>
         <p class="lede">One current-issue ZIP for buyers who want the selected NYC DOB NOW rows packaged for spreadsheet review.</p>
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
+        <p>
+          <a data-buy-link="top" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+        </p>
+        <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
         <div class="grid">
           <div class="card">
             <h2>Included</h2>
@@ -89,7 +93,7 @@
             </table>
           </div>
         </section>
-        <a id="buy-link" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+        <a data-buy-link="after-sample" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
         <p class="fine">Stripe creates the paid session, then the success page unlocks the ZIP in your browser.</p>
         <section class="section">
           <h2>Inspect before checkout</h2>
@@ -220,8 +224,10 @@
         client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
       });
       const fallbackUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?' + stripeParams.toString();
-      const link = document.getElementById('buy-link');
-      link.href = fallbackUrl;
+      const links = [...document.querySelectorAll('[data-buy-link]')];
+      links.forEach((link) => {
+        link.href = fallbackUrl;
+      });
       function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -247,11 +253,13 @@
           return fallbackUrl;
         }
       }
-      link.addEventListener('click', async (event) => {
-        event.preventDefault();
-        trackEvent('buy_page_continue_clicked', { source });
-        link.setAttribute('aria-busy', 'true');
-        window.location.assign(await createCheckoutUrl());
+      links.forEach((link) => {
+        link.addEventListener('click', async (event) => {
+          event.preventDefault();
+          trackEvent('buy_page_continue_clicked', { source, position: link.dataset.buyLink || 'unknown' });
+          link.setAttribute('aria-busy', 'true');
+          window.location.assign(await createCheckoutUrl());
+        });
       });
       trackEvent('buy_page_viewed', { source });
     </script>
