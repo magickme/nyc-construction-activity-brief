@@ -17,7 +17,7 @@
       <section class="section card">
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
-        <p class="fine">If the redirect does not start, use the button below. The current launch price is $9.50. No promo code is required.</p>
+        <p class="fine">Review the purchase details, then use the button below. The current launch price is $9.50. No promo code is required.</p>
         <p class="fine">This is a one-time ZIP purchase. It does not create a subscription, account, or recurring charge.</p>
         <div class="grid">
           <div class="card">
@@ -47,7 +47,7 @@
         </p>
         <p class="fine">Stripe handles payment. The success page uses the paid Checkout Session to unlock the ZIP.</p>
         <noscript>
-          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout.</p>
+          <p class="fine">JavaScript is off, so the button above opens the Stripe Payment Link fallback.</p>
         </noscript>
       </section>
     </main>
@@ -95,17 +95,13 @@
           return fallbackUrl;
         }
       }
-      const checkoutUrlPromise = createCheckoutUrl();
       link.addEventListener('click', async (event) => {
         event.preventDefault();
         trackEvent('checkout_continue_clicked', { source });
-        window.location.assign(await checkoutUrlPromise);
+        link.setAttribute('aria-busy', 'true');
+        window.location.assign(await createCheckoutUrl());
       });
       trackEvent('checkout_intent', { source });
-      window.setTimeout(async () => {
-        trackEvent('checkout_auto_redirect', { source });
-        window.location.replace(await checkoutUrlPromise);
-      }, 1800);
     </script>
   </body>
 </html>

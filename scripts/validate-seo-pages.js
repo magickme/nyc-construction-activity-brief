@@ -464,8 +464,12 @@ assert.match(checkout, /body: JSON\.stringify\(\{ source \}\)/, 'checkout page s
 assert.match(checkout, /checkout_session_created/, 'checkout page tracks first-party checkout session creation');
 assert.match(checkout, /checkout_session_fallback/, 'checkout page tracks Payment Link fallback');
 assert.match(checkout, /checkout_continue_clicked/, 'checkout page tracks manual continue clicks');
-assert.match(checkout, /checkout_auto_redirect/, 'checkout page tracks automatic redirects');
-assert.match(checkout, /window\.location\.replace\(await checkoutUrlPromise\);/, 'checkout page redirects to first-party session or fallback URL');
+assert.match(checkout, /link\.addEventListener\('click', async \(event\)/, 'checkout page creates checkout sessions only after buyer click');
+assert.match(checkout, /link\.setAttribute\('aria-busy', 'true'\);/, 'checkout page marks manual continue while creating checkout');
+assert.match(checkout, /window\.location\.assign\(await createCheckoutUrl\(\)\);/, 'checkout page sends manual buyers to first-party session or fallback URL');
+assert.doesNotMatch(checkout, /const checkoutUrlPromise = createCheckoutUrl\(\);/, 'checkout page must not create checkout sessions on page load');
+assert.doesNotMatch(checkout, /checkout_auto_redirect/, 'checkout page must not auto-redirect before buyer review');
+assert.doesNotMatch(checkout, /window\.setTimeout\(async \(\) => \{[\s\S]*?window\.location\.replace/, 'checkout page must not auto-redirect to Stripe');
 assert.match(checkout, /Instant browser download after completed Stripe checkout\./, 'checkout page has buyer reassurance copy');
 assert.match(checkout, /This is a one-time ZIP purchase\. It does not create a subscription, account, or recurring charge\./, 'checkout page reassures buyers there is no subscription or account');
 assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count before Stripe');
@@ -475,7 +479,7 @@ assert.match(checkout, /href="\/invoice-request\.html\?source=checkout-bridge">N
 assert.match(checkout, /href="\/preview\.html"/, 'checkout page links preview for buyer reassurance');
 assert.match(checkout, /href="\/inside-the-zip\.html"/, 'checkout page links ZIP contents for buyer reassurance');
 assert.match(checkout, /href="\/support\.html"/, 'checkout page links support and refund boundary');
-assert.match(checkout, /\}, 1800\);/, 'checkout page gives buyers time to read reassurance before Stripe');
+assert.match(checkout, /Review the purchase details, then use the button below\./, 'checkout page gives buyers time to read reassurance before Stripe');
 assert.match(checkout, /<noscript>/, 'checkout page has no-JavaScript fallback copy');
 assert.match(checkout, /\/_vercel\/insights\/script\.js/, 'checkout page needs Web Analytics script');
 
