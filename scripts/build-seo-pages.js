@@ -817,8 +817,9 @@ function checkoutHtml(rows) {
 }
 
 function buyHtml(rows) {
-  const source = 'buy-page';
-  const checkout = checkoutBridgeHref(source);
+  const defaultSource = 'buy-page';
+  const topCheckout = checkoutBridgeHref('buy-page-top');
+  const sampleCheckout = checkoutBridgeHref('buy-page-after-sample');
   const description = 'Buy the current NYC Weekly Construction Activity Brief ZIP with source-linked DOB NOW rows, buyer workbook, priority slices, and instant browser download.';
   const product = productJsonLd(description, `${baseUrl}/buy.html`);
   const buySamples = buySampleRows(rows, 3);
@@ -860,7 +861,7 @@ ${socialImageMeta()}
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
         <p class="fine">No account setup, subscription, or recurring charge.</p>
         <p>
-          <a data-buy-link="top" class="button" href="${checkout}">Buy $9.50 ZIP on Stripe</a>
+          <a data-buy-link="top" class="button" href="${topCheckout}">Buy $9.50 ZIP on Stripe</a>
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
         </p>
         <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
@@ -913,7 +914,7 @@ ${socialImageMeta()}
             </table>
           </div>
         </section>
-        <a data-buy-link="after-sample" class="button" href="${checkout}">Buy $9.50 ZIP on Stripe</a>
+        <a data-buy-link="after-sample" class="button" href="${sampleCheckout}">Buy $9.50 ZIP on Stripe</a>
         <p class="fine">Stripe creates the paid session, then the success page unlocks the ZIP in your browser.</p>
         <section class="section">
           <h2>Inspect before checkout</h2>
@@ -947,31 +948,38 @@ ${socialImageMeta()}
         </section>
 ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' })}
         <noscript>
-          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout. You can also use the <a href="${checkout}">checkout bridge</a>.</p>
+          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout. You can also use the <a href="${topCheckout}">checkout bridge</a>.</p>
         </noscript>
       </section>
     </main>
     ${sampleRequestScript()}
     <script>
       const params = new URLSearchParams(window.location.search);
-      const rawSource = params.get('source') || '${source}';
-      const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : '${source}';
-      const stripeParams = new URLSearchParams({
-        utm_source: 'nyc_construction_activity_brief',
-        utm_medium: 'owned_site',
-        utm_campaign: 'current_issue_launch',
-        utm_content: source,
-        client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
-      });
-      const fallbackUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
+      const rawSource = params.get('source') || '${defaultSource}';
+      const pageSource = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : '${defaultSource}';
       const links = [...document.querySelectorAll('[data-buy-link]')];
+      function linkSource(link) {
+        const url = new URL(link.href, window.location.href);
+        const rawLinkSource = url.searchParams.get('source') || pageSource;
+        return /^[a-z0-9._-]{1,80}$/i.test(rawLinkSource) ? rawLinkSource : pageSource;
+      }
+      function fallbackUrlFor(source) {
+        const stripeParams = new URLSearchParams({
+          utm_source: 'nyc_construction_activity_brief',
+          utm_medium: 'owned_site',
+          utm_campaign: 'current_issue_launch',
+          utm_content: source,
+          client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
+        });
+        return '${stripeCheckoutUrl}?' + stripeParams.toString();
+      }
       function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
           window.va('event', { name, data });
         } catch (error) {}
       }
-      async function createCheckoutUrl() {
+      async function createCheckoutUrl(source) {
         try {
           const response = await fetch('/api/create-checkout-session', {
             method: 'POST',
@@ -987,18 +995,19 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
           return data.url;
         } catch (error) {
           trackEvent('buy_page_checkout_session_fallback', { source });
-          return fallbackUrl;
+          return fallbackUrlFor(source);
         }
       }
       links.forEach((link) => {
         link.addEventListener('click', async (event) => {
           event.preventDefault();
+          const source = linkSource(link);
           trackEvent('buy_page_continue_clicked', { source, position: link.dataset.buyLink || 'unknown' });
           link.setAttribute('aria-busy', 'true');
-          window.location.assign(await createCheckoutUrl());
+          window.location.assign(await createCheckoutUrl(source));
         });
       });
-      trackEvent('buy_page_viewed', { source });
+      trackEvent('buy_page_viewed', { source: pageSource });
     </script>
   </body>
 </html>

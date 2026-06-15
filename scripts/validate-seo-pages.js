@@ -460,7 +460,9 @@ assert.match(buy, /<meta property="og:title" content="Buy Current Issue \| NYC C
 assert.match(buy, /<meta property="og:url" content="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html">/, 'buy page needs OG URL');
 assert.match(buy, /"@type":"Product"/, 'buy page needs Product structured data');
 assert.match(buy, /"price":"9.50"/, 'buy page needs current price structured data');
-assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page"/, 'buy page visible CTAs default to tracked checkout bridge');
+assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-top"/, 'buy page top CTA uses tracked checkout bridge source');
+assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-after-sample"/, 'buy page after-sample CTA uses tracked checkout bridge source');
+assert.match(buy, /function linkSource\(link\)/, 'buy page reads the clicked CTA source before creating checkout');
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-activity-preview\.csv">Open free CSV preview<\/a>/, 'buy page gives uncertain buyers an above-fold CSV preview CTA');
 assert.match(buy, /No account setup, subscription, or recurring charge\./, 'buy page reassures buyers before checkout bridge');
@@ -510,7 +512,7 @@ assert.match(buy, /document\.querySelectorAll\('\[data-buy-link\]'\)/, 'buy page
 assert.doesNotMatch(buy, /links\.forEach\(\(link\) => \{\s*link\.href = fallbackUrl;\s*\}\);/, 'buy page must not rewrite visible CTAs to Payment Link fallback before click');
 assert.match(buy, /link\.addEventListener\('click', async \(event\)/, 'buy page creates checkout sessions only after buyer click');
 assert.match(buy, /position: link\.dataset\.buyLink \|\| 'unknown'/, 'buy page tracks CTA position without PII');
-assert.match(buy, /window\.location\.assign\(await createCheckoutUrl\(\)\);/, 'buy page sends clickers to first-party session or fallback URL');
+assert.match(buy, /window\.location\.assign\(await createCheckoutUrl\(source\)\);/, 'buy page sends clickers to first-party session or fallback URL with CTA source');
 assert.doesNotMatch(buy, /buy_page_auto_redirect/, 'buy page must not auto-redirect indexed visitors');
 assert.doesNotMatch(buy, /const checkoutUrlPromise = createCheckoutUrl\(\);/, 'buy page must not create checkout sessions on page load');
 assert.doesNotMatch(buy, /window\.location\.replace\(stripeUrl\);/, 'buy page must not redirect directly to Payment Link JS URL');
