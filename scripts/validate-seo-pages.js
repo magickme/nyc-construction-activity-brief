@@ -79,6 +79,8 @@ function assertHtmlPage(relativePath) {
     new RegExp(`<link rel="canonical" href="${baseUrl}/${relativePath}">`),
     `${relativePath} needs a canonical URL`,
   );
+  assert.match(html, new RegExp(`<link rel="alternate" type="application/rss\\+xml"[^>]+href="${baseUrl}/feed\\.xml">`), `${relativePath} links RSS feed`);
+  assert.match(html, new RegExp(`<link rel="alternate" type="application/json"[^>]+href="${baseUrl}/current-issue\\.json">`), `${relativePath} links current issue JSON`);
   assert.match(html, /<meta property="og:title" content="[^"]+">/, `${relativePath} needs OG title`);
   assert.match(html, /<meta property="og:description" content="[^"]+">/, `${relativePath} needs OG description`);
   assert.match(html, /<meta name="twitter:card" content="summary">/, `${relativePath} needs Twitter card`);
@@ -126,6 +128,8 @@ assert.match(
   new RegExp(`<link rel="canonical" href="${baseUrl}/">`),
   'index needs a canonical URL',
 );
+assert.match(index, new RegExp(`<link rel="alternate" type="application/rss\\+xml"[^>]+href="${baseUrl}/feed\\.xml">`), 'index links RSS feed');
+assert.match(index, new RegExp(`<link rel="alternate" type="application/json"[^>]+href="${baseUrl}/current-issue\\.json">`), 'index links current issue JSON');
 assert.match(index, /<meta property="og:title" content="[^"]+">/, 'index needs OG title');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
 assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytics script');
@@ -144,6 +148,8 @@ assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub')
 const hub = read('sample-segments.html');
 assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
 assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html">/, 'hub needs canonical');
+assert.match(hub, /<link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">/, 'hub links RSS feed');
+assert.match(hub, /<link rel="alternate" type="application\/json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.json">/, 'hub links current issue JSON');
 assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
 assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
@@ -157,6 +163,8 @@ for (const page of generatedPages) {
 const methodology = read('methodology.html');
 assert.match(methodology, /<title>Methodology \| NYC Construction Activity Brief<\/title>/, 'methodology needs title');
 assert.match(methodology, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/methodology\.html">/, 'methodology needs canonical');
+assert.match(methodology, /<link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">/, 'methodology links RSS feed');
+assert.match(methodology, /<link rel="alternate" type="application\/json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.json">/, 'methodology links current issue JSON');
 assert.match(methodology, /NYC DOB NOW: Build - Approved Permits/, 'methodology names source dataset');
 assert.match(methodology, /Latest issued row in the file:/, 'methodology needs source freshness note');
 assert.match(methodology, /The public package excludes owner names/, 'methodology needs privacy boundary');
@@ -175,14 +183,39 @@ for (const page of ['', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
+for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
+  assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
+}
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 3, 'sitemap URL count must match generated surface');
+assert.equal(sitemapUrlCount, pages.length + 6, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
 const robots = read('robots.txt');
 assert.match(robots, /User-agent: \*/);
 assert.match(robots, new RegExp(`Sitemap: ${baseUrl}/sitemap.xml`));
+assert.match(robots, new RegExp(`Feed: ${baseUrl}/feed.xml`), 'robots points to RSS feed');
+assert.match(robots, new RegExp(`Current-Issue: ${baseUrl}/current-issue.json`), 'robots points to current issue JSON');
+
+const currentIssue = JSON.parse(read('current-issue.json'));
+assert.equal(currentIssue.product, 'NYC Weekly Construction Activity Brief', 'current issue JSON names product');
+assert.equal(currentIssue.issue, 'current', 'current issue JSON marks current issue');
+assert.equal(currentIssue.publicPreview.rowCount, manifest.sourceRows, 'current issue JSON row count matches manifest');
+assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N', 'current issue JSON links checkout');
+assert.equal(currentIssue.boundary.includesPrivateContactData, false, 'current issue JSON keeps private-contact boundary');
+assert.equal(currentIssue.boundary.leadGuarantee, false, 'current issue JSON keeps claims boundary');
+assert.equal(currentIssue.generatedPages.totalTopicPages, pages.length, 'current issue JSON topic page count matches manifest');
+
+const feed = read('feed.xml');
+assert.match(feed, /<rss version="2\.0">/, 'RSS feed has rss root');
+assert.match(feed, /<title>NYC Weekly Construction Activity Brief<\/title>/, 'RSS feed names product');
+assert.match(feed, /Current NYC construction activity brief: 142 public preview rows/, 'RSS feed describes current issue');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
+
+const llms = read('llms.txt');
+assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
+assert.match(llms, /Public preview rows: 142/, 'llms.txt has row count');
+assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 
 const indexNowKey = read('320c87511764a53abe2cd8aa0481f1bc.txt').trim();
 assert.equal(indexNowKey, '320c87511764a53abe2cd8aa0481f1bc', 'IndexNow key file must match submission script');

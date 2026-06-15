@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>NYC Weekly Construction Activity Brief</title>
+    <link>https://nyc-construction-activity-brief.vercel.app/</link>
+    <description>Current source-linked NYC construction permit activity pages, sample CSV, and paid ZIP checkout.</description>
+    <lastBuildDate>Mon, 15 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Current NYC construction activity brief: 142 public preview rows</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current public preview covers issued dates 2026-06-09 through 2026-06-12. Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13.</description>
+    </item>
+    <item>
+      <title>Browse current permit activity segments</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/sample-segments.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/sample-segments.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current 142-row public CSV preview.</description>
+    </item>
+    <item>
+      <title>Methodology and source boundary</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/methodology.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/methodology.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Source, privacy boundary, excluded fields, buyer ZIP contents, and claims limits for the current issue.</description>
+    </item>
+    <item>
+      <title>nyc sidewalk shed permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc supported scaffold permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc construction fence permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc plumbing permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc mechanical permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc sprinkler permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc structural permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc dob permit monitoring</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>nyc dob permit csv</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>brooklyn construction permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>manhattan construction permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+    <item>
+      <title>construction lead research nyc</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current source-linked NYC construction permit activity page from the public preview.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,36 @@
+# NYC Weekly Construction Activity Brief
+
+Source-linked weekly NYC DOB NOW construction permit activity brief.
+
+Current issue:
+- Public preview rows: 142
+- Source fetch date: 2026-06-15
+- Issued dates in preview: 2026-06-09 to 2026-06-12
+- Checkout: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N
+- Price: $49 one-time ZIP download
+
+Primary pages:
+- Home: https://nyc-construction-activity-brief.vercel.app/
+- Current issue JSON: https://nyc-construction-activity-brief.vercel.app/current-issue.json
+- RSS feed: https://nyc-construction-activity-brief.vercel.app/feed.xml
+- Sample CSV: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv
+- Sample brief: https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md
+- Segment hub: https://nyc-construction-activity-brief.vercel.app/sample-segments.html
+- Methodology: https://nyc-construction-activity-brief.vercel.app/methodology.html
+
+Current counts:
+- Sidewalk Shed: 40
+- Plumbing: 29
+- Sprinklers: 21
+- Mechanical Systems: 18
+- Supported Scaffold: 13
+- Structural: 12
+- Construction Fence: 9
+
+Boundaries:
+- No owner names, applicant names, phone numbers, emails, full street addresses, or enriched contact data.
+- No guaranteed leads.
+- Not affiliated with or endorsed by NYC, DOB, or any agency.
+- Source records can be incomplete, delayed, revised, duplicated, or mislabeled.
+
+Generated topic page count: 96
