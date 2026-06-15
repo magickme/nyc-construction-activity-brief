@@ -453,11 +453,11 @@ assert.match(index, /href="\/buyer-guide\.html"/, 'index links buyer guide');
 assert.match(index, /href="\/delivery\.html"/, 'index links delivery page');
 
 for (const boroughPage of [
-  ['queens-construction-permit-activity.html', 'Queens'],
-  ['bronx-construction-permit-activity.html', 'Bronx'],
-  ['staten-island-construction-permit-activity.html', 'Staten Island'],
+  ['queens-construction-permit-activity.html', 'Queens', 'queens-permit-activity-request'],
+  ['bronx-construction-permit-activity.html', 'Bronx', 'bronx-permit-activity-request'],
+  ['staten-island-construction-permit-activity.html', 'Staten Island', 'staten-island-permit-activity-request'],
 ]) {
-  const [fileName, boroughName] = boroughPage;
+  const [fileName, boroughName, requestSource] = boroughPage;
   const html = read(fileName);
   assert.match(html, new RegExp(`<title>${boroughName} Construction Permit Activity Request \\| NYC Brief</title>`), `${fileName} needs borough request title`);
   assert.match(html, new RegExp(`<link rel="canonical" href="${baseUrl}/${fileName}">`), `${fileName} needs canonical URL`);
@@ -466,6 +466,10 @@ for (const boroughPage of [
   assert.match(html, /Manhattan 74 \| Brooklyn 68/, `${fileName} must show current Manhattan and Brooklyn coverage`);
   assert.match(html, new RegExp(`Do not buy it for ${boroughName} coverage unless the current issue page shows rows that fit your territory\\.`), `${fileName} must avoid unsupported purchase claims`);
   assert.match(html, new RegExp(`Request ${boroughName} sample cut`), `${fileName} must route searchers to sample request`);
+  assert.match(html, new RegExp(`Request ${boroughName} sample</a>`), `${fileName} must keep sticky CTA request-focused`);
+  assert.doesNotMatch(html, /Buy ZIP/, `${fileName} must not show a buy CTA for unsupported borough coverage`);
+  assert.doesNotMatch(html, /\$9\.50 current issue ZIP/, `${fileName} must not show generic paid ZIP sticky copy`);
+  assert.doesNotMatch(html, new RegExp(`checkout\\.html\\?source=${requestSource}`), `${fileName} must not route unsupported borough demand to checkout`);
   assert.match(html, new RegExp(`value="${boroughName} construction permit activity"`), `${fileName} must seed borough work type request`);
   assert.match(html, new RegExp(`value="${boroughName}"`), `${fileName} must seed borough territory request`);
   assert.match(html, /\/api\/sample-request/, `${fileName} must post to sample request API`);

@@ -339,6 +339,17 @@ function conversionBar(source) {
 `;
 }
 
+function boroughRequestConversionBar(config) {
+  return `    <aside class="conversion-bar" data-conversion-bar>
+      <p>Current issue: selected Manhattan and Brooklyn rows only. Request a future ${escapeHtml(config.boroughName)} sample if that is your territory.</p>
+      <div class="conversion-actions">
+        <a class="button" href="#sample-request">Request ${escapeHtml(config.boroughName)} sample</a>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+      </div>
+    </aside>
+`;
+}
+
 function topPurchaseCta(source) {
   return `      <p>
         <a class="button" href="${checkoutBridgeHref(source)}">Buy $9.50 ZIP</a>
@@ -9638,7 +9649,7 @@ ${sampleRequestSection({
         failedCopy: `${config.boroughName} request was not saved.`,
       })}
     </main>
-${conversionBar(config.requestSource)}
+${boroughRequestConversionBar(config)}
     ${sampleRequestScript()}
   </body>
 </html>
