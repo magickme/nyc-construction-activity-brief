@@ -55,6 +55,12 @@ function intentTags(request) {
   if (/\bprocurement\b|\bpurchase order\b|\bpo\b|\bapproval\b/.test(text)) {
     tags.push('wealth:ncab:intent:procurement');
   }
+  if (/\bfacade\b/.test(text)) tags.push('wealth:ncab:intent:facade');
+  if (/\bmasonry\b/.test(text)) tags.push('wealth:ncab:intent:masonry');
+  if (/\brestoration\b|\bexterior-repair\b/.test(text)) tags.push('wealth:ncab:intent:restoration');
+  if (/\bexterior\b|\bsidewalk shed\b|\bscaffold\b|\bfence\b/.test(text)) {
+    tags.push('wealth:ncab:intent:exterior-access');
+  }
   return tags;
 }
 

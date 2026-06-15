@@ -25,6 +25,22 @@ assert.deepEqual(intentTags({ monitoringGoal: 'Send invoice after procurement ap
   'wealth:ncab:intent:invoice',
   'wealth:ncab:intent:procurement',
 ]);
+assert.deepEqual(intentTags({
+  workType: 'Facade restoration and exterior access',
+  monitoringGoal: 'Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC.',
+}), [
+  'wealth:ncab:intent:facade',
+  'wealth:ncab:intent:restoration',
+  'wealth:ncab:intent:exterior-access',
+]);
+assert.deepEqual(intentTags({
+  workType: 'Masonry, restoration, and exterior access',
+  monitoringGoal: 'Masonry-adjacent structural, sidewalk shed, scaffold, and construction fence permit activity in NYC.',
+}), [
+  'wealth:ncab:intent:masonry',
+  'wealth:ncab:intent:restoration',
+  'wealth:ncab:intent:exterior-access',
+]);
 
 const valid = validateSampleRequest({
   email: 'BUYER@example.com',
@@ -129,6 +145,60 @@ assert.deepEqual(buildMauticContactPayload(procurement.value), {
     'wealth:ncab:source-page:buy-html',
     'wealth:ncab:intent:invoice',
     'wealth:ncab:intent:procurement',
+  ],
+});
+
+const facade = validateSampleRequest({
+  email: 'facade@example.com',
+  work_type_requested: 'Facade restoration and exterior access',
+  territory_requested: 'NYC',
+  buyer_type: 'specialty-subcontractor',
+  monitoring_goal: 'Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC.',
+  source_path: '/topics/nyc-facade-restoration-permit-research.html',
+  consent: true,
+  website: '',
+});
+assert.equal(facade.ok, true);
+assert.deepEqual(buildMauticContactPayload(facade.value), {
+  email: 'facade@example.com',
+  tags: [
+    'wealth:nyc-construction-activity-brief',
+    'wealth:nyc-construction-activity-brief:sample-request',
+    'source:nyc-construction-activity-brief-site',
+    'wealth:ncab:buyer:specialty-subcontractor',
+    'wealth:ncab:work-type:facade-restoration-and-exterior-access',
+    'wealth:ncab:territory:nyc',
+    'wealth:ncab:source-page:topics-nyc-facade-restoration-permit-research-html',
+    'wealth:ncab:intent:facade',
+    'wealth:ncab:intent:restoration',
+    'wealth:ncab:intent:exterior-access',
+  ],
+});
+
+const masonry = validateSampleRequest({
+  email: 'masonry@example.com',
+  work_type_requested: 'Masonry, restoration, and exterior access',
+  territory_requested: 'NYC',
+  buyer_type: 'specialty-subcontractor',
+  monitoring_goal: 'Masonry-adjacent structural, sidewalk shed, scaffold, and construction fence permit activity in NYC.',
+  source_path: '/topics/nyc-masonry-contractor-permit-research.html',
+  consent: true,
+  website: '',
+});
+assert.equal(masonry.ok, true);
+assert.deepEqual(buildMauticContactPayload(masonry.value), {
+  email: 'masonry@example.com',
+  tags: [
+    'wealth:nyc-construction-activity-brief',
+    'wealth:nyc-construction-activity-brief:sample-request',
+    'source:nyc-construction-activity-brief-site',
+    'wealth:ncab:buyer:specialty-subcontractor',
+    'wealth:ncab:work-type:masonry-restoration-and-exterior-access',
+    'wealth:ncab:territory:nyc',
+    'wealth:ncab:source-page:topics-nyc-masonry-contractor-permit-research-html',
+    'wealth:ncab:intent:masonry',
+    'wealth:ncab:intent:restoration',
+    'wealth:ncab:intent:exterior-access',
   ],
 });
 
