@@ -1543,6 +1543,9 @@ assert.match(delivery, /"@type":"Product"/, 'delivery page needs Product structu
 assert.match(delivery, /"@type":"Offer"/, 'delivery page needs Offer structured data');
 assert.match(delivery, /"@type":"FAQPage"/, 'delivery page needs FAQ structured data');
 assert.match(delivery, /\/_vercel\/insights\/script\.js/, 'delivery page needs Web Analytics script');
+assert.match(delivery, /creates a product-scoped Stripe Checkout Session/, 'delivery page explains first-party checkout session');
+assert.match(delivery, /Payment Link kept as fallback/, 'delivery page explains Payment Link fallback');
+assert.doesNotMatch(delivery, /Payment Link is product-scoped/, 'delivery page must not describe Payment Link as the primary path');
 assert.match(delivery, /success\.html\?session_id=\{CHECKOUT_SESSION_ID\}/, 'delivery page explains success redirect');
 assert.match(delivery, /\/api\/download/, 'delivery page explains download endpoint');
 assert.match(delivery, /Paid ZIP rows: 142\./, 'delivery page needs paid row count');
@@ -1580,6 +1583,8 @@ assert.match(support, /success\.html\?session_id=\{CHECKOUT_SESSION_ID\}/, 'supp
 assert.match(support, /\/api\/download/, 'support page explains download gate');
 assert.match(support, /missing_or_invalid_session_id/, 'support page explains missing session error');
 assert.match(support, /payment_required/, 'support page explains unpaid session error');
+assert.match(support, /Stripe did not confirm a paid completed Checkout Session for this product/, 'support page describes product-scoped payment gate');
+assert.doesNotMatch(support, /accepted Payment Link/, 'support page must not describe Payment Link as the only accepted path');
 assert.match(support, /session_verification_failed/, 'support page explains verification error');
 assert.match(support, /download_not_configured/, 'support page explains configuration error');
 assert.match(support, /Refund review should be based on duplicate charge, failed paid-session delivery, or a product file problem/, 'support page states refund boundary');

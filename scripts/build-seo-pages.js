@@ -4996,7 +4996,7 @@ ${socialImageMeta()}
       <section class="grid">
         <div class="card">
           <h2>1. Pay in Stripe</h2>
-          <p>Use the hosted Stripe checkout link. The current Payment Link is product-scoped to the NYC Weekly Construction Activity Brief.</p>
+          <p>Use the buy page or checkout bridge. The site creates a product-scoped Stripe Checkout Session, with the hosted Payment Link kept as fallback.</p>
         </div>
         <div class="card">
           <h2>2. Return to success page</h2>
@@ -5500,7 +5500,7 @@ ${socialImageMeta()}
               </tr>
               <tr>
                 <td><code>payment_required</code></td>
-                <td>Stripe did not confirm a paid completed Checkout Session for an accepted Payment Link.</td>
+                <td>Stripe did not confirm a paid completed Checkout Session for this product.</td>
               </tr>
               <tr>
                 <td><code>session_verification_failed</code></td>
