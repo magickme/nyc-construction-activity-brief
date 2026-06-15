@@ -484,6 +484,17 @@
     "sampleLine": "Market research CSV | work type | territory | issued date | source link | manual check"
   },
   {
+    "slug": "nyc-construction-permit-data-for-proptech",
+    "title": "NYC Construction Permit Data for Proptech | Weekly DOB Brief",
+    "description": "A weekly NYC construction permit data brief for proptech operators and data buyers reviewing selected public DOB rows.",
+    "h1": "NYC construction permit data for proptech operators.",
+    "lede": "The current issue gives proptech operators and data buyers a compact source-linked CSV for first-pass NYC construction activity review.",
+    "audience": "Proptech operators, data buyers, analysts, and product teams that need a small current issue file before deeper source review.",
+    "currentSample": "The paid ZIP includes 142 selected source-linked rows, priority slices, a buyer workbook, QA report, and source registry.",
+    "useCase": "Use this page to decide whether the current issue fits a product research, enrichment, or market-monitoring workflow. It is not a complete historical database, bulk API, live alert feed, or enriched contact file.",
+    "sampleLine": "Proptech data row | work type | ZIP | issued date | status | source link | manual check"
+  },
+  {
     "slug": "nyc-exterior-work-permit-research",
     "title": "NYC Exterior Work Permit Research | Weekly DOB Brief",
     "description": "A weekly NYC exterior work permit research page for selected sidewalk shed, scaffold, fence, and structural rows with source links.",
