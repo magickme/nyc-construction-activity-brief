@@ -741,13 +741,16 @@ ${socialImageMeta()}
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
           <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
           <a class="button secondary" href="/support.html">Support and refunds</a>
+          <a class="button secondary" href="#sample-request">Request sample cut</a>
         </p>
         <p class="fine">No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' })}
         <noscript>
           <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout. You can also use the <a href="${checkout}">checkout bridge</a>.</p>
         </noscript>
       </section>
     </main>
+    ${sampleRequestScript()}
     <script>
       const params = new URLSearchParams(window.location.search);
       const rawSource = params.get('source') || '${source}';

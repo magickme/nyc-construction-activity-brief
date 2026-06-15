@@ -399,6 +399,9 @@ assert.match(buy, /href="\/preview\.html"/, 'buy page links preview');
 assert.match(buy, /href="\/inside-the-zip\.html"/, 'buy page links ZIP contents');
 assert.match(buy, /href="\/free-vs-paid\.html"/, 'buy page links free vs paid page');
 assert.match(buy, /href="\/support\.html"/, 'buy page links support');
+assertSampleRequestForm(buy, 'buy page');
+assert.match(buy, /value="Selected DOB work types"/, 'buy page sample request seeds work type field');
+assert.match(buy, /value="NYC"/, 'buy page sample request seeds territory field');
 
 const notFound = read('404.html');
 assert.match(notFound, /<title>Page Not Found \| NYC Construction Activity Brief<\/title>/, '404 page needs title');
