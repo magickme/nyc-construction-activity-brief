@@ -55,8 +55,10 @@ function checkoutParams(source) {
     'metadata[product]': PRODUCT_METADATA_VALUE,
     'metadata[source]': source,
     'metadata[price_cents]': String(LAUNCH_PRICE_CENTS),
+    'metadata[checkout_path]': 'first_party_checkout_session',
     'payment_intent_data[metadata][product]': PRODUCT_METADATA_VALUE,
     'payment_intent_data[metadata][source]': source,
+    'payment_intent_data[metadata][checkout_path]': 'first_party_checkout_session',
   });
 }
 

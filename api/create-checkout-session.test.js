@@ -27,7 +27,10 @@ assert.equal(params.get('line_items[0][price_data][currency]'), 'usd');
 assert.equal(params.get('line_items[0][price_data][unit_amount]'), String(LAUNCH_PRICE_CENTS));
 assert.equal(params.get('metadata[product]'), PRODUCT_METADATA_VALUE);
 assert.equal(params.get('metadata[source]'), 'topic-nyc-plumbing');
+assert.equal(params.get('metadata[checkout_path]'), 'first_party_checkout_session');
 assert.equal(params.get('payment_intent_data[metadata][product]'), PRODUCT_METADATA_VALUE);
+assert.equal(params.get('payment_intent_data[metadata][source]'), 'topic-nyc-plumbing');
+assert.equal(params.get('payment_intent_data[metadata][checkout_path]'), 'first_party_checkout_session');
 
 async function main() {
   const calls = [];
@@ -54,6 +57,7 @@ async function main() {
   assert.equal(calls[0].init.method, 'POST');
   assert.equal(calls[0].init.headers.authorization, 'Bearer sk_test_value');
   assert.match(calls[0].init.body, /metadata%5Bproduct%5D=nyc_construction_activity_brief_current_issue/);
+  assert.match(calls[0].init.body, /metadata%5Bcheckout_path%5D=first_party_checkout_session/);
 
   await assert.rejects(
     () => createCheckoutSession('buy-page', {}, async () => {
