@@ -32,6 +32,7 @@ Primary pages:
 - Contractor and supplier guide: https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html
 - Broker and developer guide: https://nyc-construction-activity-brief.vercel.app/broker-developer-permit-research.html
 - Real estate investor guide: https://nyc-construction-activity-brief.vercel.app/real-estate-investor-permit-research.html
+- Construction consultant guide: https://nyc-construction-activity-brief.vercel.app/construction-consultant-permit-research.html
 - Permit expediter guide: https://nyc-construction-activity-brief.vercel.app/permit-expediter-research.html
 - Property manager guide: https://nyc-construction-activity-brief.vercel.app/property-manager-permit-research.html
 - Inside the ZIP: https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html
