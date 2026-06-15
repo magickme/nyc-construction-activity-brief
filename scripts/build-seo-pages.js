@@ -56,6 +56,84 @@ const workTypeCopy = {
   },
 };
 
+const buyerPersonas = [
+  {
+    slug: 'nyc-sidewalk-shed-vendor-permit-research',
+    title: 'NYC Sidewalk Shed Vendor Permit Research',
+    description:
+      'Weekly NYC DOB permit activity page for sidewalk shed vendors screening selected shed, scaffold, and construction fence rows by ZIP and issued date.',
+    h1: 'NYC permit research for sidewalk shed vendors.',
+    lede:
+      'A buyer-focused view of the current issue for vendors watching sidewalk shed, supported scaffold, and construction fence activity.',
+    audience:
+      'Sidewalk shed vendors, scaffold firms, site access suppliers, and exterior-work service providers checking selected public permit activity.',
+    workTypes: ['Sidewalk Shed', 'Supported Scaffold', 'Construction Fence'],
+    workTypeRequest: 'Sidewalk Shed, Supported Scaffold, Construction Fence',
+    territoryRequest: 'NYC',
+    sampleLineLabel: 'site access work',
+  },
+  {
+    slug: 'nyc-plumbing-supplier-permit-research',
+    title: 'NYC Plumbing Supplier Permit Research',
+    description:
+      'Weekly NYC DOB permit activity page for plumbing suppliers and service firms screening selected plumbing rows by ZIP, borough, and source link.',
+    h1: 'NYC permit research for plumbing suppliers.',
+    lede:
+      'A buyer-focused view of the current issue for suppliers and service firms watching selected plumbing permit activity.',
+    audience:
+      'Plumbing suppliers, plumbing service firms, local distributors, and specialty subcontractors checking selected public permit rows.',
+    workTypes: ['Plumbing'],
+    workTypeRequest: 'Plumbing',
+    territoryRequest: 'NYC',
+    sampleLineLabel: 'plumbing work',
+  },
+  {
+    slug: 'nyc-fire-protection-permit-research',
+    title: 'NYC Fire Protection Permit Research',
+    description:
+      'Weekly NYC DOB permit activity page for fire-protection teams screening selected sprinkler rows by ZIP, borough, issued date, and cost bucket.',
+    h1: 'NYC permit research for fire-protection teams.',
+    lede:
+      'A buyer-focused view of the current issue for teams watching selected sprinkler permit activity across the sample.',
+    audience:
+      'Sprinkler contractors, fire-protection suppliers, inspection-adjacent service providers, and local B2B sellers.',
+    workTypes: ['Sprinklers'],
+    workTypeRequest: 'Sprinklers',
+    territoryRequest: 'NYC',
+    sampleLineLabel: 'sprinkler work',
+  },
+  {
+    slug: 'nyc-hvac-mechanical-permit-research',
+    title: 'NYC HVAC Mechanical Permit Research',
+    description:
+      'Weekly NYC DOB permit activity page for HVAC and mechanical vendors screening selected mechanical systems rows by ZIP, borough, and status.',
+    h1: 'NYC permit research for HVAC and mechanical vendors.',
+    lede:
+      'A buyer-focused view of the current issue for vendors watching selected mechanical systems permit activity.',
+    audience:
+      'Mechanical contractors, HVAC suppliers, building-systems vendors, and local service providers checking selected public rows.',
+    workTypes: ['Mechanical Systems'],
+    workTypeRequest: 'Mechanical Systems',
+    territoryRequest: 'NYC',
+    sampleLineLabel: 'mechanical systems work',
+  },
+  {
+    slug: 'nyc-construction-supplier-permit-research',
+    title: 'NYC Construction Supplier Permit Research',
+    description:
+      'Weekly NYC DOB permit activity page for construction suppliers screening selected permit rows by work type, ZIP, issued date, and source link.',
+    h1: 'NYC permit research for construction suppliers.',
+    lede:
+      'A buyer-focused view of the current issue for suppliers that want a fast screen before checking DOB NOW source records.',
+    audience:
+      'Construction suppliers, local B2B service firms, specialty vendors, and subcontractors reviewing selected public permit activity.',
+    workTypes: ['Construction Fence', 'Mechanical Systems', 'Plumbing', 'Sidewalk Shed', 'Sprinklers', 'Structural', 'Supported Scaffold'],
+    workTypeRequest: 'Selected DOB work types',
+    territoryRequest: 'NYC',
+    sampleLineLabel: 'selected construction work',
+  },
+];
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -615,6 +693,7 @@ ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
 ${section('Borough and work type pages', pages.filter((page) => page.group === 'borough-work-type'))}
 ${section('ZIP and work type pages', pages.filter((page) => page.group === 'zip-work-type'))}
 ${section('Work type sample pages', pages.filter((page) => page.group === 'work-type'))}
+${section('Buyer persona pages', pages.filter((page) => page.group === 'buyer-persona'))}
 ${section('Buyer research pages', pages.filter((page) => page.group === 'buyer'))}
 ${section('Cost bucket pages', pages.filter((page) => page.group === 'cost-bucket'))}
 ${section('Issued date pages', pages.filter((page) => page.group === 'issued-date'))}
@@ -1225,6 +1304,45 @@ function buildGeneratedPages(rows) {
       ],
       count,
       linkText: `${work.label} contractor permit research`,
+    });
+  }
+
+  for (const persona of buyerPersonas) {
+    const matchingRows = rows.filter((row) => persona.workTypes.includes(row.work_type));
+    const count = matchingRows.length;
+    if (!count) continue;
+    pages.push({
+      group: 'buyer-persona',
+      slug: persona.slug,
+      title: persona.title,
+      description: persona.description,
+      h1: persona.h1,
+      lede: persona.lede,
+      audience: persona.audience,
+      currentSample: `${count} selected rows match this buyer view in the ${range} paid issue. The free CSV preview is limited to 25 rows.`,
+      useCase: `Use this page to see whether the current issue has enough ${persona.sampleLineLabel} to justify buying the ZIP before opening individual DOB NOW source records.`,
+      sampleLine: `${persona.sampleLineLabel} | top ZIPs: ${describeCounts(matchingRows, (row) => row.zip_code)} | top cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 3)}`,
+      rows: sampleRows(matchingRows),
+      stats: [
+        `${count} paid issue rows match this buyer view.`,
+        `Work type mix: ${describeCounts(matchingRows, (row) => row.work_type, 6)}.`,
+        `Territory mix: ${describeCounts(matchingRows, (row) => `${titleCase(row.borough)} ${row.zip_code}`)}.`,
+        `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
+      ],
+      faqs: [
+        {
+          question: 'Does this page prove a company is ready to buy?',
+          answer: 'No. It only groups selected public permit activity for faster screening. Any outreach, quoting, or purchasing judgment stays manual.',
+        },
+        {
+          question: 'Does the ZIP include contacts for these rows?',
+          answer: 'No. The ZIP excludes owner names, applicant names, phone numbers, emails, full street addresses, and enriched contact data.',
+        },
+      ],
+      workTypeRequest: persona.workTypeRequest,
+      territoryRequest: persona.territoryRequest,
+      count,
+      linkText: persona.title,
     });
   }
 

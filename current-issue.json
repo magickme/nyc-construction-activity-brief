@@ -139,7 +139,7 @@
     ]
   },
   "generatedPages": {
-    "totalTopicPages": 96,
+    "totalTopicPages": 101,
     "urls": [
       "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html",
       "https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html",
@@ -227,6 +227,11 @@
       "https://nyc-construction-activity-brief.vercel.app/topics/structural-contractor-permit-research-nyc.html",
       "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permit-csv-sample.html",
       "https://nyc-construction-activity-brief.vercel.app/topics/construction-fence-contractor-permit-research-nyc.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-vendor-permit-research.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-supplier-permit-research.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-fire-protection-permit-research.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-hvac-mechanical-permit-research.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-supplier-permit-research.html",
       "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permits-under-10k.html",
       "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permits-10k-to-50k.html",
       "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permits-50k-to-100k.html",
