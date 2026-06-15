@@ -1,7 +1,7 @@
 const DEFAULT_PAYMENT_LINK_IDS = [
   'plink_1TgClADmKyUECkDHS6FKhOXp',
 ];
-const ZIP_NAME = 'nyc-weekly-construction-activity-brief-v0.2.zip';
+const ZIP_NAME = 'nyc-weekly-construction-activity-brief-current.zip';
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
