@@ -327,6 +327,7 @@ const coreConversionPages = [
   ['construction-risk-permit-research.html', 'construction-risk-sticky'],
   ['permit-expediter-research.html', 'permit-expediter-sticky'],
   ['property-manager-permit-research.html', 'property-manager-sticky'],
+  ['material-supplier-permit-research.html', 'material-supplier-sticky'],
   ['sample-segments.html', 'sample-segments-sticky'],
 ];
 
@@ -3570,6 +3571,153 @@ ${sampleRequestSection({
 `;
 }
 
+function materialSupplierHtml(rows) {
+  const description = 'A buyer-focused guide for material suppliers, distributors, rental desks, and local B2B vendors using the NYC construction activity ZIP for weekly permit screening.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
+  const costMix = describeCounts(rows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 6);
+  const product = productJsonLd(description, checkoutHref('material-supplier-permit-research'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Who is this page for?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It is for material suppliers, distributors, rental desks, and local B2B vendors that screen selected public NYC DOB permit activity before doing manual territory research.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the ZIP include contacts for contractors or owners?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The ZIP excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How should a supplier use it?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Use the public preview to check fit, buy the ZIP only if the full file saves sorting time, then verify useful rows at the DOB NOW source URL before acting.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Supplier Permit Research | NYC Construction Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/material-supplier-permit-research.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Material Supplier Permit Research | NYC Construction Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/material-supplier-permit-research.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC permit research for material suppliers.</h1>
+      <p class="lede">Use the current issue to screen selected DOB NOW permit rows by work type, ZIP, issued date, status, cost bucket, and source link before building a weekly territory review list.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Material suppliers</h2>
+          <p>Check selected public permit activity before deciding which work types or territories deserve source-record review.</p>
+        </div>
+        <div class="card">
+          <h2>Distributors</h2>
+          <p>Sort the current issue by ZIP, work type, issued date, and cost bucket without starting from the raw source export.</p>
+        </div>
+        <div class="card">
+          <h2>Rental desks</h2>
+          <p>Use the buyer workbook and priority slices to build a short manual review list for equipment or materials demand checks.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}. Free preview rows: 25.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+          <li>Cost buckets: ${escapeHtml(costMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Supplier review pass</h2>
+        <ol>
+          <li>Open the free preview and confirm the current issue has useful fields for your weekly screen.</li>
+          <li>Check supplier, ZIP, work-type, and cost-bucket pages before checkout.</li>
+          <li>Buy the ZIP only if the full current issue saves enough sorting time for this week's review.</li>
+          <li>After checkout, open <code>buyer-workbook.md</code> and <code>buyer-priority-slices.csv</code>.</li>
+          <li>Before using any row for territory planning, outreach, quoting, or inventory notes, open <code>source_url</code> and verify the current public record.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Useful supplier research pages</h2>
+        <ul>
+          <li><a href="/topics/nyc-construction-material-suppliers.html">NYC construction permit signals for material suppliers</a></li>
+          <li><a href="/topics/nyc-construction-supplier-permit-research.html">NYC construction supplier permit research</a></li>
+          <li><a href="/topics/nyc-construction-permit-monitoring-for-suppliers.html">NYC construction permit monitoring for suppliers</a></li>
+          <li><a href="/topics/nyc-plumbing-supplier-permit-research.html">NYC plumbing supplier permit research</a></li>
+          <li><a href="/topics/nyc-hvac-mechanical-permit-research.html">NYC HVAC mechanical permit research</a></li>
+        </ul>
+      </section>
+
+${sampleRequestSection({
+    workType: 'Material supplier permit research',
+    territory: 'NYC',
+  })}
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, contractor contacts, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, procurement advice, inventory advice, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/current-issue.html">Current issue highlights</a>
+        <a class="button secondary" href="/sample-segments.html">Browse buyer-intent pages</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
+        <a class="button secondary" href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a>
+        <a class="button secondary" href="/nyc-permit-activity-by-zip.html">Permit activity by ZIP</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
+        <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button" href="${checkoutHref('material-supplier-permit-research')}">Buy instant ZIP</a>
+      </section>
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function brokerDeveloperHtml(rows) {
   const description = 'A buyer-focused guide for brokers, small developers, consultants, and permit researchers using the NYC construction activity ZIP for weekly market screening.';
   const range = sampleRange(rows);
@@ -5778,7 +5926,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -5819,6 +5967,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
         <p><a class="button secondary" href="/permit-research-workflow.html">Research workflow</a></p>
         <p><a class="button secondary" href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a></p>
+        <p><a class="button secondary" href="/material-supplier-permit-research.html">Material supplier permit research</a></p>
         <p><a class="button secondary" href="/broker-developer-permit-research.html">Broker and developer guide</a></p>
         <p><a class="button secondary" href="/real-estate-investor-permit-research.html">Real estate investor permit research</a></p>
         <p><a class="button secondary" href="/construction-consultant-permit-research.html">Construction consultant permit research</a></p>
@@ -6194,6 +6343,7 @@ for (const page of workTypeLandingPages) {
 fs.writeFileSync(path.join(root, 'free-vs-paid.html'), freeVsPaidHtml(rows));
 fs.writeFileSync(path.join(root, 'permit-research-workflow.html'), researchWorkflowHtml(rows));
 fs.writeFileSync(path.join(root, 'contractor-supplier-permit-research.html'), contractorSupplierHtml(rows));
+fs.writeFileSync(path.join(root, 'material-supplier-permit-research.html'), materialSupplierHtml(rows));
 fs.writeFileSync(path.join(root, 'broker-developer-permit-research.html'), brokerDeveloperHtml(rows));
 fs.writeFileSync(path.join(root, 'real-estate-investor-permit-research.html'), realEstateInvestorHtml(rows));
 fs.writeFileSync(path.join(root, 'construction-consultant-permit-research.html'), constructionConsultantHtml(rows));
