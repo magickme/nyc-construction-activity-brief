@@ -18,7 +18,16 @@
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
         <p class="fine">If the redirect does not start, use the button below. The current launch price is $24.50. No promo code is required.</p>
-        <a id="stripe-link" class="button" href="https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P">Continue to Stripe</a>
+        <ul>
+          <li>Instant browser download after completed Stripe checkout.</li>
+          <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
+          <li>No private contact data, owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
+        </ul>
+        <a id="stripe-link" class="button" href="https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static&amp;client_reference_id=ncab_checkout_static">Continue to Stripe</a>
+        <p class="fine">Stripe handles payment. The success page uses the paid Checkout Session to unlock the ZIP.</p>
+        <noscript>
+          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout.</p>
+        </noscript>
       </section>
     </main>
     <script>
@@ -35,6 +44,12 @@
       const stripeUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
       link.href = stripeUrl;
+      link.addEventListener('click', () => {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name: 'checkout_continue_clicked', data: { source } });
+        } catch (error) {}
+      });
       try {
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         window.va('event', { name: 'checkout_intent', data: { source } });
