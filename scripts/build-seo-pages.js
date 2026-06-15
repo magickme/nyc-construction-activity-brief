@@ -860,6 +860,7 @@ ${socialImageMeta()}
         <p class="lede">One current-issue ZIP for buyers who want the selected NYC DOB NOW rows packaged for spreadsheet review.</p>
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
         <p class="fine">No account setup, subscription, or recurring charge.</p>
+        <img class="issue-snapshot buy-page-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <p>
           <a data-buy-link="top" class="button" href="${topCheckout}">Buy $9.50 ZIP on Stripe</a>
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>

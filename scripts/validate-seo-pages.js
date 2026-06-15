@@ -466,7 +466,8 @@ assert.match(buy, /function linkSource\(link\)/, 'buy page reads the clicked CTA
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-activity-preview\.csv">Open free CSV preview<\/a>/, 'buy page gives uncertain buyers an above-fold CSV preview CTA');
 assert.match(buy, /No account setup, subscription, or recurring charge\./, 'buy page reassures buyers before checkout bridge');
-assert.match(buy, /<p class="fine">\$9\.50 one-time launch price\. Instant browser download after completed Stripe checkout\. No promo code is required\.<\/p>\s*<p class="fine">No account setup, subscription, or recurring charge\.<\/p>\s*<p>\s*<a data-buy-link="top" class="button"/, 'buy page puts a purchase CTA above sample rows');
+assert.match(buy, /<img class="issue-snapshot buy-page-snapshot" src="\/assets\/current-issue-snapshot\.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">/, 'buy page shows current issue snapshot before checkout CTA');
+assert.match(buy, /<p class="fine">\$9\.50 one-time launch price\. Instant browser download after completed Stripe checkout\. No promo code is required\.<\/p>\s*<p class="fine">No account setup, subscription, or recurring charge\.<\/p>\s*<img class="issue-snapshot buy-page-snapshot"[^>]+>\s*<p>\s*<a data-buy-link="top" class="button"/, 'buy page puts snapshot and purchase CTA above sample rows');
 assert.match(buy, /data-buy-confidence/, 'buy page has pre-checkout confidence block');
 assert.match(buy, /<h2>Before you pay<\/h2>/, 'buy page names pre-checkout checks');
 assert.match(buy, /Open the free preview if you need to confirm the row shape first\./, 'buy page points uncertain buyers to the preview');
