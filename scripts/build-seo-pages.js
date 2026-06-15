@@ -715,6 +715,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('segment-hub')}">Buy instant ZIP</a>
@@ -859,6 +860,7 @@ ${territories}
         <p>No guaranteed leads. Source records can be incomplete, delayed, revised, duplicated, or mislabeled. This product is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button" href="${checkoutHref('methodology')}">Buy instant ZIP</a>
       </section>
     </main>
@@ -979,6 +981,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
@@ -1087,6 +1090,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button" href="${checkoutHref('delivery')}">Buy instant ZIP</a>
       </section>
@@ -1219,6 +1223,7 @@ ${socialImageMeta()}
           <li>Markdown brief, public sample notes, source registry, QA report, version file, buyer README, and claims boundary.</li>
         </ul>
         <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button" href="${checkoutHref('pricing')}">Buy instant ZIP</a>
@@ -1227,6 +1232,190 @@ ${socialImageMeta()}
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
+function insideZipHtml(rows) {
+  const description = 'File-by-file contents of the current NYC construction activity ZIP, including CSV rows, buyer workbook, priority slices, QA report, and source boundary.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
+  const product = productJsonLd(description, checkoutHref('inside-the-zip'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What files are in the paid ZIP?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The paid ZIP includes the full current CSV, Markdown brief, public sample notes, buyer workbook, priority-slices CSV, buyer README, source registry, privacy and claims boundary, QA report, and version file.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the ZIP include private contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The ZIP excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the buyer workbook for?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The buyer workbook gives a fast review path for sorting the current issue by work type, ZIP, status, cost bucket, and source link before manual source checks.',
+        },
+      },
+    ],
+  };
+
+  const files = [
+    {
+      name: 'README.md',
+      use: 'Start here for package scope, source window, file list, and claims boundary.',
+    },
+    {
+      name: 'nyc-construction-activity-preview.csv',
+      use: `Full ${rows.length}-row current issue CSV with source links, work type, ZIP, borough, issued date, status, cost bucket, permit ID, filing number, short description, and source caveat.`,
+    },
+    {
+      name: 'nyc-construction-activity-preview.md',
+      use: 'Markdown view of the current issue for quick reading outside a spreadsheet.',
+    },
+    {
+      name: 'nyc-weekly-construction-activity-sample.md',
+      use: 'Public sample brief with the source and privacy boundary visible.',
+    },
+    {
+      name: 'buyer-workbook.md',
+      use: 'Step-by-step buyer review path for deciding which rows deserve manual source checks.',
+    },
+    {
+      name: 'buyer-priority-slices.csv',
+      use: 'Grouped slices by work type, borough, ZIP, row count, latest issued date, cost-bucket mix, status mix, and source URL.',
+    },
+    {
+      name: 'buyer-readme.md',
+      use: 'Short buyer notes for using the files without treating them as a contact list.',
+    },
+    {
+      name: 'source-registry.md',
+      use: 'Source dataset, source URL, fetch date, and source caveats.',
+    },
+    {
+      name: 'privacy-and-claims-boundary.md',
+      use: 'Excluded fields, privacy limits, agency boundary, and no-lead-guarantee language.',
+    },
+    {
+      name: 'qa-report.json',
+      use: 'Machine-readable QA checks for row count, source fields, package contents, and excluded private-contact fields.',
+    },
+    {
+      name: 'version.txt',
+      use: 'Package version and issue identifier.',
+    },
+  ];
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inside the ZIP | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/inside-the-zip.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Inside the ZIP | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/inside-the-zip.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>What is inside the current paid ZIP.</h1>
+      <p class="lede">The paid ZIP is an instant browser download after Stripe checkout. It contains the full current CSV, buyer workbook, priority slices, and source-boundary files for manual review.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Paid rows</h2>
+          <p>${escapeHtml(rows.length)} source-linked rows.</p>
+        </div>
+        <div class="card">
+          <h2>Free preview</h2>
+          <p>25 rows for checking fields before purchase.</p>
+        </div>
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$24.50</p>
+          <p>No promo code is required.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>File manifest</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Use</th>
+              </tr>
+            </thead>
+            <tbody>
+${files.map((file) => `              <tr>
+                <td><code>${escapeHtml(file.name)}</code></td>
+                <td>${escapeHtml(file.use)}</td>
+              </tr>`).join('\n')}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Fast review path</h2>
+        <ol>
+          <li>Open <code>buyer-workbook.md</code> for the suggested review order.</li>
+          <li>Use <code>buyer-priority-slices.csv</code> to pick the work type, ZIP, or borough slice worth checking first.</li>
+          <li>Open the full CSV and filter by the slice you chose.</li>
+          <li>Use source links to verify any row before outreach, quoting, routing, or planning.</li>
+        </ol>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button" href="${checkoutHref('inside-the-zip')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
   </body>
@@ -1335,6 +1524,7 @@ ${rows.map((row) => `              <tr>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download preview CSV</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button" href="${checkoutHref('preview')}">Buy instant ZIP</a>
       </section>
 
@@ -1354,7 +1544,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'preview.html', 'pricing.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'preview.html', 'pricing.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1390,6 +1580,7 @@ ${manualPageLinks(manualPagesForLinks)}
         </ul>
         <p><a class="button secondary" href="/preview.html">View public preview</a></p>
         <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
+        <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
@@ -1725,6 +1916,7 @@ fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));
+fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));

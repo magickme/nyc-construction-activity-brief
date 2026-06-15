@@ -108,6 +108,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       pricingUrl: `${baseUrl}/pricing.html`,
+      insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
@@ -123,6 +124,7 @@ function buildCurrentIssueJson(rows, manifest) {
       stripeCheckoutUrl,
       imageUrl: socialImageUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
+      insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       priceUsd: launchPriceUsd,
@@ -196,6 +198,11 @@ function buildFeedXml(rows, manifest) {
       description: `One-time $${launchPriceUsd.toFixed(2)} launch-price ZIP and simple time-saved examples for deciding whether the current issue is worth buying.`,
     },
     {
+      title: 'Inside the current paid ZIP',
+      url: `${baseUrl}/inside-the-zip.html`,
+      description: `File-by-file package manifest for the current ${stats.rowCount}-row ZIP, including the buyer workbook, priority-slices CSV, QA report, source registry, and claims boundary.`,
+    },
+    {
       title: 'Buyer guide for the current ZIP',
       url: `${baseUrl}/buyer-guide.html`,
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
@@ -262,6 +269,7 @@ Primary pages:
 - RSS feed: ${baseUrl}/feed.xml
 - Public preview: ${baseUrl}/preview.html
 - Pricing: ${baseUrl}/pricing.html
+- Inside the ZIP: ${baseUrl}/inside-the-zip.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
@@ -318,7 +326,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'preview.html', 'pricing.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'preview.html', 'pricing.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

@@ -34,6 +34,13 @@
       <description>One-time $24.50 launch-price ZIP and simple time-saved examples for deciding whether the current issue is worth buying.</description>
     </item>
     <item>
+      <title>Inside the current paid ZIP</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>File-by-file package manifest for the current 142-row ZIP, including the buyer workbook, priority-slices CSV, QA report, source registry, and claims boundary.</description>
+    </item>
+    <item>
       <title>Buyer guide for the current ZIP</title>
       <link>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</guid>
