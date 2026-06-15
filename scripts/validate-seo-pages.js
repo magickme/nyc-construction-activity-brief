@@ -142,6 +142,17 @@ function assertHtmlPage(relativePath) {
   assert.doesNotMatch(html, rawCostBucketPattern, `${relativePath} contains raw cost bucket labels`);
 }
 
+function assertSampleRequestForm(html, label) {
+  assert.match(html, /href="#sample-request"/, `${label} links sample request form`);
+  assert.match(html, /id="sample-request"/, `${label} has sample request form anchor`);
+  assert.match(html, /data-sample-request-form/, `${label} needs sample request form`);
+  assert.match(html, /\/api\/sample-request/, `${label} posts sample requests to API`);
+  assert.match(html, /data\.source_path = window\.location\.pathname;/, `${label} sends source path with sample request`);
+  assert.match(html, /sample_request_saved/, `${label} tracks saved sample requests`);
+  assert.match(html, /sample_request_failed/, `${label} tracks failed sample requests`);
+  assert.match(html, /This does not join the MagickMe newsletter\./, `${label} keeps list-separation copy`);
+}
+
 assert.equal(manifest.sourceRows, 142, 'manifest source row count changed unexpectedly');
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
 assert.ok(manifest.generatedPages >= 65, 'expected at least 65 generated long-tail pages');
@@ -589,6 +600,7 @@ assert.match(contractorSupplier, /href="\/time-saved-calculator\.html"/, 'contra
 assert.match(contractorSupplier, /href="\/pricing\.html"/, 'contractor and supplier guide links pricing');
 assert.match(contractorSupplier, /href="\/support\.html"/, 'contractor and supplier guide links support');
 assert.match(contractorSupplier, new RegExp(`href="${checkoutUrl}"`), 'contractor and supplier guide links tracked checkout');
+assertSampleRequestForm(contractorSupplier, 'contractor and supplier guide');
 assert.match(contractorSupplier, /No guaranteed leads\./, 'contractor and supplier guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(contractorSupplier, pattern, `contractor-supplier-permit-research.html contains banned copy pattern ${pattern}`);
@@ -635,6 +647,7 @@ assert.match(brokerDeveloper, /href="\/time-saved-calculator\.html"/, 'broker an
 assert.match(brokerDeveloper, /href="\/pricing\.html"/, 'broker and developer guide links pricing');
 assert.match(brokerDeveloper, /href="\/support\.html"/, 'broker and developer guide links support');
 assert.match(brokerDeveloper, new RegExp(`href="${checkoutUrl}"`), 'broker and developer guide links tracked checkout');
+assertSampleRequestForm(brokerDeveloper, 'broker and developer guide');
 assert.match(brokerDeveloper, /No guaranteed leads\./, 'broker and developer guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(brokerDeveloper, pattern, `broker-developer-permit-research.html contains banned copy pattern ${pattern}`);
@@ -682,6 +695,7 @@ assert.match(permitExpediter, /href="\/time-saved-calculator\.html"/, 'permit ex
 assert.match(permitExpediter, /href="\/pricing\.html"/, 'permit expediter guide links pricing');
 assert.match(permitExpediter, /href="\/support\.html"/, 'permit expediter guide links support');
 assert.match(permitExpediter, new RegExp(`href="${checkoutUrl}"`), 'permit expediter guide links tracked checkout');
+assertSampleRequestForm(permitExpediter, 'permit expediter guide');
 assert.match(permitExpediter, /No guaranteed leads\./, 'permit expediter guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(permitExpediter, pattern, `permit-expediter-research.html contains banned copy pattern ${pattern}`);

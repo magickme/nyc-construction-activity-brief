@@ -1636,12 +1636,17 @@ ${socialImageMeta()}
         </ul>
       </section>
 
+${sampleRequestSection({
+    workType: 'Selected DOB work types',
+    territory: 'NYC',
+  })}
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse buyer-intent pages</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
@@ -1653,6 +1658,7 @@ ${socialImageMeta()}
         <a class="button" href="${checkoutHref('contractor-supplier-permit-research')}">Buy instant ZIP</a>
       </section>
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -1774,6 +1780,10 @@ ${socialImageMeta()}
         </ul>
       </section>
 
+${sampleRequestSection({
+    workType: 'Selected DOB work types',
+    territory: 'NYC',
+  })}
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, valuation advice, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
@@ -1781,6 +1791,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/current-issue.html">Current issue highlights</a>
         <a class="button secondary" href="/sample-segments.html">Browse buyer-intent pages</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
@@ -1793,6 +1804,7 @@ ${socialImageMeta()}
         <a class="button" href="${checkoutHref('broker-developer-permit-research')}">Buy instant ZIP</a>
       </section>
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -1914,6 +1926,10 @@ ${socialImageMeta()}
         </ul>
       </section>
 
+${sampleRequestSection({
+    workType: 'DOB permit filing research',
+    territory: 'NYC',
+  })}
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No filing advice, legal advice, agency endorsement, owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
@@ -1921,6 +1937,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/current-issue.html">Current issue highlights</a>
         <a class="button secondary" href="/sample-segments.html">Browse buyer-intent pages</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
@@ -1934,6 +1951,7 @@ ${socialImageMeta()}
         <a class="button" href="${checkoutHref('permit-expediter-research')}">Buy instant ZIP</a>
       </section>
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
