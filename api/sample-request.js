@@ -35,6 +35,12 @@ function slugTagPart(value) {
     .replace(/^-|-$/g, '');
 }
 
+function sourcePathTag(value) {
+  const text = sanitizeText(value, 180);
+  if (!/^\/[A-Za-z0-9._~/?#=&%-]*$/.test(text)) return '';
+  return slugTagPart(text.replace(/[?#].*$/, ''));
+}
+
 function validEmail(value) {
   return (
     typeof value === 'string' &&
@@ -65,6 +71,7 @@ function validateSampleRequest(input) {
   const territory = sanitizeText(input.territory_requested);
   const buyerType = slugTagPart(input.buyer_type);
   const monitoringGoal = sanitizeText(input.monitoring_goal, 360);
+  const sourcePath = sourcePathTag(input.source_path);
   const consent = input.consent === true || input.consent === 'true' || input.consent === 'on';
   const website = sanitizeText(input.website, 200);
   const errors = [];
@@ -86,6 +93,7 @@ function validateSampleRequest(input) {
       territory,
       buyerType,
       monitoringGoal,
+      sourcePath,
     },
   };
 }
@@ -98,6 +106,7 @@ function buildMauticContactPayload(request) {
     `wealth:ncab:buyer:${request.buyerType}`,
     `wealth:ncab:work-type:${slugTagPart(request.workType)}`,
     `wealth:ncab:territory:${slugTagPart(request.territory)}`,
+    request.sourcePath ? `wealth:ncab:source-page:${request.sourcePath}` : '',
   ];
 
   return {
@@ -247,6 +256,7 @@ module.exports._private = {
   mauticConfig,
   sanitizeText,
   slugTagPart,
+  sourcePathTag,
   validEmail,
   validateSampleRequest,
   _resetForTesting() {

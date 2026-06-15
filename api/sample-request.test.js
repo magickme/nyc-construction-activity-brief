@@ -4,6 +4,7 @@ const {
   buildMauticContactPayload,
   createOrUpdateMauticContact,
   mauticConfig,
+  sourcePathTag,
   slugTagPart,
   validateSampleRequest,
   validEmail,
@@ -13,6 +14,8 @@ const {
 assert.equal(validEmail('buyer@example.com'), true);
 assert.equal(validEmail('not-an-email'), false);
 assert.equal(slugTagPart('Sidewalk Shed / Supported Scaffold'), 'sidewalk-shed-supported-scaffold');
+assert.equal(sourcePathTag('/topics/nyc-plumbing-permit-activity.html?utm_source=test'), 'topics-nyc-plumbing-permit-activity-html');
+assert.equal(sourcePathTag('https://evil.example/path'), '');
 
 const valid = validateSampleRequest({
   email: 'BUYER@example.com',
@@ -20,11 +23,13 @@ const valid = validateSampleRequest({
   territory_requested: 'Brooklyn 11201',
   buyer_type: 'supplier',
   monitoring_goal: 'I want a weekly sample for plumbing supply outreach.',
+  source_path: '/topics/nyc-plumbing-permit-activity.html?utm_source=test',
   consent: true,
   website: '',
 });
 assert.equal(valid.ok, true);
 assert.equal(valid.value.email, 'buyer@example.com');
+assert.equal(valid.value.sourcePath, 'topics-nyc-plumbing-permit-activity-html');
 assert.deepEqual(buildMauticContactPayload(valid.value), {
   email: 'buyer@example.com',
   tags: [
@@ -34,6 +39,7 @@ assert.deepEqual(buildMauticContactPayload(valid.value), {
     'wealth:ncab:buyer:supplier',
     'wealth:ncab:work-type:plumbing',
     'wealth:ncab:territory:brooklyn-11201',
+    'wealth:ncab:source-page:topics-nyc-plumbing-permit-activity-html',
   ],
 });
 
@@ -127,6 +133,7 @@ async function main() {
     'wealth:ncab:buyer:supplier',
     'wealth:ncab:work-type:plumbing',
     'wealth:ncab:territory:brooklyn-11201',
+    'wealth:ncab:source-page:topics-nyc-plumbing-permit-activity-html',
   ]);
 
   console.log('sample request tests passed');

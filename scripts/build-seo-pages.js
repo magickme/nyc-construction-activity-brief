@@ -177,6 +177,7 @@ function sampleRequestScript() {
         const button = form.querySelector('button[type="submit"]');
         const data = Object.fromEntries(new FormData(form).entries());
         data.consent = form.querySelector('[name="consent"]').checked;
+        data.source_path = window.location.pathname;
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
