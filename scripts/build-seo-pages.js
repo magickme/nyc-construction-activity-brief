@@ -308,6 +308,7 @@ const coreConversionPages = [
   ['weekly-nyc-construction-permit-report.html', 'weekly-nyc-construction-report-sticky'],
   ['dob-now-permit-search-alternative.html', 'dob-now-alternative-sticky'],
   ['nyc-construction-permit-leads.html', 'permit-leads-sticky'],
+  ['nyc-permit-activity-by-zip.html', 'permit-activity-by-zip-sticky'],
   ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-sticky'],
   ['nyc-plumbing-permits.html', 'plumbing-permits-sticky'],
   ['nyc-sprinkler-permits.html', 'sprinkler-permits-sticky'],
@@ -2897,6 +2898,185 @@ ${conversionBar(`${config.checkoutSource}-sticky`)}
 `;
 }
 
+function zipActivityHtml(rows) {
+  const description = 'NYC permit activity by ZIP page for screening selected public DOB rows by ZIP code, borough, work type, issued date, status, cost bucket, and source link.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const zipEntries = [...countBy(rows, (row) => row.zip_code).entries()]
+    .filter(([zip]) => zip)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const product = productJsonLd(description, checkoutHref('permit-activity-by-zip'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Can I review NYC permit activity by ZIP before buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. This page shows current issue ZIP counts and links to source-backed ZIP sample pages before checkout.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is this a live building permit alert feed?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It is a weekly ZIP package for screening selected public DOB rows. It is not a live alert feed, API, CRM sync, or complete DOB database.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the ZIP file include private contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+    ],
+  };
+  const tableRows = zipEntries.map(([zip, count]) => {
+    const matchingRows = rows.filter((row) => row.zip_code === zip);
+    const boroughs = [...new Set(matchingRows.map((row) => titleCase(row.borough)))].join(', ');
+    const latestIssued = matchingRows.map((row) => formatDate(row.issued_date)).sort().at(-1);
+    return {
+      zip,
+      count,
+      boroughs,
+      latestIssued,
+      workTypes: describeCounts(matchingRows, (row) => row.work_type, 4),
+      costBuckets: describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 3),
+      topicHref: `/topics/nyc-dob-permits-zip-${zip}.html`,
+    };
+  });
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Permit Activity by ZIP | Current DOB Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/nyc-permit-activity-by-zip.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Permit Activity by ZIP | Current DOB Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/nyc-permit-activity-by-zip.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC permit activity by ZIP in the current issue.</h1>
+      <p class="lede">Use this ZIP view to check whether the current issue covers the territories you care about before buying the full ${escapeHtml(rows.length)}-row ZIP.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>ZIP codes covered</h2>
+          <p>${escapeHtml(zipEntries.length)} ZIP codes in the paid issue.</p>
+        </div>
+        <div class="card">
+          <h2>Review fields</h2>
+          <p>ZIP, borough, work type, issued date, status, cost bucket, permit identifiers, short description, and source link.</p>
+        </div>
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$9.50</p>
+          <p>One-time Stripe checkout with instant browser download.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current ZIP facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Free preview rows: 25.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}.</li>
+          <li>Top ZIPs: ${escapeHtml(describeCounts(rows, (row) => row.zip_code, 8))}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>ZIP slices in the current issue</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ZIP</th>
+                <th>Borough</th>
+                <th>Rows</th>
+                <th>Top work types</th>
+                <th>Latest issued</th>
+                <th>Cost buckets</th>
+                <th>Sample page</th>
+              </tr>
+            </thead>
+            <tbody>
+${tableRows.map((row) => `              <tr>
+                <td>${escapeHtml(row.zip)}</td>
+                <td>${escapeHtml(row.boroughs)}</td>
+                <td>${escapeHtml(row.count)}</td>
+                <td>${escapeHtml(row.workTypes)}</td>
+                <td>${escapeHtml(row.latestIssued)}</td>
+                <td>${escapeHtml(row.costBuckets)}</td>
+                <td><a href="${escapeHtml(row.topicHref)}">Review ZIP slice</a></td>
+              </tr>`).join('\n')}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Use this order</h2>
+        <ol>
+          <li>Check the ZIP table for territory fit.</li>
+          <li>Open the matching ZIP sample page and inspect example rows.</li>
+          <li>Use the free preview to confirm the CSV fields match your review process.</li>
+          <li>Buy the ZIP if the full current issue saves enough weekly sorting time.</li>
+          <li>Open source links before outreach, quoting, routing, underwriting, or planning.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, legal advice, or filing advice are included. This is not a live alert feed. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a>
+        <a class="button secondary" href="/manhattan-construction-permit-activity.html">Manhattan activity</a>
+        <a class="button secondary" href="/brooklyn-construction-permit-activity.html">Brooklyn activity</a>
+        <a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('permit-activity-by-zip')}">Buy instant ZIP</a>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'ZIP codes in the current issue',
+      })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function freeVsPaidHtml(rows) {
   const description = 'Compare the free NYC construction activity preview with the paid ZIP, including row counts, files, field coverage, source limits, and checkout path.';
   const range = sampleRange(rows);
@@ -5107,7 +5287,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -5157,6 +5337,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a></p>
         <p><a class="button secondary" href="/dob-now-permit-search-alternative.html">DOB NOW permit search alternative</a></p>
         <p><a class="button secondary" href="/nyc-construction-permit-leads.html">NYC construction permit leads alternative</a></p>
+        <p><a class="button secondary" href="/nyc-permit-activity-by-zip.html">NYC permit activity by ZIP</a></p>
         <p><a class="button secondary" href="/manhattan-construction-permit-activity.html">Manhattan construction permit activity</a></p>
         <p><a class="button secondary" href="/brooklyn-construction-permit-activity.html">Brooklyn construction permit activity</a></p>
         <p><a class="button secondary" href="/nyc-sidewalk-shed-permits.html">NYC sidewalk shed permits</a></p>
@@ -5506,6 +5687,7 @@ fs.writeFileSync(path.join(root, 'nyc-dob-permit-csv.html'), permitCsvHtml(rows)
 fs.writeFileSync(path.join(root, 'weekly-nyc-construction-permit-report.html'), weeklyPermitReportHtml(rows));
 fs.writeFileSync(path.join(root, 'dob-now-permit-search-alternative.html'), dobNowAlternativeHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-construction-permit-leads.html'), permitLeadsHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-permit-activity-by-zip.html'), zipActivityHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-sidewalk-shed-permits.html'), sidewalkShedPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-plumbing-permits.html'), plumbingPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-sprinkler-permits.html'), sprinklerPermitsHtml(rows));

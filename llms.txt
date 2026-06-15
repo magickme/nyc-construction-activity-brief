@@ -39,6 +39,7 @@ Primary pages:
 - Weekly NYC construction permit report: https://nyc-construction-activity-brief.vercel.app/weekly-nyc-construction-permit-report.html
 - DOB NOW permit search alternative: https://nyc-construction-activity-brief.vercel.app/dob-now-permit-search-alternative.html
 - NYC construction permit leads alternative: https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-leads.html
+- NYC permit activity by ZIP: https://nyc-construction-activity-brief.vercel.app/nyc-permit-activity-by-zip.html
 - Manhattan construction permit activity: https://nyc-construction-activity-brief.vercel.app/manhattan-construction-permit-activity.html
 - Brooklyn construction permit activity: https://nyc-construction-activity-brief.vercel.app/brooklyn-construction-permit-activity.html
 - NYC sidewalk shed permits: https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html

@@ -139,6 +139,13 @@
       <description>Source-linked permit screening page for buyers searching for NYC construction permit leads without private contacts or guaranteed sales opportunities.</description>
     </item>
     <item>
+      <title>NYC permit activity by ZIP</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-permit-activity-by-zip.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-permit-activity-by-zip.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current ZIP-based permit activity page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
       <title>Manhattan construction permit activity</title>
       <link>https://nyc-construction-activity-brief.vercel.app/manhattan-construction-permit-activity.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/manhattan-construction-permit-activity.html</guid>
