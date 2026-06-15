@@ -101,10 +101,24 @@ Current counts:
 - Structural: 12
 - Construction Fence: 9
 
+High-intent topic pages:
+- NYC permit data for architects: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html
+- NYC permit data for engineers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-engineers.html
+- NYC construction permit data for proptech: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-proptech.html
+- NYC building permit data for vendors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-data-for-vendors.html
+- NYC DOB permit data for contractors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-data-for-contractors.html
+- NYC subcontractor prospecting permit data: https://nyc-construction-activity-brief.vercel.app/topics/nyc-subcontractor-prospecting-permit-data.html
+- NYC construction sales prospecting: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-sales-prospecting.html
+- NYC construction market research CSV: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-market-research-csv.html
+- NYC commercial renovation permits: https://nyc-construction-activity-brief.vercel.app/topics/nyc-commercial-renovation-permits.html
+- NYC construction permit monitoring for suppliers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-monitoring-for-suppliers.html
+- NYC DOB permit alerts for subcontractors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-alerts-for-subcontractors.html
+- NYC building permit export CSV: https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-export-csv.html
+
 Boundaries:
 - No owner names, applicant names, phone numbers, emails, full street addresses, or enriched contact data.
 - No guaranteed leads.
 - Not affiliated with or endorsed by NYC, DOB, or any agency.
 - Source records can be incomplete, delayed, revised, duplicated, or mislabeled.
 
-Generated topic page count: 123
+Generated topic page count: 124

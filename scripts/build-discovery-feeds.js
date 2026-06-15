@@ -12,6 +12,21 @@ const productFeedUrl = `${baseUrl}/product-feed.xml`;
 const jsonFeedUrl = `${baseUrl}/feed.json`;
 const launchPriceUsd = 9.5;
 const standardPriceUsd = 49;
+const highIntentTopicPages = [
+  ['nyc-permit-data-for-architects', 'NYC permit data for architects'],
+  ['nyc-permit-data-for-engineers', 'NYC permit data for engineers'],
+  ['nyc-permit-research-for-project-managers', 'NYC permit research for project managers'],
+  ['nyc-construction-permit-data-for-proptech', 'NYC construction permit data for proptech'],
+  ['nyc-building-permit-data-for-vendors', 'NYC building permit data for vendors'],
+  ['nyc-dob-permit-data-for-contractors', 'NYC DOB permit data for contractors'],
+  ['nyc-subcontractor-prospecting-permit-data', 'NYC subcontractor prospecting permit data'],
+  ['nyc-construction-sales-prospecting', 'NYC construction sales prospecting'],
+  ['nyc-construction-market-research-csv', 'NYC construction market research CSV'],
+  ['nyc-commercial-renovation-permits', 'NYC commercial renovation permits'],
+  ['nyc-construction-permit-monitoring-for-suppliers', 'NYC construction permit monitoring for suppliers'],
+  ['nyc-dob-permit-alerts-for-subcontractors', 'NYC DOB permit alerts for subcontractors'],
+  ['nyc-building-permit-export-csv', 'NYC building permit export CSV'],
+];
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
@@ -788,6 +803,25 @@ function buildJsonFeed(rows, manifest) {
   const previewRows = publicPreviewRowCount() ?? stats.rowCount;
   const generatedAt = `${stats.sourceFetchDate || new Date().toISOString().slice(0, 10)}T12:00:00Z`;
   const topWorkTypes = stats.workTypes.slice(0, 5).map((item) => `${item.name} ${item.count}`).join(' | ');
+  const highIntentTopicItems = highIntentTopicPages
+    .filter(([slug]) => manifest.slugs.includes(slug))
+    .map(([slug, title]) => ({
+      id: `${baseUrl}/topics/${slug}.html`,
+      url: `${baseUrl}/topics/${slug}.html`,
+      title,
+      content_text: `High-intent topic page for buyers comparing the current ${stats.rowCount}-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.`,
+      date_published: generatedAt,
+    }));
+  const fallbackTopicItems = manifest.slugs
+    .filter((slug) => !highIntentTopicPages.some(([topicSlug]) => topicSlug === slug))
+    .slice(0, 12)
+    .map((slug) => ({
+      id: `${baseUrl}/topics/${slug}.html`,
+      url: `${baseUrl}/topics/${slug}.html`,
+      title: slug.replace(/-/g, ' '),
+      content_text: 'Current source-linked NYC construction permit activity page from the public preview.',
+      date_published: generatedAt,
+    }));
   const items = [
     {
       id: `${baseUrl}/current-issue.html`,
@@ -936,13 +970,8 @@ function buildJsonFeed(rows, manifest) {
       content_text: `Current construction fence permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Construction Fence') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
       date_published: generatedAt,
     },
-    ...manifest.slugs.slice(0, 12).map((slug) => ({
-      id: `${baseUrl}/topics/${slug}.html`,
-      url: `${baseUrl}/topics/${slug}.html`,
-      title: slug.replace(/-/g, ' '),
-      content_text: 'Current source-linked NYC construction permit activity page from the public preview.',
-      date_published: generatedAt,
-    })),
+    ...highIntentTopicItems,
+    ...fallbackTopicItems,
   ];
   return `${JSON.stringify({
     version: 'https://jsonfeed.org/version/1.1',
@@ -960,6 +989,10 @@ function buildJsonFeed(rows, manifest) {
 
 function buildLlmsTxt(rows, manifest) {
   const stats = issueStats(rows);
+  const highIntentTopics = highIntentTopicPages
+    .filter(([slug]) => manifest.slugs.includes(slug))
+    .map(([slug, title]) => `- ${title}: ${baseUrl}/topics/${slug}.html`)
+    .join('\n');
   return `# NYC Weekly Construction Activity Brief
 
 Source-linked weekly NYC DOB NOW construction permit activity brief.
@@ -1056,6 +1089,9 @@ Primary pages:
 
 Current counts:
 ${stats.workTypes.map((item) => `- ${item.name}: ${item.count}`).join('\n')}
+
+High-intent topic pages:
+${highIntentTopics}
 
 Boundaries:
 - No owner names, applicant names, phone numbers, emails, full street addresses, or enriched contact data.

@@ -3153,7 +3153,7 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nyc-construction-activity-brief.vercel.app/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 33, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 45, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html'), 'JSON Feed links DOB approved permits page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html'), 'JSON Feed links DOB NOW approved permits page');
@@ -3169,6 +3169,11 @@ assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-a
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html'), 'JSON Feed links structural permit leads page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html'), 'JSON Feed links construction fence permit leads page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html'), 'JSON Feed links building permits page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html'), 'JSON Feed links architect topic page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-engineers.html'), 'JSON Feed links engineer topic page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-research-for-project-managers.html'), 'JSON Feed links project manager topic page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-proptech.html'), 'JSON Feed links proptech topic page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-market-research-csv.html'), 'JSON Feed links market research CSV topic page');
 assert.ok(jsonFeed.items.some((item) => /142 source-linked rows|142 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
 assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
 
@@ -3236,6 +3241,12 @@ assert.match(llms, /NYC structural permit leads: https:\/\/nyc-construction-acti
 assert.match(llms, /NYC structural permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-structural-permits\.html/, 'llms.txt links structural permits page');
 assert.match(llms, /NYC construction fence permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-fence-permit-leads\.html/, 'llms.txt links construction fence permit leads page');
 assert.match(llms, /NYC construction fence permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-fence-permits\.html/, 'llms.txt links construction fence permits page');
+assert.match(llms, /High-intent topic pages:/, 'llms.txt names high-intent topic section');
+assert.match(llms, /NYC permit data for architects: https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-permit-data-for-architects\.html/, 'llms.txt links architect topic page');
+assert.match(llms, /NYC permit data for engineers: https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-permit-data-for-engineers\.html/, 'llms.txt links engineer topic page');
+assert.match(llms, /NYC permit research for project managers: https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-permit-research-for-project-managers\.html/, 'llms.txt links project manager topic page');
+assert.match(llms, /NYC construction permit data for proptech: https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-construction-permit-data-for-proptech\.html/, 'llms.txt links proptech topic page');
+assert.match(llms, /NYC construction market research CSV: https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-construction-market-research-csv\.html/, 'llms.txt links market research CSV topic page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
 assert.match(llms, /Stripe fallback link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt labels Stripe URL as fallback');
