@@ -433,6 +433,9 @@ assert.match(index, /href="\/nyc-construction-permit-leads\.html"/, 'index links
 assert.match(index, /href="\/nyc-permit-activity-by-zip\.html"/, 'index links ZIP permit activity page');
 assert.match(index, /href="\/manhattan-construction-permit-activity\.html"/, 'index links Manhattan permit activity page');
 assert.match(index, /href="\/brooklyn-construction-permit-activity\.html"/, 'index links Brooklyn permit activity page');
+assert.match(index, /href="\/queens-construction-permit-activity\.html"/, 'index links Queens sample request page');
+assert.match(index, /href="\/bronx-construction-permit-activity\.html"/, 'index links Bronx sample request page');
+assert.match(index, /href="\/staten-island-construction-permit-activity\.html"/, 'index links Staten Island sample request page');
 assert.match(index, /href="\/nyc-sidewalk-shed-permits\.html"/, 'index links sidewalk shed permits page');
 assert.match(index, /href="\/nyc-plumbing-permits\.html"/, 'index links plumbing permits page');
 assert.match(index, /href="\/nyc-sprinkler-permits\.html"/, 'index links sprinkler permits page');
@@ -448,6 +451,27 @@ for (const page of pages) {
 assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub');
 assert.match(index, /href="\/buyer-guide\.html"/, 'index links buyer guide');
 assert.match(index, /href="\/delivery\.html"/, 'index links delivery page');
+
+for (const boroughPage of [
+  ['queens-construction-permit-activity.html', 'Queens'],
+  ['bronx-construction-permit-activity.html', 'Bronx'],
+  ['staten-island-construction-permit-activity.html', 'Staten Island'],
+]) {
+  const [fileName, boroughName] = boroughPage;
+  const html = read(fileName);
+  assert.match(html, new RegExp(`<title>${boroughName} Construction Permit Activity Request \\| NYC Brief</title>`), `${fileName} needs borough request title`);
+  assert.match(html, new RegExp(`<link rel="canonical" href="${baseUrl}/${fileName}">`), `${fileName} needs canonical URL`);
+  assert.match(html, new RegExp(`The current issue does not include ${boroughName} rows\\.`), `${fileName} must state current coverage gap`);
+  assert.match(html, /Current boroughs/, `${fileName} must show current borough coverage`);
+  assert.match(html, /Manhattan 74 \| Brooklyn 68/, `${fileName} must show current Manhattan and Brooklyn coverage`);
+  assert.match(html, new RegExp(`Do not buy it for ${boroughName} coverage unless the current issue page shows rows that fit your territory\\.`), `${fileName} must avoid unsupported purchase claims`);
+  assert.match(html, new RegExp(`Request ${boroughName} sample cut`), `${fileName} must route searchers to sample request`);
+  assert.match(html, new RegExp(`value="${boroughName} construction permit activity"`), `${fileName} must seed borough work type request`);
+  assert.match(html, new RegExp(`value="${boroughName}"`), `${fileName} must seed borough territory request`);
+  assert.match(html, /\/api\/sample-request/, `${fileName} must post to sample request API`);
+  assert.match(html, /This does not join the MagickMe newsletter\./, `${fileName} must keep list separation clear`);
+  assert.match(html, /"@type":"FAQPage"/, `${fileName} needs FAQ structured data`);
+}
 
 const checkout = read('checkout.html');
 assert.match(checkout, /<title>Opening Stripe Checkout \| NYC Construction Activity Brief<\/title>/, 'checkout page needs title');
@@ -2964,7 +2988,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-structural-permit-leads.html', 'nyc-construction-fence-permit-leads.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-structural-permit-leads.html', 'nyc-construction-fence-permit-leads.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -2973,7 +2997,7 @@ for (const page of ['feed.xml', 'feed.json', 'current-issue.json', 'data-package
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 75, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 78, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 

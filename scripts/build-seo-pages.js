@@ -16,6 +16,26 @@ const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
   ? fullIssueCsvPath
   : publicPreviewCsvPath;
 const manualPages = require('./seo-pages.json').map((page) => ({ ...page, group: 'core' }));
+const boroughExpansionPages = [
+  {
+    boroughName: 'Queens',
+    pageSlug: 'queens-construction-permit-activity',
+    requestSource: 'queens-permit-activity-request',
+    zipExamples: '11101, 11375, 11432, or another Queens ZIP',
+  },
+  {
+    boroughName: 'Bronx',
+    pageSlug: 'bronx-construction-permit-activity',
+    requestSource: 'bronx-permit-activity-request',
+    zipExamples: '10451, 10458, 10467, or another Bronx ZIP',
+  },
+  {
+    boroughName: 'Staten Island',
+    pageSlug: 'staten-island-construction-permit-activity',
+    requestSource: 'staten-island-permit-activity-request',
+    zipExamples: '10301, 10306, 10314, or another Staten Island ZIP',
+  },
+];
 
 function writeJson(relativePath, data) {
   fs.writeFileSync(path.join(root, relativePath), `${JSON.stringify(data, null, 2)}\n`);
@@ -9490,8 +9510,143 @@ ${sampleRequestSection()}      <section class="section card">
 `;
 }
 
+function boroughExpansionHtml(rows, config) {
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const currentBoroughMix = describeCounts(rows, (row) => titleCase(row.borough), 5);
+  const currentZipMix = describeCounts(rows, (row) => row.zip_code, 8);
+  const description = `${config.boroughName} construction permit activity request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date.`;
+  const pageUrl = `${baseUrl}/${config.pageSlug}.html`;
+  const webPage = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: `${config.boroughName} Construction Permit Activity Request`,
+    description,
+    url: pageUrl,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'NYC Weekly Construction Activity Brief',
+      url: baseUrl,
+    },
+  };
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `Does the current issue include ${config.boroughName} permit rows?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `No. The current paid issue is limited to selected Manhattan and Brooklyn rows. This page collects ${config.boroughName} sample requests for future cuts.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Can I request ${config.boroughName} ZIP coverage?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes. Send the ZIP codes, borough, work types, and review goal you want covered. Requests help choose future public preview cuts.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this add me to a newsletter?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The sample request is product-specific and does not join the MagickMe newsletter.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${escapeHtml(config.boroughName)} Construction Permit Activity Request | NYC Brief</title>
+    <meta name="description" content="${escapeHtml(description)}">
+    <link rel="canonical" href="${pageUrl}">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${escapeHtml(config.boroughName)} Construction Permit Activity Request | NYC Brief">
+    <meta property="og:description" content="${escapeHtml(description)}">
+    <meta property="og:url" content="${pageUrl}">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(webPage)}</script>
+    <script type="application/ld+json">${jsonScript(datasetJsonLd(rows))}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body class="has-conversion-bar">
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>${escapeHtml(config.boroughName)} construction permit activity request.</h1>
+      <p class="lede">The current issue does not include ${escapeHtml(config.boroughName)} rows. Use this page to request a future ${escapeHtml(config.boroughName)} sample cut by ZIP, work type, and review goal.</p>
+      <p>
+        <a class="button" href="#sample-request">Request ${escapeHtml(config.boroughName)} sample cut</a>
+        <a class="button secondary" href="/current-issue.html">Check current issue</a>
+      </p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current boroughs</h2>
+          <p>${escapeHtml(currentBoroughMix)}.</p>
+        </div>
+        <div class="card">
+          <h2>Current ZIPs</h2>
+          <p>${escapeHtml(currentZipMix)}.</p>
+        </div>
+        <div class="card">
+          <h2>Current source window</h2>
+          <p>${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>What to request</h2>
+        <p>Send the ${escapeHtml(config.boroughName)} ZIPs and work types you would actually review each week. Useful requests name a territory, a trade, and what decision the CSV should help with.</p>
+        <ul>
+          <li>Example ZIPs: ${escapeHtml(config.zipExamples)}.</li>
+          <li>Useful work types: sidewalk shed, plumbing, sprinkler, mechanical systems, supported scaffold, structural, or construction fence.</li>
+          <li>Useful buyer context: contractor, supplier, property manager, broker, consultant, permit expediter, or local service provider.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Current coverage boundary</h2>
+        <p>The paid ZIP available today covers selected Manhattan and Brooklyn records only. Do not buy it for ${escapeHtml(config.boroughName)} coverage unless the current issue page shows rows that fit your territory.</p>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download current CSV preview</a>
+        <a class="button secondary" href="/manhattan-construction-permit-activity.html">Manhattan activity</a>
+        <a class="button secondary" href="/brooklyn-construction-permit-activity.html">Brooklyn activity</a>
+        <a class="button secondary" href="/nyc-permit-activity-by-zip.html">ZIP activity page</a>
+        <a class="button secondary" href="/sample-request.html">General sample request</a>
+      </section>
+
+${sampleRequestSection({
+        heading: `Request ${config.boroughName} sample cut`,
+        intro: `Send one ${config.boroughName} request if this borough is the territory you need covered in a future public preview.`,
+        workType: `${config.boroughName} construction permit activity`,
+        territory: config.boroughName,
+        monitoringGoal: `I need ${config.boroughName} permit activity by ZIP, work type, issued date, status, and source link.`,
+        buttonCopy: `Send ${config.boroughName} request`,
+        fallbackSubject: `NYC Construction Brief ${config.boroughName} sample request`,
+        fallbackSourceLabel: `${config.boroughName} sample request source`,
+        successCopy: `${config.boroughName} request saved. I will use this to choose future sample cuts.`,
+        failedCopy: `${config.boroughName} request was not saved.`,
+      })}
+    </main>
+${conversionBar(config.requestSource)}
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -9579,6 +9734,9 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/nyc-permit-activity-by-zip.html">NYC permit activity by ZIP</a></p>
         <p><a class="button secondary" href="/manhattan-construction-permit-activity.html">Manhattan construction permit activity</a></p>
         <p><a class="button secondary" href="/brooklyn-construction-permit-activity.html">Brooklyn construction permit activity</a></p>
+        <p><a class="button secondary" href="/queens-construction-permit-activity.html">Queens construction permit activity request</a></p>
+        <p><a class="button secondary" href="/bronx-construction-permit-activity.html">Bronx construction permit activity request</a></p>
+        <p><a class="button secondary" href="/staten-island-construction-permit-activity.html">Staten Island construction permit activity request</a></p>
         <p><a class="button secondary" href="/nyc-sidewalk-shed-permits.html">NYC sidewalk shed permits</a></p>
         <p><a class="button secondary" href="/nyc-plumbing-permits.html">NYC plumbing permits</a></p>
         <p><a class="button secondary" href="/nyc-sprinkler-permits.html">NYC sprinkler permits</a></p>
@@ -9980,6 +10138,9 @@ fs.writeFileSync(path.join(root, 'nyc-structural-permit-leads.html'), tradePermi
 }));
 for (const page of boroughLandingPages) {
   fs.writeFileSync(path.join(root, `${page.pageSlug}.html`), boroughPermitsHtml(rows, page));
+}
+for (const page of boroughExpansionPages) {
+  fs.writeFileSync(path.join(root, `${page.pageSlug}.html`), boroughExpansionHtml(rows, page));
 }
 for (const page of workTypeLandingPages) {
   fs.writeFileSync(path.join(root, `${page.pageSlug}.html`), workTypePermitsHtml(rows, page));
