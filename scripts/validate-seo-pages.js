@@ -130,6 +130,7 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
   assert.match(html, /data\.source_path = window\.location\.pathname;/, `${relativePath} sends source path with sample request`);
+  assert.match(html, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, `${relativePath} sends safe entry source with sample request`);
   assert.match(html, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, `${relativePath} builds page-specific sample request checkout source`);
   assert.match(html, /sample_request_saved/, `${relativePath} tracks saved sample requests`);
   assert.match(html, /sample_request_failed/, `${relativePath} tracks failed sample requests`);
@@ -172,6 +173,7 @@ function assertSampleRequestForm(html, label) {
   assert.match(html, /data-sample-request-form/, `${label} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${label} posts sample requests to API`);
   assert.match(html, /data\.source_path = window\.location\.pathname;/, `${label} sends source path with sample request`);
+  assert.match(html, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, `${label} sends safe entry source with sample request`);
   assert.match(html, /sample_request_saved/, `${label} tracks saved sample requests`);
   assert.match(html, /sample_request_failed/, `${label} tracks failed sample requests`);
   assert.match(html, /sampleRequestFallbackHref/, `${label} builds email fallback for failed sample requests`);
@@ -358,6 +360,7 @@ assert.match(index, /Priority-slices CSV grouped by work type/, 'index needs pri
 assert.match(index, /data-sample-request-form/, 'index needs sample request form');
 assert.match(index, /\/api\/sample-request/, 'index posts sample requests to API');
 assert.match(index, /data\.source_path = window\.location\.pathname;/, 'index sends source path with sample request');
+assert.match(index, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, 'index sends safe entry source with sample request');
 assert.match(index, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'index builds page-specific sample request checkout source');
 assert.match(index, /sample_request_saved/, 'index tracks saved sample requests');
 assert.match(index, /sample_request_failed/, 'index tracks failed sample requests');
@@ -612,6 +615,7 @@ assert.match(preview, new RegExp(`href="${purchaseUrl}"`), 'preview page links t
 assert.match(preview, /data-sample-request-form/, 'preview page needs sample request form');
 assert.match(preview, /\/api\/sample-request/, 'preview page posts sample requests to API');
 assert.match(preview, /data\.source_path = window\.location\.pathname;/, 'preview page sends source path with sample request');
+assert.match(preview, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, 'preview page sends safe entry source with sample request');
 assert.match(preview, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'preview page builds page-specific sample request checkout source');
 assert.match(preview, /sample_request_saved/, 'preview page tracks saved sample requests');
 assert.match(preview, /sample_request_failed/, 'preview page tracks failed sample requests');
@@ -2651,6 +2655,7 @@ assert.match(hub, /src="\/assets\/current-issue-snapshot\.png"/, 'hub needs curr
 assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
 assert.match(hub, /data\.source_path = window\.location\.pathname;/, 'hub sends source path with sample request');
+assert.match(hub, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, 'hub sends safe entry source with sample request');
 assert.match(hub, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'hub builds page-specific sample request checkout source');
 assert.match(hub, /sample_request_saved/, 'hub tracks saved sample requests');
 assert.match(hub, /sample_request_failed/, 'hub tracks failed sample requests');

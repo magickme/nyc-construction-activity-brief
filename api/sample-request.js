@@ -95,6 +95,7 @@ function validateSampleRequest(input) {
   const buyerType = slugTagPart(input.buyer_type);
   const monitoringGoal = sanitizeText(input.monitoring_goal, 360);
   const sourcePath = sourcePathTag(input.source_path);
+  const entrySource = slugTagPart(input.entry_source);
   const consent = input.consent === true || input.consent === 'true' || input.consent === 'on';
   const website = sanitizeText(input.website, 200);
   const errors = [];
@@ -117,6 +118,7 @@ function validateSampleRequest(input) {
       buyerType,
       monitoringGoal,
       sourcePath,
+      entrySource,
     },
   };
 }
@@ -130,12 +132,13 @@ function buildMauticContactPayload(request) {
     `wealth:ncab:work-type:${slugTagPart(request.workType)}`,
     `wealth:ncab:territory:${slugTagPart(request.territory)}`,
     request.sourcePath ? `wealth:ncab:source-page:${request.sourcePath}` : '',
+    request.entrySource ? `wealth:ncab:entry-source:${request.entrySource}` : '',
     ...intentTags(request),
   ];
 
   return {
     email: request.email,
-    tags: [...new Set(tags.filter((tag) => !tag.endsWith(':')))],
+    tags: [...new Set(tags.filter((tag) => tag && !tag.endsWith(':')))],
   };
 }
 

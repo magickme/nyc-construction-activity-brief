@@ -49,12 +49,14 @@ const valid = validateSampleRequest({
   buyer_type: 'supplier',
   monitoring_goal: 'I want a weekly sample for plumbing supply outreach.',
   source_path: '/topics/nyc-plumbing-permit-activity.html?utm_source=test',
+  entry_source: 'buy-page-top',
   consent: true,
   website: '',
 });
 assert.equal(valid.ok, true);
 assert.equal(valid.value.email, 'buyer@example.com');
 assert.equal(valid.value.sourcePath, 'topics-nyc-plumbing-permit-activity-html');
+assert.equal(valid.value.entrySource, 'buy-page-top');
 assert.deepEqual(buildMauticContactPayload(valid.value), {
   email: 'buyer@example.com',
   tags: [
@@ -65,6 +67,7 @@ assert.deepEqual(buildMauticContactPayload(valid.value), {
     'wealth:ncab:work-type:plumbing',
     'wealth:ncab:territory:brooklyn-11201',
     'wealth:ncab:source-page:topics-nyc-plumbing-permit-activity-html',
+    'wealth:ncab:entry-source:buy-page-top',
   ],
 });
 
@@ -129,6 +132,7 @@ const procurement = validateSampleRequest({
   buyer_type: 'data-buyer',
   monitoring_goal: 'Procurement needs an invoice and PO approval before card checkout.',
   source_path: '/buy.html',
+  entry_source: 'checkout-bridge',
   consent: true,
   website: '',
 });
@@ -143,6 +147,7 @@ assert.deepEqual(buildMauticContactPayload(procurement.value), {
     'wealth:ncab:work-type:selected-dob-work-types',
     'wealth:ncab:territory:nyc',
     'wealth:ncab:source-page:buy-html',
+    'wealth:ncab:entry-source:checkout-bridge',
     'wealth:ncab:intent:invoice',
     'wealth:ncab:intent:procurement',
   ],
@@ -269,6 +274,7 @@ async function main() {
     'wealth:ncab:work-type:plumbing',
     'wealth:ncab:territory:brooklyn-11201',
     'wealth:ncab:source-page:topics-nyc-plumbing-permit-activity-html',
+    'wealth:ncab:entry-source:buy-page-top',
   ]);
   assert.equal(calls[2].url, 'https://mautic.example.com/api/segments/80/contact/123/add');
   assert.equal(calls[2].init.method, 'POST');

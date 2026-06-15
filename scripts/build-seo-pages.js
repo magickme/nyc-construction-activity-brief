@@ -498,6 +498,7 @@ function sampleRequestScript() {
           'Work type: ' + (data.work_type_requested || ''),
           'Territory: ' + (data.territory_requested || ''),
           'Buyer type: ' + (data.buyer_type || ''),
+          'Entry source: ' + (data.entry_source || ''),
           'Monitoring goal: ' + (data.monitoring_goal || ''),
         ];
         const supportAddress = ['support', 'magick.me'].join('@');
@@ -512,6 +513,8 @@ function sampleRequestScript() {
         const data = Object.fromEntries(new FormData(form).entries());
         data.consent = form.querySelector('[name="consent"]').checked;
         data.source_path = window.location.pathname;
+        const rawEntrySource = new URLSearchParams(window.location.search).get('source') || '';
+        data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
         const fallbackHref = sampleRequestFallbackHref(data, requestSource);
         if (status) status.textContent = 'Saving request...';
