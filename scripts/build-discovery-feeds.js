@@ -112,6 +112,7 @@ function buildCurrentIssueJson(rows, manifest) {
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
+      csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
@@ -131,6 +132,7 @@ function buildCurrentIssueJson(rows, manifest) {
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
+      csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
@@ -221,6 +223,11 @@ function buildFeedXml(rows, manifest) {
       description: `File-by-file package manifest for the current ${stats.rowCount}-row ZIP, including the buyer workbook, priority-slices CSV, QA report, source registry, and claims boundary.`,
     },
     {
+      title: 'CSV field guide',
+      url: `${baseUrl}/csv-field-guide.html`,
+      description: `Column-by-column guide to the public preview and paid CSV fields for the current ${stats.rowCount}-row issue.`,
+    },
+    {
       title: 'Buyer guide for the current ZIP',
       url: `${baseUrl}/buyer-guide.html`,
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
@@ -296,6 +303,7 @@ Primary pages:
 - Time saved calculator: ${baseUrl}/time-saved-calculator.html
 - Who should buy: ${baseUrl}/who-should-buy.html
 - Inside the ZIP: ${baseUrl}/inside-the-zip.html
+- CSV field guide: ${baseUrl}/csv-field-guide.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Support and refunds: ${baseUrl}/support.html
@@ -353,7 +361,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

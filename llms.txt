@@ -26,6 +26,7 @@ Primary pages:
 - Time saved calculator: https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html
 - Who should buy: https://nyc-construction-activity-brief.vercel.app/who-should-buy.html
 - Inside the ZIP: https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html
+- CSV field guide: https://nyc-construction-activity-brief.vercel.app/csv-field-guide.html
 - Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html
 - Delivery steps: https://nyc-construction-activity-brief.vercel.app/delivery.html
 - Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
