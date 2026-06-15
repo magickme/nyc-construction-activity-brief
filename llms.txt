@@ -8,8 +8,9 @@ Current issue:
 - Free CSV preview rows: 25
 - Source fetch date: 2026-06-15
 - Issued dates in preview: 2026-06-09 to 2026-06-12
+- Primary purchase page: https://nyc-construction-activity-brief.vercel.app/buy.html
 - Buy page: https://nyc-construction-activity-brief.vercel.app/buy.html
-- Checkout: https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue
+- Checkout bridge: https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue
 - Stripe Payment Link: https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q
 - Social image: https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png
 - Price: $9.50 one-time ZIP download

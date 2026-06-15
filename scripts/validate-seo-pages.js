@@ -1398,7 +1398,9 @@ assert.equal(currentIssue.publicPreview.mechanicalSystemsPermitsUrl, 'https://ny
 assert.equal(currentIssue.publicPreview.supportedScaffoldPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html', 'current issue JSON public preview links supported scaffold permits page');
 assert.equal(currentIssue.publicPreview.structuralPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html', 'current issue JSON public preview links structural permits page');
 assert.equal(currentIssue.publicPreview.constructionFencePermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html', 'current issue JSON public preview links construction fence permits page');
+assert.equal(currentIssue.publicPreview.purchaseUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON public preview exposes buy page as purchase URL');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
+assert.equal(currentIssue.publicPreview.checkoutBridgeUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON public preview exposes checkout bridge URL');
 assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON keeps Stripe checkout URL');
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
 assert.equal(currentIssue.publicPreview.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON public preview links delivery page');
@@ -1411,7 +1413,9 @@ assert.equal(currentIssue.paidZip.deliveryUrl, 'https://nyc-construction-activit
 assert.equal(currentIssue.paidZip.supportUrl, 'https://nyc-construction-activity-brief.vercel.app/support.html', 'current issue JSON paid ZIP links support page');
 assert.equal(currentIssue.paidZip.sampleRequestUrl, 'https://nyc-construction-activity-brief.vercel.app/sample-request.html', 'current issue JSON paid ZIP links sample request page');
 assert.equal(currentIssue.paidZip.imageUrl, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'current issue JSON paid ZIP links social image');
+assert.equal(currentIssue.paidZip.purchaseUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON paid ZIP exposes buy page as purchase URL');
 assert.equal(currentIssue.paidZip.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP links tracked checkout');
+assert.equal(currentIssue.paidZip.checkoutBridgeUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP exposes checkout bridge URL');
 assert.equal(currentIssue.paidZip.buyUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON paid ZIP links buy page');
 assert.equal(currentIssue.paidZip.currentIssueUrl, 'https://nyc-construction-activity-brief.vercel.app/current-issue.html', 'current issue JSON paid ZIP links current issue page');
 assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON paid ZIP keeps Stripe checkout URL');
@@ -1487,6 +1491,8 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/samp
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
 assert.match(llms, /Free CSV preview rows: 25/, 'llms.txt has free preview row count');
+assert.match(llms, /Primary purchase page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'llms.txt exposes primary purchase page');
+assert.match(llms, /Checkout bridge: https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=current-issue/, 'llms.txt labels checkout bridge');
 assert.match(llms, /Current issue page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.html/, 'llms.txt links current issue page');
 assert.match(llms, /Buy page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'llms.txt links buy page');
 assert.match(llms, /Public preview: https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html/, 'llms.txt links public preview page');

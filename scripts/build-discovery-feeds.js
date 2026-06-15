@@ -137,14 +137,18 @@ function buildCurrentIssueJson(rows, manifest) {
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
       sampleRequestUrl: `${baseUrl}/sample-request.html`,
       imageUrl: socialImageUrl,
+      purchaseUrl: buyUrl,
       buyUrl,
+      checkoutBridgeUrl: checkoutUrl,
       checkoutUrl,
       stripeCheckoutUrl,
       priceUsd: launchPriceUsd,
       standardPriceUsd,
     },
     paidZip: {
+      purchaseUrl: buyUrl,
       buyUrl,
+      checkoutBridgeUrl: checkoutUrl,
       checkoutUrl,
       stripeCheckoutUrl,
       imageUrl: socialImageUrl,
@@ -412,8 +416,9 @@ Current issue:
 - Free CSV preview rows: ${publicPreviewRowCount() ?? stats.rowCount}
 - Source fetch date: ${stats.sourceFetchDate}
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
+- Primary purchase page: ${buyUrl}
 - Buy page: ${buyUrl}
-- Checkout: ${checkoutUrl}
+- Checkout bridge: ${checkoutUrl}
 - Stripe Payment Link: ${stripeCheckoutUrl}
 - Social image: ${socialImageUrl}
 - Price: $${launchPriceUsd.toFixed(2)} one-time ZIP download
