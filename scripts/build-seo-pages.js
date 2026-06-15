@@ -8599,6 +8599,15 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
   const indexPath = path.join(root, 'index.html');
   let index = fs.readFileSync(indexPath, 'utf8');
   const replacement = `      <section class="section card">
+        <h2>Exterior access buyers</h2>
+        <p>The current paid issue includes 40 selected sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows for facade, masonry, restoration, and exterior-access screening.</p>
+        <p><a class="button secondary" href="/topics/nyc-facade-restoration-permit-research.html">Facade restoration permit research</a></p>
+        <p><a class="button secondary" href="/topics/nyc-masonry-contractor-permit-research.html">Masonry contractor permit research</a></p>
+        <p><a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Exterior work permit research</a></p>
+        <p><a class="button" href="${checkoutHref('home-exterior-access')}">Buy exterior-access ZIP</a></p>
+      </section>
+
+      <section class="section card">
         <h2>Permit topics</h2>
         <p class="fine">These pages explain the current sample by buyer search intent and link back to the same source-linked files.</p>
         <ul>
