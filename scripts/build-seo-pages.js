@@ -1479,6 +1479,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Buyer guide for the current NYC construction activity ZIP.</h1>
       <p class="lede">Use this page to decide whether the paid ZIP fits your weekly permit research before opening Stripe checkout.</p>
+      <p>
+        <a class="button" href="${checkoutHref('buyer-guide-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/free-vs-paid.html">Compare free vs paid</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">
@@ -7093,6 +7098,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Who should buy the current NYC construction activity ZIP.</h1>
       <p class="lede">Use this fit checklist before checkout. The product is a compact public-record screening file, not a contact list or live alert service.</p>
+      <p>
+        <a class="button" href="${checkoutHref('who-should-buy-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">
@@ -7562,6 +7572,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>What is inside the current paid ZIP.</h1>
       <p class="lede">The paid ZIP is an instant browser download after Stripe checkout. It contains the full current CSV, buyer workbook, priority slices, and source-boundary files for manual review.</p>
+      <p>
+        <a class="button" href="${checkoutHref('inside-the-zip-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/free-vs-paid.html">Compare free vs paid</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">

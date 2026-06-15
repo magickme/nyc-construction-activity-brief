@@ -625,6 +625,8 @@ assert.match(whoShouldBuy, /"price":"9.50"/, 'who should buy page needs current 
 assert.match(whoShouldBuy, /"@type":"FAQPage"/, 'who should buy page needs FAQ structured data');
 assert.match(whoShouldBuy, /\/_vercel\/insights\/script\.js/, 'who should buy page needs Web Analytics script');
 assert.match(whoShouldBuy, /Who should buy the current NYC construction activity ZIP/, 'who should buy page needs fit headline');
+assert.match(whoShouldBuy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=who-should-buy-top"/, 'who should buy page has above-fold buy CTA');
+assert.match(whoShouldBuy, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'who should buy page explains top CTA checkout path');
 assert.match(whoShouldBuy, /Buy it if these are true/, 'who should buy page needs buy criteria');
 assert.match(whoShouldBuy, /Do not buy it for these jobs/, 'who should buy page needs exclusion criteria');
 assert.match(whoShouldBuy, /Three-minute pre-purchase check/, 'who should buy page needs pre-purchase check');
@@ -663,6 +665,8 @@ assert.match(insideZip, /"@type":"Dataset"/, 'inside ZIP page needs Dataset stru
 assert.match(insideZip, /"@type":"FAQPage"/, 'inside ZIP page needs FAQ structured data');
 assert.match(insideZip, /\/_vercel\/insights\/script\.js/, 'inside ZIP page needs Web Analytics script');
 assert.match(insideZip, /What is inside the current paid ZIP/, 'inside ZIP page needs package headline');
+assert.match(insideZip, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=inside-the-zip-top"/, 'inside ZIP page has above-fold buy CTA');
+assert.match(insideZip, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'inside ZIP page explains top CTA checkout path');
 assert.match(insideZip, /142 source-linked rows/, 'inside ZIP page needs paid row count');
 assert.match(insideZip, /25 rows for checking fields before purchase/, 'inside ZIP page needs preview row count');
 assert.match(insideZip, /\$9\.50/, 'inside ZIP page needs launch price');
@@ -2382,6 +2386,8 @@ assert.match(buyerGuide, /"@type":"Offer"/, 'buyer guide needs Offer structured 
 assert.match(buyerGuide, /"price":"9.50"/, 'buyer guide needs current price structured data');
 assert.match(buyerGuide, /"@type":"FAQPage"/, 'buyer guide needs FAQ structured data');
 assert.match(buyerGuide, /\/_vercel\/insights\/script\.js/, 'buyer guide needs Web Analytics script');
+assert.match(buyerGuide, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=buyer-guide-top"/, 'buyer guide has above-fold buy CTA');
+assert.match(buyerGuide, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'buyer guide explains top CTA checkout path');
 assert.match(buyerGuide, /Free preview rows: 25\./, 'buyer guide needs free preview count');
 assert.match(buyerGuide, /Paid ZIP rows: 142\./, 'buyer guide needs paid row count');
 assert.match(buyerGuide, /Buyer workbook for a fast review pass/, 'buyer guide needs buyer workbook copy');
