@@ -115,6 +115,7 @@ function buildCurrentIssueJson(rows, manifest) {
       researchWorkflowUrl: `${baseUrl}/permit-research-workflow.html`,
       contractorSupplierGuideUrl: `${baseUrl}/contractor-supplier-permit-research.html`,
       brokerDeveloperGuideUrl: `${baseUrl}/broker-developer-permit-research.html`,
+      permitExpediterGuideUrl: `${baseUrl}/permit-expediter-research.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -139,6 +140,7 @@ function buildCurrentIssueJson(rows, manifest) {
       researchWorkflowUrl: `${baseUrl}/permit-research-workflow.html`,
       contractorSupplierGuideUrl: `${baseUrl}/contractor-supplier-permit-research.html`,
       brokerDeveloperGuideUrl: `${baseUrl}/broker-developer-permit-research.html`,
+      permitExpediterGuideUrl: `${baseUrl}/permit-expediter-research.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -246,6 +248,11 @@ function buildFeedXml(rows, manifest) {
       description: `Buyer-focused guide for brokers, small developers, consultants, and permit researchers screening the current ${stats.rowCount}-row issue.`,
     },
     {
+      title: 'Permit expediter research guide',
+      url: `${baseUrl}/permit-expediter-research.html`,
+      description: `Buyer-focused guide for permit expediters, filing consultants, and construction researchers screening the current ${stats.rowCount}-row issue.`,
+    },
+    {
       title: 'Inside the current paid ZIP',
       url: `${baseUrl}/inside-the-zip.html`,
       description: `File-by-file package manifest for the current ${stats.rowCount}-row ZIP, including the buyer workbook, priority-slices CSV, QA report, source registry, and claims boundary.`,
@@ -334,6 +341,7 @@ Primary pages:
 - Research workflow: ${baseUrl}/permit-research-workflow.html
 - Contractor and supplier guide: ${baseUrl}/contractor-supplier-permit-research.html
 - Broker and developer guide: ${baseUrl}/broker-developer-permit-research.html
+- Permit expediter guide: ${baseUrl}/permit-expediter-research.html
 - Inside the ZIP: ${baseUrl}/inside-the-zip.html
 - CSV field guide: ${baseUrl}/csv-field-guide.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
@@ -393,7 +401,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
