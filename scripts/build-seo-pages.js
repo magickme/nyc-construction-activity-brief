@@ -399,6 +399,8 @@ const coreTopCtaPages = [
   ['permit-research-workflow.html', 'permit-research-workflow-top'],
   ['nyc-dob-permit-data-download.html', 'nyc-dob-permit-data-download-top'],
   ['nyc-building-permit-data.html', 'building-permit-data-top'],
+  ['nyc-building-permits.html', 'nyc-building-permits-top'],
+  ['nyc-dob-approved-permits.html', 'nyc-dob-approved-permits-top'],
   ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-top'],
   ['nyc-dob-now-approved-permits.html', 'nyc-dob-now-approved-permits-top'],
   ['dob-now-build-approved-permits.html', 'dob-now-build-approved-permits-top'],
@@ -406,6 +408,7 @@ const coreTopCtaPages = [
   ['nyc-dob-permit-tracker.html', 'nyc-dob-permit-tracker-top'],
   ['nyc-dob-permit-monitoring.html', 'nyc-dob-permit-monitoring-top'],
   ['nyc-dob-permit-watchlist.html', 'nyc-dob-permit-watchlist-top'],
+  ['nyc-dob-permit-search.html', 'nyc-dob-permit-search-top'],
   ['nyc-construction-permit-search.html', 'nyc-construction-permit-search-top'],
   ['nyc-dob-permit-lookup.html', 'nyc-dob-permit-lookup-top'],
   ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-top'],
@@ -437,6 +440,7 @@ const coreTopCtaPages = [
   ['material-supplier-permit-research.html', 'material-supplier-top'],
   ['building-service-vendor-permit-research.html', 'building-service-vendor-top'],
   ['subcontractor-permit-research.html', 'subcontractor-top'],
+  ['invoice-request.html', 'invoice-request-buy-top'],
   ['sample-segments.html', 'sample-segments-top'],
 ];
 
