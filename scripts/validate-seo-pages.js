@@ -374,6 +374,7 @@ assert.match(timeSavedCalculator, /href="\/csv-field-guide\.html"/, 'time saved 
 assert.match(timeSavedCalculator, /href="\/pricing\.html"/, 'time saved calculator links pricing');
 assert.match(timeSavedCalculator, /href="\/support\.html"/, 'time saved calculator links support');
 assert.match(timeSavedCalculator, new RegExp(`href="${checkoutUrl}"`), 'time saved calculator links tracked checkout');
+assertSampleRequestForm(timeSavedCalculator, 'time saved calculator');
 assert.match(timeSavedCalculator, /No guaranteed leads\./, 'time saved calculator keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(timeSavedCalculator, pattern, `time-saved-calculator.html contains banned copy pattern ${pattern}`);
@@ -488,6 +489,7 @@ assert.match(csvFieldGuide, /href="\/time-saved-calculator\.html"/, 'CSV field g
 assert.match(csvFieldGuide, /href="\/pricing\.html"/, 'CSV field guide links pricing');
 assert.match(csvFieldGuide, /href="\/support\.html"/, 'CSV field guide links support');
 assert.match(csvFieldGuide, new RegExp(`href="${checkoutUrl}"`), 'CSV field guide links tracked checkout');
+assertSampleRequestForm(csvFieldGuide, 'CSV field guide');
 assert.match(csvFieldGuide, /No guaranteed leads\./, 'CSV field guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(csvFieldGuide, pattern, `csv-field-guide.html contains banned copy pattern ${pattern}`);
@@ -769,6 +771,7 @@ assert.match(delivery, /href="\/csv-field-guide\.html"/, 'delivery page links CS
 assert.match(delivery, /href="\/support\.html"/, 'delivery page links support page');
 assert.match(delivery, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'delivery page links sample CSV');
 assert.match(delivery, new RegExp(`href="${checkoutUrl}"`), 'delivery page links tracked checkout');
+assertSampleRequestForm(delivery, 'delivery page');
 assert.match(delivery, /No physical item ships\./, 'delivery page explains digital delivery');
 assert.match(delivery, /not a guaranteed lead list/, 'delivery page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -800,6 +803,7 @@ assert.match(support, /href="\/permit-research-workflow\.html"/, 'support page l
 assert.match(support, /href="\/csv-field-guide\.html"/, 'support page links CSV field guide');
 assert.match(support, /href="\/preview\.html"/, 'support page links preview');
 assert.match(support, new RegExp(`href="${checkoutUrl}"`), 'support page links tracked checkout');
+assertSampleRequestForm(support, 'support page');
 assert.match(support, /No guaranteed leads/, 'support page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(support, pattern, `support.html contains banned copy pattern ${pattern}`);
@@ -853,6 +857,7 @@ assert.match(methodology, /href="\/inside-the-zip\.html"/, 'methodology links in
 assert.match(methodology, /href="\/csv-field-guide\.html"/, 'methodology links CSV field guide');
 assert.match(methodology, /href="\/support\.html"/, 'methodology links support page');
 assert.match(methodology, new RegExp(`href="${checkoutUrl}"`), 'methodology links tracked checkout');
+assertSampleRequestForm(methodology, 'methodology');
 assert.match(methodology, /"@type":"Dataset"/, 'methodology needs Dataset structured data');
 assert.match(methodology, /"@type":"DataDownload"/, 'methodology needs DataDownload structured data');
 assert.match(methodology, /"contentUrl":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample\/nyc-construction-activity-preview\.csv"/, 'methodology Dataset links CSV preview');

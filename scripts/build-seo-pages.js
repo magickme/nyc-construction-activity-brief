@@ -922,9 +922,16 @@ ${territories}
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('methodology')}">Buy instant ZIP</a>
       </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -1227,9 +1234,16 @@ ${fields.map(([name, use]) => `              <tr>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('csv-field-guide')}">Buy instant ZIP</a>
       </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -2255,8 +2269,14 @@ ${socialImageMeta()}
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('time-saved-calculator')}">Buy instant ZIP</a>
       </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
 
       <section class="section card">
         <h2>Boundary</h2>
@@ -2284,6 +2304,7 @@ ${socialImageMeta()}
       minutes.addEventListener('input', updateCalculator);
       updateCalculator();
     </script>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -2537,9 +2558,16 @@ ${socialImageMeta()}
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('delivery')}">Buy instant ZIP</a>
       </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
@@ -3022,9 +3050,16 @@ ${socialImageMeta()}
         <a class="button secondary" href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('support')}">Buy instant ZIP</a>
       </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;
