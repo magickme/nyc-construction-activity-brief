@@ -350,5 +350,16 @@
     "currentSample": "The paid ZIP includes 142 selected rows from the 2026-06-09 to 2026-06-15 pull. The free CSV preview is limited to 25 rows.",
     "useCase": "Use the report to start a weekly research session with source links, work types, ZIPs, issue dates, and status fields already organized. It is not a full DOB database, live alert feed, or contact list.",
     "sampleLine": "Weekly report row | work type | ZIP | borough | issued date | status | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-construction-activity-report",
+    "title": "NYC Construction Activity Report | Weekly DOB CSV",
+    "description": "A weekly NYC construction activity report for selected DOB NOW rows with ZIP, borough, work type, issued date, status, and source links.",
+    "h1": "NYC construction activity report for weekly permit review.",
+    "lede": "The current issue gives buyers a compact source-linked report for selected NYC construction activity instead of a broad raw-data search.",
+    "audience": "Construction suppliers, subcontractors, expediters, brokers, consultants, and local operators who review NYC construction activity before deciding which source records to inspect.",
+    "currentSample": "The paid ZIP includes 142 selected rows across seven work types and five ZIP codes. The free CSV preview is limited to 25 rows.",
+    "useCase": "Use this page if you want a weekly construction activity report that starts with public permit records and keeps source links visible. It does not include private contacts, bid timing, or agency endorsement.",
+    "sampleLine": "Construction activity report | work type | ZIP | issued date | status | DOB NOW source link"
   }
 ]
