@@ -716,6 +716,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
@@ -864,6 +865,7 @@ ${territories}
         <p>No guaranteed leads. Source records can be incomplete, delayed, revised, duplicated, or mislabeled. This product is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -987,6 +989,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
@@ -1151,6 +1154,7 @@ ${fields.map(([name, use]) => `              <tr>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
@@ -1158,6 +1162,160 @@ ${fields.map(([name, use]) => `              <tr>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('csv-field-guide')}">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
+function freeVsPaidHtml(rows) {
+  const description = 'Compare the free NYC construction activity preview with the paid ZIP, including row counts, files, field coverage, source limits, and checkout path.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
+  const product = productJsonLd(description, checkoutHref('free-vs-paid'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is free before checkout?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The free preview includes 25 public rows, the CSV field structure, a sample Markdown brief, segment pages, methodology, and the current issue summary.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does the paid ZIP add?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The paid ZIP adds the full ${rows.length}-row current issue CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, QA report, version file, buyer README, and claims boundary.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Should I use the free preview first?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Check the free preview first if you need to confirm field names, source limits, row shape, or whether the current work-type and ZIP mix fits your use case.',
+        },
+      },
+    ],
+  };
+
+  const rowsHtml = [
+    ['Rows', '25 sample rows', `${rows.length} source-linked rows`],
+    ['CSV fields', 'Same public-facing field structure', 'Same fields across the full current issue'],
+    ['Source links', 'Visible on sample rows', 'Visible across all paid rows'],
+    ['Buyer workbook', 'Not included', 'Included as `buyer-workbook.md`'],
+    ['Priority slices', 'Segment pages only', 'Included as `buyer-priority-slices.csv`'],
+    ['QA and registry', 'Methodology page and public sample notes', 'QA report, source registry, version file, and buyer README'],
+    ['Delivery', 'Browser pages and sample downloads', 'Instant ZIP after completed Stripe checkout'],
+  ];
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Free Preview vs Paid ZIP | NYC Construction Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/free-vs-paid.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Free Preview vs Paid ZIP | NYC Construction Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/free-vs-paid.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Free preview and paid ZIP comparison.</h1>
+      <p class="lede">Check what you can inspect before checkout and what the $24.50 paid ZIP adds for the current issue.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Free preview</h2>
+          <p>25 rows, sample brief, field guide, segment pages, methodology, and source boundary.</p>
+        </div>
+        <div class="card">
+          <h2>Paid ZIP</h2>
+          <p>${escapeHtml(rows.length)} rows plus buyer workbook, priority slices, QA report, source registry, and package notes.</p>
+        </div>
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$24.50</p>
+          <p>One-time ZIP download after paid Stripe checkout.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Comparison</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Free preview</th>
+                <th>Paid ZIP</th>
+              </tr>
+            </thead>
+            <tbody>
+${rowsHtml.map(([item, freeValue, paidValue]) => `              <tr>
+                <td>${escapeHtml(item)}</td>
+                <td>${escapeHtml(freeValue)}</td>
+                <td>${escapeHtml(paidValue)}</td>
+              </tr>`).join('\n')}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Use this order</h2>
+        <ol>
+          <li>Open the free CSV preview and confirm the row shape.</li>
+          <li>Read the CSV field guide if a column name is unclear.</li>
+          <li>Use the segment hub to check your ZIP, borough, work type, or cost bucket.</li>
+          <li>Use the paid ZIP only if the full current issue saves enough sorting time.</li>
+        </ol>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
+        <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button" href="${checkoutHref('free-vs-paid')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
   </body>
@@ -1275,6 +1433,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
@@ -1425,6 +1584,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/current-issue.html">Current issue highlights</a>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
@@ -1583,6 +1743,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
@@ -1694,6 +1855,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -1829,6 +1991,7 @@ ${socialImageMeta()}
           <li>Markdown brief, public sample notes, source registry, QA report, version file, buyer README, and claims boundary.</li>
         </ul>
         <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
@@ -2019,6 +2182,7 @@ ${files.map((file) => `              <tr>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -2156,6 +2320,7 @@ ${socialImageMeta()}
         <p>This is a one-time digital ZIP purchase. Refund review should be based on duplicate charge, failed paid-session delivery, or a product file problem. No guaranteed leads. The ZIP does not include private contact data, owner names, applicant names, phone numbers, email addresses, full street addresses, or agency-endorsed information.</p>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button" href="${checkoutHref('support')}">Buy instant ZIP</a>
@@ -2267,6 +2432,7 @@ ${rows.map((row) => `              <tr>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download preview CSV</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button" href="${checkoutHref('preview')}">Buy instant ZIP</a>
@@ -2277,6 +2443,7 @@ ${sampleRequestSection()}      <section class="section card">
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -2290,7 +2457,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -2328,6 +2495,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/current-issue.html">Current issue highlights</a></p>
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
         <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
+        <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
         <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
@@ -2666,6 +2834,7 @@ fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'csv-field-guide.html'), csvFieldGuideHtml(rows));
+fs.writeFileSync(path.join(root, 'free-vs-paid.html'), freeVsPaidHtml(rows));
 fs.writeFileSync(path.join(root, 'current-issue.html'), currentIssueHtml(rows));
 fs.writeFileSync(path.join(root, 'time-saved-calculator.html'), timeSavedCalculatorHtml(rows));
 fs.writeFileSync(path.join(root, 'who-should-buy.html'), whoShouldBuyHtml(rows));

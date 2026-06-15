@@ -48,6 +48,13 @@
       <description>Buyer fit checklist for deciding whether the current 142-row ZIP is useful before opening Stripe checkout.</description>
     </item>
     <item>
+      <title>Free preview and paid ZIP comparison</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Compare the free 25-row preview with the paid 142-row ZIP before opening checkout.</description>
+    </item>
+    <item>
       <title>Inside the current paid ZIP</title>
       <link>https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html</guid>

@@ -171,6 +171,7 @@ assert.match(index, /href="\/preview\.html"/, 'index links public preview page')
 assert.match(index, /href="\/pricing\.html"/, 'index links pricing page');
 assert.match(index, /href="\/time-saved-calculator\.html"/, 'index links time saved calculator');
 assert.match(index, /href="\/who-should-buy\.html"/, 'index links who should buy page');
+assert.match(index, /href="\/free-vs-paid\.html"/, 'index links free vs paid page');
 assert.match(index, /href="\/inside-the-zip\.html"/, 'index links inside the ZIP page');
 assert.match(index, /href="\/csv-field-guide\.html"/, 'index links CSV field guide');
 assert.match(index, /href="\/support\.html"/, 'index links support page');
@@ -204,6 +205,7 @@ assert.equal((preview.match(/DOB NOW row/g) || []).length, 25, 'preview page sho
 assert.match(preview, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'preview page links sample CSV');
 assert.match(preview, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'preview page links sample brief');
 assert.match(preview, /href="\/sample-segments\.html"/, 'preview page links segment hub');
+assert.match(preview, /href="\/free-vs-paid\.html"/, 'preview page links free vs paid page');
 assert.match(preview, /href="\/inside-the-zip\.html"/, 'preview page links inside the ZIP page');
 assert.match(preview, /href="\/pricing\.html"/, 'preview page links pricing page');
 assert.match(preview, /href="\/support\.html"/, 'preview page links support page');
@@ -235,6 +237,7 @@ assert.match(pricing, /\$24\.50/, 'pricing page needs discounted price');
 assert.match(pricing, /No promo code is required/, 'pricing page needs direct launch price copy');
 assert.match(pricing, /About 40 minutes saved/, 'pricing page needs break-even examples');
 assert.match(pricing, /href="\/preview\.html"/, 'pricing page links public preview');
+assert.match(pricing, /href="\/free-vs-paid\.html"/, 'pricing page links free vs paid page');
 assert.match(pricing, /href="\/inside-the-zip\.html"/, 'pricing page links inside the ZIP page');
 assert.match(pricing, /href="\/csv-field-guide\.html"/, 'pricing page links CSV field guide');
 assert.match(pricing, /href="\/time-saved-calculator\.html"/, 'pricing page links time saved calculator');
@@ -272,6 +275,7 @@ assert.match(currentIssuePage, /href="\/sample\/nyc-construction-activity-previe
 assert.match(currentIssuePage, /href="\/sample-segments\.html"/, 'current issue page links segment hub');
 assert.match(currentIssuePage, /href="\/who-should-buy\.html"/, 'current issue page links who should buy page');
 assert.match(currentIssuePage, /href="\/time-saved-calculator\.html"/, 'current issue page links time saved calculator');
+assert.match(currentIssuePage, /href="\/free-vs-paid\.html"/, 'current issue page links free vs paid page');
 assert.match(currentIssuePage, /href="\/inside-the-zip\.html"/, 'current issue page links inside ZIP');
 assert.match(currentIssuePage, /href="\/csv-field-guide\.html"/, 'current issue page links CSV field guide');
 assert.match(currentIssuePage, /href="\/pricing\.html"/, 'current issue page links pricing');
@@ -306,6 +310,7 @@ assert.match(timeSavedCalculator, /href="\/current-issue\.html"/, 'time saved ca
 assert.match(timeSavedCalculator, /href="\/preview\.html"/, 'time saved calculator links preview');
 assert.match(timeSavedCalculator, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'time saved calculator links sample CSV');
 assert.match(timeSavedCalculator, /href="\/who-should-buy\.html"/, 'time saved calculator links who should buy page');
+assert.match(timeSavedCalculator, /href="\/free-vs-paid\.html"/, 'time saved calculator links free vs paid page');
 assert.match(timeSavedCalculator, /href="\/inside-the-zip\.html"/, 'time saved calculator links inside ZIP');
 assert.match(timeSavedCalculator, /href="\/csv-field-guide\.html"/, 'time saved calculator links CSV field guide');
 assert.match(timeSavedCalculator, /href="\/pricing\.html"/, 'time saved calculator links pricing');
@@ -339,6 +344,7 @@ assert.match(whoShouldBuy, /No subscription and no promo code required/, 'who sh
 assert.match(whoShouldBuy, /href="\/preview\.html"/, 'who should buy page links public preview');
 assert.match(whoShouldBuy, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'who should buy page links sample CSV');
 assert.match(whoShouldBuy, /href="\/sample-segments\.html"/, 'who should buy page links segment hub');
+assert.match(whoShouldBuy, /href="\/free-vs-paid\.html"/, 'who should buy page links free vs paid page');
 assert.match(whoShouldBuy, /href="\/inside-the-zip\.html"/, 'who should buy page links inside the ZIP page');
 assert.match(whoShouldBuy, /href="\/csv-field-guide\.html"/, 'who should buy page links CSV field guide');
 assert.match(whoShouldBuy, /href="\/pricing\.html"/, 'who should buy page links pricing page');
@@ -375,6 +381,7 @@ assert.match(insideZip, /privacy-and-claims-boundary\.md/, 'inside ZIP page list
 assert.match(insideZip, /<h2>Fast review path<\/h2>/, 'inside ZIP page needs fast review path');
 assert.match(insideZip, /href="\/preview\.html"/, 'inside ZIP page links preview');
 assert.match(insideZip, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'inside ZIP page links sample CSV');
+assert.match(insideZip, /href="\/free-vs-paid\.html"/, 'inside ZIP page links free vs paid page');
 assert.match(insideZip, /href="\/csv-field-guide\.html"/, 'inside ZIP page links CSV field guide');
 assert.match(insideZip, /href="\/pricing\.html"/, 'inside ZIP page links pricing');
 assert.match(insideZip, /href="\/delivery\.html"/, 'inside ZIP page links delivery');
@@ -409,6 +416,7 @@ assert.match(csvFieldGuide, /Paid ZIP rows: 142/, 'CSV field guide needs paid ro
 assert.match(csvFieldGuide, /href="\/preview\.html"/, 'CSV field guide links preview');
 assert.match(csvFieldGuide, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'CSV field guide links sample CSV');
 assert.match(csvFieldGuide, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'CSV field guide links sample brief');
+assert.match(csvFieldGuide, /href="\/free-vs-paid\.html"/, 'CSV field guide links free vs paid page');
 assert.match(csvFieldGuide, /href="\/inside-the-zip\.html"/, 'CSV field guide links inside ZIP');
 assert.match(csvFieldGuide, /href="\/buyer-guide\.html"/, 'CSV field guide links buyer guide');
 assert.match(csvFieldGuide, /href="\/who-should-buy\.html"/, 'CSV field guide links who should buy page');
@@ -422,6 +430,41 @@ for (const pattern of bannedCopyPatterns) {
 }
 for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(csvFieldGuide, pattern, `csv-field-guide.html contains private data pattern ${pattern}`);
+}
+
+const freeVsPaid = read('free-vs-paid.html');
+assert.match(freeVsPaid, /<title>Free Preview vs Paid ZIP \| NYC Construction Brief<\/title>/, 'free vs paid page needs title');
+assert.match(freeVsPaid, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html">/, 'free vs paid page needs canonical');
+assert.match(freeVsPaid, /<meta property="og:title" content="Free Preview vs Paid ZIP \| NYC Construction Brief">/, 'free vs paid page needs OG title');
+assert.match(freeVsPaid, /src="\/assets\/current-issue-snapshot\.png"/, 'free vs paid page needs current issue snapshot image');
+assert.match(freeVsPaid, /"@type":"Product"/, 'free vs paid page needs Product structured data');
+assert.match(freeVsPaid, /"@type":"Dataset"/, 'free vs paid page needs Dataset structured data');
+assert.match(freeVsPaid, /"@type":"FAQPage"/, 'free vs paid page needs FAQ structured data');
+assert.match(freeVsPaid, /"price":"24.50"/, 'free vs paid page needs current price structured data');
+assert.match(freeVsPaid, /\/_vercel\/insights\/script\.js/, 'free vs paid page needs Web Analytics script');
+assert.match(freeVsPaid, /Free preview and paid ZIP comparison/, 'free vs paid page needs headline');
+assert.match(freeVsPaid, /<h2>Comparison<\/h2>/, 'free vs paid page needs comparison section');
+assert.match(freeVsPaid, /25 sample rows/, 'free vs paid page needs preview row count');
+assert.match(freeVsPaid, /142 source-linked rows/, 'free vs paid page needs paid row count');
+assert.match(freeVsPaid, /buyer-workbook\.md/, 'free vs paid page mentions buyer workbook');
+assert.match(freeVsPaid, /buyer-priority-slices\.csv/, 'free vs paid page mentions priority slices');
+assert.match(freeVsPaid, /Use this order/, 'free vs paid page needs decision order');
+assert.match(freeVsPaid, /href="\/preview\.html"/, 'free vs paid page links preview');
+assert.match(freeVsPaid, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'free vs paid page links sample CSV');
+assert.match(freeVsPaid, /href="\/csv-field-guide\.html"/, 'free vs paid page links CSV field guide');
+assert.match(freeVsPaid, /href="\/sample-segments\.html"/, 'free vs paid page links segment hub');
+assert.match(freeVsPaid, /href="\/inside-the-zip\.html"/, 'free vs paid page links inside ZIP');
+assert.match(freeVsPaid, /href="\/who-should-buy\.html"/, 'free vs paid page links who should buy page');
+assert.match(freeVsPaid, /href="\/time-saved-calculator\.html"/, 'free vs paid page links time saved calculator');
+assert.match(freeVsPaid, /href="\/pricing\.html"/, 'free vs paid page links pricing');
+assert.match(freeVsPaid, /href="\/support\.html"/, 'free vs paid page links support');
+assert.match(freeVsPaid, new RegExp(`href="${checkoutUrl}"`), 'free vs paid page links tracked checkout');
+assert.match(freeVsPaid, /No guaranteed leads\./, 'free vs paid page keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(freeVsPaid, pattern, `free-vs-paid.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(freeVsPaid, pattern, `free-vs-paid.html contains private data pattern ${pattern}`);
 }
 
 const buyerGuide = read('buyer-guide.html');
@@ -440,6 +483,7 @@ assert.match(buyerGuide, /Buyer workbook for a fast review pass/, 'buyer guide n
 assert.match(buyerGuide, /Priority-slices CSV grouped by work type/, 'buyer guide needs priority-slices copy');
 assert.match(buyerGuide, /href="\/preview\.html"/, 'buyer guide links public preview page');
 assert.match(buyerGuide, /href="\/pricing\.html"/, 'buyer guide links pricing page');
+assert.match(buyerGuide, /href="\/free-vs-paid\.html"/, 'buyer guide links free vs paid page');
 assert.match(buyerGuide, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'buyer guide links sample CSV');
 assert.match(buyerGuide, /href="\/sample-segments\.html"/, 'buyer guide links segment hub');
 assert.match(buyerGuide, /href="\/inside-the-zip\.html"/, 'buyer guide links inside the ZIP page');
@@ -474,6 +518,7 @@ assert.match(delivery, /href="\/preview\.html"/, 'delivery page links public pre
 assert.match(delivery, /href="\/pricing\.html"/, 'delivery page links pricing page');
 assert.match(delivery, /href="\/buyer-guide\.html"/, 'delivery page links buyer guide');
 assert.match(delivery, /href="\/inside-the-zip\.html"/, 'delivery page links inside the ZIP page');
+assert.match(delivery, /href="\/free-vs-paid\.html"/, 'delivery page links free vs paid page');
 assert.match(delivery, /href="\/csv-field-guide\.html"/, 'delivery page links CSV field guide');
 assert.match(delivery, /href="\/support\.html"/, 'delivery page links support page');
 assert.match(delivery, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'delivery page links sample CSV');
@@ -504,6 +549,7 @@ assert.match(support, /Refund review should be based on duplicate charge, failed
 assert.match(support, /Do not send card numbers/, 'support page warns against sending sensitive payment data');
 assert.match(support, /href="\/delivery\.html"/, 'support page links delivery');
 assert.match(support, /href="\/inside-the-zip\.html"/, 'support page links inside ZIP');
+assert.match(support, /href="\/free-vs-paid\.html"/, 'support page links free vs paid page');
 assert.match(support, /href="\/csv-field-guide\.html"/, 'support page links CSV field guide');
 assert.match(support, /href="\/preview\.html"/, 'support page links preview');
 assert.match(support, new RegExp(`href="${checkoutUrl}"`), 'support page links tracked checkout');
@@ -530,6 +576,7 @@ assert.match(hub, /\/checkout\.html\?source=sample-request-success/, 'hub links 
 assert.match(hub, /href="\/preview\.html"/, 'hub links public preview page');
 assert.match(hub, /href="\/pricing\.html"/, 'hub links pricing page');
 assert.match(hub, /href="\/who-should-buy\.html"/, 'hub links who should buy page');
+assert.match(hub, /href="\/free-vs-paid\.html"/, 'hub links free vs paid page');
 assert.match(hub, /href="\/inside-the-zip\.html"/, 'hub links inside the ZIP page');
 assert.match(hub, /href="\/csv-field-guide\.html"/, 'hub links CSV field guide');
 assert.match(hub, /href="\/support\.html"/, 'hub links support page');
@@ -550,6 +597,7 @@ assert.match(methodology, /Latest issued row in the file:/, 'methodology needs s
 assert.match(methodology, /The public package excludes owner names/, 'methodology needs privacy boundary');
 assert.match(methodology, /Not a live alert feed\./, 'methodology needs product boundary');
 assert.match(methodology, /No guaranteed leads\./, 'methodology keeps claims boundary visible');
+assert.match(methodology, /href="\/free-vs-paid\.html"/, 'methodology links free vs paid page');
 assert.match(methodology, /href="\/inside-the-zip\.html"/, 'methodology links inside the ZIP page');
 assert.match(methodology, /href="\/csv-field-guide\.html"/, 'methodology links CSV field guide');
 assert.match(methodology, /href="\/support\.html"/, 'methodology links support page');
@@ -562,7 +610,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -570,7 +618,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 17, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 18, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -590,6 +638,7 @@ assert.equal(currentIssue.publicPreview.previewUrl, 'https://nyc-construction-ac
 assert.equal(currentIssue.publicPreview.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON public preview links pricing page');
 assert.equal(currentIssue.publicPreview.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON public preview links time saved calculator');
 assert.equal(currentIssue.publicPreview.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON public preview links who should buy page');
+assert.equal(currentIssue.publicPreview.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON public preview links free vs paid page');
 assert.equal(currentIssue.publicPreview.insideZipUrl, 'https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html', 'current issue JSON public preview links inside ZIP page');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
 assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P', 'current issue JSON keeps Stripe checkout URL');
@@ -607,6 +656,7 @@ assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/7sY
 assert.equal(currentIssue.paidZip.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON paid ZIP links pricing page');
 assert.equal(currentIssue.paidZip.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON paid ZIP links time saved calculator');
 assert.equal(currentIssue.paidZip.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON paid ZIP links who should buy page');
+assert.equal(currentIssue.paidZip.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON paid ZIP links free vs paid page');
 assert.equal(currentIssue.paidZip.insideZipUrl, 'https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html', 'current issue JSON paid ZIP links inside ZIP page');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
@@ -631,6 +681,7 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/prev
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'RSS feed links pricing page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/time-saved-calculator\.html/, 'RSS feed links time saved calculator');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/who-should-buy\.html/, 'RSS feed links who should buy page');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html/, 'RSS feed links free vs paid page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/inside-the-zip\.html/, 'RSS feed links inside the ZIP page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'RSS feed links buyer guide');
@@ -645,6 +696,7 @@ assert.match(llms, /Public preview: https:\/\/nyc-construction-activity-brief\.v
 assert.match(llms, /Pricing: https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'llms.txt links pricing page');
 assert.match(llms, /Time saved calculator: https:\/\/nyc-construction-activity-brief\.vercel\.app\/time-saved-calculator\.html/, 'llms.txt links time saved calculator');
 assert.match(llms, /Who should buy: https:\/\/nyc-construction-activity-brief\.vercel\.app\/who-should-buy\.html/, 'llms.txt links who should buy page');
+assert.match(llms, /Free preview vs paid ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html/, 'llms.txt links free vs paid page');
 assert.match(llms, /Inside the ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/inside-the-zip\.html/, 'llms.txt links inside the ZIP page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
