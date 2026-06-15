@@ -504,5 +504,16 @@
     "currentSample": "The paid ZIP includes 142 selected rows with work type, ZIP, borough, issued date, status, cost bucket, and DOB NOW source links.",
     "useCase": "Use this page to prepare a manual risk research pass by work type, territory, issued date, and source link. It does not provide insurance, legal, compliance, or underwriting advice.",
     "sampleLine": "Risk research screen | work type | ZIP | issued date | status | cost bucket | source link"
+  },
+  {
+    "slug": "nyc-real-estate-investor-permit-research",
+    "title": "NYC Real Estate Investor Permit Research | DOB Brief",
+    "description": "A weekly NYC real estate investor permit research page for reviewing selected DOB activity by ZIP, work type, date, and source link.",
+    "h1": "NYC real estate investor permit research from selected public DOB rows.",
+    "lede": "The current issue helps investors and acquisition researchers screen selected public construction activity before opening individual DOB NOW source records.",
+    "audience": "Real estate investors, acquisition researchers, asset managers, small developers, and analysts checking public construction signals by territory.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual market research pass by ZIP, work type, issued date, and source link. It does not provide property valuations, owner contacts, investment advice, or complete parcel history.",
+    "sampleLine": "Investor research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link"
   }
 ]
