@@ -111,6 +111,7 @@ function buildCurrentIssueJson(rows, manifest) {
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
+      supportUrl: `${baseUrl}/support.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
       imageUrl: socialImageUrl,
@@ -127,6 +128,7 @@ function buildCurrentIssueJson(rows, manifest) {
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
+      supportUrl: `${baseUrl}/support.html`,
       priceUsd: launchPriceUsd,
       standardPriceUsd,
       rowCount: stats.rowCount,
@@ -213,6 +215,11 @@ function buildFeedXml(rows, manifest) {
       description: 'How Stripe redirects completed buyers to the success page and how the paid-session download gate serves the ZIP.',
     },
     {
+      title: 'Support and refund boundary',
+      url: `${baseUrl}/support.html`,
+      description: 'Download troubleshooting, Stripe session handling, common download errors, and refund boundary for the current digital ZIP.',
+    },
+    {
       title: 'Methodology and source boundary',
       url: `${baseUrl}/methodology.html`,
       description: 'Source, privacy boundary, excluded fields, buyer ZIP contents, and claims limits for the current issue.',
@@ -272,6 +279,7 @@ Primary pages:
 - Inside the ZIP: ${baseUrl}/inside-the-zip.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
+- Support and refunds: ${baseUrl}/support.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
 - Sample brief: ${baseUrl}/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: ${baseUrl}/sample-segments.html
@@ -326,7 +334,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'preview.html', 'pricing.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'preview.html', 'pricing.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

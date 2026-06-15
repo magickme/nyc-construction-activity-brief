@@ -55,6 +55,13 @@
       <description>How Stripe redirects completed buyers to the success page and how the paid-session download gate serves the ZIP.</description>
     </item>
     <item>
+      <title>Support and refund boundary</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/support.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/support.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Download troubleshooting, Stripe session handling, common download errors, and refund boundary for the current digital ZIP.</description>
+    </item>
+    <item>
       <title>Methodology and source boundary</title>
       <link>https://nyc-construction-activity-brief.vercel.app/methodology.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/methodology.html</guid>

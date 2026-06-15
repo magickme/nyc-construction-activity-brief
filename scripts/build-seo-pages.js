@@ -718,6 +718,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('segment-hub')}">Buy instant ZIP</a>
       </section>
 
@@ -861,6 +862,7 @@ ${territories}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('methodology')}">Buy instant ZIP</a>
       </section>
     </main>
@@ -984,6 +986,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
         <a class="button" href="${checkoutHref('buyer-guide')}">Buy instant ZIP</a>
       </section>
@@ -1091,6 +1094,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button" href="${checkoutHref('delivery')}">Buy instant ZIP</a>
       </section>
@@ -1226,6 +1230,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('pricing')}">Buy instant ZIP</a>
       </section>
 
@@ -1410,12 +1415,143 @@ ${files.map((file) => `              <tr>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('inside-the-zip')}">Buy instant ZIP</a>
       </section>
 
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
+function supportHtml(rows) {
+  const description = 'Support, download troubleshooting, and refund boundary for the NYC Weekly Construction Activity Brief current issue ZIP.';
+  const range = sampleRange(rows);
+  const product = productJsonLd(description, checkoutHref('support'));
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How does download support work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The success page uses the Stripe Checkout Session ID to call the download endpoint. The endpoint serves the ZIP only after Stripe confirms a paid completed session for this product.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should I keep if the download fails?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Keep the Stripe receipt email, the success-page URL with the session_id value, the approximate purchase time, and any browser error shown by the download page.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are refunds guaranteed?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The product is a digital ZIP. Refund review should be based on duplicate charge, failed paid-session delivery, or a product file problem, not a lead or revenue outcome.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support and Refunds | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/support.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Support and Refunds | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/support.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Support and refund boundary for the current issue.</h1>
+      <p class="lede">The product is a digital ZIP delivered by the browser after Stripe confirms payment. This page explains what to check if the download does not appear.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Delivery path</h2>
+          <p>Stripe redirects completed buyers to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>.</p>
+        </div>
+        <div class="card">
+          <h2>Download gate</h2>
+          <p><code>/api/download</code> verifies a paid completed Stripe Checkout Session before serving the ZIP.</p>
+        </div>
+        <div class="card">
+          <h2>Current ZIP</h2>
+          <p>${escapeHtml(rows.length)} source-linked rows for the ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(rows[0]?.source_fetch_date || range.latestIssuedDate)} source window.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>If download fails</h2>
+        <ol>
+          <li>Return to the Stripe confirmation page and use the success-page link with <code>session_id</code> in the URL.</li>
+          <li>Use the same browser session if the first download attempt was interrupted.</li>
+          <li>Keep the Stripe receipt email, success-page URL, approximate purchase time, and any visible error message.</li>
+          <li>Do not send card numbers, bank details, passwords, or private account credentials.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Common download responses</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Response</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>missing_or_invalid_session_id</code></td>
+                <td>The success page URL is missing the Stripe session ID or the value is malformed.</td>
+              </tr>
+              <tr>
+                <td><code>payment_required</code></td>
+                <td>Stripe did not confirm a paid completed Checkout Session for an accepted Payment Link.</td>
+              </tr>
+              <tr>
+                <td><code>session_verification_failed</code></td>
+                <td>The server could not verify the Stripe session at that moment.</td>
+              </tr>
+              <tr>
+                <td><code>download_not_configured</code></td>
+                <td>The paid ZIP is not configured on the server and should be treated as a delivery issue.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Refund boundary</h2>
+        <p>This is a one-time digital ZIP purchase. Refund review should be based on duplicate charge, failed paid-session delivery, or a product file problem. No guaranteed leads. The ZIP does not include private contact data, owner names, applicant names, phone numbers, email addresses, full street addresses, or agency-endorsed information.</p>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button" href="${checkoutHref('support')}">Buy instant ZIP</a>
       </section>
     </main>
   </body>
@@ -1534,6 +1670,7 @@ ${sampleRequestSection()}      <section class="section card">
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
       </section>
     </main>
@@ -1544,7 +1681,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'preview.html', 'pricing.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'preview.html', 'pricing.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1583,6 +1720,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
+        <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
         <p><a class="button secondary" href="/methodology.html">Read methodology and source boundary</a></p>
         <details>
@@ -1917,6 +2055,7 @@ fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));
 fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
+fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));

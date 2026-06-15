@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support and Refunds | NYC Construction Activity Brief</title>
+    <meta name="description" content="Support, download troubleshooting, and refund boundary for the NYC Weekly Construction Activity Brief current issue ZIP.">
+    <link rel="canonical" href="https://nyc-construction-activity-brief.vercel.app/support.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Support and Refunds | NYC Construction Activity Brief">
+    <meta property="og:description" content="Support, download troubleshooting, and refund boundary for the NYC Weekly Construction Activity Brief current issue ZIP.">
+    <meta property="og:url" content="https://nyc-construction-activity-brief.vercel.app/support.html">
+    <meta property="og:image" content="https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Support, download troubleshooting, and refund boundary for the NYC Weekly Construction Activity Brief current issue ZIP.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/checkout.html?source=support","priceCurrency":"USD","price":"24.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does download support work?","acceptedAnswer":{"@type":"Answer","text":"The success page uses the Stripe Checkout Session ID to call the download endpoint. The endpoint serves the ZIP only after Stripe confirms a paid completed session for this product."}},{"@type":"Question","name":"What should I keep if the download fails?","acceptedAnswer":{"@type":"Answer","text":"Keep the Stripe receipt email, the success-page URL with the session_id value, the approximate purchase time, and any browser error shown by the download page."}},{"@type":"Question","name":"Are refunds guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. The product is a digital ZIP. Refund review should be based on duplicate charge, failed paid-session delivery, or a product file problem, not a lead or revenue outcome."}}]}</script>
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Support and refund boundary for the current issue.</h1>
+      <p class="lede">The product is a digital ZIP delivered by the browser after Stripe confirms payment. This page explains what to check if the download does not appear.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Delivery path</h2>
+          <p>Stripe redirects completed buyers to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>.</p>
+        </div>
+        <div class="card">
+          <h2>Download gate</h2>
+          <p><code>/api/download</code> verifies a paid completed Stripe Checkout Session before serving the ZIP.</p>
+        </div>
+        <div class="card">
+          <h2>Current ZIP</h2>
+          <p>142 source-linked rows for the 2026-06-09 to 2026-06-15 source window.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>If download fails</h2>
+        <ol>
+          <li>Return to the Stripe confirmation page and use the success-page link with <code>session_id</code> in the URL.</li>
+          <li>Use the same browser session if the first download attempt was interrupted.</li>
+          <li>Keep the Stripe receipt email, success-page URL, approximate purchase time, and any visible error message.</li>
+          <li>Do not send card numbers, bank details, passwords, or private account credentials.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Common download responses</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Response</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>missing_or_invalid_session_id</code></td>
+                <td>The success page URL is missing the Stripe session ID or the value is malformed.</td>
+              </tr>
+              <tr>
+                <td><code>payment_required</code></td>
+                <td>Stripe did not confirm a paid completed Checkout Session for an accepted Payment Link.</td>
+              </tr>
+              <tr>
+                <td><code>session_verification_failed</code></td>
+                <td>The server could not verify the Stripe session at that moment.</td>
+              </tr>
+              <tr>
+                <td><code>download_not_configured</code></td>
+                <td>The paid ZIP is not configured on the server and should be treated as a delivery issue.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Refund boundary</h2>
+        <p>This is a one-time digital ZIP purchase. Refund review should be based on duplicate charge, failed paid-session delivery, or a product file problem. No guaranteed leads. The ZIP does not include private contact data, owner names, applicant names, phone numbers, email addresses, full street addresses, or agency-endorsed information.</p>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=support">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>
