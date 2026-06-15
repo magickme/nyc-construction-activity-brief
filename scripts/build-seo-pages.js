@@ -1112,6 +1112,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
+        <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
@@ -1124,6 +1125,176 @@ ${socialImageMeta()}
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
+  </body>
+</html>
+`;
+}
+
+function timeSavedCalculatorHtml(rows) {
+  const description = 'A simple time-saved calculator for deciding whether the NYC Weekly Construction Activity Brief current issue ZIP is worth the launch price.';
+  const product = productJsonLd(description, checkoutHref('time-saved-calculator'));
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What does the calculator measure?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It compares the one-time $24.50 launch price with an estimated hourly value of manual research time. It is a time-saved check only.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this estimate sales or lead value?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It does not estimate sales, leads, conversion, project value, or revenue. It only compares price against manual sorting time.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should I inspect before buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Check the free preview, current issue page, buyer fit page, and ZIP manifest before opening Stripe checkout.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Time Saved Calculator | NYC Construction Activity ZIP</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/time-saved-calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Time Saved Calculator | NYC Construction Activity ZIP">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/time-saved-calculator.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Time saved calculator for the current issue ZIP.</h1>
+      <p class="lede">Use this arithmetic check before checkout. It compares the $24.50 launch price with the manual sorting time you expect the prepared files to save.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$24.50</p>
+          <p>One current-issue ZIP. No subscription. No promo code required.</p>
+        </div>
+        <div class="card">
+          <h2>Current issue</h2>
+          <p>Paid ZIP rows: ${escapeHtml(rows.length)}. Free preview rows: 25.</p>
+        </div>
+        <div class="card">
+          <h2>Files that save sorting</h2>
+          <p>Buyer workbook, priority-slices CSV, source-linked full CSV, and QA/source notes.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Calculate break-even time</h2>
+        <div class="grid">
+          <label>
+            Hourly value of your research time
+            <input id="hourly-rate" type="number" min="1" step="1" value="75">
+          </label>
+          <label>
+            Minutes you expect to save
+            <input id="minutes-saved" type="number" min="0" step="5" value="20">
+          </label>
+          <div class="card">
+            <h3>Result</h3>
+            <p id="calculator-result" class="price">$25.00 value</p>
+            <p id="calculator-detail">At $75/hour, 20 minutes is about $25.00 of time.</p>
+          </div>
+        </div>
+        <p class="fine">This is a time-saved estimate only. It is not a lead, sales, project-value, or revenue estimate.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Common break-even examples</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Hourly value</th>
+                <th>Minutes to cover $24.50</th>
+                <th>What to check first</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$50/hour</td>
+                <td>About 30 minutes</td>
+                <td>Free preview fields and segment pages</td>
+              </tr>
+              <tr>
+                <td>$75/hour</td>
+                <td>About 20 minutes</td>
+                <td>Buyer workbook and priority-slices file</td>
+              </tr>
+              <tr>
+                <td>$100/hour</td>
+                <td>About 15 minutes</td>
+                <td>Top ZIP and work-type mix for the current issue</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Check the issue before buying</h2>
+        <p>Open the public preview and current issue page before checkout. Buy only if the prepared CSV and buyer files save enough manual sorting time for your workflow.</p>
+        <a class="button secondary" href="/current-issue.html">Current issue highlights</a>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button" href="${checkoutHref('time-saved-calculator')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+    <script>
+      const price = 24.5;
+      const rate = document.getElementById('hourly-rate');
+      const minutes = document.getElementById('minutes-saved');
+      const result = document.getElementById('calculator-result');
+      const detail = document.getElementById('calculator-detail');
+      function money(value) {
+        return '$' + value.toFixed(2);
+      }
+      function updateCalculator() {
+        const hourly = Math.max(1, Number(rate.value) || 1);
+        const saved = Math.max(0, Number(minutes.value) || 0);
+        const value = hourly * (saved / 60);
+        const breakEven = Math.ceil((price / hourly) * 60);
+        result.textContent = money(value) + ' value';
+        detail.textContent = 'At ' + money(hourly) + '/hour, ' + saved + ' minutes is about ' + money(value) + ' of time. Break-even is about ' + breakEven + ' minutes.';
+      }
+      rate.addEventListener('input', updateCalculator);
+      minutes.addEventListener('input', updateCalculator);
+      updateCalculator();
+    </script>
   </body>
 </html>
 `;
@@ -1493,6 +1664,7 @@ ${socialImageMeta()}
         </ul>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -1948,7 +2120,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1985,6 +2157,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/preview.html">View public preview</a></p>
         <p><a class="button secondary" href="/current-issue.html">Current issue highlights</a></p>
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
+        <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
         <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
@@ -2322,6 +2495,7 @@ fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'current-issue.html'), currentIssueHtml(rows));
+fs.writeFileSync(path.join(root, 'time-saved-calculator.html'), timeSavedCalculatorHtml(rows));
 fs.writeFileSync(path.join(root, 'who-should-buy.html'), whoShouldBuyHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));

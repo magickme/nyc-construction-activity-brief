@@ -109,6 +109,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       pricingUrl: `${baseUrl}/pricing.html`,
+      timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -127,6 +128,7 @@ function buildCurrentIssueJson(rows, manifest) {
       stripeCheckoutUrl,
       imageUrl: socialImageUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
+      timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -202,6 +204,11 @@ function buildFeedXml(rows, manifest) {
       title: 'Pricing and break-even guide',
       url: `${baseUrl}/pricing.html`,
       description: `One-time $${launchPriceUsd.toFixed(2)} launch-price ZIP and simple time-saved examples for deciding whether the current issue is worth buying.`,
+    },
+    {
+      title: 'Time saved calculator',
+      url: `${baseUrl}/time-saved-calculator.html`,
+      description: `Arithmetic calculator for comparing the $${launchPriceUsd.toFixed(2)} launch price with expected manual sorting time saved.`,
     },
     {
       title: 'Who should buy the current issue',
@@ -286,6 +293,7 @@ Primary pages:
 - RSS feed: ${baseUrl}/feed.xml
 - Public preview: ${baseUrl}/preview.html
 - Pricing: ${baseUrl}/pricing.html
+- Time saved calculator: ${baseUrl}/time-saved-calculator.html
 - Who should buy: ${baseUrl}/who-should-buy.html
 - Inside the ZIP: ${baseUrl}/inside-the-zip.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
@@ -345,7 +353,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
