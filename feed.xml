@@ -146,6 +146,34 @@
       <description>Current sprinkler permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
     </item>
     <item>
+      <title>NYC mechanical systems permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current mechanical systems permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
+      <title>NYC supported scaffold permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current supported scaffold permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
+      <title>NYC structural permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current structural permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
+      <title>NYC construction fence permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current construction fence permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
       <title>Buyer guide for the current ZIP</title>
       <link>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</guid>

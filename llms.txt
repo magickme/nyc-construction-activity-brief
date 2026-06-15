@@ -40,6 +40,10 @@ Primary pages:
 - NYC sidewalk shed permits: https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html
 - NYC plumbing permits: https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html
 - NYC sprinkler permits: https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html
+- NYC mechanical systems permits: https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html
+- NYC supported scaffold permits: https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html
+- NYC structural permits: https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html
+- NYC construction fence permits: https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html
 - Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html
 - Delivery steps: https://nyc-construction-activity-brief.vercel.app/delivery.html
 - Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
