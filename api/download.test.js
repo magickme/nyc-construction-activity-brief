@@ -1,7 +1,12 @@
 const assert = require('node:assert/strict');
 const handler = require('./download');
 
-const { allowedPaymentLinkIds, authorizedSession, validSessionId } = handler._private;
+const {
+  PRODUCT_METADATA_VALUE,
+  allowedPaymentLinkIds,
+  authorizedSession,
+  validSessionId,
+} = handler._private;
 
 assert.equal(validSessionId('cs_live_a123ABC'), true);
 assert.equal(validSessionId('cs_test_a123ABC'), true);
@@ -24,6 +29,49 @@ assert.equal(
     payment_link: 'plink_1TiXdBDmKyUECkDHhQ4TP8y6',
   }),
   true,
+);
+
+assert.equal(
+  authorizedSession({
+    payment_status: 'paid',
+    status: 'complete',
+    payment_link: null,
+    currency: 'usd',
+    amount_total: 950,
+    metadata: {
+      product: PRODUCT_METADATA_VALUE,
+      source: 'buy-page',
+    },
+  }),
+  true,
+);
+
+assert.equal(
+  authorizedSession({
+    payment_status: 'paid',
+    status: 'complete',
+    payment_link: null,
+    currency: 'usd',
+    amount_total: 1200,
+    metadata: {
+      product: PRODUCT_METADATA_VALUE,
+    },
+  }),
+  false,
+);
+
+assert.equal(
+  authorizedSession({
+    payment_status: 'paid',
+    status: 'complete',
+    payment_link: null,
+    currency: 'usd',
+    amount_total: 950,
+    metadata: {
+      product: 'other_product',
+    },
+  }),
+  false,
 );
 
 assert.equal(

@@ -3,6 +3,8 @@ const DEFAULT_PAYMENT_LINK_IDS = [
   'plink_1TiS6xDmKyUECkDHtE9ni0r3',
   'plink_1TgClADmKyUECkDHS6FKhOXp',
 ];
+const PRODUCT_METADATA_VALUE = 'nyc_construction_activity_brief_current_issue';
+const FIRST_PARTY_PRICE_CENTS = 950;
 const ZIP_NAME = 'nyc-weekly-construction-activity-brief-current.zip';
 
 function sendJson(res, status, payload) {
@@ -52,11 +54,19 @@ async function retrieveSession(sessionId) {
 }
 
 function authorizedSession(session) {
-  return (
+  return Boolean(
     session &&
     session.payment_status === 'paid' &&
     session.status === 'complete' &&
-    allowedPaymentLinkIds().includes(session.payment_link)
+    (
+      allowedPaymentLinkIds().includes(session.payment_link) ||
+      (
+        session.metadata &&
+        session.metadata.product === PRODUCT_METADATA_VALUE &&
+        session.currency === 'usd' &&
+        session.amount_total === FIRST_PARTY_PRICE_CENTS
+      )
+    )
   );
 }
 
@@ -98,5 +108,6 @@ module.exports = async function handler(req, res) {
 module.exports._private = {
   authorizedSession,
   allowedPaymentLinkIds,
+  PRODUCT_METADATA_VALUE,
   validSessionId,
 };

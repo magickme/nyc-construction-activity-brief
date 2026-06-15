@@ -620,25 +620,44 @@ function checkoutHtml(rows) {
         utm_content: source,
         client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
       });
-      const stripeUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
+      const fallbackUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
-      link.href = stripeUrl;
-      link.addEventListener('click', () => {
+      link.href = fallbackUrl;
+      function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'checkout_continue_clicked', data: { source } });
+          window.va('event', { name, data });
         } catch (error) {}
+      }
+      async function createCheckoutUrl() {
+        try {
+          const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ source }),
+          });
+          if (!response.ok) throw new Error('checkout session request failed');
+          const data = await response.json();
+          if (!data || typeof data.url !== 'string' || !/^https:\\/\\/checkout\\.stripe\\.com\\//.test(data.url)) {
+            throw new Error('checkout session response invalid');
+          }
+          trackEvent('checkout_session_created', { source });
+          return data.url;
+        } catch (error) {
+          trackEvent('checkout_session_fallback', { source });
+          return fallbackUrl;
+        }
+      }
+      const checkoutUrlPromise = createCheckoutUrl();
+      link.addEventListener('click', async (event) => {
+        event.preventDefault();
+        trackEvent('checkout_continue_clicked', { source });
+        window.location.assign(await checkoutUrlPromise);
       });
-      try {
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-        window.va('event', { name: 'checkout_intent', data: { source } });
-      } catch (error) {}
-      window.setTimeout(() => {
-        try {
-          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'checkout_auto_redirect', data: { source } });
-        } catch (error) {}
-        window.location.replace(stripeUrl);
+      trackEvent('checkout_intent', { source });
+      window.setTimeout(async () => {
+        trackEvent('checkout_auto_redirect', { source });
+        window.location.replace(await checkoutUrlPromise);
       }, 1800);
     </script>
   </body>
@@ -713,25 +732,44 @@ ${socialImageMeta()}
         utm_content: source,
         client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
       });
-      const stripeUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
+      const fallbackUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const link = document.getElementById('buy-link');
-      link.href = stripeUrl;
-      link.addEventListener('click', () => {
+      link.href = fallbackUrl;
+      function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'buy_page_continue_clicked', data: { source } });
+          window.va('event', { name, data });
         } catch (error) {}
+      }
+      async function createCheckoutUrl() {
+        try {
+          const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ source }),
+          });
+          if (!response.ok) throw new Error('checkout session request failed');
+          const data = await response.json();
+          if (!data || typeof data.url !== 'string' || !/^https:\\/\\/checkout\\.stripe\\.com\\//.test(data.url)) {
+            throw new Error('checkout session response invalid');
+          }
+          trackEvent('buy_page_checkout_session_created', { source });
+          return data.url;
+        } catch (error) {
+          trackEvent('buy_page_checkout_session_fallback', { source });
+          return fallbackUrl;
+        }
+      }
+      const checkoutUrlPromise = createCheckoutUrl();
+      link.addEventListener('click', async (event) => {
+        event.preventDefault();
+        trackEvent('buy_page_continue_clicked', { source });
+        window.location.assign(await checkoutUrlPromise);
       });
-      try {
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-        window.va('event', { name: 'buy_page_viewed', data: { source } });
-      } catch (error) {}
-      window.setTimeout(() => {
-        try {
-          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-          window.va('event', { name: 'buy_page_auto_redirect', data: { source } });
-        } catch (error) {}
-        window.location.replace(stripeUrl);
+      trackEvent('buy_page_viewed', { source });
+      window.setTimeout(async () => {
+        trackEvent('buy_page_auto_redirect', { source });
+        window.location.replace(await checkoutUrlPromise);
       }, 900);
     </script>
   </body>
