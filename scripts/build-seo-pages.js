@@ -937,6 +937,14 @@ ${socialImageMeta()}
           <a class="button secondary" href="#sample-request">Request sample cut</a>
         </p>
         <p class="fine">No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+        <section class="section" data-procurement-intent>
+          <h2>Card blocked by procurement?</h2>
+          <p>If Stripe checkout is blocked by an internal approval or invoice process, use the request form below and write <code>invoice</code> or <code>procurement</code> in the monitoring goal. This captures product interest only; paid ZIP delivery still requires a completed Stripe Checkout Session.</p>
+          <p>
+            <a class="button secondary" href="#sample-request">Request invoice help</a>
+            <a class="button secondary" href="/support.html">Check support boundary</a>
+          </p>
+        </section>
 ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' })}
         <noscript>
           <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout. You can also use the <a href="${checkout}">checkout bridge</a>.</p>
