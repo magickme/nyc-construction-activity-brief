@@ -453,6 +453,7 @@
         const data = Object.fromEntries(new FormData(form).entries());
         data.consent = form.querySelector('[name="consent"]').checked;
         data.source_path = window.location.pathname;
+        const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
@@ -465,10 +466,10 @@
           form.reset();
           try {
             window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-            window.va('event', { name: 'sample_request_saved', data: { source: 'sample-request-form' } });
+            window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=sample-request-success">buy the instant ZIP</a>.';
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           if (status) status.textContent = 'Request was not saved. Try again, or buy the current ZIP if it already fits.';
