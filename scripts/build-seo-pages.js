@@ -312,6 +312,7 @@ const coreConversionPages = [
   ['nyc-dob-permit-data-download.html', 'nyc-dob-permit-data-download-sticky'],
   ['nyc-building-permit-data.html', 'building-permit-data-sticky'],
   ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-sticky'],
+  ['nyc-construction-permit-search.html', 'nyc-construction-permit-search-sticky'],
   ['nyc-dob-permit-lookup.html', 'nyc-dob-permit-lookup-sticky'],
   ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-sticky'],
   ['weekly-nyc-construction-permit-report.html', 'weekly-nyc-construction-report-sticky'],
@@ -2673,6 +2674,17 @@ function dobPermitLookupHtml(rows) {
     .replaceAll('permit search data', 'permit lookup data')
     .replaceAll('Search companion', 'Lookup companion')
     .replaceAll('manual NYC DOB permit source checks', 'manual NYC DOB permit lookup checks');
+}
+
+function constructionPermitSearchHtml(rows) {
+  return dobPermitSearchHtml(rows)
+    .replaceAll('NYC DOB Permit Search | Weekly CSV Companion', 'NYC Construction Permit Search | Weekly DOB CSV')
+    .replaceAll('nyc-dob-permit-search.html', 'nyc-construction-permit-search.html')
+    .replaceAll('nyc-dob-permit-search', 'nyc-construction-permit-search')
+    .replaceAll('NYC DOB permit search companion', 'NYC construction permit search companion')
+    .replaceAll('NYC DOB permit source checks', 'NYC construction permit source checks')
+    .replaceAll('Is this an official NYC DOB permit search?', 'Is this an official NYC construction permit search?')
+    .replaceAll('Search companion', 'Construction permit search companion');
 }
 
 function dobApprovedPermitsHtml(rows) {
@@ -7561,7 +7573,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -7620,6 +7632,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/nyc-dob-permit-data-download.html">NYC DOB permit data download</a></p>
         <p><a class="button secondary" href="/nyc-dob-approved-permits.html">NYC DOB approved permits</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-search.html">NYC DOB permit search companion</a></p>
+        <p><a class="button secondary" href="/nyc-construction-permit-search.html">NYC construction permit search companion</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-lookup.html">NYC DOB permit lookup companion</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a></p>
         <p><a class="button secondary" href="/nyc-permit-data-api-alternative.html">NYC permit data API alternative</a></p>
@@ -7977,6 +7990,7 @@ fs.writeFileSync(path.join(root, 'nyc-building-permits.html'), buildingPermitsHt
 fs.writeFileSync(path.join(root, 'nyc-building-permit-data.html'), buildingPermitDataHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-approved-permits.html'), dobApprovedPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-permit-search.html'), dobPermitSearchHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-construction-permit-search.html'), constructionPermitSearchHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-permit-lookup.html'), dobPermitLookupHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-permit-csv.html'), permitCsvHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-permit-data-api-alternative.html'), permitDataApiAlternativeHtml(rows));

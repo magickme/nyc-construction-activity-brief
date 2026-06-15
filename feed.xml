@@ -209,6 +209,13 @@
       <description>Search-focused buyer page for using the current 142-row ZIP as a weekly companion to manual NYC DOB permit source checks.</description>
     </item>
     <item>
+      <title>NYC construction permit search companion</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Search-focused buyer page for using the current 142-row ZIP as a weekly companion to manual NYC construction permit source checks.</description>
+    </item>
+    <item>
       <title>NYC DOB permit lookup companion</title>
       <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html</guid>
