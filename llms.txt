@@ -25,6 +25,7 @@ Primary pages:
 - Data package JSON: https://nyc-construction-activity-brief.vercel.app/data-package.json
 - Product feed XML: https://nyc-construction-activity-brief.vercel.app/product-feed.xml
 - RSS feed: https://nyc-construction-activity-brief.vercel.app/feed.xml
+- JSON Feed: https://nyc-construction-activity-brief.vercel.app/feed.json
 - Public preview: https://nyc-construction-activity-brief.vercel.app/preview.html
 - Pricing: https://nyc-construction-activity-brief.vercel.app/pricing.html
 - Time saved calculator: https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html

@@ -1,0 +1,137 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "NYC Weekly Construction Activity Brief",
+  "home_page_url": "https://nyc-construction-activity-brief.vercel.app/",
+  "feed_url": "https://nyc-construction-activity-brief.vercel.app/feed.json",
+  "description": "Current source-linked NYC construction permit activity pages, sample CSV, and paid ZIP checkout.",
+  "icon": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
+  "favicon": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
+  "authors": [
+    {
+      "name": "NYC Weekly Construction Activity Brief",
+      "url": "https://nyc-construction-activity-brief.vercel.app"
+    }
+  ],
+  "language": "en",
+  "items": [
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
+      "title": "Current NYC construction activity brief: 142 paid issue rows",
+      "content_text": "Current paid issue has 142 source-linked rows. The free CSV preview has 25 rows. Launch price is $9.50. Standard price is $49. Issued dates run 2026-06-09 through 2026-06-12. Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed",
+      "url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed",
+      "title": "Buy the current NYC construction activity ZIP",
+      "content_text": "One-time $9.50 Stripe checkout for the current 142-row ZIP. Automated browser download follows a paid Checkout Session.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/preview.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/preview.html",
+      "title": "Free 25-row preview",
+      "content_text": "Free public preview with source-linked sample rows, CSV, JSON, JSONL, and a Markdown sample brief.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/data-package.json",
+      "url": "https://nyc-construction-activity-brief.vercel.app/data-package.json",
+      "title": "Data package manifest",
+      "content_text": "Machine-readable manifest with source, row counts, sample URLs, buyer pages, paid ZIP contents, price, delivery path, and claims boundary.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/sample-request.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/sample-request.html",
+      "title": "Request a future sample cut",
+      "content_text": "Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html",
+      "title": "nyc sidewalk shed permits",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html",
+      "title": "nyc supported scaffold permits",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html",
+      "title": "nyc construction fence permits",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html",
+      "title": "nyc plumbing permit activity",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html",
+      "title": "nyc mechanical permit activity",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html",
+      "title": "nyc sprinkler permit activity",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html",
+      "title": "nyc structural permit activity",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html",
+      "title": "nyc dob permit monitoring",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html",
+      "title": "nyc dob permit csv",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html",
+      "title": "brooklyn construction permit activity",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html",
+      "title": "manhattan construction permit activity",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html",
+      "title": "construction lead research nyc",
+      "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
+      "date_published": "2026-06-15T12:00:00Z"
+    }
+  ]
+}

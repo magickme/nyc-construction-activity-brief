@@ -9,6 +9,7 @@ const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
 const buyUrl = `${baseUrl}/buy.html`;
 const dataPackageUrl = `${baseUrl}/data-package.json`;
 const productFeedUrl = `${baseUrl}/product-feed.xml`;
+const jsonFeedUrl = `${baseUrl}/feed.json`;
 const launchPriceUsd = 9.5;
 const standardPriceUsd = 49;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
@@ -115,6 +116,7 @@ function buildCurrentIssueJson(rows, manifest) {
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       dataPackageUrl,
       productFeedUrl,
+      jsonFeedUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
@@ -176,6 +178,7 @@ function buildCurrentIssueJson(rows, manifest) {
       pricingUrl: `${baseUrl}/pricing.html`,
       dataPackageUrl,
       productFeedUrl,
+      jsonFeedUrl,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       faqUrl: `${baseUrl}/faq.html`,
@@ -296,6 +299,7 @@ function buildDataPackageJson(rows, manifest) {
       checkout_bridge_url: `${baseUrl}/checkout.html?source=data-package`,
       stripe_payment_link: stripeCheckoutUrl,
       product_feed_url: productFeedUrl,
+      json_feed_url: jsonFeedUrl,
       delivery: 'Instant browser download after completed Stripe checkout.',
       files: [
         'README.md',
@@ -635,6 +639,69 @@ function buildProductFeedXml(rows) {
 `;
 }
 
+function buildJsonFeed(rows, manifest) {
+  const stats = issueStats(rows);
+  const previewRows = publicPreviewRowCount() ?? stats.rowCount;
+  const generatedAt = `${stats.sourceFetchDate || new Date().toISOString().slice(0, 10)}T12:00:00Z`;
+  const topWorkTypes = stats.workTypes.slice(0, 5).map((item) => `${item.name} ${item.count}`).join(' | ');
+  const items = [
+    {
+      id: `${baseUrl}/current-issue.html`,
+      url: `${baseUrl}/current-issue.html`,
+      title: `Current NYC construction activity brief: ${stats.rowCount} paid issue rows`,
+      content_text: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Launch price is $${launchPriceUsd.toFixed(2)}. Standard price is $${standardPriceUsd}. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
+      date_published: generatedAt,
+    },
+    {
+      id: `${baseUrl}/buy.html?source=json-feed`,
+      url: `${baseUrl}/buy.html?source=json-feed`,
+      title: 'Buy the current NYC construction activity ZIP',
+      content_text: `One-time $${launchPriceUsd.toFixed(2)} Stripe checkout for the current ${stats.rowCount}-row ZIP. Automated browser download follows a paid Checkout Session.`,
+      date_published: generatedAt,
+    },
+    {
+      id: `${baseUrl}/preview.html`,
+      url: `${baseUrl}/preview.html`,
+      title: `Free ${previewRows}-row preview`,
+      content_text: 'Free public preview with source-linked sample rows, CSV, JSON, JSONL, and a Markdown sample brief.',
+      date_published: generatedAt,
+    },
+    {
+      id: dataPackageUrl,
+      url: dataPackageUrl,
+      title: 'Data package manifest',
+      content_text: 'Machine-readable manifest with source, row counts, sample URLs, buyer pages, paid ZIP contents, price, delivery path, and claims boundary.',
+      date_published: generatedAt,
+    },
+    {
+      id: `${baseUrl}/sample-request.html`,
+      url: `${baseUrl}/sample-request.html`,
+      title: 'Request a future sample cut',
+      content_text: 'Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.',
+      date_published: generatedAt,
+    },
+    ...manifest.slugs.slice(0, 12).map((slug) => ({
+      id: `${baseUrl}/topics/${slug}.html`,
+      url: `${baseUrl}/topics/${slug}.html`,
+      title: slug.replace(/-/g, ' '),
+      content_text: 'Current source-linked NYC construction permit activity page from the public preview.',
+      date_published: generatedAt,
+    })),
+  ];
+  return `${JSON.stringify({
+    version: 'https://jsonfeed.org/version/1.1',
+    title: 'NYC Weekly Construction Activity Brief',
+    home_page_url: `${baseUrl}/`,
+    feed_url: jsonFeedUrl,
+    description: 'Current source-linked NYC construction permit activity pages, sample CSV, and paid ZIP checkout.',
+    icon: socialImageUrl,
+    favicon: socialImageUrl,
+    authors: [{ name: 'NYC Weekly Construction Activity Brief', url: baseUrl }],
+    language: 'en',
+    items,
+  }, null, 2)}\n`;
+}
+
 function buildLlmsTxt(rows, manifest) {
   const stats = issueStats(rows);
   return `# NYC Weekly Construction Activity Brief
@@ -664,6 +731,7 @@ Primary pages:
 - Data package JSON: ${dataPackageUrl}
 - Product feed XML: ${productFeedUrl}
 - RSS feed: ${baseUrl}/feed.xml
+- JSON Feed: ${jsonFeedUrl}
 - Public preview: ${baseUrl}/preview.html
 - Pricing: ${baseUrl}/pricing.html
 - Time saved calculator: ${baseUrl}/time-saved-calculator.html
@@ -727,8 +795,15 @@ Generated topic page count: ${manifest.totalTopicPages}
 
 function insertHeadLinks(html) {
   const links = `    <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="${baseUrl}/feed.xml">
+    <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="${jsonFeedUrl}">
     <link rel="alternate" type="application/json" title="NYC Weekly Construction Activity Brief current issue" href="${baseUrl}/current-issue.json">`;
-  if (html.includes('href="https://nyc-construction-activity-brief.vercel.app/feed.xml"')) return html;
+  if (html.includes(`href="${jsonFeedUrl}"`)) return html;
+  if (html.includes('href="https://nyc-construction-activity-brief.vercel.app/feed.xml"')) {
+    return html.replace(
+      /(    <link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">\n)/,
+      `$1    <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="${jsonFeedUrl}">\n`,
+    );
+  }
   return html.replace(/(    <link rel="canonical" href="[^"]+">\n)/, `$1${links}\n`);
 }
 
@@ -753,6 +828,7 @@ Allow: /
 
 Sitemap: ${baseUrl}/sitemap.xml
 Feed: ${baseUrl}/feed.xml
+JSON-Feed: ${jsonFeedUrl}
 Current-Issue: ${baseUrl}/current-issue.json
 Data-Package: ${dataPackageUrl}
 Product-Feed: ${productFeedUrl}
@@ -763,7 +839,7 @@ Product-Feed: ${productFeedUrl}
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
@@ -784,6 +860,7 @@ const stats = issueStats(rows);
 fs.writeFileSync(path.join(root, 'current-issue.json'), `${JSON.stringify(buildCurrentIssueJson(rows, manifest), null, 2)}\n`);
 fs.writeFileSync(path.join(root, 'data-package.json'), `${JSON.stringify(buildDataPackageJson(rows, manifest), null, 2)}\n`);
 fs.writeFileSync(path.join(root, 'feed.xml'), buildFeedXml(rows, manifest));
+fs.writeFileSync(path.join(root, 'feed.json'), buildJsonFeed(rows, manifest));
 fs.writeFileSync(path.join(root, 'product-feed.xml'), buildProductFeedXml(rows));
 fs.writeFileSync(path.join(root, 'llms.txt'), buildLlmsTxt(rows, manifest));
 updateHtmlAlternates();

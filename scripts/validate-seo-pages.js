@@ -85,6 +85,7 @@ function assertHtmlPage(relativePath) {
     `${relativePath} needs a canonical URL`,
   );
   assert.match(html, new RegExp(`<link rel="alternate" type="application/rss\\+xml"[^>]+href="${baseUrl}/feed\\.xml">`), `${relativePath} links RSS feed`);
+  assert.match(html, new RegExp(`<link rel="alternate" type="application/feed\\+json"[^>]+href="${baseUrl}/feed\\.json">`), `${relativePath} links JSON Feed`);
   assert.match(html, new RegExp(`<link rel="alternate" type="application/json"[^>]+href="${baseUrl}/current-issue\\.json">`), `${relativePath} links current issue JSON`);
   assert.match(html, /<meta property="og:title" content="[^"]+">/, `${relativePath} needs OG title`);
   assert.match(html, /<meta property="og:description" content="[^"]+">/, `${relativePath} needs OG description`);
@@ -245,6 +246,7 @@ assert.match(
   'index needs a canonical URL',
 );
 assert.match(index, new RegExp(`<link rel="alternate" type="application/rss\\+xml"[^>]+href="${baseUrl}/feed\\.xml">`), 'index links RSS feed');
+assert.match(index, new RegExp(`<link rel="alternate" type="application/feed\\+json"[^>]+href="${baseUrl}/feed\\.json">`), 'index links JSON Feed');
 assert.match(index, new RegExp(`<link rel="alternate" type="application/json"[^>]+href="${baseUrl}/current-issue\\.json">`), 'index links current issue JSON');
 assert.match(index, /<meta property="og:title" content="[^"]+">/, 'index needs OG title');
 assert.match(index, new RegExp(`<meta property="og:image" content="${socialImageUrl}">`), 'index needs social image');
@@ -2046,6 +2048,7 @@ const hub = read('sample-segments.html');
 assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
 assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html">/, 'hub needs canonical');
 assert.match(hub, /<link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">/, 'hub links RSS feed');
+assert.match(hub, /<link rel="alternate" type="application\/feed\+json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.json">/, 'hub links JSON Feed');
 assert.match(hub, /<link rel="alternate" type="application\/json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.json">/, 'hub links current issue JSON');
 assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
 assert.match(hub, /src="\/assets\/current-issue-snapshot\.png"/, 'hub needs current issue snapshot image');
@@ -2075,6 +2078,7 @@ const methodology = read('methodology.html');
 assert.match(methodology, /<title>Methodology \| NYC Construction Activity Brief<\/title>/, 'methodology needs title');
 assert.match(methodology, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/methodology\.html">/, 'methodology needs canonical');
 assert.match(methodology, /<link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">/, 'methodology links RSS feed');
+assert.match(methodology, /<link rel="alternate" type="application\/feed\+json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.json">/, 'methodology links JSON Feed');
 assert.match(methodology, /<link rel="alternate" type="application\/json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.json">/, 'methodology links current issue JSON');
 assert.match(methodology, /NYC DOB NOW: Build - Approved Permits/, 'methodology names source dataset');
 assert.match(methodology, /Latest issued row in the file:/, 'methodology needs source freshness note');
@@ -2096,16 +2100,16 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
 assert.doesNotMatch(sitemap, new RegExp(`<loc>${baseUrl}\\/checkout\\.html</loc>`), 'sitemap must not include noindex checkout page');
-for (const page of ['feed.xml', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt']) {
+for (const page of ['feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 55, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 56, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -2301,6 +2305,16 @@ assert.match(productFeed, /current 142-row NYC DOB permit CSV/, 'product feed de
 assert.match(productFeed, /free preview has 25 rows/, 'product feed describes preview row count');
 assert.match(productFeed, /<g:identifier_exists>no<\/g:identifier_exists>/, 'product feed avoids unsupported product identifiers');
 
+const jsonFeed = JSON.parse(read('feed.json'));
+assert.equal(jsonFeed.version, 'https://jsonfeed.org/version/1.1', 'JSON Feed exposes v1.1');
+assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Feed names product');
+assert.equal(jsonFeed.home_page_url, 'https://nyc-construction-activity-brief.vercel.app/', 'JSON Feed links home page');
+assert.equal(jsonFeed.feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'JSON Feed exposes feed URL');
+assert.equal(jsonFeed.icon, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'JSON Feed links social image');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
+assert.ok(jsonFeed.items.some((item) => /142 source-linked rows|142 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
+assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
+
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
 assert.match(llms, /Free CSV preview rows: 25/, 'llms.txt has free preview row count');
@@ -2309,6 +2323,7 @@ assert.match(llms, /Checkout bridge: https:\/\/nyc-construction-activity-brief\.
 assert.match(llms, /Current issue page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.html/, 'llms.txt links current issue page');
 assert.match(llms, /Data package JSON: https:\/\/nyc-construction-activity-brief\.vercel\.app\/data-package\.json/, 'llms.txt links data package JSON');
 assert.match(llms, /Product feed XML: https:\/\/nyc-construction-activity-brief\.vercel\.app\/product-feed\.xml/, 'llms.txt links product feed XML');
+assert.match(llms, /JSON Feed: https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.json/, 'llms.txt links JSON Feed');
 assert.match(llms, /Buy page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'llms.txt links buy page');
 assert.match(llms, /Public preview: https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html/, 'llms.txt links public preview page');
 assert.match(llms, /Pricing: https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'llms.txt links pricing page');
@@ -2374,6 +2389,7 @@ assert.equal(dataPackage.paid_zip.buy_url, 'https://nyc-construction-activity-br
 assert.equal(dataPackage.paid_zip.checkout_bridge_url, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=data-package', 'data package JSON links tracked checkout bridge');
 assert.equal(dataPackage.paid_zip.stripe_payment_link, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'data package JSON links Stripe Payment Link fallback');
 assert.equal(dataPackage.paid_zip.product_feed_url, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'data package JSON links product feed XML');
+assert.equal(dataPackage.paid_zip.json_feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'data package JSON links JSON Feed');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/faq.html'), 'data package JSON links FAQ page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-building-permit-data.html'), 'data package JSON links building permit data page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html'), 'data package JSON links permit data download page');
