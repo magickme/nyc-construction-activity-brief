@@ -38,6 +38,30 @@
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
           <a class="button secondary" href="/invoice-request.html?source=buy-page-top">Need invoice help?</a>
         </p>
+        <section class="section" data-source-fit="product-feed-sidewalk-shed" hidden>
+          <h2>Sidewalk shed buyer view</h2>
+          <p>You opened the sidewalk shed product-feed link. The current ZIP includes 40 selected sidewalk shed rows, source URLs, ZIPs, boroughs, issued dates, status, cost buckets, and the same buyer workbook.</p>
+          <p>
+            <a data-buy-link="source-sidewalk-shed" class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page-source-sidewalk-shed">Buy sidewalk shed ZIP</a>
+            <a class="button secondary" href="/nyc-sidewalk-shed-permit-leads.html">Review sidewalk shed page</a>
+          </p>
+        </section>
+        <section class="section" data-source-fit="product-feed-plumbing" hidden>
+          <h2>Plumbing buyer view</h2>
+          <p>You opened the plumbing product-feed link. The current ZIP includes 29 selected plumbing rows, source URLs, ZIPs, boroughs, issued dates, status, cost buckets, and the same buyer workbook.</p>
+          <p>
+            <a data-buy-link="source-plumbing" class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page-source-plumbing">Buy plumbing ZIP</a>
+            <a class="button secondary" href="/nyc-plumbing-permit-leads.html">Review plumbing page</a>
+          </p>
+        </section>
+        <section class="section" data-source-fit="product-feed-exterior-access" hidden>
+          <h2>Exterior-access buyer view</h2>
+          <p>You opened the exterior-access product-feed link. The current ZIP includes 74 selected exterior-access rows across sidewalk shed, supported scaffold, construction fence, and structural activity.</p>
+          <p>
+            <a data-buy-link="source-exterior-access" class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page-source-exterior-access">Buy exterior-access ZIP</a>
+            <a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Review exterior-access page</a>
+          </p>
+        </section>
         <section class="section" data-current-best-fit>
           <h2>Best fit this week</h2>
           <p>The current issue is strongest for sidewalk shed, plumbing, sprinkler, and exterior-access screening: 40 sidewalk shed rows, 29 plumbing rows, 21 sprinkler rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows.</p>
@@ -305,6 +329,11 @@
       const pageSource = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'buy-page';
       const links = [...document.querySelectorAll('[data-buy-link]')];
       const cancelledPanel = document.querySelector('[data-checkout-cancelled]');
+      const sourceFitPanel = document.querySelector('[data-source-fit="' + pageSource + '"]');
+      if (sourceFitPanel) {
+        sourceFitPanel.hidden = false;
+        trackEvent('buy_source_fit_viewed', { source: pageSource });
+      }
       if (params.get('checkout') === 'cancelled' && cancelledPanel) {
         cancelledPanel.hidden = false;
         trackEvent('checkout_cancelled_return', { source: pageSource });
