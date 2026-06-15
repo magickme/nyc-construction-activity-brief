@@ -9,9 +9,9 @@ Current issue:
 - Source fetch date: 2026-06-15
 - Issued dates in preview: 2026-06-09 to 2026-06-12
 - Checkout: https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue
-- Stripe Payment Link: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25
+- Stripe Payment Link: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50
 - Price: $49 one-time ZIP download
-- Promo code: NCAB25 for 25% off while redemptions remain
+- Promo code: NYC50 for 50% off while the first 10 redemptions remain
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
 
 Primary pages:

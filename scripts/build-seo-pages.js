@@ -3,7 +3,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
-const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
+const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50';
 const checkoutUrl = `${baseUrl}/checkout.html`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
@@ -355,7 +355,7 @@ function checkoutHtml() {
       <section class="section card">
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
-        <p class="fine">If the redirect does not start, use the button below. The Stripe checkout has promo code NCAB25 prefilled while redemptions remain.</p>
+        <p class="fine">If the redirect does not start, use the button below. The Stripe checkout has promo code NYC50 prefilled for 50% off while the first 10 redemptions remain.</p>
         <a id="stripe-link" class="button" href="${stripeCheckoutUrl}">Continue to Stripe</a>
       </section>
     </main>

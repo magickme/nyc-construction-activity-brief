@@ -20,20 +20,20 @@
     "methodologyUrl": "https://nyc-construction-activity-brief.vercel.app/methodology.html",
     "segmentHubUrl": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
-    "stripeCheckoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25",
+    "stripeCheckoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50",
     "priceUsd": 49
   },
   "paidZip": {
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
-    "stripeCheckoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25",
+    "stripeCheckoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50",
     "buyerGuideUrl": "https://nyc-construction-activity-brief.vercel.app/buyer-guide.html",
     "deliveryUrl": "https://nyc-construction-activity-brief.vercel.app/delivery.html",
     "priceUsd": 49,
     "rowCount": 142,
     "promotion": {
-      "code": "NCAB25",
-      "percentOff": 25,
-      "maxRedemptions": 25
+      "code": "NYC50",
+      "percentOff": 50,
+      "maxRedemptions": 10
     },
     "files": [
       "README.md",
