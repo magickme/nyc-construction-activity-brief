@@ -718,7 +718,12 @@ ${socialImageMeta()}
           </div>
         </div>
         <a id="buy-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Continue to Stripe</a>
+        <p class="fine">Want to inspect the public row shape first? Open the sample files before paying.</p>
         <p>
+          <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">CSV sample</a>
+          <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">JSON sample</a>
+          <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">JSONL sample</a>
+          <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Sample brief</a>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
           <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>

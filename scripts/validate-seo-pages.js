@@ -378,6 +378,11 @@ assert.doesNotMatch(buy, /buy_page_auto_redirect/, 'buy page must not auto-redir
 assert.doesNotMatch(buy, /const checkoutUrlPromise = createCheckoutUrl\(\);/, 'buy page must not create checkout sessions on page load');
 assert.doesNotMatch(buy, /window\.location\.replace\(stripeUrl\);/, 'buy page must not redirect directly to Payment Link JS URL');
 assert.match(buy, /checkout\.html\?source=buy-page/, 'buy page keeps checkout bridge fallback for no-JavaScript users');
+assert.match(buy, /Want to inspect the public row shape first/, 'buy page reassures buyers with direct sample files');
+assert.match(buy, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'buy page links public CSV sample');
+assert.match(buy, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'buy page links public JSON sample');
+assert.match(buy, /href="\/sample\/nyc-construction-activity-preview\.jsonl"/, 'buy page links public JSONL sample');
+assert.match(buy, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'buy page links sample brief');
 assert.match(buy, /href="\/preview\.html"/, 'buy page links preview');
 assert.match(buy, /href="\/inside-the-zip\.html"/, 'buy page links ZIP contents');
 assert.match(buy, /href="\/free-vs-paid\.html"/, 'buy page links free vs paid page');
