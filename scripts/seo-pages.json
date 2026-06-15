@@ -416,5 +416,71 @@
     "currentSample": "The paid ZIP includes 142 selected rows across five ZIP codes and seven work types. The free CSV preview is limited to 25 rows.",
     "useCase": "Use this page to check active permit signals before deeper source review. It does not include private contacts, owner names, deal intent, or guaranteed opportunities.",
     "sampleLine": "Broker research signal | ZIP | work type | issued date | source link | manual review"
+  },
+  {
+    "slug": "nyc-dob-permit-data-for-contractors",
+    "title": "NYC DOB Permit Data for Contractors | Weekly CSV",
+    "description": "A weekly NYC DOB permit data screen for contractors reviewing selected work types, ZIP codes, issue dates, statuses, and source links.",
+    "h1": "NYC DOB permit data for contractors who screen public records.",
+    "lede": "The current issue packages selected NYC DOB NOW permit rows into a weekly CSV and short brief for contractor research.",
+    "audience": "General contractors, specialty contractors, and subcontractors that review public permit activity before opening source records.",
+    "currentSample": "The paid ZIP includes 142 selected rows with work type, ZIP, borough, issued date, status, cost bucket, and source links.",
+    "useCase": "Use the brief to plan a manual permit review session by territory and work type. It does not include private contacts, bid timing, or ranked opportunities.",
+    "sampleLine": "Contractor permit data | work type | ZIP | issued date | status | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-subcontractor-prospecting-permit-data",
+    "title": "NYC Subcontractor Prospecting Permit Data",
+    "description": "A weekly NYC subcontractor prospecting screen based on selected public DOB permit rows with source links and buyer-safe fields.",
+    "h1": "NYC subcontractor prospecting from public permit data.",
+    "lede": "The brief gives subcontractors a compact source-linked file for selected construction activity before manual source checks.",
+    "audience": "Specialty subcontractors, owner-operators, and small sales teams that use permit records as one research input.",
+    "currentSample": "The current issue sample includes seven selected work types across five Manhattan and Brooklyn ZIP codes.",
+    "useCase": "Use this page if you want a weekly starting file for prospect research. The product does not provide contact enrichment, outreach automation, or lead scoring.",
+    "sampleLine": "Subcontractor research row | work type | ZIP | issued date | source link | caveat"
+  },
+  {
+    "slug": "nyc-property-manager-permit-research",
+    "title": "NYC Property Manager Permit Research | Weekly DOB CSV",
+    "description": "A weekly NYC property manager permit research screen for selected construction activity by ZIP, work type, issue date, and source link.",
+    "h1": "NYC permit research for property managers reviewing construction activity.",
+    "lede": "The current issue helps property managers and adjacent service providers scan selected public permit activity by territory.",
+    "audience": "Property managers, facilities teams, maintenance vendors, and local service providers watching public construction signals.",
+    "currentSample": "The paid ZIP includes selected rows from the current weekly pull and keeps DOB NOW source links visible.",
+    "useCase": "Use the brief to review nearby activity or plan manual source checks. It does not replace official DOB records or provide owner contact data.",
+    "sampleLine": "Property manager screen | ZIP | work type | issued date | status | source link"
+  },
+  {
+    "slug": "nyc-building-services-permit-research",
+    "title": "NYC Building Services Permit Research | Weekly CSV",
+    "description": "A weekly NYC permit research page for building-service vendors screening selected public construction activity by ZIP and work type.",
+    "h1": "NYC permit research for building-service vendors.",
+    "lede": "The brief gives building-service vendors a source-linked weekly file for selected permit activity in the current sample.",
+    "audience": "Security, cleaning, waste, equipment rental, maintenance, and other building-service vendors that do local B2B research.",
+    "currentSample": "The current paid issue includes 142 selected rows across plumbing, mechanical, sprinkler, structural, scaffold, sidewalk shed, and fence activity.",
+    "useCase": "Use this page to check whether the current work-type and ZIP mix overlaps with the accounts you already research manually.",
+    "sampleLine": "Building services screen | ZIP | work type | issued date | cost bucket | source link"
+  },
+  {
+    "slug": "nyc-permit-data-for-construction-consultants",
+    "title": "NYC Permit Data for Construction Consultants",
+    "description": "A weekly NYC permit data brief for construction consultants reviewing selected DOB activity by work type, ZIP, date, and source link.",
+    "h1": "NYC permit data for construction consultants.",
+    "lede": "The current issue gives consultants a compact public-record screen for selected construction activity before deeper review.",
+    "audience": "Construction consultants, permit researchers, market researchers, and analysts who need a small current issue file.",
+    "currentSample": "The paid ZIP includes 142 selected source-linked rows and a buyer workbook for first-pass review.",
+    "useCase": "Use the brief to prepare research notes or choose source records for closer reading. It does not provide legal, compliance, or agency guidance.",
+    "sampleLine": "Consultant research row | work type | ZIP | issued date | status | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-construction-market-research-csv",
+    "title": "NYC Construction Market Research CSV | Weekly DOB Brief",
+    "description": "A weekly NYC construction market research CSV for selected public DOB activity with ZIP, work type, issued date, and source links.",
+    "h1": "NYC construction market research CSV for weekly review.",
+    "lede": "The brief packages selected DOB NOW public rows into a spreadsheet-friendly current issue for market research.",
+    "audience": "Vendors, consultants, brokers, local operators, and data buyers reviewing selected NYC construction activity.",
+    "currentSample": "The paid ZIP includes 142 rows, priority slices, a buyer workbook, QA report, source registry, and public-record boundary notes.",
+    "useCase": "Use this page if you need a current CSV for first-pass market review. The product is not a complete historical database or live alert feed.",
+    "sampleLine": "Market research CSV | work type | territory | issued date | source link | manual check"
   }
 ]
