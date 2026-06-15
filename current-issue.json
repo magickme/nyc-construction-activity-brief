@@ -12,6 +12,7 @@
   "publicPreview": {
     "rowCount": 25,
     "fullIssueRowCount": 142,
+    "currentIssueUrl": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
     "previewUrl": "https://nyc-construction-activity-brief.vercel.app/preview.html",
     "csvUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
     "sampleBriefUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
@@ -42,6 +43,7 @@
     "priceUsd": 24.5,
     "standardPriceUsd": 49,
     "rowCount": 142,
+    "currentIssueUrl": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
     "launchPricing": {
       "priceUsd": 24.5,
       "standardPriceUsd": 49,

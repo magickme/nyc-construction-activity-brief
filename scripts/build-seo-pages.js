@@ -1003,6 +1003,132 @@ ${socialImageMeta()}
 `;
 }
 
+function currentIssueHtml(rows) {
+  const description = 'Current NYC Weekly Construction Activity Brief issue with source window, top work types, top ZIPs, free preview links, and instant ZIP checkout.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
+  const statusMix = describeCounts(rows, (row) => row.permit_status, 5);
+  const costMix = describeCounts(rows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 6);
+  const product = productJsonLd(description, checkoutHref('current-issue-page'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is in the current issue?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The current paid issue has ${rows.length} selected source-linked NYC DOB permit rows plus buyer workbook, priority-slices CSV, QA report, source registry, buyer README, version file, and claims boundary.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I inspect the issue before buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The public preview includes 25 rows, a sample Markdown brief, generated segment pages, and the file manifest.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the current issue include private contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Current Issue | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/current-issue.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Current Issue | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/current-issue.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Current NYC construction activity brief.</h1>
+      <p class="lede">The current issue packages ${escapeHtml(rows.length)} selected NYC DOB NOW permit rows for a fast weekly spreadsheet review.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Source window</h2>
+          <p>${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}. Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</p>
+        </div>
+        <div class="card">
+          <h2>Rows</h2>
+          <p>Paid ZIP rows: ${escapeHtml(rows.length)}. Free preview rows: 25.</p>
+        </div>
+        <div class="card">
+          <h2>Price</h2>
+          <p>$24.50 one-time launch price. Instant browser download after completed Stripe checkout.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue snapshot</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+          <li>Status mix: ${escapeHtml(statusMix)}.</li>
+          <li>Cost buckets: ${escapeHtml(costMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>What buyers get</h2>
+        <ul>
+          <li>Full ${escapeHtml(rows.length)}-row source-linked CSV.</li>
+          <li>Buyer workbook for a fast review pass.</li>
+          <li>Priority-slices CSV grouped by work type, borough, ZIP, count, latest issued date, cost-bucket mix, status mix, and source URL.</li>
+          <li>Markdown brief, source registry, QA report, version file, buyer README, and privacy/claims boundary.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Check before buying</h2>
+        <p>Use the free preview, segment pages, buyer-fit page, and file manifest before checkout. Buy only if the current issue saves enough sorting time for your use case.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button" href="${checkoutHref('current-issue-page')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
 function whoShouldBuyHtml(rows) {
   const description = 'A buyer fit checklist for the NYC Weekly Construction Activity Brief current issue ZIP, including good-fit buyers, poor-fit use cases, and a pre-purchase review path.';
   const range = sampleRange(rows);
@@ -1822,7 +1948,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'preview.html', 'pricing.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1857,6 +1983,7 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
         <p><a class="button secondary" href="/preview.html">View public preview</a></p>
+        <p><a class="button secondary" href="/current-issue.html">Current issue highlights</a></p>
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
         <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
@@ -2194,6 +2321,7 @@ for (const page of pages) {
 fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages));
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
+fs.writeFileSync(path.join(root, 'current-issue.html'), currentIssueHtml(rows));
 fs.writeFileSync(path.join(root, 'who-should-buy.html'), whoShouldBuyHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));

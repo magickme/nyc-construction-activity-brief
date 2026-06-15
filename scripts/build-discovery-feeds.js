@@ -104,6 +104,7 @@ function buildCurrentIssueJson(rows, manifest) {
     publicPreview: {
       rowCount: previewRows,
       fullIssueRowCount: stats.rowCount,
+      currentIssueUrl: `${baseUrl}/current-issue.html`,
       previewUrl: `${baseUrl}/preview.html`,
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
@@ -134,6 +135,7 @@ function buildCurrentIssueJson(rows, manifest) {
       priceUsd: launchPriceUsd,
       standardPriceUsd,
       rowCount: stats.rowCount,
+      currentIssueUrl: `${baseUrl}/current-issue.html`,
       launchPricing: {
         priceUsd: launchPriceUsd,
         standardPriceUsd,
@@ -183,7 +185,7 @@ function buildFeedXml(rows, manifest) {
   const items = [
     {
       title: `Current NYC construction activity brief: ${stats.rowCount} paid issue rows`,
-      url: `${baseUrl}/`,
+      url: `${baseUrl}/current-issue.html`,
       description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Launch price is $${launchPriceUsd.toFixed(2)}. Standard price is $${standardPriceUsd}. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
     },
     {
@@ -279,6 +281,7 @@ Current issue:
 
 Primary pages:
 - Home: ${baseUrl}/
+- Current issue page: ${baseUrl}/current-issue.html
 - Current issue JSON: ${baseUrl}/current-issue.json
 - RSS feed: ${baseUrl}/feed.xml
 - Public preview: ${baseUrl}/preview.html
@@ -342,7 +345,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'preview.html', 'pricing.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'who-should-buy.html', 'inside-the-zip.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
