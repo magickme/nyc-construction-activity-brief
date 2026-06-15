@@ -104,6 +104,7 @@ function buildCurrentIssueJson(rows, manifest) {
       fullIssueRowCount: stats.rowCount,
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
+      buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
       checkoutUrl,
@@ -111,6 +112,7 @@ function buildCurrentIssueJson(rows, manifest) {
     },
     paidZip: {
       checkoutUrl,
+      buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       priceUsd: 49,
       rowCount: stats.rowCount,
       promotion: {
@@ -171,6 +173,11 @@ function buildFeedXml(rows, manifest) {
       description: `ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current ${stats.rowCount}-row paid issue.`,
     },
     {
+      title: 'Buyer guide for the current ZIP',
+      url: `${baseUrl}/buyer-guide.html`,
+      description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
+    },
+    {
       title: 'Methodology and source boundary',
       url: `${baseUrl}/methodology.html`,
       description: 'Source, privacy boundary, excluded fields, buyer ZIP contents, and claims limits for the current issue.',
@@ -222,6 +229,7 @@ Primary pages:
 - Home: ${baseUrl}/
 - Current issue JSON: ${baseUrl}/current-issue.json
 - RSS feed: ${baseUrl}/feed.xml
+- Buyer guide: ${baseUrl}/buyer-guide.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
 - Sample brief: ${baseUrl}/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: ${baseUrl}/sample-segments.html
@@ -276,7 +284,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['buyer-guide.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

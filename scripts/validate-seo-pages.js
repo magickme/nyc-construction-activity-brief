@@ -100,7 +100,7 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
   if (generatedPages.includes(relativePath)) {
     assert.match(html, /<h2>Sample counts<\/h2>/, `${relativePath} needs sample counts`);
-    assert.match(html, /<h2>Example rows from the public preview<\/h2>/, `${relativePath} needs example rows`);
+    assert.match(html, /<h2>Example rows from the current issue sample<\/h2>/, `${relativePath} needs example rows`);
     assert.match(html, /DOB NOW row/, `${relativePath} needs source row links`);
     assert.match(html, /<h2>Common questions<\/h2>/, `${relativePath} needs buyer-search FAQ copy`);
     assert.match(html, /"@type":"FAQPage"/, `${relativePath} needs FAQ structured data`);
@@ -149,6 +149,32 @@ for (const page of pages) {
   assert.match(index, new RegExp(`href="/${page}"`), `index links ${page}`);
 }
 assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub');
+assert.match(index, /href="\/buyer-guide\.html"/, 'index links buyer guide');
+
+const buyerGuide = read('buyer-guide.html');
+assert.match(buyerGuide, /<title>Buyer Guide \| NYC Construction Activity ZIP<\/title>/, 'buyer guide needs title');
+assert.match(buyerGuide, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html">/, 'buyer guide needs canonical');
+assert.match(buyerGuide, /<meta property="og:title" content="Buyer Guide \| NYC Construction Activity ZIP">/, 'buyer guide needs OG title');
+assert.match(buyerGuide, /"@type":"Product"/, 'buyer guide needs Product structured data');
+assert.match(buyerGuide, /"@type":"Offer"/, 'buyer guide needs Offer structured data');
+assert.match(buyerGuide, /"price":"49.00"/, 'buyer guide needs current price structured data');
+assert.match(buyerGuide, /"@type":"FAQPage"/, 'buyer guide needs FAQ structured data');
+assert.match(buyerGuide, /\/_vercel\/insights\/script\.js/, 'buyer guide needs Web Analytics script');
+assert.match(buyerGuide, /Free preview rows: 25\./, 'buyer guide needs free preview count');
+assert.match(buyerGuide, /Paid ZIP rows: 142\./, 'buyer guide needs paid row count');
+assert.match(buyerGuide, /Buyer workbook for a fast review pass/, 'buyer guide needs buyer workbook copy');
+assert.match(buyerGuide, /Priority-slices CSV grouped by work type/, 'buyer guide needs priority-slices copy');
+assert.match(buyerGuide, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'buyer guide links sample CSV');
+assert.match(buyerGuide, /href="\/sample-segments\.html"/, 'buyer guide links segment hub');
+assert.match(buyerGuide, /href="\/methodology\.html"/, 'buyer guide links methodology');
+assert.match(buyerGuide, new RegExp(`href="${checkoutUrl}"`), 'buyer guide links promo-prefilled checkout');
+assert.match(buyerGuide, /No guaranteed leads\./, 'buyer guide keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(buyerGuide, pattern, `buyer-guide.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(buyerGuide, pattern, `buyer-guide.html contains private data pattern ${pattern}`);
+}
 
 const hub = read('sample-segments.html');
 assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
@@ -184,7 +210,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'buyer-guide.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -192,7 +218,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 6, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 7, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -208,6 +234,8 @@ assert.equal(currentIssue.issue, 'current', 'current issue JSON marks current is
 assert.equal(currentIssue.publicPreview.rowCount, 25, 'current issue JSON row count matches public preview');
 assert.equal(currentIssue.publicPreview.fullIssueRowCount, manifest.sourceRows, 'current issue JSON full issue row count matches manifest');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25', 'current issue JSON links promo-prefilled checkout');
+assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
+assert.equal(currentIssue.paidZip.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON paid ZIP links buyer guide');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
 assert.equal(currentIssue.paidZip.promotion.code, 'NCAB25', 'current issue JSON lists promo code');
@@ -226,12 +254,14 @@ assert.match(feed, /Current NYC construction activity brief: 142 paid issue rows
 assert.match(feed, /The free CSV preview has 25 rows/, 'RSS feed describes free preview size');
 assert.match(feed, /Use code NCAB25 for 25% off/, 'RSS feed describes promo code');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'RSS feed links buyer guide');
 
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
 assert.match(llms, /Free CSV preview rows: 25/, 'llms.txt has free preview row count');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code: NCAB25 for 25% off/, 'llms.txt lists promo code');
+assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'llms.txt links buyer guide');
 assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');
 assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 

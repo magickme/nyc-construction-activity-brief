@@ -83,7 +83,7 @@
     "h1": "NYC DOB permit monitoring for selected construction work types.",
     "lede": "The NYC Weekly Construction Activity Brief turns selected DOB NOW public permit records into a simple weekly CSV and Markdown brief for territory review.",
     "audience": "Construction-support vendors, specialty subcontractors, suppliers, and small teams that want a faster weekly review workflow.",
-    "currentSample": "The current issue sample includes 142 public preview rows from the 2026-06-09 to 2026-06-15 pull.",
+    "currentSample": "The current paid issue includes 142 rows from the 2026-06-09 to 2026-06-15 pull. The free CSV preview is limited to 25 rows.",
     "useCase": "Use this product when DOB search screens are too slow for weekly review. The files are designed for quick filtering by work type, territory, and issued date before manual source checks.",
     "sampleLine": "Work type | ZIP | borough | issued date | status | cost bucket | permit ID | DOB NOW source link"
   },
@@ -94,7 +94,7 @@
     "h1": "NYC DOB permit CSV sample for construction activity review.",
     "lede": "The current issue package includes a public CSV preview and Markdown brief built from selected NYC DOB NOW records for a specific weekly window.",
     "audience": "Small construction vendors and subcontractors that need a spreadsheet-friendly way to review current public permit activity.",
-    "currentSample": "The public CSV preview includes 142 rows across seven selected work types and five selected ZIP codes.",
+    "currentSample": "The paid ZIP includes 142 rows across seven selected work types and five selected ZIP codes. The free CSV preview is limited to 25 rows.",
     "useCase": "Use the CSV page if your main need is filtering and sorting. It is built for spreadsheet review, not CRM import or automated contact scraping.",
     "sampleLine": "CSV columns | work type | ZIP | borough | issued date | status | cost bucket | source link"
   },
@@ -127,7 +127,7 @@
     "h1": "NYC construction lead research from public permit signals.",
     "lede": "This product is for early screening: it packages selected public permit activity so vendors can decide which records deserve manual source review.",
     "audience": "Small sales teams, owner-operators, vendors, and specialty subcontractors that do their own market research.",
-    "currentSample": "The current issue sample includes 142 buyer-safe public preview rows and excludes personal contact fields.",
+    "currentSample": "The current paid issue includes 142 buyer-safe rows and excludes personal contact fields. The free CSV preview is limited to 25 rows.",
     "useCase": "Use the brief to narrow a research session. It does not provide buying-intent scores, private contact data, or guaranteed leads.",
     "sampleLine": "Work type | territory | issued date | status | public source link | manual follow-up needed"
   },
@@ -138,7 +138,7 @@
     "h1": "NYC construction permit lead research from public DOB signals.",
     "lede": "The weekly brief helps vendors screen selected NYC DOB permit activity before spending time in source search tools.",
     "audience": "Construction vendors, suppliers, specialty subcontractors, and owner-operators doing manual lead research from public records.",
-    "currentSample": "The current issue sample includes 142 public preview rows and excludes private contact fields.",
+    "currentSample": "The current paid issue includes 142 rows and excludes private contact fields. The free CSV preview is limited to 25 rows.",
     "useCase": "Use this page if you are looking for a permit-signal starting point, not a finished contact list. Each row still needs source-record review.",
     "sampleLine": "Permit signal | work type | ZIP | issued date | status | cost bucket | public source link"
   },
@@ -160,7 +160,7 @@
     "h1": "NYC construction sales prospecting with public permit signals.",
     "lede": "The brief gives sales teams a small source-linked activity file for selected public permit rows.",
     "audience": "Sales teams at construction-support vendors that already verify source records before outreach.",
-    "currentSample": "The current public preview includes seven selected work types across Manhattan and Brooklyn ZIP codes.",
+    "currentSample": "The current paid issue includes seven selected work types across Manhattan and Brooklyn ZIP codes. The free CSV preview is limited to 25 rows.",
     "useCase": "Use the file to decide which records deserve manual review first. It does not include contact enrichment, outreach automation, or lead scoring.",
     "sampleLine": "Sales research screen | work type | territory | source link | manual verification needed"
   },
@@ -171,7 +171,7 @@
     "h1": "NYC building permit data for construction vendors.",
     "lede": "The current issue turns selected public permit rows into a vendor-friendly CSV and short Markdown brief.",
     "audience": "Construction vendors and suppliers that want a simple way to review selected permit activity each week.",
-    "currentSample": "The public sample includes 142 rows with work type, ZIP, borough, issued date, status, cost bucket, and source link.",
+    "currentSample": "The paid ZIP includes 142 rows with work type, ZIP, borough, issued date, status, cost bucket, and source link. The free preview is limited to 25 rows.",
     "useCase": "Use this page if your team wants spreadsheet-ready public permit data without rebuilding the same weekly sort from scratch.",
     "sampleLine": "Vendor research fields | work type | ZIP | date | status | cost bucket | DOB NOW source"
   },
@@ -191,7 +191,7 @@
     "title": "NYC Permit Activity by ZIP | Weekly DOB Sample",
     "description": "Browse selected NYC DOB permit activity by ZIP code with work type, borough, issued date, status, cost bucket, and public source link.",
     "h1": "NYC permit activity by ZIP code in the current sample.",
-    "lede": "The current public preview groups selected NYC DOB permit activity across five ZIP codes.",
+    "lede": "The current paid issue groups selected NYC DOB permit activity across five ZIP codes, with a 25-row free CSV preview for field checks.",
     "audience": "Territory-focused vendors and subcontractors who screen public permit activity by ZIP before opening source records.",
     "currentSample": "ZIP pages are generated for 10011, 10003, 11201, 11211, and 11206.",
     "useCase": "Use this page to choose a ZIP page and check whether the current sample overlaps with your working territory.",
@@ -204,7 +204,7 @@
     "h1": "NYC DOB NOW public records packaged for weekly construction review.",
     "lede": "The product uses selected public DOB NOW permit records and keeps source links visible for manual verification.",
     "audience": "Vendors and subcontractors who want public-record screening data without private contact enrichment.",
-    "currentSample": "The public preview includes 142 selected records and a sample Markdown brief.",
+    "currentSample": "The paid ZIP includes 142 selected records, while the public preview includes 25 CSV rows and a sample Markdown brief.",
     "useCase": "Use it to speed up weekly review while keeping the source-record boundary clear.",
     "sampleLine": "Public record row | source link | work type | ZIP | date | caveat"
   },
@@ -226,7 +226,7 @@
     "h1": "NYC building permit alerts by ZIP for weekly review.",
     "lede": "The current issue groups selected DOB NOW public records by ZIP so buyers can check whether a territory deserves deeper review.",
     "audience": "Territory-based vendors, subcontractors, suppliers, and small teams that screen construction activity by ZIP.",
-    "currentSample": "The public preview covers 10011, 10003, 11201, 11211, and 11206.",
+    "currentSample": "The paid issue covers 10011, 10003, 11201, 11211, and 11206. The free preview is limited to 25 rows.",
     "useCase": "Use the ZIP pages to narrow a weekly research session. The brief is a screening file, not a complete alert database.",
     "sampleLine": "ZIP alert row | work type | issued date | status | cost bucket | source link"
   },
@@ -237,7 +237,7 @@
     "h1": "NYC DOB approved permits open data packaged for review.",
     "lede": "The product starts from public DOB permit records and turns selected rows into a small CSV and Markdown brief.",
     "audience": "Buyers who know the records are public but want a smaller weekly file for first-pass screening.",
-    "currentSample": "The current issue sample includes 142 selected public preview rows and links back to source records.",
+    "currentSample": "The current paid issue includes 142 selected rows and links back to source records. The free CSV preview is limited to 25 rows.",
     "useCase": "Use this when raw public data is too broad for a quick weekly check. Verify source records before using any row in a business workflow.",
     "sampleLine": "Approved permit row | source link | work type | ZIP | issued date | status"
   },
@@ -248,7 +248,7 @@
     "h1": "NYC building permit CSV export for weekly screening.",
     "lede": "The current issue is packaged for spreadsheet review: a source-linked CSV, a short brief, and buyer notes.",
     "audience": "Spreadsheet-first buyers who want selected permit rows in a reusable file before opening source records.",
-    "currentSample": "The public CSV preview includes 142 rows across selected DOB NOW work types and five ZIP codes.",
+    "currentSample": "The paid ZIP includes 142 rows across selected DOB NOW work types and five ZIP codes. The free CSV preview is limited to 25 rows.",
     "useCase": "Use this page if export format matters more than map search. The brief is not a CRM import file and does not include contact enrichment.",
     "sampleLine": "CSV export | selected permit rows | source link | issued date | ZIP | work type"
   },
@@ -281,7 +281,7 @@
     "h1": "NYC permit intelligence for contractors who use public records.",
     "lede": "The product packages selected public permit rows into a small weekly file contractors can review before deeper source checks.",
     "audience": "Contractors and specialty subcontractors who want a spreadsheet-friendly activity screen, not a black-box lead score.",
-    "currentSample": "The current public preview includes 142 rows, buyer-safe fields, and source links.",
+    "currentSample": "The current paid issue includes 142 rows, buyer-safe fields, and source links. The free CSV preview is limited to 25 rows.",
     "useCase": "Use the brief to compare selected work types and territories. It does not predict winners, estimate close rates, or replace source verification.",
     "sampleLine": "Contractor research row | work type | territory | issued date | source link | caveat"
   },
@@ -292,7 +292,7 @@
     "h1": "NYC construction permit data API alternative for weekly CSV buyers.",
     "lede": "If you do not need a live API, the current issue package gives you a small source-linked CSV and Markdown brief.",
     "audience": "Operators, researchers, and vendors who want a file they can inspect manually before committing to a larger data workflow.",
-    "currentSample": "The public preview includes selected rows and sample notes so buyers can evaluate the field set before purchase.",
+    "currentSample": "The free preview includes selected rows and sample notes so buyers can evaluate the field set before purchase.",
     "useCase": "Use this page if a weekly CSV is enough. The product does not provide API access, full-history search, or automated syncing.",
     "sampleLine": "API alternative | weekly CSV | source-linked rows | manual review | no sync"
   },
@@ -325,7 +325,7 @@
     "h1": "NYC construction permit monitoring for suppliers.",
     "lede": "The product gives suppliers a small weekly file for selected public permit activity by work type and territory.",
     "audience": "Supply houses and B2B vendors that watch where construction work is appearing before choosing source records to inspect.",
-    "currentSample": "The public preview includes selected plumbing, mechanical, sprinkler, structural, scaffold, sidewalk shed, and fence rows.",
+    "currentSample": "The paid issue includes selected plumbing, mechanical, sprinkler, structural, scaffold, sidewalk shed, and fence rows. The free preview shows 25 rows.",
     "useCase": "Use the brief to plan manual research by ZIP and work type. It does not provide purchase timing, decision-maker names, or outreach automation.",
     "sampleLine": "Supplier monitoring row | work type | ZIP | issued date | source link | caveat"
   },

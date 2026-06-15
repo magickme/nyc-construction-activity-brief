@@ -17,6 +17,7 @@ Primary pages:
 - Home: https://nyc-construction-activity-brief.vercel.app/
 - Current issue JSON: https://nyc-construction-activity-brief.vercel.app/current-issue.json
 - RSS feed: https://nyc-construction-activity-brief.vercel.app/feed.xml
+- Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html
 - Sample CSV: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv
 - Sample brief: https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: https://nyc-construction-activity-brief.vercel.app/sample-segments.html

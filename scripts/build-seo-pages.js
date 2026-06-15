@@ -421,7 +421,7 @@ function sampleRequestSection(context = {}) {
 function sampleTable(page) {
   if (!page.rows || !page.rows.length) return '';
   return `      <section class="section card">
-        <h2>Example rows from the public preview</h2>
+        <h2>Example rows from the current issue sample</h2>
         <div class="table-wrap">
           <table>
             <thead>
@@ -524,7 +524,7 @@ ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
 }
 
 function hubHtml(pages) {
-  const description = 'Browse data-backed NYC construction permit activity pages generated from the current public CSV preview by ZIP, borough, work type, date, and cost bucket.';
+  const description = 'Browse data-backed NYC construction permit activity pages generated from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
   const product = productJsonLd(description, `${baseUrl}/sample-segments.html`);
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
@@ -553,8 +553,8 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
   <body>
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
-      <h1>NYC permit activity segments from the current public preview.</h1>
-      <p class="lede">These pages are generated from the 142-row public CSV preview. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
+      <h1>NYC permit activity segments from the current issue.</h1>
+      <p class="lede">These pages are generated from the 142-row paid issue. The free CSV preview is limited to 25 rows. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
 
       <section class="section card">
         <h2>Get the current issue</h2>
@@ -656,7 +656,7 @@ function methodologyHtml(rows) {
         </div>
         <div class="card">
           <h2>Current issue</h2>
-          <p>${escapeHtml(rows.length)} public preview rows. Query window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}. Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</p>
+          <p>${escapeHtml(rows.length)} paid issue rows. Query window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}. Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</p>
         </div>
         <div class="card">
           <h2>Delivery</h2>
@@ -711,8 +711,132 @@ ${territories}
 `;
 }
 
+function buyerGuideHtml(rows) {
+  const description = 'A plain buying guide for the current NYC construction activity ZIP: who it fits, what files are included, what to check first, and what is excluded.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
+  const product = productJsonLd(description);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Who should buy the current ZIP?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Buy it if you need a spreadsheet-friendly weekly screen of selected NYC DOB permit activity by work type, ZIP, issued date, status, and cost bucket.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Who should use the free preview instead?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Use the free preview first if you only need to inspect the fields, sample rows, source boundary, or current work-type mix.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the paid ZIP include private contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The paid ZIP excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buyer Guide | NYC Construction Activity ZIP</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/buyer-guide.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Buyer Guide | NYC Construction Activity ZIP">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/buyer-guide.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Buyer guide for the current NYC construction activity ZIP.</h1>
+      <p class="lede">Use this page to decide whether the paid ZIP fits your weekly permit research before opening Stripe checkout.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Buy it for</h2>
+          <p>Weekly spreadsheet review by work type, borough, ZIP, issued date, permit status, source link, and cost bucket.</p>
+        </div>
+        <div class="card">
+          <h2>Use the preview for</h2>
+          <p>Checking fields, sample rows, territory mix, work-type mix, and source limits before paying.</p>
+        </div>
+        <div class="card">
+          <h2>Skip it if</h2>
+          <p>You need a live alert feed, owner contacts, a full DOB database, an API, CRM sync, or guaranteed sales leads.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <ul>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Free preview rows: 25.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>What the ZIP includes</h2>
+        <ul>
+          <li>Full ${escapeHtml(rows.length)}-row CSV for the current issue.</li>
+          <li>Markdown brief and public sample notes.</li>
+          <li>Buyer workbook for a fast review pass.</li>
+          <li>Priority-slices CSV grouped by work type, borough, ZIP, row count, latest issued date, cost-bucket mix, status mix, and source URL.</li>
+          <li>Source registry, QA report, version file, buyer README, and privacy/claims boundary.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Fast check before buying</h2>
+        <ol>
+          <li>Open the free CSV preview and confirm the fields are useful for your workflow.</li>
+          <li>Check the segment hub for your ZIP, borough, work type, or cost bucket.</li>
+          <li>Read the methodology page if source limits matter for your use case.</li>
+          <li>Buy the ZIP only if the current issue saves enough sorting time to justify a one-time $49 purchase.</li>
+        </ol>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/methodology.html">Read methodology</a>
+        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
 function sitemapXml(pages) {
-  const urls = ['', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'buyer-guide.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -746,6 +870,7 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
         <ul>
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
+        <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
         <p><a class="button secondary" href="/methodology.html">Read methodology and source boundary</a></p>
         <details>
@@ -775,14 +900,14 @@ function buildGeneratedPages(rows) {
       title: `NYC DOB Permits in ${zipCode} | Weekly Activity Brief`,
       description: `Review ${count} selected NYC DOB permit rows in ZIP ${zipCode} with work type, borough, issued date, status, source links, and cost buckets.`,
       h1: `NYC DOB permit activity in ZIP ${zipCode}.`,
-      lede: `The current public preview includes ${count} selected DOB NOW permit rows for ${boroughs} ZIP ${zipCode}.`,
+      lede: `The current paid issue includes ${count} selected DOB NOW permit rows for ${boroughs} ZIP ${zipCode}.`,
       audience: `Construction-support vendors and subcontractors watching permit activity in ${zipCode}.`,
-      currentSample: `ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 public preview.`,
+      currentSample: `ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 paid issue.`,
       useCase: `Use this page to check the ZIP ${zipCode} activity mix before buying the current issue package or reviewing source records manually.`,
       sampleLine: `ZIP ${zipCode} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
       rows: sampleRows(matchingRows),
       stats: [
-        `${count} public preview rows in ZIP ${zipCode}.`,
+        `${count} paid issue rows in ZIP ${zipCode}.`,
         `Top work types: ${describeCounts(matchingRows, (row) => row.work_type)}.`,
         `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
       ],
@@ -817,14 +942,14 @@ function buildGeneratedPages(rows) {
       title: `${boroughName} ${work.label} Permits | Weekly NYC DOB Brief`,
       description: `Review ${count} selected ${boroughName} ${work.lowerLabel} permit rows with ZIP, issued date, status, source links, and cost buckets.`,
       h1: `${boroughName} ${work.lowerLabel} permit activity.`,
-      lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows in ${boroughName}.`,
+      lede: `The current paid issue includes ${count} selected ${work.lowerLabel} rows in ${boroughName}.`,
       audience: `${sentenceCase(work.buyer)} watching ${boroughName} public permit activity.`,
-      currentSample: `${boroughName} ${work.lowerLabel} has ${count} rows in the 2026-06-09 to 2026-06-15 public preview.`,
+      currentSample: `${boroughName} ${work.lowerLabel} has ${count} rows in the 2026-06-09 to 2026-06-15 paid issue.`,
       useCase: `Use this page to review the ${boroughName} ${work.lowerLabel} sample before deciding whether the current issue package is worth buying.`,
       sampleLine: `${boroughName} | ${work.label} | ZIP | issued date | status | DOB NOW source link`,
       rows: sampleRows(matchingRows),
       stats: [
-        `${count} public preview rows for ${work.lowerLabel} in ${boroughName}.`,
+        `${count} paid issue rows for ${work.lowerLabel} in ${boroughName}.`,
         `ZIP mix: ${describeCounts(matchingRows, (row) => row.zip_code)}.`,
         `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
       ],
@@ -859,14 +984,14 @@ function buildGeneratedPages(rows) {
       title: `${work.label} Permits in ${zipCode} | NYC DOB Activity`,
       description: `Review ${count} selected ${work.lowerLabel} permit rows in NYC ZIP ${zipCode} with issued date, status, source links, and cost buckets.`,
       h1: `${work.label} permit activity in ZIP ${zipCode}.`,
-      lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows for ${boroughName} ZIP ${zipCode}.`,
+      lede: `The current paid issue includes ${count} selected ${work.lowerLabel} rows for ${boroughName} ZIP ${zipCode}.`,
       audience: `${sentenceCase(work.buyer)} watching ZIP ${zipCode}.`,
-      currentSample: `${work.label} in ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 public preview.`,
+      currentSample: `${work.label} in ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 paid issue.`,
       useCase: `Use this page to scan ${work.lowerLabel} activity in ZIP ${zipCode} before opening the DOB NOW source records one by one.`,
       sampleLine: `${work.label} | ${zipCode} | ${boroughName} | issued date | status | source link`,
       rows: sampleRows(matchingRows),
       stats: [
-        `${count} public preview rows for ${work.lowerLabel} in ZIP ${zipCode}.`,
+        `${count} paid issue rows for ${work.lowerLabel} in ZIP ${zipCode}.`,
         `Borough: ${boroughName}.`,
         `Cost buckets: ${describeCounts(matchingRows, (row) => costBucketLabel(row.estimated_job_cost_bucket))}.`,
       ],
@@ -877,7 +1002,7 @@ function buildGeneratedPages(rows) {
         },
         {
           question: 'How current is the sample?',
-          answer: `The current public preview covers selected issued dates from ${range}.`,
+          answer: `The current paid issue covers selected issued dates from ${range}.`,
         },
       ],
       count,
@@ -897,16 +1022,16 @@ function buildGeneratedPages(rows) {
       group: 'work-type',
       slug: `nyc-${work.slug}-permit-csv-sample`,
       title: `NYC ${work.label} Permit CSV Sample | DOB Activity`,
-      description: `Review ${count} selected NYC ${work.lowerLabel} permit rows from the public CSV preview with ZIP, borough, issued date, status, and source links.`,
+      description: `Review ${count} selected NYC ${work.lowerLabel} permit rows from the current paid issue with ZIP, borough, issued date, status, and source links.`,
       h1: `NYC ${work.lowerLabel} permit CSV sample.`,
-      lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows from ${range}.`,
+      lede: `The current paid issue includes ${count} selected ${work.lowerLabel} rows from ${range}.`,
       audience: `${sentenceCase(work.buyer)} comparing public permit activity across selected NYC ZIP codes.`,
-      currentSample: `${work.label} has ${count} rows in the current 142-row public preview.`,
+      currentSample: `${work.label} has ${count} rows in the current 142-row paid issue. The free CSV preview is limited to 25 rows.`,
       useCase: `Use this page to inspect the ${work.lowerLabel} sample before downloading the public CSV or buying the current issue package.`,
       sampleLine: `${work.label} | top ZIPs: ${describeCounts(matchingRows, (row) => row.zip_code)}`,
       rows: sampleRows(matchingRows),
       stats: [
-        `${count} public preview rows for ${work.lowerLabel}.`,
+        `${count} paid issue rows for ${work.lowerLabel}.`,
         `ZIP mix: ${describeCounts(matchingRows, (row) => row.zip_code)}.`,
         `Issued dates: ${describeCounts(matchingRows, (row) => formatDate(row.issued_date))}.`,
       ],
@@ -932,7 +1057,7 @@ function buildGeneratedPages(rows) {
       h1: `NYC ${work.lowerLabel} permit research for contractors and vendors.`,
       lede: `This page shows how the current ${work.lowerLabel} sample can support weekly research for ${work.buyer}.`,
       audience: `${sentenceCase(work.buyer)} that want a spreadsheet-friendly screen before opening individual DOB NOW records.`,
-      currentSample: `${count} selected ${work.lowerLabel} rows appear in the ${range} public preview.`,
+      currentSample: `${count} selected ${work.lowerLabel} rows appear in the ${range} paid issue.`,
       useCase: `Use the brief to reduce repeated sorting work when checking selected public permit activity. It does not replace manual source verification or provide private contacts.`,
       sampleLine: `${work.label} research fields | ZIP | borough | issued date | status | cost bucket | source link`,
       rows: sampleRows(matchingRows),
@@ -965,14 +1090,14 @@ function buildGeneratedPages(rows) {
       title: `NYC Construction Permits ${label} | DOB Sample`,
       description: `Review ${count} selected NYC construction permit rows in the ${label} cost bucket with work type, ZIP, borough, issued date, and source links.`,
       h1: `NYC construction permit activity in the ${label} cost bucket.`,
-      lede: `The current public preview includes ${count} selected permit rows marked in the ${label} estimated job cost bucket.`,
+      lede: `The current paid issue includes ${count} selected permit rows marked in the ${label} estimated job cost bucket.`,
       audience: 'Construction-support vendors and subcontractors screening public permit activity by estimated job cost range.',
-      currentSample: `${count} rows in the ${range} public preview use the ${label} cost bucket.`,
+      currentSample: `${count} rows in the ${range} paid issue use the ${label} cost bucket.`,
       useCase: `Use this page to see whether the selected sample includes enough ${label} activity to justify deeper source-record review.`,
       sampleLine: `${label} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
       rows: sampleRows(matchingRows),
       stats: [
-        `${count} public preview rows in the ${label} cost bucket.`,
+        `${count} paid issue rows in the ${label} cost bucket.`,
         `Work type mix: ${describeCounts(matchingRows, (row) => row.work_type)}.`,
         `ZIP mix: ${describeCounts(matchingRows, (row) => row.zip_code)}.`,
       ],
@@ -999,14 +1124,14 @@ function buildGeneratedPages(rows) {
       title: `NYC DOB Permits Issued ${issuedDate} | Sample`,
       description: `Review ${count} selected NYC DOB permit rows issued on ${issuedDate} with work type, ZIP, borough, status, cost bucket, and source links.`,
       h1: `NYC DOB permit rows issued on ${issuedDate}.`,
-      lede: `The current public preview includes ${count} selected DOB NOW permit rows issued on ${issuedDate}.`,
+      lede: `The current paid issue includes ${count} selected DOB NOW permit rows issued on ${issuedDate}.`,
       audience: 'Construction-support vendors checking recent permit activity by issue date before opening individual source records.',
-      currentSample: `${issuedDate} has ${count} selected rows in the current public preview.`,
+      currentSample: `${issuedDate} has ${count} selected rows in the current paid issue.`,
       useCase: `Use this page to scan one issued-date slice of the sample before sorting the full CSV by work type or territory.`,
       sampleLine: `${issuedDate} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
       rows: sampleRows(matchingRows),
       stats: [
-        `${count} public preview rows issued on ${issuedDate}.`,
+        `${count} paid issue rows issued on ${issuedDate}.`,
         `Work type mix: ${describeCounts(matchingRows, (row) => row.work_type)}.`,
         `Territory mix: ${describeCounts(matchingRows, (row) => `${titleCase(row.borough)} ${row.zip_code}`)}.`,
       ],
@@ -1037,6 +1162,7 @@ for (const page of pages) {
 }
 fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages));
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
+fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),

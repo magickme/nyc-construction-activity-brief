@@ -20,6 +20,13 @@
       <description>ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current 142-row paid issue.</description>
     </item>
     <item>
+      <title>Buyer guide for the current ZIP</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Who should buy the current 142-row ZIP, who should use the free 25-row preview first, and what is excluded from the paid files.</description>
+    </item>
+    <item>
       <title>Methodology and source boundary</title>
       <link>https://nyc-construction-activity-brief.vercel.app/methodology.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/methodology.html</guid>
