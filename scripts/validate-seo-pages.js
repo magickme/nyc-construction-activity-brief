@@ -288,6 +288,19 @@ assert.match(checkout, /\}, 650\);/, 'checkout page quickly redirects buyers to 
 assert.match(checkout, /<noscript>/, 'checkout page has no-JavaScript fallback copy');
 assert.match(checkout, /\/_vercel\/insights\/script\.js/, 'checkout page needs Web Analytics script');
 
+const success = read('success.html');
+assert.match(success, /<meta name="robots" content="noindex">/, 'success page must be noindex');
+assert.match(success, /The ZIP download starts automatically/, 'success page explains automatic download');
+assert.match(success, /id="download-link"/, 'success page keeps manual download button');
+assert.match(success, /id="download-status"/, 'success page shows automatic download status');
+assert.match(success, /id="download-frame"/, 'success page uses hidden frame for auto download');
+assert.match(success, /\/api\/download\?session_id=\$\{encodeURIComponent\(sessionId\)\}/, 'success page builds verified download URL');
+assert.match(success, /download_auto_started/, 'success page tracks automatic download starts');
+assert.match(success, /download_manual_clicked/, 'success page tracks manual download clicks');
+assert.match(success, /download_session_missing/, 'success page tracks missing session');
+assert.match(success, /has_session: true/, 'success page avoids sending full session id to analytics');
+assert.doesNotMatch(success, /track\([^)]*sessionId/, 'success page must not send Stripe session id to analytics');
+
 const preview = read('preview.html');
 assert.match(preview, /<title>Public Preview \| NYC Construction Activity Brief<\/title>/, 'preview page needs title');
 assert.match(preview, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html">/, 'preview page needs canonical');

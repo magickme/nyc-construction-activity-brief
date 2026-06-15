@@ -69,23 +69,42 @@
     <main>
       <section class="card">
         <h1>Your first issue package is ready.</h1>
-        <p>Download the NYC Weekly Construction Activity Brief first issue ZIP below. The link verifies your completed Stripe checkout before serving the file.</p>
+        <p>The ZIP download starts automatically after this page receives a valid Stripe Checkout Session ID. The same paid-session check protects the manual button below.</p>
         <a id="download-link" class="button hidden" href="#">Download ZIP</a>
+        <p id="download-status" class="fine hidden">Download starting. If your browser blocks it, use the button above.</p>
         <p id="missing-session" class="fine hidden">This page is missing a Stripe checkout session ID. Return from the Stripe confirmation page or read the support page before sharing any receipt details.</p>
         <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list. <a href="/support.html">Support and refund boundary</a>.</p>
       </section>
     </main>
+    <iframe id="download-frame" class="hidden" title="Download starter"></iframe>
     <script>
       const params = new URLSearchParams(window.location.search);
       const sessionId = params.get('session_id');
       const link = document.getElementById('download-link');
+      const status = document.getElementById('download-status');
       const missing = document.getElementById('missing-session');
+      const frame = document.getElementById('download-frame');
+
+      function track(name, data = {}) {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name, data });
+        } catch (error) {}
+      }
 
       if (sessionId && /^cs_(live|test)_[A-Za-z0-9]+$/.test(sessionId)) {
-        link.href = `/api/download?session_id=${encodeURIComponent(sessionId)}`;
+        const downloadUrl = `/api/download?session_id=${encodeURIComponent(sessionId)}`;
+        link.href = downloadUrl;
         link.classList.remove('hidden');
+        status.classList.remove('hidden');
+        link.addEventListener('click', () => track('download_manual_clicked', { has_session: true }));
+        window.setTimeout(() => {
+          frame.src = downloadUrl;
+          track('download_auto_started', { has_session: true });
+        }, 650);
       } else {
         missing.classList.remove('hidden');
+        track('download_session_missing', { has_session: false });
       }
     </script>
   </body>

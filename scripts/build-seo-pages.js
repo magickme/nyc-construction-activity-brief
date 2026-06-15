@@ -2578,11 +2578,11 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>2. Return to success page</h2>
-          <p>Completed checkout redirects to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>.</p>
+          <p>Completed checkout redirects to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>, where the ZIP download starts automatically.</p>
         </div>
         <div class="card">
           <h2>3. Download ZIP</h2>
-          <p><code>/api/download</code> verifies the paid Checkout Session before serving the current ZIP file.</p>
+          <p><code>/api/download</code> verifies the paid Checkout Session before the automatic or manual download serves the current ZIP file.</p>
         </div>
       </section>
 
@@ -3039,7 +3039,7 @@ ${socialImageMeta()}
       <section class="grid">
         <div class="card">
           <h2>Delivery path</h2>
-          <p>Stripe redirects completed buyers to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>.</p>
+          <p>Stripe redirects completed buyers to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>, where the ZIP download starts automatically.</p>
         </div>
         <div class="card">
           <h2>Download gate</h2>
