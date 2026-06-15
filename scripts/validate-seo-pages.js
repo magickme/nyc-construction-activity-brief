@@ -189,6 +189,11 @@ assert.match(checkout, /<title>Opening Stripe Checkout \| NYC Construction Activ
 assert.match(checkout, /<meta name="robots" content="noindex">/, 'checkout page must be noindex');
 assert.match(checkout, /checkout_intent/, 'checkout page tracks checkout intent');
 assert.match(checkout, new RegExp(stripeCheckoutUrl), 'checkout page redirects to launch-price Stripe checkout');
+assert.match(checkout, /utm_source: 'nyc_construction_activity_brief'/, 'checkout page passes UTM source to Stripe');
+assert.match(checkout, /utm_medium: 'owned_site'/, 'checkout page passes UTM medium to Stripe');
+assert.match(checkout, /utm_campaign: 'current_issue_launch'/, 'checkout page passes UTM campaign to Stripe');
+assert.match(checkout, /utm_content: source/, 'checkout page passes source as UTM content to Stripe');
+assert.match(checkout, /client_reference_id: \['ncab', source\.replace/, 'checkout page passes non-sensitive client reference to Stripe');
 assert.match(checkout, /Continue to Stripe/, 'checkout page has fallback link');
 assert.match(checkout, /\/_vercel\/insights\/script\.js/, 'checkout page needs Web Analytics script');
 

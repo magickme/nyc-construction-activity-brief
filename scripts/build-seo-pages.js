@@ -379,7 +379,14 @@ function checkoutHtml() {
       const params = new URLSearchParams(window.location.search);
       const rawSource = params.get('source') || 'site';
       const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'site';
-      const stripeUrl = '${stripeCheckoutUrl}';
+      const stripeParams = new URLSearchParams({
+        utm_source: 'nyc_construction_activity_brief',
+        utm_medium: 'owned_site',
+        utm_campaign: 'current_issue_launch',
+        utm_content: source,
+        client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
+      });
+      const stripeUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
       link.href = stripeUrl;
       try {
