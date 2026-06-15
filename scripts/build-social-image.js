@@ -75,12 +75,15 @@ function addText(args, { x, y, text, size, color = '#17211b', font = fontRegular
 
 function addBarRows(args, counts, maxCount) {
   const colors = ['#214d35', '#b7791f', '#7b5b2a', '#536056', '#8a6f3e'];
+  const labelX = 84;
+  const barX = 392;
+  const maxBarWidth = 570;
   for (const [index, [label, count]] of counts.slice(0, 5).entries()) {
-    const y = 268 + index * 57;
-    const width = Math.round((count / maxCount) * 570);
-    addText(args, { x: 84, y, text: label, size: 22, font: fontBold });
-    args.push('-fill', colors[index], '-draw', `roundrectangle 84,${y + 22} ${84 + width},${y + 44} 8,8`);
-    addText(args, { x: 96 + width, y: y + 40, text: String(count), size: 22, font: fontBold });
+    const y = 276 + index * 52;
+    const width = Math.round((count / maxCount) * maxBarWidth);
+    addText(args, { x: labelX, y: y + 25, text: label, size: 22, font: fontBold });
+    args.push('-fill', colors[index], '-draw', `roundrectangle ${barX},${y + 6} ${barX + width},${y + 28} 8,8`);
+    addText(args, { x: barX + width + 14, y: y + 25, text: String(count), size: 22, font: fontBold });
   }
 }
 
