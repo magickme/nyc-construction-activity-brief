@@ -1371,15 +1371,21 @@ ${rowsHtml.map(([item, freeValue, paidValue]) => `              <tr>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('free-vs-paid')}">Buy instant ZIP</a>
       </section>
 
+${sampleRequestSection({
+    workType: 'Selected DOB work types',
+    territory: 'NYC',
+  })}
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;

@@ -524,6 +524,7 @@ assert.match(freeVsPaid, /href="\/time-saved-calculator\.html"/, 'free vs paid p
 assert.match(freeVsPaid, /href="\/pricing\.html"/, 'free vs paid page links pricing');
 assert.match(freeVsPaid, /href="\/support\.html"/, 'free vs paid page links support');
 assert.match(freeVsPaid, new RegExp(`href="${checkoutUrl}"`), 'free vs paid page links tracked checkout');
+assertSampleRequestForm(freeVsPaid, 'free vs paid page');
 assert.match(freeVsPaid, /No guaranteed leads\./, 'free vs paid page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(freeVsPaid, pattern, `free-vs-paid.html contains banned copy pattern ${pattern}`);
