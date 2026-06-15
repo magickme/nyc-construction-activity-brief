@@ -411,8 +411,8 @@ assert.match(checkout, /utm_campaign: 'current_issue_launch'/, 'checkout page pa
 assert.match(checkout, /utm_content: source/, 'checkout page passes source as UTM content to Stripe');
 assert.match(checkout, /client_reference_id: \['ncab', source\.replace/, 'checkout page passes non-sensitive client reference to Stripe');
 assert.match(checkout, /Continue to Stripe/, 'checkout page has fallback link');
-assert.match(checkout, /client_reference_id=ncab_checkout_static/, 'checkout page static fallback has client reference');
-assert.match(checkout, /utm_content=checkout_static/, 'checkout page static fallback has UTM content');
+assert.match(checkout, /client_reference_id=ncab_checkout_static_fallback/, 'checkout page static fallback has client reference');
+assert.match(checkout, /utm_content=checkout_static_fallback/, 'checkout page static fallback has UTM content');
 assert.match(checkout, /\/api\/create-checkout-session/, 'checkout page creates first-party checkout sessions');
 assert.match(checkout, /method: 'POST'/, 'checkout page posts checkout session request');
 assert.match(checkout, /body: JSON\.stringify\(\{ source \}\)/, 'checkout page sends source to checkout session API');
@@ -441,7 +441,7 @@ assert.match(buy, /<meta property="og:title" content="Buy Current Issue \| NYC C
 assert.match(buy, /<meta property="og:url" content="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html">/, 'buy page needs OG URL');
 assert.match(buy, /"@type":"Product"/, 'buy page needs Product structured data');
 assert.match(buy, /"price":"9.50"/, 'buy page needs current price structured data');
-assert.match(buy, /href="https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q\?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static"/, 'buy page static fallback links Stripe with attribution');
+assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page"/, 'buy page visible CTAs default to tracked checkout bridge');
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /<p class="fine">\$9\.50 one-time launch price\. Instant browser download after completed Stripe checkout\. No promo code is required\.<\/p>\s*<p>\s*<a data-buy-link="top" class="button"/, 'buy page puts a purchase CTA above sample rows');
 assert.match(buy, /data-buy-confidence/, 'buy page has pre-checkout confidence block');
@@ -483,6 +483,7 @@ assert.match(buy, /body: JSON\.stringify\(\{ source \}\)/, 'buy page sends sourc
 assert.match(buy, /buy_page_checkout_session_created/, 'buy page tracks first-party checkout session creation');
 assert.match(buy, /buy_page_checkout_session_fallback/, 'buy page tracks Payment Link fallback');
 assert.match(buy, /document\.querySelectorAll\('\[data-buy-link\]'\)/, 'buy page wires all purchase CTAs');
+assert.doesNotMatch(buy, /links\.forEach\(\(link\) => \{\s*link\.href = fallbackUrl;\s*\}\);/, 'buy page must not rewrite visible CTAs to Payment Link fallback before click');
 assert.match(buy, /link\.addEventListener\('click', async \(event\)/, 'buy page creates checkout sessions only after buyer click');
 assert.match(buy, /position: link\.dataset\.buyLink \|\| 'unknown'/, 'buy page tracks CTA position without PII');
 assert.match(buy, /window\.location\.assign\(await createCheckoutUrl\(\)\);/, 'buy page sends clickers to first-party session or fallback URL');
@@ -2726,7 +2727,8 @@ assert.equal(currentIssue.publicPreview.constructionFencePermitsUrl, 'https://ny
 assert.equal(currentIssue.publicPreview.purchaseUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON public preview exposes buy page as purchase URL');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
 assert.equal(currentIssue.publicPreview.checkoutBridgeUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON public preview exposes checkout bridge URL');
-assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON keeps Stripe checkout URL');
+assert.equal(currentIssue.publicPreview.stripeFallbackUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON keeps Stripe fallback URL');
+assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, undefined, 'current issue JSON does not expose Stripe fallback as primary checkout URL');
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
 assert.equal(currentIssue.publicPreview.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON public preview links delivery page');
 assert.equal(currentIssue.publicPreview.supportUrl, 'https://nyc-construction-activity-brief.vercel.app/support.html', 'current issue JSON public preview links support page');
@@ -2743,7 +2745,8 @@ assert.equal(currentIssue.paidZip.checkoutUrl, 'https://nyc-construction-activit
 assert.equal(currentIssue.paidZip.checkoutBridgeUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP exposes checkout bridge URL');
 assert.equal(currentIssue.paidZip.buyUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON paid ZIP links buy page');
 assert.equal(currentIssue.paidZip.currentIssueUrl, 'https://nyc-construction-activity-brief.vercel.app/current-issue.html', 'current issue JSON paid ZIP links current issue page');
-assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON paid ZIP keeps Stripe checkout URL');
+assert.equal(currentIssue.paidZip.stripeFallbackUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON paid ZIP keeps Stripe fallback URL');
+assert.equal(currentIssue.paidZip.stripeCheckoutUrl, undefined, 'current issue JSON paid ZIP does not expose Stripe fallback as primary checkout URL');
 assert.equal(currentIssue.paidZip.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON paid ZIP links pricing page');
 assert.equal(currentIssue.paidZip.dataPackageUrl, 'https://nyc-construction-activity-brief.vercel.app/data-package.json', 'current issue JSON paid ZIP links data package JSON');
 assert.equal(currentIssue.paidZip.productFeedUrl, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'current issue JSON paid ZIP links product feed XML');
@@ -2953,7 +2956,7 @@ assert.match(llms, /NYC structural permits: https:\/\/nyc-construction-activity-
 assert.match(llms, /NYC construction fence permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-fence-permits\.html/, 'llms.txt links construction fence permits page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
-assert.match(llms, /Stripe Payment Link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt keeps Stripe checkout URL');
+assert.match(llms, /Stripe fallback link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt labels Stripe URL as fallback');
 assert.match(llms, /Social image: https:\/\/nyc-construction-activity-brief\.vercel\.app\/assets\/current-issue-snapshot\.png/, 'llms.txt links social image');
 assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'llms.txt links buyer guide');
 assert.match(llms, /Delivery steps: https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'llms.txt links delivery page');
@@ -2977,7 +2980,8 @@ assert.equal(dataPackage.paid_zip.rows, 142, 'data package JSON paid ZIP row cou
 assert.equal(dataPackage.paid_zip.price_usd, '9.50', 'data package JSON exposes launch price');
 assert.equal(dataPackage.paid_zip.buy_url, 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=data-package', 'data package JSON links tracked buy page');
 assert.equal(dataPackage.paid_zip.checkout_bridge_url, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=data-package', 'data package JSON links tracked checkout bridge');
-assert.equal(dataPackage.paid_zip.stripe_payment_link, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'data package JSON links Stripe Payment Link fallback');
+assert.equal(dataPackage.paid_zip.stripe_payment_link, undefined, 'data package JSON does not expose Stripe fallback as primary payment link');
+assert.equal(dataPackage.paid_zip.stripe_payment_link_fallback, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'data package JSON labels Stripe Payment Link as fallback');
 assert.equal(dataPackage.paid_zip.product_feed_url, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'data package JSON links product feed XML');
 assert.equal(dataPackage.paid_zip.json_feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'data package JSON links JSON Feed');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/faq.html'), 'data package JSON links FAQ page');

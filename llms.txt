@@ -11,7 +11,7 @@ Current issue:
 - Primary purchase page: https://nyc-construction-activity-brief.vercel.app/buy.html
 - Buy page: https://nyc-construction-activity-brief.vercel.app/buy.html
 - Checkout bridge: https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue
-- Stripe Payment Link: https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q
+- Stripe fallback link: https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q
 - Social image: https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png
 - Price: $9.50 one-time ZIP download
 - Standard price: $49

@@ -733,7 +733,7 @@ function checkoutHtml(rows) {
           <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
           <li>No private contact data, owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
         </ul>
-        <a id="stripe-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static&amp;client_reference_id=ncab_checkout_static">Continue to Stripe</a>
+        <a id="stripe-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue to Stripe</a>
         <p>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
@@ -844,7 +844,7 @@ ${socialImageMeta()}
         <p class="lede">One current-issue ZIP for buyers who want the selected NYC DOB NOW rows packaged for spreadsheet review.</p>
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
         <p>
-          <a data-buy-link="top" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+          <a data-buy-link="top" class="button" href="${checkout}">Buy $9.50 ZIP on Stripe</a>
         </p>
         <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
         <section class="section" data-buy-confidence>
@@ -891,7 +891,7 @@ ${socialImageMeta()}
             </table>
           </div>
         </section>
-        <a data-buy-link="after-sample" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+        <a data-buy-link="after-sample" class="button" href="${checkout}">Buy $9.50 ZIP on Stripe</a>
         <p class="fine">Stripe creates the paid session, then the success page unlocks the ZIP in your browser.</p>
         <section class="section">
           <h2>Inspect before checkout</h2>
@@ -935,9 +935,6 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
       });
       const fallbackUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const links = [...document.querySelectorAll('[data-buy-link]')];
-      links.forEach((link) => {
-        link.href = fallbackUrl;
-      });
       function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };

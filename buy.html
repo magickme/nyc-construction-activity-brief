@@ -32,7 +32,7 @@
         <p class="lede">One current-issue ZIP for buyers who want the selected NYC DOB NOW rows packaged for spreadsheet review.</p>
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
         <p>
-          <a data-buy-link="top" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+          <a data-buy-link="top" class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page">Buy $9.50 ZIP on Stripe</a>
         </p>
         <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
         <section class="section" data-buy-confidence>
@@ -102,7 +102,7 @@
             </table>
           </div>
         </section>
-        <a data-buy-link="after-sample" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
+        <a data-buy-link="after-sample" class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page">Buy $9.50 ZIP on Stripe</a>
         <p class="fine">Stripe creates the paid session, then the success page unlocks the ZIP in your browser.</p>
         <section class="section">
           <h2>Inspect before checkout</h2>
@@ -234,9 +234,6 @@
       });
       const fallbackUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?' + stripeParams.toString();
       const links = [...document.querySelectorAll('[data-buy-link]')];
-      links.forEach((link) => {
-        link.href = fallbackUrl;
-      });
       function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };

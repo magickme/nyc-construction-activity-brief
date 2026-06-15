@@ -28,7 +28,7 @@
     "standard_price_usd": "49.00",
     "buy_url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=data-package",
     "checkout_bridge_url": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=data-package",
-    "stripe_payment_link": "https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q",
+    "stripe_payment_link_fallback": "https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q",
     "product_feed_url": "https://nyc-construction-activity-brief.vercel.app/product-feed.xml",
     "json_feed_url": "https://nyc-construction-activity-brief.vercel.app/feed.json",
     "delivery": "Instant browser download after completed Stripe checkout.",

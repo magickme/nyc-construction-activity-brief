@@ -175,7 +175,7 @@ function buildCurrentIssueJson(rows, manifest) {
       buyUrl,
       checkoutBridgeUrl: checkoutUrl,
       checkoutUrl,
-      stripeCheckoutUrl,
+      stripeFallbackUrl: stripeCheckoutUrl,
       priceUsd: launchPriceUsd,
       standardPriceUsd,
     },
@@ -184,7 +184,7 @@ function buildCurrentIssueJson(rows, manifest) {
       buyUrl,
       checkoutBridgeUrl: checkoutUrl,
       checkoutUrl,
-      stripeCheckoutUrl,
+      stripeFallbackUrl: stripeCheckoutUrl,
       imageUrl: socialImageUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
       dataPackageUrl,
@@ -319,7 +319,7 @@ function buildDataPackageJson(rows, manifest) {
       standard_price_usd: standardPriceUsd.toFixed(2),
       buy_url: `${baseUrl}/buy.html?source=data-package`,
       checkout_bridge_url: `${baseUrl}/checkout.html?source=data-package`,
-      stripe_payment_link: stripeCheckoutUrl,
+      stripe_payment_link_fallback: stripeCheckoutUrl,
       product_feed_url: productFeedUrl,
       json_feed_url: jsonFeedUrl,
       delivery: 'Instant browser download after completed Stripe checkout.',
@@ -882,7 +882,7 @@ Current issue:
 - Primary purchase page: ${buyUrl}
 - Buy page: ${buyUrl}
 - Checkout bridge: ${checkoutUrl}
-- Stripe Payment Link: ${stripeCheckoutUrl}
+- Stripe fallback link: ${stripeCheckoutUrl}
 - Social image: ${socialImageUrl}
 - Price: $${launchPriceUsd.toFixed(2)} one-time ZIP download
 - Standard price: $${standardPriceUsd}
