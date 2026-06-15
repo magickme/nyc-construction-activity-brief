@@ -305,6 +305,7 @@ const coreConversionPages = [
   ['support.html', 'support-sticky'],
   ['sample-request.html', 'sample-request-sticky'],
   ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-sticky'],
+  ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-sticky'],
   ['weekly-nyc-construction-permit-report.html', 'weekly-nyc-construction-report-sticky'],
   ['dob-now-permit-search-alternative.html', 'dob-now-alternative-sticky'],
   ['nyc-construction-permit-leads.html', 'permit-leads-sticky'],
@@ -1720,6 +1721,162 @@ ${sampleRequestSection({
         workType: 'Selected DOB work types',
         territory: 'NYC',
       })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
+function permitDataApiAlternativeHtml(rows) {
+  const description = 'A buyer-focused page for proptech operators and analysts comparing a simple weekly NYC DOB permit CSV ZIP with building a raw permit data pipeline.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 6);
+  const boroughMix = describeCounts(rows, (row) => titleCase(row.borough), 5);
+  const statusMix = describeCounts(rows, (row) => row.permit_status, 5);
+  const product = productJsonLd(description, checkoutHref('nyc-permit-data-api-alternative'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Who should use this instead of building an API workflow?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It fits proptech operators, analysts, consultants, and small teams that need a weekly source-linked CSV before deciding whether a raw data pipeline is worth building.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is this an API?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It is a weekly ZIP with CSV and worksheet files. Use it when a downloadable file is enough for the current review.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should technical buyers verify?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Check field names, row scope, source links, issue date range, and whether the CSV saves enough setup time for the current research task.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Permit Data API Alternative | NYC Construction Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/nyc-permit-data-api-alternative.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Permit Data API Alternative | NYC Construction Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/nyc-permit-data-api-alternative.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC permit data API alternative for weekly CSV research.</h1>
+      <p class="lede">Use the current issue when a source-linked CSV is enough and a custom DOB data pipeline would slow down this week's review.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>CSV first</h2>
+          <p>Start with a weekly file that can be opened in a spreadsheet, script, notebook, CRM import check, or research worksheet.</p>
+        </div>
+        <div class="card">
+          <h2>Source-linked rows</h2>
+          <p>Each public-facing row keeps a source URL so technical and research teams can verify records before using them.</p>
+        </div>
+        <div class="card">
+          <h2>Low setup</h2>
+          <p>Buy the ZIP only when the current issue saves more time than setting up a one-off pull, parser, or manual export.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}. Free preview rows: 25.</li>
+          <li>Borough mix: ${escapeHtml(boroughMix)}.</li>
+          <li>Status mix: ${escapeHtml(statusMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>When the ZIP fits</h2>
+        <ol>
+          <li>You need this week's selected permit rows in a spreadsheet or scriptable CSV.</li>
+          <li>You want to test buyer, vendor, contractor, ZIP, or work-type filters before building a repeat data pull.</li>
+          <li>You need source URLs in the file so a human can verify rows before client work, routing, enrichment, or analysis.</li>
+          <li>You want a buyer workbook and priority-slices CSV instead of starting from a blank export.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Technical review pass</h2>
+        <ol>
+          <li>Download the free preview CSV and check field names, row format, and source URLs.</li>
+          <li>Open the CSV field guide and confirm the columns match your import or analysis needs.</li>
+          <li>Check the current issue facts for row count, date range, work-type mix, ZIP mix, and status mix.</li>
+          <li>Buy the ZIP only if the full current issue saves enough setup time.</li>
+          <li>Before using any row in a product, report, data enrichment job, or client deliverable, verify the public source record.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Related data pages</h2>
+        <ul>
+          <li><a href="/topics/nyc-construction-permit-data-api-alternative.html">NYC construction permit data API alternative</a></li>
+          <li><a href="/topics/nyc-building-permit-export-csv.html">NYC building permit export CSV</a></li>
+          <li><a href="/topics/nyc-construction-market-research-csv.html">NYC construction market research CSV</a></li>
+          <li><a href="/topics/nyc-dob-now-public-records.html">NYC DOB NOW public records</a></li>
+          <li><a href="/topics/nyc-construction-permit-data-for-proptech.html">NYC construction permit data for proptech</a></li>
+        </ul>
+      </section>
+
+${sampleRequestSection({
+    workType: 'NYC permit data API alternative',
+    territory: 'NYC',
+  })}
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, tenant data, enriched contact data, agency endorsement, data pipeline warranty, legal advice, compliance advice, or filing advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
+        <a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a>
+        <a class="button secondary" href="/dob-now-permit-search-alternative.html">DOB NOW search alternative</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('nyc-permit-data-api-alternative')}">Buy instant ZIP</a>
+      </section>
     </main>
     ${sampleRequestScript()}
   </body>
@@ -6379,7 +6536,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -6433,6 +6590,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
         <p><a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a></p>
+        <p><a class="button secondary" href="/nyc-permit-data-api-alternative.html">NYC permit data API alternative</a></p>
         <p><a class="button secondary" href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a></p>
         <p><a class="button secondary" href="/dob-now-permit-search-alternative.html">DOB NOW permit search alternative</a></p>
         <p><a class="button secondary" href="/nyc-construction-permit-leads.html">NYC construction permit leads alternative</a></p>
@@ -6783,6 +6941,7 @@ fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'csv-field-guide.html'), csvFieldGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-dob-permit-csv.html'), permitCsvHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-permit-data-api-alternative.html'), permitDataApiAlternativeHtml(rows));
 fs.writeFileSync(path.join(root, 'weekly-nyc-construction-permit-report.html'), weeklyPermitReportHtml(rows));
 fs.writeFileSync(path.join(root, 'dob-now-permit-search-alternative.html'), dobNowAlternativeHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-construction-permit-leads.html'), permitLeadsHtml(rows));
