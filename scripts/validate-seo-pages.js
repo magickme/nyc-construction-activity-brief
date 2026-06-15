@@ -530,6 +530,9 @@ assert.match(buy, /href="\/nyc-mechanical-systems-permit-leads\.html">Check mech
 assert.match(buy, /href="\/nyc-structural-permit-leads\.html">Check structural leads<\/a>/, 'buy page links structural leads page before checkout');
 assert.match(buy, /href="\/nyc-construction-fence-permit-leads\.html">Check fence leads<\/a>/, 'buy page links construction fence leads page before checkout');
 assert.match(buy, /href="\/topics\/nyc-exterior-work-permit-research\.html">Check exterior-access fit<\/a>/, 'buy page links exterior fit page before checkout');
+assert.match(buy, /data-buy-link="sidewalk-shed-fit" class="button" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-sidewalk-shed-fit">Buy for sidewalk shed review<\/a>/, 'buy page has sidewalk shed fit purchase CTA');
+assert.match(buy, /data-buy-link="plumbing-fit" class="button" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-plumbing-fit">Buy for plumbing review<\/a>/, 'buy page has plumbing fit purchase CTA');
+assert.match(buy, /data-buy-link="exterior-access-fit" class="button" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-exterior-access-fit">Buy for exterior-access review<\/a>/, 'buy page has exterior access purchase CTA');
 assert.match(buy, /data-first-use-plan/, 'buy page gives buyers an immediate use plan before checkout');
 assert.match(buy, /Filter the priority-slices CSV to sidewalk shed, plumbing, sprinkler, supported scaffold, construction fence, or structural rows\./, 'buy page explains the first action after download');
 assert.match(buy, /It is not a contact list, outreach automation, or permit filing service\./, 'buy page keeps the first-use plan inside the public-record boundary');
@@ -550,7 +553,7 @@ assert.match(buy, /data-checkout-cancelled hidden/, 'buy page has a hidden check
 assert.match(buy, /Checkout was not completed/, 'buy page names the cancelled-checkout recovery state');
 assert.match(buy, /data-buy-link="cancelled-retry"/, 'buy page has a retry CTA for cancelled Stripe sessions');
 assert.match(buy, /Request invoice help/, 'buy page routes procurement-blocked buyers to invoice help after cancelled checkout');
-assert.equal((buy.match(/data-buy-link="/g) || []).length, 3, 'buy page has two normal purchase CTAs and one cancelled-checkout retry CTA');
+assert.equal((buy.match(/data-buy-link="/g) || []).length, 6, 'buy page has top, segment-fit, post-sample, and cancelled-checkout purchase CTAs');
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
 assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');

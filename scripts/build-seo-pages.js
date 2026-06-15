@@ -940,6 +940,11 @@ ${socialImageMeta()}
             <a class="button secondary" href="/nyc-construction-fence-permit-leads.html">Check fence leads</a>
             <a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Check exterior-access fit</a>
           </p>
+          <p>
+            <a data-buy-link="sidewalk-shed-fit" class="button" href="${checkoutBridgeHref('buy-page-sidewalk-shed-fit')}">Buy for sidewalk shed review</a>
+            <a data-buy-link="plumbing-fit" class="button" href="${checkoutBridgeHref('buy-page-plumbing-fit')}">Buy for plumbing review</a>
+            <a data-buy-link="exterior-access-fit" class="button" href="${checkoutBridgeHref('buy-page-exterior-access-fit')}">Buy for exterior-access review</a>
+          </p>
         </section>
         <section class="section" data-first-use-plan>
           <h2>Use it in the first 15 minutes</h2>
