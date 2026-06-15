@@ -139,6 +139,20 @@
       <description>Source-linked permit screening page for buyers searching for NYC construction permit leads without private contacts or guaranteed sales opportunities.</description>
     </item>
     <item>
+      <title>Manhattan construction permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/manhattan-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/manhattan-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current Manhattan permit activity page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
+      <title>Brooklyn construction permit activity</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/brooklyn-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/brooklyn-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current Brooklyn permit activity page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
       <title>NYC sidewalk shed permits</title>
       <link>https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html</guid>
