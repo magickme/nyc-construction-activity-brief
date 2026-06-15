@@ -228,6 +228,10 @@ function jsonScript(value) {
 }
 
 function checkoutHref(source = 'site') {
+  return `${baseUrl}/buy.html?source=${encodeURIComponent(source)}`;
+}
+
+function checkoutBridgeHref(source = 'site') {
   return `${checkoutUrl}?source=${encodeURIComponent(source)}`;
 }
 
@@ -346,7 +350,7 @@ function sampleRequestScript() {
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -354,7 +358,7 @@ function sampleRequestScript() {
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. Try again, or <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            status.innerHTML = 'Request was not saved. Try again, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
@@ -601,7 +605,7 @@ function checkoutHtml(rows) {
 
 function buyHtml(rows) {
   const source = 'buy-page';
-  const checkout = checkoutHref(source);
+  const checkout = checkoutBridgeHref(source);
   const description = 'Buy the current NYC Weekly Construction Activity Brief ZIP with source-linked DOB NOW rows, buyer workbook, priority slices, and instant browser download.';
   const product = productJsonLd(description, `${baseUrl}/buy.html`);
   return `<!doctype html>

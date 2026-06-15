@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png">
     <link rel="stylesheet" href="/styles.css">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Review 13 selected NYC supported scaffold permit rows from the current paid issue with ZIP, borough, issued date, status, and source links.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/checkout.html?source=topic-nyc-supported-scaffold-permit-csv-sample","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Review 13 selected NYC supported scaffold permit rows from the current paid issue with ZIP, borough, issued date, status, and source links.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/buy.html?source=topic-nyc-supported-scaffold-permit-csv-sample","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NYC Construction Activity Brief","item":"https://nyc-construction-activity-brief.vercel.app/"},{"@type":"ListItem","position":2,"name":"NYC supported scaffold permit CSV sample","item":"https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permit-csv-sample.html"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What fields are included for supported scaffold rows?","acceptedAnswer":{"@type":"Answer","text":"The preview includes work type, ZIP, borough, issued date, status, cost bucket, permit ID, filing number, short description, and source link."}},{"@type":"Question","name":"Does the paid package include more private details?","acceptedAnswer":{"@type":"Answer","text":"No. The paid package keeps the same public-record boundary. It packages selected source-linked activity for faster review."}}]}</script>
 
@@ -55,7 +55,7 @@
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=topic-nyc-supported-scaffold-permit-csv-sample">Buy instant ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=topic-nyc-supported-scaffold-permit-csv-sample">Buy instant ZIP</a>
       </section>
 
       <section class="section card">
@@ -192,7 +192,7 @@
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
       <div class="conversion-actions">
         <a class="button secondary" href="#sample-request">Sample request</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=topic-nyc-supported-scaffold-permit-csv-sample">Buy ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=topic-nyc-supported-scaffold-permit-csv-sample">Buy ZIP</a>
       </div>
     </aside>
 
@@ -222,7 +222,7 @@
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -230,7 +230,7 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. Try again, or <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            status.innerHTML = 'Request was not saved. Try again, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;

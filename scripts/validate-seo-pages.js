@@ -5,7 +5,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html\\?source=[a-z0-9._-]+';
-const relativeCheckoutUrl = '/checkout.html\\?source=[a-z0-9._-]+';
+const purchaseUrl = 'https://nyc-construction-activity-brief.vercel.app/buy.html\\?source=[a-z0-9._-]+';
 const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const socialImagePath = path.join(root, 'assets/current-issue-snapshot.png');
@@ -101,23 +101,23 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
-  assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links tracked checkout`);
+  assert.match(html, new RegExp(`href="${purchaseUrl}"`), `${relativePath} links tracked buy page`);
   const slug = relativePath.startsWith('topics/')
     ? relativePath.replace(/^topics\//, '').replace(/\.html$/, '')
     : null;
-  const attributedCheckoutUrl = slug
-    ? `${baseUrl}/checkout.html?source=topic-${slug}`
+  const attributedPurchaseUrl = slug
+    ? `${baseUrl}/buy.html?source=topic-${slug}`
     : null;
   if (slug) {
     assert.match(
       html,
-      new RegExp(`href="${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
-      `${relativePath} uses page-specific checkout attribution`,
+      new RegExp(`href="${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+      `${relativePath} uses page-specific buy attribution`,
     );
     assert.match(
       html,
-      new RegExp(`"url":"${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
-      `${relativePath} Product schema uses page-specific checkout attribution`,
+      new RegExp(`"url":"${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+      `${relativePath} Product schema uses page-specific buy attribution`,
     );
     assert.doesNotMatch(html, /href="(?:https:\/\/nyc-construction-activity-brief\.vercel\.app)?\/checkout\.html\?source=topic"/, `${relativePath} must not use generic topic attribution`);
   }
@@ -127,14 +127,14 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, `${relativePath} builds page-specific sample request checkout source`);
   assert.match(html, /sample_request_saved/, `${relativePath} tracks saved sample requests`);
   assert.match(html, /sample_request_failed/, `${relativePath} tracks failed sample requests`);
-  assert.match(html, /encodeURIComponent\(requestSource\)/, `${relativePath} links checkout with page-specific sample request source`);
+  assert.match(html, /encodeURIComponent\(requestSource\)/, `${relativePath} links buy page with page-specific sample request source`);
   assert.match(html, /class="has-conversion-bar"/, `${relativePath} uses sticky conversion bar layout`);
   assert.match(html, /data-conversion-bar/, `${relativePath} needs sticky conversion bar`);
   assert.match(html, /Sample request/, `${relativePath} conversion bar links sample request`);
   assert.match(
     html,
-    new RegExp(`data-conversion-bar[\\s\\S]+href="${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
-    `${relativePath} conversion bar links attributed checkout`,
+    new RegExp(`data-conversion-bar[\\s\\S]+href="${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+    `${relativePath} conversion bar links attributed buy page`,
   );
   assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
@@ -166,9 +166,7 @@ function assertSampleRequestForm(html, label) {
 }
 
 function assertConversionBar(html, label, source) {
-  const expectedCheckout = label === 'index.html'
-    ? `https://nyc-construction-activity-brief.vercel.app/buy.html?source=${source}`
-    : `https://nyc-construction-activity-brief.vercel.app/checkout.html?source=${source}`;
+  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/buy.html?source=${source}`;
   assert.match(html, /class="[^"]*has-conversion-bar[^"]*"/, `${label} uses sticky conversion bar layout`);
   assert.match(html, /data-conversion-bar/, `${label} needs sticky conversion bar`);
   assert.match(html, /Sample request/, `${label} conversion bar links sample request`);
@@ -249,7 +247,7 @@ assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout
 assert.match(index, /href="\/buy\.html\?source=home-hero"/, 'index hero links buy page');
 assert.match(index, /href="\/buy\.html\?source=home-card"/, 'index card links buy page');
 assert.match(index, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=home-sticky"/, 'index sticky bar links buy page');
-assert.match(index, /href="\/checkout\.html\?source=' \+ encodeURIComponent\(requestSource\)/, 'index sample request fallback links tracked checkout');
+assert.match(index, /href="\/buy\.html\?source=' \+ encodeURIComponent\(requestSource\)/, 'index sample request fallback links tracked buy page');
 assert.match(index, /Launch price is \$9\.50 for the current issue/, 'index needs launch price copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
@@ -262,7 +260,7 @@ assert.match(index, /data\.source_path = window\.location\.pathname;/, 'index se
 assert.match(index, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'index builds page-specific sample request checkout source');
 assert.match(index, /sample_request_saved/, 'index tracks saved sample requests');
 assert.match(index, /sample_request_failed/, 'index tracks failed sample requests');
-assert.match(index, /encodeURIComponent\(requestSource\)/, 'index links checkout with page-specific sample request source');
+assert.match(index, /encodeURIComponent\(requestSource\)/, 'index links buy page with page-specific sample request source');
 assert.match(index, /This does not join the MagickMe newsletter\./, 'index needs list-separation copy');
 assert.match(index, /href="\/current-issue\.html"/, 'index links current issue page');
 assert.match(index, /href="\/preview\.html"/, 'index links public preview page');
@@ -396,14 +394,14 @@ assert.match(preview, /href="\/permit-research-workflow\.html"/, 'preview page l
 assert.match(preview, /href="\/inside-the-zip\.html"/, 'preview page links inside the ZIP page');
 assert.match(preview, /href="\/pricing\.html"/, 'preview page links pricing page');
 assert.match(preview, /href="\/support\.html"/, 'preview page links support page');
-assert.match(preview, new RegExp(`href="${checkoutUrl}"`), 'preview page links tracked checkout');
+assert.match(preview, new RegExp(`href="${purchaseUrl}"`), 'preview page links tracked buy page');
 assert.match(preview, /data-sample-request-form/, 'preview page needs sample request form');
 assert.match(preview, /\/api\/sample-request/, 'preview page posts sample requests to API');
 assert.match(preview, /data\.source_path = window\.location\.pathname;/, 'preview page sends source path with sample request');
 assert.match(preview, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'preview page builds page-specific sample request checkout source');
 assert.match(preview, /sample_request_saved/, 'preview page tracks saved sample requests');
 assert.match(preview, /sample_request_failed/, 'preview page tracks failed sample requests');
-assert.match(preview, /encodeURIComponent\(requestSource\)/, 'preview page links checkout with page-specific sample request source');
+assert.match(preview, /encodeURIComponent\(requestSource\)/, 'preview page links buy page with page-specific sample request source');
 assert.match(preview, /No guaranteed leads\./, 'preview page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(preview, pattern, `preview.html contains banned copy pattern ${pattern}`);
@@ -434,7 +432,7 @@ assert.match(pricing, /href="\/time-saved-calculator\.html"/, 'pricing page link
 assert.match(pricing, /href="\/buyer-guide\.html"/, 'pricing page links buyer guide');
 assert.match(pricing, /href="\/delivery\.html"/, 'pricing page links delivery page');
 assert.match(pricing, /href="\/support\.html"/, 'pricing page links support page');
-assert.match(pricing, new RegExp(`href="${checkoutUrl}"`), 'pricing page links tracked checkout');
+assert.match(pricing, new RegExp(`href="${purchaseUrl}"`), 'pricing page links tracked buy page');
 assertSampleRequestForm(pricing, 'pricing page');
 assert.match(pricing, /No guaranteed leads\./, 'pricing page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -474,7 +472,7 @@ assert.match(currentIssuePage, /href="\/csv-field-guide\.html"/, 'current issue 
 assert.match(currentIssuePage, /href="\/pricing\.html"/, 'current issue page links pricing');
 assert.match(currentIssuePage, /href="\/delivery\.html"/, 'current issue page links delivery');
 assert.match(currentIssuePage, /href="\/support\.html"/, 'current issue page links support');
-assert.match(currentIssuePage, new RegExp(`href="${checkoutUrl}"`), 'current issue page links tracked checkout');
+assert.match(currentIssuePage, new RegExp(`href="${purchaseUrl}"`), 'current issue page links tracked buy page');
 assertSampleRequestForm(currentIssuePage, 'current issue page');
 assert.match(currentIssuePage, /No guaranteed leads\./, 'current issue page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -511,7 +509,7 @@ assert.match(timeSavedCalculator, /href="\/inside-the-zip\.html"/, 'time saved c
 assert.match(timeSavedCalculator, /href="\/csv-field-guide\.html"/, 'time saved calculator links CSV field guide');
 assert.match(timeSavedCalculator, /href="\/pricing\.html"/, 'time saved calculator links pricing');
 assert.match(timeSavedCalculator, /href="\/support\.html"/, 'time saved calculator links support');
-assert.match(timeSavedCalculator, new RegExp(`href="${checkoutUrl}"`), 'time saved calculator links tracked checkout');
+assert.match(timeSavedCalculator, new RegExp(`href="${purchaseUrl}"`), 'time saved calculator links tracked buy page');
 assertSampleRequestForm(timeSavedCalculator, 'time saved calculator');
 assert.match(timeSavedCalculator, /No guaranteed leads\./, 'time saved calculator keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -550,7 +548,7 @@ assert.match(whoShouldBuy, /href="\/pricing\.html"/, 'who should buy page links 
 assert.match(whoShouldBuy, /href="\/buyer-guide\.html"/, 'who should buy page links buyer guide');
 assert.match(whoShouldBuy, /href="\/delivery\.html"/, 'who should buy page links delivery page');
 assert.match(whoShouldBuy, /href="\/support\.html"/, 'who should buy page links support page');
-assert.match(whoShouldBuy, new RegExp(`href="${checkoutUrl}"`), 'who should buy page links tracked checkout');
+assert.match(whoShouldBuy, new RegExp(`href="${purchaseUrl}"`), 'who should buy page links tracked buy page');
 assertSampleRequestForm(whoShouldBuy, 'who should buy page');
 assert.match(whoShouldBuy, /No guaranteed leads\./, 'who should buy page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -587,7 +585,7 @@ assert.match(insideZip, /href="\/csv-field-guide\.html"/, 'inside ZIP page links
 assert.match(insideZip, /href="\/pricing\.html"/, 'inside ZIP page links pricing');
 assert.match(insideZip, /href="\/delivery\.html"/, 'inside ZIP page links delivery');
 assert.match(insideZip, /href="\/support\.html"/, 'inside ZIP page links support page');
-assert.match(insideZip, new RegExp(`href="${checkoutUrl}"`), 'inside ZIP page links tracked checkout');
+assert.match(insideZip, new RegExp(`href="${purchaseUrl}"`), 'inside ZIP page links tracked buy page');
 assertSampleRequestForm(insideZip, 'inside ZIP page');
 assert.match(insideZip, /No guaranteed leads\./, 'inside ZIP page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -626,7 +624,7 @@ assert.match(csvFieldGuide, /href="\/who-should-buy\.html"/, 'CSV field guide li
 assert.match(csvFieldGuide, /href="\/time-saved-calculator\.html"/, 'CSV field guide links time saved calculator');
 assert.match(csvFieldGuide, /href="\/pricing\.html"/, 'CSV field guide links pricing');
 assert.match(csvFieldGuide, /href="\/support\.html"/, 'CSV field guide links support');
-assert.match(csvFieldGuide, new RegExp(`href="${checkoutUrl}"`), 'CSV field guide links tracked checkout');
+assert.match(csvFieldGuide, new RegExp(`href="${purchaseUrl}"`), 'CSV field guide links tracked buy page');
 assertSampleRequestForm(csvFieldGuide, 'CSV field guide');
 assert.match(csvFieldGuide, /No guaranteed leads\./, 'CSV field guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -661,7 +659,7 @@ assert.match(permitCsv, /href="\/inside-the-zip\.html"/, 'permit CSV page links 
 assert.match(permitCsv, /href="\/buyer-guide\.html"/, 'permit CSV page links buyer guide');
 assert.match(permitCsv, /href="\/pricing\.html"/, 'permit CSV page links pricing');
 assert.match(permitCsv, /href="\/support\.html"/, 'permit CSV page links support');
-assert.match(permitCsv, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=nyc-dob-permit-csv"/, 'permit CSV page links tracked checkout');
+assert.match(permitCsv, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=nyc-dob-permit-csv"/, 'permit CSV page links tracked buy page');
 assertSampleRequestForm(permitCsv, 'permit CSV page');
 assert.match(permitCsv, /No guaranteed leads\./, 'permit CSV page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -695,7 +693,7 @@ assert.match(weeklyPermitReport, /href="\/inside-the-zip\.html"/, 'weekly permit
 assert.match(weeklyPermitReport, /href="\/pricing\.html"/, 'weekly permit report page links pricing');
 assert.match(weeklyPermitReport, /href="\/delivery\.html"/, 'weekly permit report page links delivery');
 assert.match(weeklyPermitReport, /href="\/support\.html"/, 'weekly permit report page links support');
-assert.match(weeklyPermitReport, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=weekly-nyc-construction-report"/, 'weekly permit report page links tracked checkout');
+assert.match(weeklyPermitReport, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=weekly-nyc-construction-report"/, 'weekly permit report page links tracked buy page');
 assertSampleRequestForm(weeklyPermitReport, 'weekly permit report page');
 assert.match(weeklyPermitReport, /No guaranteed leads\./, 'weekly permit report page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -733,7 +731,7 @@ assert.match(dobNowAlternative, /href="\/csv-field-guide\.html"/, 'DOB NOW alter
 assert.match(dobNowAlternative, /href="\/pricing\.html"/, 'DOB NOW alternative page links pricing');
 assert.match(dobNowAlternative, /href="\/delivery\.html"/, 'DOB NOW alternative page links delivery');
 assert.match(dobNowAlternative, /href="\/support\.html"/, 'DOB NOW alternative page links support');
-assert.match(dobNowAlternative, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=dob-now-alternative"/, 'DOB NOW alternative page links tracked checkout');
+assert.match(dobNowAlternative, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=dob-now-alternative"/, 'DOB NOW alternative page links tracked buy page');
 assertSampleRequestForm(dobNowAlternative, 'DOB NOW alternative page');
 assert.match(dobNowAlternative, /No guaranteed leads\./, 'DOB NOW alternative page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -772,7 +770,7 @@ assert.match(permitLeads, /href="\/permit-research-workflow\.html"/, 'permit lea
 assert.match(permitLeads, /href="\/inside-the-zip\.html"/, 'permit leads page links ZIP contents');
 assert.match(permitLeads, /href="\/pricing\.html"/, 'permit leads page links pricing');
 assert.match(permitLeads, /href="\/support\.html"/, 'permit leads page links support');
-assert.match(permitLeads, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=permit-leads"/, 'permit leads page links tracked checkout');
+assert.match(permitLeads, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=permit-leads"/, 'permit leads page links tracked buy page');
 assertSampleRequestForm(permitLeads, 'permit leads page');
 assert.match(permitLeads, /No guaranteed leads\./, 'permit leads page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -805,7 +803,7 @@ assert.match(sidewalkShedPermits, /href="\/sample-segments\.html"/, 'sidewalk sh
 assert.match(sidewalkShedPermits, /href="\/inside-the-zip\.html"/, 'sidewalk shed permits page links ZIP contents');
 assert.match(sidewalkShedPermits, /href="\/pricing\.html"/, 'sidewalk shed permits page links pricing');
 assert.match(sidewalkShedPermits, /href="\/support\.html"/, 'sidewalk shed permits page links support');
-assert.match(sidewalkShedPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=sidewalk-shed-permits"/, 'sidewalk shed permits page links tracked checkout');
+assert.match(sidewalkShedPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=sidewalk-shed-permits"/, 'sidewalk shed permits page links tracked buy page');
 assertSampleRequestForm(sidewalkShedPermits, 'sidewalk shed permits page');
 assert.match(sidewalkShedPermits, /No guaranteed leads\./, 'sidewalk shed permits page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -838,7 +836,7 @@ assert.match(plumbingPermits, /href="\/sample-segments\.html"/, 'plumbing permit
 assert.match(plumbingPermits, /href="\/inside-the-zip\.html"/, 'plumbing permits page links ZIP contents');
 assert.match(plumbingPermits, /href="\/pricing\.html"/, 'plumbing permits page links pricing');
 assert.match(plumbingPermits, /href="\/support\.html"/, 'plumbing permits page links support');
-assert.match(plumbingPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=plumbing-permits"/, 'plumbing permits page links tracked checkout');
+assert.match(plumbingPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=plumbing-permits"/, 'plumbing permits page links tracked buy page');
 assertSampleRequestForm(plumbingPermits, 'plumbing permits page');
 assert.match(plumbingPermits, /No guaranteed leads\./, 'plumbing permits page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -871,7 +869,7 @@ assert.match(sprinklerPermits, /href="\/sample-segments\.html"/, 'sprinkler perm
 assert.match(sprinklerPermits, /href="\/inside-the-zip\.html"/, 'sprinkler permits page links ZIP contents');
 assert.match(sprinklerPermits, /href="\/pricing\.html"/, 'sprinkler permits page links pricing');
 assert.match(sprinklerPermits, /href="\/support\.html"/, 'sprinkler permits page links support');
-assert.match(sprinklerPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=sprinkler-permits"/, 'sprinkler permits page links tracked checkout');
+assert.match(sprinklerPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=sprinkler-permits"/, 'sprinkler permits page links tracked buy page');
 assertSampleRequestForm(sprinklerPermits, 'sprinkler permits page');
 assert.match(sprinklerPermits, /No guaranteed leads\./, 'sprinkler permits page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -949,7 +947,7 @@ for (const page of workTypeLandingPages) {
   assert.match(html, /href="\/inside-the-zip\.html"/, `${label} page links ZIP contents`);
   assert.match(html, /href="\/pricing\.html"/, `${label} page links pricing`);
   assert.match(html, /href="\/support\.html"/, `${label} page links support`);
-  assert.match(html, new RegExp(`href="https:\\/\\/nyc-construction-activity-brief\\.vercel\\.app\\/checkout\\.html\\?source=${page.checkoutSource}"`), `${label} page links tracked checkout`);
+  assert.match(html, new RegExp(`href="https:\\/\\/nyc-construction-activity-brief\\.vercel\\.app\\/buy\\.html\\?source=${page.checkoutSource}"`), `${label} page links tracked buy page`);
   assertSampleRequestForm(html, `${label} page`);
   assert.match(html, /No guaranteed leads\./, `${label} page keeps claims boundary visible`);
   for (const pattern of bannedCopyPatterns) {
@@ -991,7 +989,7 @@ assert.match(freeVsPaid, /href="\/who-should-buy\.html"/, 'free vs paid page lin
 assert.match(freeVsPaid, /href="\/time-saved-calculator\.html"/, 'free vs paid page links time saved calculator');
 assert.match(freeVsPaid, /href="\/pricing\.html"/, 'free vs paid page links pricing');
 assert.match(freeVsPaid, /href="\/support\.html"/, 'free vs paid page links support');
-assert.match(freeVsPaid, new RegExp(`href="${checkoutUrl}"`), 'free vs paid page links tracked checkout');
+assert.match(freeVsPaid, new RegExp(`href="${purchaseUrl}"`), 'free vs paid page links tracked buy page');
 assertSampleRequestForm(freeVsPaid, 'free vs paid page');
 assert.match(freeVsPaid, /No guaranteed leads\./, 'free vs paid page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1027,7 +1025,7 @@ assert.match(researchWorkflow, /href="\/contractor-supplier-permit-research\.htm
 assert.match(researchWorkflow, /href="\/time-saved-calculator\.html"/, 'research workflow page links time saved calculator');
 assert.match(researchWorkflow, /href="\/pricing\.html"/, 'research workflow page links pricing');
 assert.match(researchWorkflow, /href="\/support\.html"/, 'research workflow page links support');
-assert.match(researchWorkflow, new RegExp(`href="${checkoutUrl}"`), 'research workflow page links tracked checkout');
+assert.match(researchWorkflow, new RegExp(`href="${purchaseUrl}"`), 'research workflow page links tracked buy page');
 assertSampleRequestForm(researchWorkflow, 'research workflow page');
 assert.match(researchWorkflow, /No guaranteed leads\./, 'research workflow page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1072,7 +1070,7 @@ assert.match(contractorSupplier, /href="\/csv-field-guide\.html"/, 'contractor a
 assert.match(contractorSupplier, /href="\/time-saved-calculator\.html"/, 'contractor and supplier guide links time saved calculator');
 assert.match(contractorSupplier, /href="\/pricing\.html"/, 'contractor and supplier guide links pricing');
 assert.match(contractorSupplier, /href="\/support\.html"/, 'contractor and supplier guide links support');
-assert.match(contractorSupplier, new RegExp(`href="${checkoutUrl}"`), 'contractor and supplier guide links tracked checkout');
+assert.match(contractorSupplier, new RegExp(`href="${purchaseUrl}"`), 'contractor and supplier guide links tracked buy page');
 assertSampleRequestForm(contractorSupplier, 'contractor and supplier guide');
 assert.match(contractorSupplier, /No guaranteed leads\./, 'contractor and supplier guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1119,7 +1117,7 @@ assert.match(brokerDeveloper, /href="\/csv-field-guide\.html"/, 'broker and deve
 assert.match(brokerDeveloper, /href="\/time-saved-calculator\.html"/, 'broker and developer guide links time saved calculator');
 assert.match(brokerDeveloper, /href="\/pricing\.html"/, 'broker and developer guide links pricing');
 assert.match(brokerDeveloper, /href="\/support\.html"/, 'broker and developer guide links support');
-assert.match(brokerDeveloper, new RegExp(`href="${checkoutUrl}"`), 'broker and developer guide links tracked checkout');
+assert.match(brokerDeveloper, new RegExp(`href="${purchaseUrl}"`), 'broker and developer guide links tracked buy page');
 assertSampleRequestForm(brokerDeveloper, 'broker and developer guide');
 assert.match(brokerDeveloper, /No guaranteed leads\./, 'broker and developer guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1167,7 +1165,7 @@ assert.match(permitExpediter, /href="\/csv-field-guide\.html"/, 'permit expedite
 assert.match(permitExpediter, /href="\/time-saved-calculator\.html"/, 'permit expediter guide links time saved calculator');
 assert.match(permitExpediter, /href="\/pricing\.html"/, 'permit expediter guide links pricing');
 assert.match(permitExpediter, /href="\/support\.html"/, 'permit expediter guide links support');
-assert.match(permitExpediter, new RegExp(`href="${checkoutUrl}"`), 'permit expediter guide links tracked checkout');
+assert.match(permitExpediter, new RegExp(`href="${purchaseUrl}"`), 'permit expediter guide links tracked buy page');
 assertSampleRequestForm(permitExpediter, 'permit expediter guide');
 assert.match(permitExpediter, /No guaranteed leads\./, 'permit expediter guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1216,7 +1214,7 @@ assert.match(propertyManager, /href="\/csv-field-guide\.html"/, 'property manage
 assert.match(propertyManager, /href="\/time-saved-calculator\.html"/, 'property manager guide links time saved calculator');
 assert.match(propertyManager, /href="\/pricing\.html"/, 'property manager guide links pricing');
 assert.match(propertyManager, /href="\/support\.html"/, 'property manager guide links support');
-assert.match(propertyManager, new RegExp(`href="${checkoutUrl}"`), 'property manager guide links tracked checkout');
+assert.match(propertyManager, new RegExp(`href="${purchaseUrl}"`), 'property manager guide links tracked buy page');
 assertSampleRequestForm(propertyManager, 'property manager guide');
 assert.match(propertyManager, /No guaranteed leads\./, 'property manager guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1251,7 +1249,7 @@ assert.match(buyerGuide, /href="\/csv-field-guide\.html"/, 'buyer guide links CS
 assert.match(buyerGuide, /href="\/delivery\.html"/, 'buyer guide links delivery page');
 assert.match(buyerGuide, /href="\/support\.html"/, 'buyer guide links support page');
 assert.match(buyerGuide, /href="\/methodology\.html"/, 'buyer guide links methodology');
-assert.match(buyerGuide, new RegExp(`href="${checkoutUrl}"`), 'buyer guide links tracked checkout');
+assert.match(buyerGuide, new RegExp(`href="${purchaseUrl}"`), 'buyer guide links tracked buy page');
 assertSampleRequestForm(buyerGuide, 'buyer guide');
 assert.match(buyerGuide, /No guaranteed leads\./, 'buyer guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1284,7 +1282,7 @@ assert.match(delivery, /href="\/permit-research-workflow\.html"/, 'delivery page
 assert.match(delivery, /href="\/csv-field-guide\.html"/, 'delivery page links CSV field guide');
 assert.match(delivery, /href="\/support\.html"/, 'delivery page links support page');
 assert.match(delivery, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'delivery page links sample CSV');
-assert.match(delivery, new RegExp(`href="${checkoutUrl}"`), 'delivery page links tracked checkout');
+assert.match(delivery, new RegExp(`href="${purchaseUrl}"`), 'delivery page links tracked buy page');
 assertSampleRequestForm(delivery, 'delivery page');
 assert.match(delivery, /No physical item ships\./, 'delivery page explains digital delivery');
 assert.match(delivery, /not a guaranteed lead list/, 'delivery page keeps claims boundary visible');
@@ -1316,7 +1314,7 @@ assert.match(support, /href="\/free-vs-paid\.html"/, 'support page links free vs
 assert.match(support, /href="\/permit-research-workflow\.html"/, 'support page links research workflow page');
 assert.match(support, /href="\/csv-field-guide\.html"/, 'support page links CSV field guide');
 assert.match(support, /href="\/preview\.html"/, 'support page links preview');
-assert.match(support, new RegExp(`href="${checkoutUrl}"`), 'support page links tracked checkout');
+assert.match(support, new RegExp(`href="${purchaseUrl}"`), 'support page links tracked buy page');
 assertSampleRequestForm(support, 'support page');
 assert.match(support, /No guaranteed leads/, 'support page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1344,7 +1342,7 @@ assert.match(sampleRequest, /href="\/current-issue\.html"/, 'sample request page
 assert.match(sampleRequest, /href="\/inside-the-zip\.html"/, 'sample request page links inside ZIP');
 assert.match(sampleRequest, /href="\/pricing\.html"/, 'sample request page links pricing');
 assert.match(sampleRequest, /href="\/support\.html"/, 'sample request page links support');
-assert.match(sampleRequest, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=sample-request-page"/, 'sample request page links tracked checkout');
+assert.match(sampleRequest, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=sample-request-page"/, 'sample request page links tracked buy page');
 assertSampleRequestForm(sampleRequest, 'sample request page');
 assert.match(sampleRequest, /No guaranteed leads\./, 'sample request page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -1367,7 +1365,7 @@ assert.match(hub, /data\.source_path = window\.location\.pathname;/, 'hub sends 
 assert.match(hub, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'hub builds page-specific sample request checkout source');
 assert.match(hub, /sample_request_saved/, 'hub tracks saved sample requests');
 assert.match(hub, /sample_request_failed/, 'hub tracks failed sample requests');
-assert.match(hub, /encodeURIComponent\(requestSource\)/, 'hub links checkout with page-specific sample request source');
+assert.match(hub, /encodeURIComponent\(requestSource\)/, 'hub links buy page with page-specific sample request source');
 assert.match(hub, /href="\/preview\.html"/, 'hub links public preview page');
 assert.match(hub, /href="\/pricing\.html"/, 'hub links pricing page');
 assert.match(hub, /href="\/who-should-buy\.html"/, 'hub links who should buy page');
@@ -1378,7 +1376,7 @@ assert.match(hub, /href="\/csv-field-guide\.html"/, 'hub links CSV field guide')
 assert.match(hub, /href="\/support\.html"/, 'hub links support page');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
-assert.match(hub, new RegExp(`href="${checkoutUrl}"`), 'hub links tracked checkout');
+assert.match(hub, new RegExp(`href="${purchaseUrl}"`), 'hub links tracked buy page');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }
@@ -1398,7 +1396,7 @@ assert.match(methodology, /href="\/permit-research-workflow\.html"/, 'methodolog
 assert.match(methodology, /href="\/inside-the-zip\.html"/, 'methodology links inside the ZIP page');
 assert.match(methodology, /href="\/csv-field-guide\.html"/, 'methodology links CSV field guide');
 assert.match(methodology, /href="\/support\.html"/, 'methodology links support page');
-assert.match(methodology, new RegExp(`href="${checkoutUrl}"`), 'methodology links tracked checkout');
+assert.match(methodology, new RegExp(`href="${purchaseUrl}"`), 'methodology links tracked buy page');
 assertSampleRequestForm(methodology, 'methodology');
 assert.match(methodology, /"@type":"Dataset"/, 'methodology needs Dataset structured data');
 assert.match(methodology, /"@type":"DataDownload"/, 'methodology needs DataDownload structured data');

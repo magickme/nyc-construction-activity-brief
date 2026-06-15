@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png">
     <link rel="stylesheet" href="/styles.css">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Request a future NYC construction activity sample cut by work type, ZIP, borough, or buyer use case. Product-specific request only.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/checkout.html?source=sample-request-page","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Request a future NYC construction activity sample cut by work type, ZIP, borough, or buyer use case. Product-specific request only.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-request-page","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What can I request?","acceptedAnswer":{"@type":"Answer","text":"You can request a future sample cut by work type, ZIP, borough, or buyer use case when the current preview does not match your research need."}},{"@type":"Question","name":"Does this add me to a newsletter?","acceptedAnswer":{"@type":"Answer","text":"No. The request is product-specific and is not added to a MagickMe course list, global newsletter, campaign, form, email, or unrelated segment."}},{"@type":"Question","name":"Will this trigger manual fulfillment?","acceptedAnswer":{"@type":"Answer","text":"No. Paid buyers use the automated Stripe success page and download endpoint. Sample requests help choose future public previews."}}]}</script>
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -109,7 +109,7 @@
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=sample-request-page">Buy instant ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-request-page">Buy instant ZIP</a>
       </section>
 
       <section class="section card">
@@ -143,7 +143,7 @@
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -151,7 +151,7 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. Try again, or <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            status.innerHTML = 'Request was not saved. Try again, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
@@ -162,7 +162,7 @@
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
       <div class="conversion-actions">
         <a class="button secondary" href="#sample-request">Sample request</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=sample-request-sticky">Buy ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-request-sticky">Buy ZIP</a>
       </div>
     </aside>
   </body>

@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png">
     <link rel="stylesheet" href="/styles.css">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"A simple time-saved calculator for deciding whether the NYC Weekly Construction Activity Brief current issue ZIP is worth the launch price.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/checkout.html?source=time-saved-calculator","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"A simple time-saved calculator for deciding whether the NYC Weekly Construction Activity Brief current issue ZIP is worth the launch price.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/buy.html?source=time-saved-calculator","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does the calculator measure?","acceptedAnswer":{"@type":"Answer","text":"It compares the one-time $9.50 launch price with an estimated hourly value of manual research time. It is a time-saved check only."}},{"@type":"Question","name":"Does this estimate sales or lead value?","acceptedAnswer":{"@type":"Answer","text":"No. It does not estimate sales, leads, conversion, project value, or revenue. It only compares price against manual sorting time."}},{"@type":"Question","name":"What should I inspect before buying?","acceptedAnswer":{"@type":"Answer","text":"Check the free preview, current issue page, buyer fit page, and ZIP manifest before opening Stripe checkout."}}]}</script>
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -114,7 +114,7 @@
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=time-saved-calculator">Buy instant ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=time-saved-calculator">Buy instant ZIP</a>
       </section>
 
       <section id="sample-request" class="section card sample-request">
@@ -219,7 +219,7 @@
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -227,7 +227,7 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. Try again, or <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            status.innerHTML = 'Request was not saved. Try again, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
@@ -238,7 +238,7 @@
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
       <div class="conversion-actions">
         <a class="button secondary" href="#sample-request">Sample request</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=time-saved-calculator-sticky">Buy ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=time-saved-calculator-sticky">Buy ZIP</a>
       </div>
     </aside>
   </body>

@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png">
     <link rel="stylesheet" href="/styles.css">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Current NYC Weekly Construction Activity Brief issue with source window, top work types, top ZIPs, free preview links, and instant ZIP checkout.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue-page","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Current NYC Weekly Construction Activity Brief issue with source window, top work types, top ZIPs, free preview links, and instant ZIP checkout.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nyc-construction-activity-brief.vercel.app/buy.html?source=current-issue-page","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"NYC Weekly Construction Activity Brief - Current Issue Public Preview","description":"Selected NYC DOB NOW approved permit rows packaged as a weekly public-record construction activity CSV preview and buyer brief.","url":"https://nyc-construction-activity-brief.vercel.app/methodology.html","isBasedOn":{"@type":"Dataset","name":"NYC DOB NOW: Build - Approved Permits","url":"https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4"},"creator":{"@type":"Organization","name":"NYC Weekly Construction Activity Brief","url":"https://nyc-construction-activity-brief.vercel.app"},"spatialCoverage":{"@type":"Place","name":"New York City"},"temporalCoverage":"2026-06-09/2026-06-12","dateModified":"2026-06-15","keywords":["NYC DOB permits","construction permit activity","building permit CSV","permit alerts","Construction Fence","Mechanical Systems","Plumbing","Sidewalk Shed","Sprinklers","Structural","Supported Scaffold","ZIP 10003","ZIP 10011","ZIP 11201","ZIP 11206","ZIP 11211"],"variableMeasured":["source_url","source_fetch_date","borough","zip_code","work_type","issued_date","permit_status","estimated_job_cost_bucket","permit_id","work_permit","job_filing_number","job_description_short","source_caveat"],"distribution":[{"@type":"DataDownload","name":"Public CSV preview","encodingFormat":"text/csv","contentUrl":"https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv"},{"@type":"DataDownload","name":"Public Markdown sample brief","encodingFormat":"text/markdown","contentUrl":"https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is in the current issue?","acceptedAnswer":{"@type":"Answer","text":"The current paid issue has 142 selected source-linked NYC DOB permit rows plus buyer workbook, priority-slices CSV, QA report, source registry, buyer README, version file, and claims boundary."}},{"@type":"Question","name":"Can I inspect the issue before buying?","acceptedAnswer":{"@type":"Answer","text":"Yes. The public preview includes 25 rows, a sample Markdown brief, generated segment pages, and the file manifest."}},{"@type":"Question","name":"Does the current issue include private contact data?","acceptedAnswer":{"@type":"Answer","text":"No. It excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data."}}]}</script>
     <script>
@@ -85,7 +85,7 @@
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue-page">Buy instant ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=current-issue-page">Buy instant ZIP</a>
       </section>
 
       <section id="sample-request" class="section card sample-request">
@@ -168,7 +168,7 @@
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -176,7 +176,7 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. Try again, or <a href="/checkout.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            status.innerHTML = 'Request was not saved. Try again, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
@@ -187,7 +187,7 @@
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
       <div class="conversion-actions">
         <a class="button secondary" href="#sample-request">Sample request</a>
-        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue-sticky">Buy ZIP</a>
+        <a class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=current-issue-sticky">Buy ZIP</a>
       </div>
     </aside>
   </body>
