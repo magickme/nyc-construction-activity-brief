@@ -109,6 +109,9 @@ function assertHtmlPage(relativePath) {
   const attributedPurchaseUrl = slug
     ? `${baseUrl}/buy.html?source=topic-${slug}`
     : null;
+  const attributedCheckoutUrl = slug
+    ? `${baseUrl}/checkout.html?source=topic-${slug}`
+    : null;
   if (slug) {
     assert.match(
       html,
@@ -125,7 +128,6 @@ function assertHtmlPage(relativePath) {
       new RegExp(`"url":"${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
       `${relativePath} Product schema uses page-specific buy attribution`,
     );
-    assert.doesNotMatch(html, /href="(?:https:\/\/nyc-construction-activity-brief\.vercel\.app)?\/checkout\.html\?source=topic"/, `${relativePath} must not use generic topic attribution`);
   }
   assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
@@ -146,8 +148,8 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /Sample request/, `${relativePath} conversion bar links sample request`);
   assert.match(
     html,
-    new RegExp(`data-conversion-bar[\\s\\S]+href="${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
-    `${relativePath} conversion bar links attributed buy page`,
+    new RegExp(`data-conversion-bar[\\s\\S]+href="${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+    `${relativePath} conversion bar links attributed checkout bridge`,
   );
   assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
@@ -186,7 +188,7 @@ function assertSampleRequestForm(html, label) {
 }
 
 function assertConversionBar(html, label, source) {
-  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/buy.html?source=${source}`;
+  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/checkout.html?source=${source}`;
   assert.match(html, /class="[^"]*has-conversion-bar[^"]*"/, `${label} uses sticky conversion bar layout`);
   assert.match(html, /data-conversion-bar/, `${label} needs sticky conversion bar`);
   assert.match(html, /Sample request/, `${label} conversion bar links sample request`);
@@ -198,10 +200,10 @@ function assertConversionBar(html, label, source) {
 }
 
 function assertTopPurchaseCta(html, label, source) {
-  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/buy.html?source=${source}`;
+  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/checkout.html?source=${source}`;
   assert.match(
     html,
-    new RegExp(`<p class="lede">[\\s\\S]+href="${expectedCheckout.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">Buy \\$9\\.50 ZIP</a>[\\s\\S]+The buy page shows sample rows first\\. Stripe checkout starts after your next click\\.[\\s\\S]+<section`),
+    new RegExp(`<p class="lede">[\\s\\S]+href="${expectedCheckout.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">Buy \\$9\\.50 ZIP</a>[\\s\\S]+Stripe checkout opens after your click\\. Use the CSV preview first if you need to confirm the row shape\\.[\\s\\S]+<section`),
     `${label} has an above-fold attributed buy CTA`,
   );
 }
@@ -241,9 +243,12 @@ const coreConversionPages = [
   ['nyc-plumbing-permits.html', 'plumbing-permits-sticky'],
   ['nyc-sprinkler-permit-leads.html', 'sprinkler-permit-leads-sticky'],
   ['nyc-sprinkler-permits.html', 'sprinkler-permits-sticky'],
+  ['nyc-mechanical-systems-permit-leads.html', 'mechanical-systems-permit-leads-sticky'],
   ['nyc-mechanical-systems-permits.html', 'mechanical-systems-permits-sticky'],
   ['nyc-supported-scaffold-permits.html', 'supported-scaffold-permits-sticky'],
+  ['nyc-structural-permit-leads.html', 'structural-permit-leads-sticky'],
   ['nyc-structural-permits.html', 'structural-permits-sticky'],
+  ['nyc-construction-fence-permit-leads.html', 'construction-fence-permit-leads-sticky'],
   ['nyc-construction-fence-permits.html', 'construction-fence-permits-sticky'],
   ['delivery.html', 'delivery-sticky'],
   ['support.html', 'support-sticky'],
@@ -302,9 +307,12 @@ const coreTopCtaPages = [
   ['nyc-plumbing-permits.html', 'plumbing-permits-top'],
   ['nyc-sprinkler-permit-leads.html', 'sprinkler-permit-leads-top'],
   ['nyc-sprinkler-permits.html', 'sprinkler-permits-top'],
+  ['nyc-mechanical-systems-permit-leads.html', 'mechanical-systems-permit-leads-top'],
   ['nyc-mechanical-systems-permits.html', 'mechanical-systems-permits-top'],
   ['nyc-supported-scaffold-permits.html', 'supported-scaffold-permits-top'],
+  ['nyc-structural-permit-leads.html', 'structural-permit-leads-top'],
   ['nyc-structural-permits.html', 'structural-permits-top'],
+  ['nyc-construction-fence-permit-leads.html', 'construction-fence-permit-leads-top'],
   ['nyc-construction-fence-permits.html', 'construction-fence-permits-top'],
   ['contractor-permit-research.html', 'contractor-top'],
   ['contractor-supplier-permit-research.html', 'contractor-supplier-top'],
@@ -361,7 +369,7 @@ assert.match(index, /Instant download after completed Stripe checkout/, 'index n
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
 assert.match(index, /href="\/buy\.html\?source=home-hero"/, 'index hero links buy page');
 assert.match(index, /href="\/buy\.html\?source=home-card"/, 'index card links buy page');
-assert.match(index, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=home-sticky"/, 'index sticky bar links buy page');
+assert.match(index, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=home-sticky"/, 'index sticky bar links checkout bridge');
 assert.match(index, /href="\/buy\.html\?source=' \+ encodeURIComponent\(requestSource\)/, 'index sample request fallback links tracked buy page');
 assert.match(index, /Launch price is \$9\.50 for the current issue/, 'index needs launch price copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
@@ -661,8 +669,8 @@ assert.match(pricing, /<h2>Break-even guide<\/h2>/, 'pricing page needs break-ev
 assert.match(pricing, /\$49/, 'pricing page needs standard price');
 assert.match(pricing, /\$9\.50/, 'pricing page needs discounted price');
 assert.match(pricing, /No promo code is required/, 'pricing page needs direct launch price copy');
-assert.match(pricing, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=pricing-top"/, 'pricing page has above-fold buy CTA');
-assert.match(pricing, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'pricing page explains top CTA checkout path');
+assert.match(pricing, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=pricing-top"/, 'pricing page has above-fold checkout CTA');
+assert.match(pricing, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'pricing page explains top CTA checkout path');
 assert.match(pricing, /About 8 minutes saved/, 'pricing page needs current launch price break-even examples');
 assert.match(pricing, /href="\/preview\.html"/, 'pricing page links public preview');
 assert.match(pricing, /href="\/free-vs-paid\.html"/, 'pricing page links free vs paid page');
@@ -733,8 +741,8 @@ assert.match(timeSavedCalculator, /"price":"9.50"/, 'time saved calculator needs
 assert.match(timeSavedCalculator, /"@type":"FAQPage"/, 'time saved calculator needs FAQ structured data');
 assert.match(timeSavedCalculator, /\/_vercel\/insights\/script\.js/, 'time saved calculator needs Web Analytics script');
 assert.match(timeSavedCalculator, /Time saved calculator for the current issue ZIP/, 'time saved calculator needs headline');
-assert.match(timeSavedCalculator, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=time-saved-calculator-top"/, 'time saved calculator has above-fold buy CTA');
-assert.match(timeSavedCalculator, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'time saved calculator explains top CTA checkout path');
+assert.match(timeSavedCalculator, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=time-saved-calculator-top"/, 'time saved calculator has above-fold checkout CTA');
+assert.match(timeSavedCalculator, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'time saved calculator explains top CTA checkout path');
 assert.match(timeSavedCalculator, /Calculate break-even time/, 'time saved calculator needs calculator section');
 assert.match(timeSavedCalculator, /id="hourly-rate"/, 'time saved calculator needs hourly input');
 assert.match(timeSavedCalculator, /id="minutes-saved"/, 'time saved calculator needs minutes input');
@@ -773,8 +781,8 @@ assert.match(whoShouldBuy, /"price":"9.50"/, 'who should buy page needs current 
 assert.match(whoShouldBuy, /"@type":"FAQPage"/, 'who should buy page needs FAQ structured data');
 assert.match(whoShouldBuy, /\/_vercel\/insights\/script\.js/, 'who should buy page needs Web Analytics script');
 assert.match(whoShouldBuy, /Who should buy the current NYC construction activity ZIP/, 'who should buy page needs fit headline');
-assert.match(whoShouldBuy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=who-should-buy-top"/, 'who should buy page has above-fold buy CTA');
-assert.match(whoShouldBuy, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'who should buy page explains top CTA checkout path');
+assert.match(whoShouldBuy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=who-should-buy-top"/, 'who should buy page has above-fold checkout CTA');
+assert.match(whoShouldBuy, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'who should buy page explains top CTA checkout path');
 assert.match(whoShouldBuy, /Buy it if these are true/, 'who should buy page needs buy criteria');
 assert.match(whoShouldBuy, /Do not buy it for these jobs/, 'who should buy page needs exclusion criteria');
 assert.match(whoShouldBuy, /Three-minute pre-purchase check/, 'who should buy page needs pre-purchase check');
@@ -813,8 +821,8 @@ assert.match(insideZip, /"@type":"Dataset"/, 'inside ZIP page needs Dataset stru
 assert.match(insideZip, /"@type":"FAQPage"/, 'inside ZIP page needs FAQ structured data');
 assert.match(insideZip, /\/_vercel\/insights\/script\.js/, 'inside ZIP page needs Web Analytics script');
 assert.match(insideZip, /What is inside the current paid ZIP/, 'inside ZIP page needs package headline');
-assert.match(insideZip, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=inside-the-zip-top"/, 'inside ZIP page has above-fold buy CTA');
-assert.match(insideZip, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'inside ZIP page explains top CTA checkout path');
+assert.match(insideZip, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=inside-the-zip-top"/, 'inside ZIP page has above-fold checkout CTA');
+assert.match(insideZip, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'inside ZIP page explains top CTA checkout path');
 assert.match(insideZip, /142 source-linked rows/, 'inside ZIP page needs paid row count');
 assert.match(insideZip, /25 rows for checking fields before purchase/, 'inside ZIP page needs preview row count');
 assert.match(insideZip, /\$9\.50/, 'inside ZIP page needs launch price');
@@ -1995,8 +2003,8 @@ assert.match(freeVsPaid, /"@type":"FAQPage"/, 'free vs paid page needs FAQ struc
 assert.match(freeVsPaid, /"price":"9.50"/, 'free vs paid page needs current price structured data');
 assert.match(freeVsPaid, /\/_vercel\/insights\/script\.js/, 'free vs paid page needs Web Analytics script');
 assert.match(freeVsPaid, /Free preview and paid ZIP comparison/, 'free vs paid page needs headline');
-assert.match(freeVsPaid, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=free-vs-paid-top"/, 'free vs paid page has above-fold buy CTA');
-assert.match(freeVsPaid, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'free vs paid page explains top CTA checkout path');
+assert.match(freeVsPaid, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=free-vs-paid-top"/, 'free vs paid page has above-fold checkout CTA');
+assert.match(freeVsPaid, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'free vs paid page explains top CTA checkout path');
 assert.match(freeVsPaid, /<h2>Comparison<\/h2>/, 'free vs paid page needs comparison section');
 assert.match(freeVsPaid, /When the paid ZIP is worth it/, 'free vs paid page needs paid decision section');
 assert.match(freeVsPaid, /break-even is about 8 minutes/, 'free vs paid page needs launch price break-even copy');
@@ -2630,8 +2638,8 @@ assert.match(buyerGuide, /"@type":"Offer"/, 'buyer guide needs Offer structured 
 assert.match(buyerGuide, /"price":"9.50"/, 'buyer guide needs current price structured data');
 assert.match(buyerGuide, /"@type":"FAQPage"/, 'buyer guide needs FAQ structured data');
 assert.match(buyerGuide, /\/_vercel\/insights\/script\.js/, 'buyer guide needs Web Analytics script');
-assert.match(buyerGuide, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=buyer-guide-top"/, 'buyer guide has above-fold buy CTA');
-assert.match(buyerGuide, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'buyer guide explains top CTA checkout path');
+assert.match(buyerGuide, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buyer-guide-top"/, 'buyer guide has above-fold checkout CTA');
+assert.match(buyerGuide, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'buyer guide explains top CTA checkout path');
 assert.match(buyerGuide, /Free preview rows: 25\./, 'buyer guide needs free preview count');
 assert.match(buyerGuide, /Paid ZIP rows: 142\./, 'buyer guide needs paid row count');
 assert.match(buyerGuide, /Buyer workbook for a fast review pass/, 'buyer guide needs buyer workbook copy');
@@ -2665,8 +2673,8 @@ assert.match(delivery, /"@type":"Product"/, 'delivery page needs Product structu
 assert.match(delivery, /"@type":"Offer"/, 'delivery page needs Offer structured data');
 assert.match(delivery, /"@type":"FAQPage"/, 'delivery page needs FAQ structured data');
 assert.match(delivery, /\/_vercel\/insights\/script\.js/, 'delivery page needs Web Analytics script');
-assert.match(delivery, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=delivery-top"/, 'delivery page has above-fold buy CTA');
-assert.match(delivery, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'delivery page explains top CTA checkout path');
+assert.match(delivery, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=delivery-top"/, 'delivery page has above-fold checkout CTA');
+assert.match(delivery, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'delivery page explains top CTA checkout path');
 assert.match(delivery, /creates a product-scoped Stripe Checkout Session/, 'delivery page explains first-party checkout session');
 assert.match(delivery, /Payment Link kept as fallback/, 'delivery page explains Payment Link fallback');
 assert.doesNotMatch(delivery, /Payment Link is product-scoped/, 'delivery page must not describe Payment Link as the primary path');
@@ -2703,8 +2711,8 @@ assert.match(support, /<meta property="og:title" content="Support and Refunds \|
 assert.match(support, /"@type":"Product"/, 'support page needs Product structured data');
 assert.match(support, /"@type":"FAQPage"/, 'support page needs FAQ structured data');
 assert.match(support, /\/_vercel\/insights\/script\.js/, 'support page needs Web Analytics script');
-assert.match(support, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=support-top"/, 'support page has above-fold buy CTA');
-assert.match(support, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'support page explains top CTA checkout path');
+assert.match(support, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=support-top"/, 'support page has above-fold checkout CTA');
+assert.match(support, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'support page explains top CTA checkout path');
 assert.match(support, /success\.html\?session_id=\{CHECKOUT_SESSION_ID\}/, 'support page explains success redirect');
 assert.match(support, /\/api\/download/, 'support page explains download gate');
 assert.match(support, /missing_or_invalid_session_id/, 'support page explains missing session error');
@@ -2827,7 +2835,7 @@ for (const page of ['feed.xml', 'feed.json', 'current-issue.json', 'data-package
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 72, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 75, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
