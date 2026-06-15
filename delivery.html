@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delivery | NYC Construction Activity Brief</title>
+    <meta name="description" content="How instant download delivery works for the NYC Weekly Construction Activity Brief after Stripe checkout.">
+    <link rel="canonical" href="https://nyc-construction-activity-brief.vercel.app/delivery.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Delivery | NYC Construction Activity Brief">
+    <meta property="og:description" content="How instant download delivery works for the NYC Weekly Construction Activity Brief after Stripe checkout.">
+    <meta property="og:url" content="https://nyc-construction-activity-brief.vercel.app/delivery.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"How instant download delivery works for the NYC Weekly Construction Activity Brief after Stripe checkout.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25","priceCurrency":"USD","price":"49.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I get the ZIP after payment?","acceptedAnswer":{"@type":"Answer","text":"Stripe redirects completed buyers to the success page with a Checkout Session ID. The download endpoint verifies that paid session before serving the ZIP."}},{"@type":"Question","name":"Is delivery handled by email?","acceptedAnswer":{"@type":"Answer","text":"No. Delivery is an instant browser download after a completed Stripe checkout. No fulfillment email is required."}},{"@type":"Question","name":"What happens if the session is missing or unpaid?","acceptedAnswer":{"@type":"Answer","text":"The download endpoint rejects missing, invalid, or unpaid sessions and does not serve the ZIP."}}]}</script>
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Instant ZIP delivery after paid Stripe checkout.</h1>
+      <p class="lede">The current issue is delivered by the browser after Stripe confirms payment. There is no manual email fulfillment step.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>1. Pay in Stripe</h2>
+          <p>Use the hosted Stripe checkout link. The current Payment Link is product-scoped to the NYC Weekly Construction Activity Brief.</p>
+        </div>
+        <div class="card">
+          <h2>2. Return to success page</h2>
+          <p>Completed checkout redirects to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>.</p>
+        </div>
+        <div class="card">
+          <h2>3. Download ZIP</h2>
+          <p><code>/api/download</code> verifies the paid Checkout Session before serving the current ZIP file.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current package</h2>
+        <ul>
+          <li>Source window: 2026-06-09 to 2026-06-15.</li>
+          <li>Paid ZIP rows: 142.</li>
+          <li>Free preview rows: 25.</li>
+          <li>Package file name: <code>nyc-weekly-construction-activity-brief-current.zip</code>.</li>
+          <li>Buyer files include the full CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, buyer README, QA report, version file, and claims boundary.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Download gate</h2>
+        <p>The download endpoint rejects missing, invalid, or unpaid sessions. A direct visit without a valid paid session returns an error instead of the ZIP.</p>
+        <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list and is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
+        <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button" href="https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>

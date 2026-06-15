@@ -816,11 +816,12 @@ function buyerGuideHtml(rows) {
         <ol>
           <li>Open the free CSV preview and confirm the fields are useful for your workflow.</li>
           <li>Check the segment hub for your ZIP, borough, work type, or cost bucket.</li>
-          <li>Read the methodology page if source limits matter for your use case.</li>
+          <li>Read the delivery steps and methodology page if source limits matter for your use case.</li>
           <li>Buy the ZIP only if the current issue saves enough sorting time to justify a one-time $49 purchase.</li>
         </ol>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
         <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
       </section>
@@ -835,8 +836,107 @@ function buyerGuideHtml(rows) {
 `;
 }
 
+function deliveryHtml(rows) {
+  const description = 'How instant download delivery works for the NYC Weekly Construction Activity Brief after Stripe checkout.';
+  const range = sampleRange(rows);
+  const product = productJsonLd(description);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How do I get the ZIP after payment?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Stripe redirects completed buyers to the success page with a Checkout Session ID. The download endpoint verifies that paid session before serving the ZIP.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is delivery handled by email?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. Delivery is an instant browser download after a completed Stripe checkout. No fulfillment email is required.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What happens if the session is missing or unpaid?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The download endpoint rejects missing, invalid, or unpaid sessions and does not serve the ZIP.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delivery | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/delivery.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Delivery | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/delivery.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Instant ZIP delivery after paid Stripe checkout.</h1>
+      <p class="lede">The current issue is delivered by the browser after Stripe confirms payment. There is no manual email fulfillment step.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>1. Pay in Stripe</h2>
+          <p>Use the hosted Stripe checkout link. The current Payment Link is product-scoped to the NYC Weekly Construction Activity Brief.</p>
+        </div>
+        <div class="card">
+          <h2>2. Return to success page</h2>
+          <p>Completed checkout redirects to <code>/success.html?session_id={CHECKOUT_SESSION_ID}</code>.</p>
+        </div>
+        <div class="card">
+          <h2>3. Download ZIP</h2>
+          <p><code>/api/download</code> verifies the paid Checkout Session before serving the current ZIP file.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current package</h2>
+        <ul>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(rows[0]?.source_fetch_date || range.latestIssuedDate)}.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}.</li>
+          <li>Free preview rows: 25.</li>
+          <li>Package file name: <code>nyc-weekly-construction-activity-brief-current.zip</code>.</li>
+          <li>Buyer files include the full CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, buyer README, QA report, version file, and claims boundary.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Download gate</h2>
+        <p>The download endpoint rejects missing, invalid, or unpaid sessions. A direct visit without a valid paid session returns an error instead of the ZIP.</p>
+        <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list and is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
+        <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
 function sitemapXml(pages) {
-  const urls = ['', 'buyer-guide.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -871,6 +971,7 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
+        <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
         <p><a class="button secondary" href="/methodology.html">Read methodology and source boundary</a></p>
         <details>
@@ -1163,6 +1264,7 @@ for (const page of pages) {
 fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages));
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
+fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),

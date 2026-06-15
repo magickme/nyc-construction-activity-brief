@@ -105,6 +105,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
+      deliveryUrl: `${baseUrl}/delivery.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
       checkoutUrl,
@@ -113,6 +114,7 @@ function buildCurrentIssueJson(rows, manifest) {
     paidZip: {
       checkoutUrl,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
+      deliveryUrl: `${baseUrl}/delivery.html`,
       priceUsd: 49,
       rowCount: stats.rowCount,
       promotion: {
@@ -178,6 +180,11 @@ function buildFeedXml(rows, manifest) {
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
     },
     {
+      title: 'Instant ZIP delivery steps',
+      url: `${baseUrl}/delivery.html`,
+      description: 'How Stripe redirects completed buyers to the success page and how the paid-session download gate serves the ZIP.',
+    },
+    {
       title: 'Methodology and source boundary',
       url: `${baseUrl}/methodology.html`,
       description: 'Source, privacy boundary, excluded fields, buyer ZIP contents, and claims limits for the current issue.',
@@ -230,6 +237,7 @@ Primary pages:
 - Current issue JSON: ${baseUrl}/current-issue.json
 - RSS feed: ${baseUrl}/feed.xml
 - Buyer guide: ${baseUrl}/buyer-guide.html
+- Delivery steps: ${baseUrl}/delivery.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
 - Sample brief: ${baseUrl}/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: ${baseUrl}/sample-segments.html
@@ -284,7 +292,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['buyer-guide.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

@@ -27,6 +27,13 @@
       <description>Who should buy the current 142-row ZIP, who should use the free 25-row preview first, and what is excluded from the paid files.</description>
     </item>
     <item>
+      <title>Instant ZIP delivery steps</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/delivery.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/delivery.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>How Stripe redirects completed buyers to the success page and how the paid-session download gate serves the ZIP.</description>
+    </item>
+    <item>
       <title>Methodology and source boundary</title>
       <link>https://nyc-construction-activity-brief.vercel.app/methodology.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/methodology.html</guid>
