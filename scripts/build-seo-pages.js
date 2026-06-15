@@ -2745,6 +2745,14 @@ ${rowsHtml.map(([item, freeValue, paidValue]) => `              <tr>
       </section>
 
       <section class="section card">
+        <h2>When the paid ZIP is worth it</h2>
+        <p>The current launch price is $9.50. At $75/hour, break-even is about 8 minutes of avoided manual sorting.</p>
+        <p>Buy if you need the full ${escapeHtml(rows.length)}-row issue, buyer workbook, and priority-slices CSV now. Use the free preview first if you only need field names, row shape, or source boundary.</p>
+        <a class="button secondary" href="/time-saved-calculator.html">Check break-even time</a>
+        <a class="button" href="${checkoutHref('free-vs-paid-break-even')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
         <h2>Use this order</h2>
         <ol>
           <li>Open the free CSV preview and confirm the row shape.</li>
@@ -3607,17 +3615,17 @@ ${socialImageMeta()}
             <tbody>
               <tr>
                 <td>$50/hour</td>
-                <td>About 30 minutes</td>
+                <td>About 12 minutes</td>
                 <td>Free preview fields and segment pages</td>
               </tr>
               <tr>
                 <td>$75/hour</td>
-                <td>About 20 minutes</td>
+                <td>About 8 minutes</td>
                 <td>Buyer workbook and priority-slices file</td>
               </tr>
               <tr>
                 <td>$100/hour</td>
-                <td>About 15 minutes</td>
+                <td>About 6 minutes</td>
                 <td>Top ZIP and work-type mix for the current issue</td>
               </tr>
             </tbody>
@@ -4041,17 +4049,17 @@ ${socialImageMeta()}
               <tr>
                 <td>$50/hour</td>
                 <td>About 59 minutes saved</td>
-                <td>About 30 minutes saved</td>
+                <td>About 12 minutes saved</td>
               </tr>
               <tr>
                 <td>$75/hour</td>
                 <td>About 40 minutes saved</td>
-                <td>About 20 minutes saved</td>
+                <td>About 8 minutes saved</td>
               </tr>
               <tr>
                 <td>$100/hour</td>
                 <td>About 30 minutes saved</td>
-                <td>About 15 minutes saved</td>
+                <td>About 6 minutes saved</td>
               </tr>
             </tbody>
           </table>

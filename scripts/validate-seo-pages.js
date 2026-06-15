@@ -395,7 +395,7 @@ assert.match(pricing, /<h2>Break-even guide<\/h2>/, 'pricing page needs break-ev
 assert.match(pricing, /\$49/, 'pricing page needs standard price');
 assert.match(pricing, /\$9\.50/, 'pricing page needs discounted price');
 assert.match(pricing, /No promo code is required/, 'pricing page needs direct launch price copy');
-assert.match(pricing, /About 40 minutes saved/, 'pricing page needs break-even examples');
+assert.match(pricing, /About 8 minutes saved/, 'pricing page needs current launch price break-even examples');
 assert.match(pricing, /href="\/preview\.html"/, 'pricing page links public preview');
 assert.match(pricing, /href="\/free-vs-paid\.html"/, 'pricing page links free vs paid page');
 assert.match(pricing, /href="\/permit-research-workflow\.html"/, 'pricing page links research workflow page');
@@ -470,7 +470,7 @@ assert.match(timeSavedCalculator, /id="hourly-rate"/, 'time saved calculator nee
 assert.match(timeSavedCalculator, /id="minutes-saved"/, 'time saved calculator needs minutes input');
 assert.match(timeSavedCalculator, /Break-even is about/, 'time saved calculator needs break-even output copy');
 assert.match(timeSavedCalculator, /This is a time-saved estimate only/, 'time saved calculator keeps estimate boundary');
-assert.match(timeSavedCalculator, /About 20 minutes/, 'time saved calculator needs common break-even examples');
+assert.match(timeSavedCalculator, /About 8 minutes/, 'time saved calculator needs current launch price common break-even examples');
 assert.match(timeSavedCalculator, /href="\/current-issue\.html"/, 'time saved calculator links current issue page');
 assert.match(timeSavedCalculator, /href="\/preview\.html"/, 'time saved calculator links preview');
 assert.match(timeSavedCalculator, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'time saved calculator links sample CSV');
@@ -943,6 +943,9 @@ assert.match(freeVsPaid, /"price":"9.50"/, 'free vs paid page needs current pric
 assert.match(freeVsPaid, /\/_vercel\/insights\/script\.js/, 'free vs paid page needs Web Analytics script');
 assert.match(freeVsPaid, /Free preview and paid ZIP comparison/, 'free vs paid page needs headline');
 assert.match(freeVsPaid, /<h2>Comparison<\/h2>/, 'free vs paid page needs comparison section');
+assert.match(freeVsPaid, /When the paid ZIP is worth it/, 'free vs paid page needs paid decision section');
+assert.match(freeVsPaid, /break-even is about 8 minutes/, 'free vs paid page needs launch price break-even copy');
+assert.match(freeVsPaid, /free-vs-paid-break-even/, 'free vs paid page needs tracked break-even checkout link');
 assert.match(freeVsPaid, /25 sample rows/, 'free vs paid page needs preview row count');
 assert.match(freeVsPaid, /142 source-linked rows/, 'free vs paid page needs paid row count');
 assert.match(freeVsPaid, /buyer-workbook\.md/, 'free vs paid page mentions buyer workbook');
