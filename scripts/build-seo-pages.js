@@ -728,6 +728,7 @@ function checkoutHtml(rows) {
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
         <p class="fine">If the redirect does not start, use the button below. The current launch price is $9.50. No promo code is required.</p>
+        <p class="fine">This is a one-time ZIP purchase. It does not create a subscription, account, or recurring charge.</p>
         <div class="grid">
           <div class="card">
             <h2>What you get</h2>

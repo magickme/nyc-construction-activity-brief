@@ -440,6 +440,7 @@ assert.match(checkout, /checkout_continue_clicked/, 'checkout page tracks manual
 assert.match(checkout, /checkout_auto_redirect/, 'checkout page tracks automatic redirects');
 assert.match(checkout, /window\.location\.replace\(await checkoutUrlPromise\);/, 'checkout page redirects to first-party session or fallback URL');
 assert.match(checkout, /Instant browser download after completed Stripe checkout\./, 'checkout page has buyer reassurance copy');
+assert.match(checkout, /This is a one-time ZIP purchase\. It does not create a subscription, account, or recurring charge\./, 'checkout page reassures buyers there is no subscription or account');
 assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count before Stripe');
 assert.match(checkout, /After Stripe confirms payment/, 'checkout page explains paid download before Stripe');
 assert.match(checkout, /Public-record screening file only/, 'checkout page states source boundary before Stripe');
