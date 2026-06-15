@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const {
   buildMauticContactPayload,
   createOrUpdateMauticContact,
+  intentTags,
   mauticConfig,
   NYC_BUYER_SEGMENT_ID,
   sourcePathTag,
@@ -18,6 +19,12 @@ assert.equal(validEmail('not-an-email'), false);
 assert.equal(slugTagPart('Sidewalk Shed / Supported Scaffold'), 'sidewalk-shed-supported-scaffold');
 assert.equal(sourcePathTag('/topics/nyc-plumbing-permit-activity.html?utm_source=test'), 'topics-nyc-plumbing-permit-activity-html');
 assert.equal(sourcePathTag('https://evil.example/path'), '');
+assert.deepEqual(intentTags({ monitoringGoal: 'I need invoice help before buying.' }), ['wealth:ncab:intent:invoice']);
+assert.deepEqual(intentTags({ monitoringGoal: 'Procurement needs a purchase order approval.' }), ['wealth:ncab:intent:procurement']);
+assert.deepEqual(intentTags({ monitoringGoal: 'Send invoice after procurement approval.' }), [
+  'wealth:ncab:intent:invoice',
+  'wealth:ncab:intent:procurement',
+]);
 
 const valid = validateSampleRequest({
   email: 'BUYER@example.com',
@@ -98,6 +105,32 @@ const spam = validateSampleRequest({
 });
 assert.equal(spam.ok, false);
 assert.equal(spam.errors.includes('spam_check_failed'), true);
+
+const procurement = validateSampleRequest({
+  email: 'ops@example.com',
+  work_type_requested: 'Selected DOB work types',
+  territory_requested: 'NYC',
+  buyer_type: 'data-buyer',
+  monitoring_goal: 'Procurement needs an invoice and PO approval before card checkout.',
+  source_path: '/buy.html',
+  consent: true,
+  website: '',
+});
+assert.equal(procurement.ok, true);
+assert.deepEqual(buildMauticContactPayload(procurement.value), {
+  email: 'ops@example.com',
+  tags: [
+    'wealth:nyc-construction-activity-brief',
+    'wealth:nyc-construction-activity-brief:sample-request',
+    'source:nyc-construction-activity-brief-site',
+    'wealth:ncab:buyer:data-buyer',
+    'wealth:ncab:work-type:selected-dob-work-types',
+    'wealth:ncab:territory:nyc',
+    'wealth:ncab:source-page:buy-html',
+    'wealth:ncab:intent:invoice',
+    'wealth:ncab:intent:procurement',
+  ],
+});
 
 assert.deepEqual(
   mauticConfig({

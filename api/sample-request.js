@@ -48,6 +48,16 @@ function sourcePathTag(value) {
   return slugTagPart(text.replace(/[?#].*$/, ''));
 }
 
+function intentTags(request) {
+  const text = `${request.monitoringGoal || ''} ${request.workType || ''}`.toLowerCase();
+  const tags = [];
+  if (/\binvoice\b/.test(text)) tags.push('wealth:ncab:intent:invoice');
+  if (/\bprocurement\b|\bpurchase order\b|\bpo\b|\bapproval\b/.test(text)) {
+    tags.push('wealth:ncab:intent:procurement');
+  }
+  return tags;
+}
+
 function validEmail(value) {
   return (
     typeof value === 'string' &&
@@ -114,6 +124,7 @@ function buildMauticContactPayload(request) {
     `wealth:ncab:work-type:${slugTagPart(request.workType)}`,
     `wealth:ncab:territory:${slugTagPart(request.territory)}`,
     request.sourcePath ? `wealth:ncab:source-page:${request.sourcePath}` : '',
+    ...intentTags(request),
   ];
 
   return {
@@ -288,6 +299,7 @@ module.exports._private = {
   NYC_BUYER_SEGMENT_ID,
   buildMauticContactPayload,
   createOrUpdateMauticContact,
+  intentTags,
   mauticConfig,
   sanitizeText,
   slugTagPart,
