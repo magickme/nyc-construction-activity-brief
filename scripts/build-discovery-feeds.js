@@ -108,6 +108,8 @@ function buildCurrentIssueJson(rows, manifest) {
       currentIssueUrl: `${baseUrl}/current-issue.html`,
       previewUrl: `${baseUrl}/preview.html`,
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
+      jsonUrl: `${baseUrl}/sample/nyc-construction-activity-preview.json`,
+      jsonlUrl: `${baseUrl}/sample/nyc-construction-activity-preview.jsonl`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       pricingUrl: `${baseUrl}/pricing.html`,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
@@ -554,6 +556,8 @@ Primary pages:
 - Support and refunds: ${baseUrl}/support.html
 - Sample request: ${baseUrl}/sample-request.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
+- Sample JSON: ${baseUrl}/sample/nyc-construction-activity-preview.json
+- Sample JSONL: ${baseUrl}/sample/nyc-construction-activity-preview.jsonl
 - Sample brief: ${baseUrl}/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: ${baseUrl}/sample-segments.html
 - Methodology: ${baseUrl}/methodology.html
@@ -607,7 +611,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

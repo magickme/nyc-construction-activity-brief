@@ -6,6 +6,10 @@ const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const checkoutUrl = `${baseUrl}/checkout.html`;
+const sampleCsvUrl = `${baseUrl}/sample/nyc-construction-activity-preview.csv`;
+const sampleJsonUrl = `${baseUrl}/sample/nyc-construction-activity-preview.json`;
+const sampleJsonlUrl = `${baseUrl}/sample/nyc-construction-activity-preview.jsonl`;
+const sampleBriefUrl = `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
@@ -834,13 +838,25 @@ function datasetJsonLd(rows) {
         '@type': 'DataDownload',
         name: 'Public CSV preview',
         encodingFormat: 'text/csv',
-        contentUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
+        contentUrl: sampleCsvUrl,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Public JSON preview',
+        encodingFormat: 'application/json',
+        contentUrl: sampleJsonUrl,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Public JSONL preview',
+        encodingFormat: 'application/x-ndjson',
+        contentUrl: sampleJsonlUrl,
       },
       {
         '@type': 'DataDownload',
         name: 'Public Markdown sample brief',
         encodingFormat: 'text/markdown',
-        contentUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
+        contentUrl: sampleBriefUrl,
       },
     ],
   };
@@ -1049,6 +1065,8 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <p>${escapeHtml(page.useCase)}</p>
         <div class="sample">${escapeHtml(page.sampleLine)}</div>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">Download JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">Download JSONL preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${trackedCheckoutUrl}">Buy instant ZIP</a>
@@ -1110,6 +1128,8 @@ ${socialImageMeta()}
         <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">Download JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">Download JSONL preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
@@ -1571,6 +1591,8 @@ ${fields.map(([name, use]) => `              <tr>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">Download JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">Download JSONL preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
         <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
@@ -1704,6 +1726,8 @@ ${socialImageMeta()}
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">Download JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">Download JSONL preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
@@ -1865,6 +1889,8 @@ ${sampleRequestSection({
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, tenant data, enriched contact data, agency endorsement, data pipeline warranty, legal advice, compliance advice, or filing advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">Download JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">Download JSONL preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a>
@@ -6505,6 +6531,8 @@ ${rows.map((row) => `              <tr>
           </table>
         </div>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download preview CSV</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">Download JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">Download JSONL preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
@@ -6536,7 +6564,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>

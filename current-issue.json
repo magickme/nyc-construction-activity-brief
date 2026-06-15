@@ -15,6 +15,8 @@
     "currentIssueUrl": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
     "previewUrl": "https://nyc-construction-activity-brief.vercel.app/preview.html",
     "csvUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
+    "jsonUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json",
+    "jsonlUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl",
     "sampleBriefUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
     "pricingUrl": "https://nyc-construction-activity-brief.vercel.app/pricing.html",
     "timeSavedCalculatorUrl": "https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html",

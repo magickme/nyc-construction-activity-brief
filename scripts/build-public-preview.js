@@ -5,6 +5,8 @@ const root = path.resolve(__dirname, '..');
 const packageDir = path.resolve(root, '..', 'package');
 const fullCsvPath = path.join(packageDir, 'nyc-construction-activity-preview.csv');
 const publicCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
+const publicJsonPath = path.join(root, 'sample', 'nyc-construction-activity-preview.json');
+const publicJsonlPath = path.join(root, 'sample', 'nyc-construction-activity-preview.jsonl');
 const publicMarkdownPath = path.join(root, 'sample', 'nyc-weekly-construction-activity-sample.md');
 const previewLimit = 25;
 
@@ -73,6 +75,34 @@ function writePublicCsv(headers, rows) {
     ...previewRows.map((row) => headers.map((header) => csvEscape(row[header])).join(',')),
   ];
   fs.writeFileSync(publicCsvPath, `${lines.join('\n')}\n`);
+}
+
+function writePublicJson(headers, rows) {
+  const previewRows = rows.slice(0, previewLimit);
+  const issuedDates = rows.map((row) => String(row.issued_date || '').slice(0, 10)).filter(Boolean).sort();
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const payload = {
+    product: 'NYC Weekly Construction Activity Brief',
+    issue: 'current',
+    source: 'NYC DOB NOW: Build - Approved Permits',
+    source_url: 'https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4',
+    source_fetch_date: fetchDate,
+    first_issued_date: issuedDates[0] || null,
+    latest_issued_date: issuedDates.at(-1) || null,
+    public_preview_rows: previewRows.length,
+    paid_zip_rows: rows.length,
+    boundary: {
+      no_private_contact_data: true,
+      no_owner_names: true,
+      no_applicant_names: true,
+      no_full_street_addresses: true,
+      no_guaranteed_leads: true,
+    },
+    fields: headers,
+    rows: previewRows,
+  };
+  fs.writeFileSync(publicJsonPath, `${JSON.stringify(payload, null, 2)}\n`);
+  fs.writeFileSync(publicJsonlPath, `${previewRows.map((row) => JSON.stringify(row)).join('\n')}\n`);
 }
 
 function writePublicMarkdown(rows) {
@@ -157,6 +187,7 @@ const headers = parseCsvLine(lines[0]);
 const rows = parseCsv(raw);
 
 writePublicCsv(headers, rows);
+writePublicJson(headers, rows);
 writePublicMarkdown(rows);
 cleanPublicCopy();
 

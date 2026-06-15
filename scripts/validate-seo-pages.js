@@ -419,6 +419,8 @@ assert.match(preview, /full 142-row ZIP/, 'preview page needs paid row count');
 assert.match(preview, /<h2>Sample rows<\/h2>/, 'preview page needs sample rows section');
 assert.equal((preview.match(/DOB NOW row/g) || []).length, 25, 'preview page should list 25 source-linked rows');
 assert.match(preview, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'preview page links sample CSV');
+assert.match(preview, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'preview page links sample JSON');
+assert.match(preview, /href="\/sample\/nyc-construction-activity-preview\.jsonl"/, 'preview page links sample JSONL');
 assert.match(preview, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'preview page links sample brief');
 assert.match(preview, /href="\/sample-segments\.html"/, 'preview page links segment hub');
 assert.match(preview, /href="\/free-vs-paid\.html"/, 'preview page links free vs paid page');
@@ -647,6 +649,8 @@ assert.match(csvFieldGuide, /Free preview rows: 25/, 'CSV field guide needs free
 assert.match(csvFieldGuide, /Paid ZIP rows: 142/, 'CSV field guide needs paid row count');
 assert.match(csvFieldGuide, /href="\/preview\.html"/, 'CSV field guide links preview');
 assert.match(csvFieldGuide, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'CSV field guide links sample CSV');
+assert.match(csvFieldGuide, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'CSV field guide links sample JSON');
+assert.match(csvFieldGuide, /href="\/sample\/nyc-construction-activity-preview\.jsonl"/, 'CSV field guide links sample JSONL');
 assert.match(csvFieldGuide, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'CSV field guide links sample brief');
 assert.match(csvFieldGuide, /href="\/free-vs-paid\.html"/, 'CSV field guide links free vs paid page');
 assert.match(csvFieldGuide, /href="\/permit-research-workflow\.html"/, 'CSV field guide links research workflow page');
@@ -682,6 +686,8 @@ assert.match(permitCsv, /Top work types: Sidewalk Shed 40/, 'permit CSV page nee
 assert.match(permitCsv, /Top ZIPs: 10003 37/, 'permit CSV page needs ZIP mix');
 assert.match(permitCsv, /href="\/preview\.html"/, 'permit CSV page links preview');
 assert.match(permitCsv, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'permit CSV page links sample CSV');
+assert.match(permitCsv, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'permit CSV page links sample JSON');
+assert.match(permitCsv, /href="\/sample\/nyc-construction-activity-preview\.jsonl"/, 'permit CSV page links sample JSONL');
 assert.match(permitCsv, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'permit CSV page links sample brief');
 assert.match(permitCsv, /href="\/csv-field-guide\.html"/, 'permit CSV page links CSV field guide');
 assert.match(permitCsv, /href="\/free-vs-paid\.html"/, 'permit CSV page links free vs paid');
@@ -723,6 +729,8 @@ assert.match(permitDataApiAlternative, /href="\/topics\/nyc-building-permit-expo
 assert.match(permitDataApiAlternative, /href="\/topics\/nyc-construction-permit-data-for-proptech\.html"/, 'permit data API alternative page links proptech topic');
 assert.match(permitDataApiAlternative, /href="\/preview\.html"/, 'permit data API alternative page links preview');
 assert.match(permitDataApiAlternative, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'permit data API alternative page links sample CSV');
+assert.match(permitDataApiAlternative, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'permit data API alternative page links sample JSON');
+assert.match(permitDataApiAlternative, /href="\/sample\/nyc-construction-activity-preview\.jsonl"/, 'permit data API alternative page links sample JSONL');
 assert.match(permitDataApiAlternative, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'permit data API alternative page links sample brief');
 assert.match(permitDataApiAlternative, /href="\/csv-field-guide\.html"/, 'permit data API alternative page links CSV field guide');
 assert.match(permitDataApiAlternative, /href="\/nyc-dob-permit-csv\.html"/, 'permit data API alternative page links permit CSV page');
@@ -1946,7 +1954,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -1955,7 +1963,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 46, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 50, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -1972,6 +1980,10 @@ assert.equal(currentIssue.publicPreview.rowCount, 25, 'current issue JSON row co
 assert.equal(currentIssue.publicPreview.fullIssueRowCount, manifest.sourceRows, 'current issue JSON full issue row count matches manifest');
 assert.equal(currentIssue.publicPreview.currentIssueUrl, 'https://nyc-construction-activity-brief.vercel.app/current-issue.html', 'current issue JSON public preview links current issue page');
 assert.equal(currentIssue.publicPreview.previewUrl, 'https://nyc-construction-activity-brief.vercel.app/preview.html', 'current issue JSON links public preview page');
+assert.equal(currentIssue.publicPreview.csvUrl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv', 'current issue JSON links public CSV preview');
+assert.equal(currentIssue.publicPreview.jsonUrl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json', 'current issue JSON links public JSON preview');
+assert.equal(currentIssue.publicPreview.jsonlUrl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl', 'current issue JSON links public JSONL preview');
+assert.equal(currentIssue.publicPreview.sampleBriefUrl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md', 'current issue JSON links sample brief');
 assert.equal(currentIssue.publicPreview.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON public preview links pricing page');
 assert.equal(currentIssue.publicPreview.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON public preview links time saved calculator');
 assert.equal(currentIssue.publicPreview.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON public preview links who should buy page');
@@ -2166,11 +2178,27 @@ assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.verc
 assert.match(llms, /Delivery steps: https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'llms.txt links delivery page');
 assert.match(llms, /Support and refunds: https:\/\/nyc-construction-activity-brief\.vercel\.app\/support\.html/, 'llms.txt links support page');
 assert.match(llms, /Sample request: https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-request\.html/, 'llms.txt links sample request page');
+assert.match(llms, /Sample JSON: https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample\/nyc-construction-activity-preview\.json/, 'llms.txt links sample JSON');
+assert.match(llms, /Sample JSONL: https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample\/nyc-construction-activity-preview\.jsonl/, 'llms.txt links sample JSONL');
 assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');
 assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 
 const publicCsv = read('sample/nyc-construction-activity-preview.csv').trim().split(/\r?\n/);
 assert.equal(publicCsv.length - 1, 25, 'public CSV preview must stay limited to 25 rows');
+const publicJson = JSON.parse(read('sample/nyc-construction-activity-preview.json'));
+assert.equal(publicJson.public_preview_rows, 25, 'public JSON preview declares 25 preview rows');
+assert.equal(publicJson.paid_zip_rows, 142, 'public JSON preview declares paid ZIP row count');
+assert.equal(publicJson.rows.length, 25, 'public JSON preview must stay limited to 25 rows');
+assert.equal(publicJson.boundary.no_private_contact_data, true, 'public JSON preview keeps private-contact boundary');
+assert.equal(publicJson.boundary.no_guaranteed_leads, true, 'public JSON preview keeps claims boundary');
+assert.ok(publicJson.fields.includes('source_url'), 'public JSON preview lists source_url field');
+const publicJsonl = read('sample/nyc-construction-activity-preview.jsonl').trim().split(/\r?\n/);
+assert.equal(publicJsonl.length, 25, 'public JSONL preview must stay limited to 25 rows');
+for (const line of publicJsonl) {
+  const row = JSON.parse(line);
+  assert.ok(row.source_url, 'public JSONL rows include source_url');
+  assert.ok(row.work_type, 'public JSONL rows include work_type');
+}
 
 const indexNowKey = read('320c87511764a53abe2cd8aa0481f1bc.txt').trim();
 assert.equal(indexNowKey, '320c87511764a53abe2cd8aa0481f1bc', 'IndexNow key file must match submission script');

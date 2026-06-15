@@ -62,6 +62,8 @@ Primary pages:
 - Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
 - Sample request: https://nyc-construction-activity-brief.vercel.app/sample-request.html
 - Sample CSV: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv
+- Sample JSON: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json
+- Sample JSONL: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl
 - Sample brief: https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: https://nyc-construction-activity-brief.vercel.app/sample-segments.html
 - Methodology: https://nyc-construction-activity-brief.vercel.app/methodology.html
