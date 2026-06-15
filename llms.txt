@@ -104,6 +104,7 @@ Current counts:
 High-intent topic pages:
 - NYC permit data for architects: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html
 - NYC permit data for engineers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-engineers.html
+- NYC permit research for project managers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-research-for-project-managers.html
 - NYC construction permit data for proptech: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-proptech.html
 - NYC building permit data for vendors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-data-for-vendors.html
 - NYC DOB permit data for contractors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-data-for-contractors.html
