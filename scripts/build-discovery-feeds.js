@@ -112,6 +112,7 @@ function buildCurrentIssueJson(rows, manifest) {
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       freeVsPaidUrl: `${baseUrl}/free-vs-paid.html`,
+      researchWorkflowUrl: `${baseUrl}/permit-research-workflow.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -133,6 +134,7 @@ function buildCurrentIssueJson(rows, manifest) {
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       freeVsPaidUrl: `${baseUrl}/free-vs-paid.html`,
+      researchWorkflowUrl: `${baseUrl}/permit-research-workflow.html`,
       insideZipUrl: `${baseUrl}/inside-the-zip.html`,
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
@@ -225,6 +227,11 @@ function buildFeedXml(rows, manifest) {
       description: `Compare the free ${previewRows}-row preview with the paid ${stats.rowCount}-row ZIP before opening checkout.`,
     },
     {
+      title: 'Weekly permit research workflow',
+      url: `${baseUrl}/permit-research-workflow.html`,
+      description: `Practical review order for using the free preview, paid ${stats.rowCount}-row ZIP, buyer workbook, priority slices, and source links.`,
+    },
+    {
       title: 'Inside the current paid ZIP',
       url: `${baseUrl}/inside-the-zip.html`,
       description: `File-by-file package manifest for the current ${stats.rowCount}-row ZIP, including the buyer workbook, priority-slices CSV, QA report, source registry, and claims boundary.`,
@@ -310,6 +317,7 @@ Primary pages:
 - Time saved calculator: ${baseUrl}/time-saved-calculator.html
 - Who should buy: ${baseUrl}/who-should-buy.html
 - Free preview vs paid ZIP: ${baseUrl}/free-vs-paid.html
+- Research workflow: ${baseUrl}/permit-research-workflow.html
 - Inside the ZIP: ${baseUrl}/inside-the-zip.html
 - CSV field guide: ${baseUrl}/csv-field-guide.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
@@ -369,7 +377,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

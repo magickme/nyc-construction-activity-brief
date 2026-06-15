@@ -717,6 +717,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
@@ -866,6 +867,7 @@ ${territories}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -990,6 +992,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
@@ -1155,6 +1158,7 @@ ${fields.map(([name, use]) => `              <tr>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
@@ -1304,6 +1308,7 @@ ${rowsHtml.map(([item, freeValue, paidValue]) => `              <tr>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
@@ -1316,6 +1321,139 @@ ${rowsHtml.map(([item, freeValue, paidValue]) => `              <tr>
       <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
+function researchWorkflowHtml(rows) {
+  const description = 'A practical workflow for using the NYC construction activity preview, paid ZIP, buyer workbook, priority slices, and source links for weekly permit research.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
+  const product = productJsonLd(description, checkoutHref('permit-research-workflow'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How should I use the free preview?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Use the free preview to check field names, sample row shape, work-type mix, ZIP coverage, and source limits before buying the full ZIP.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should I do after buying the ZIP?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Open the buyer workbook, pick a priority slice, filter the full CSV, and verify each useful row at its public source URL before acting on it.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can this workflow replace source checks?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The workflow is for faster sorting. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Permit Research Workflow | NYC Construction Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/permit-research-workflow.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Permit Research Workflow | NYC Construction Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/permit-research-workflow.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Weekly permit research workflow for the current issue.</h1>
+      <p class="lede">Use this order to inspect the free preview, decide whether the paid ZIP is worth buying, and review source-linked rows after checkout.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Preview pass</h2>
+          <p>Check 25 rows, field names, work types, ZIPs, source links, and source caveats before paying.</p>
+        </div>
+        <div class="card">
+          <h2>Paid pass</h2>
+          <p>Use the ${escapeHtml(rows.length)}-row CSV, buyer workbook, and priority slices for a faster weekly review.</p>
+        </div>
+        <div class="card">
+          <h2>Source pass</h2>
+          <p>Open source links before outreach, quoting, routing, publishing, or planning.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Fifteen-minute workflow</h2>
+        <ol>
+          <li>Open the public preview and check whether the row shape fits your weekly screen.</li>
+          <li>Use the CSV field guide to confirm what each column means.</li>
+          <li>Browse segment pages for your ZIP, borough, work type, issued date, or cost bucket.</li>
+          <li>Use the free versus paid comparison to decide whether the full ZIP is worth the $24.50 launch price.</li>
+          <li>After checkout, open <code>buyer-workbook.md</code> and pick the first slice to review.</li>
+          <li>Filter the full CSV by that slice, then open <code>source_url</code> for any row you may act on.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Good use cases</h2>
+        <ul>
+          <li>Weekly sorting by work type, ZIP, borough, permit status, issued date, and cost bucket.</li>
+          <li>Finding rows worth manual source checks.</li>
+          <li>Preparing a short internal review list for a sales, supplier, broker, or research workflow.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
+        <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button" href="${checkoutHref('permit-research-workflow')}">Buy instant ZIP</a>
       </section>
     </main>
   </body>
@@ -1434,6 +1572,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
@@ -1585,6 +1724,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
@@ -1744,6 +1884,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
@@ -1856,6 +1997,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -1992,6 +2134,7 @@ ${socialImageMeta()}
         </ul>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
@@ -2183,6 +2326,7 @@ ${files.map((file) => `              <tr>
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -2321,6 +2465,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button" href="${checkoutHref('support')}">Buy instant ZIP</a>
@@ -2433,6 +2578,7 @@ ${rows.map((row) => `              <tr>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
         <a class="button" href="${checkoutHref('preview')}">Buy instant ZIP</a>
@@ -2444,6 +2590,7 @@ ${sampleRequestSection()}      <section class="section card">
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/permit-research-workflow.html">Research workflow</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -2457,7 +2604,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -2496,6 +2643,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
         <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
         <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
+        <p><a class="button secondary" href="/permit-research-workflow.html">Research workflow</a></p>
         <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
         <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
         <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
@@ -2835,6 +2983,7 @@ fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'csv-field-guide.html'), csvFieldGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'free-vs-paid.html'), freeVsPaidHtml(rows));
+fs.writeFileSync(path.join(root, 'permit-research-workflow.html'), researchWorkflowHtml(rows));
 fs.writeFileSync(path.join(root, 'current-issue.html'), currentIssueHtml(rows));
 fs.writeFileSync(path.join(root, 'time-saved-calculator.html'), timeSavedCalculatorHtml(rows));
 fs.writeFileSync(path.join(root, 'who-should-buy.html'), whoShouldBuyHtml(rows));
