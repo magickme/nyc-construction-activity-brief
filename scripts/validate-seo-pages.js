@@ -305,10 +305,13 @@ assert.match(checkout, /utm_content=checkout_static/, 'checkout page static fall
 assert.match(checkout, /checkout_continue_clicked/, 'checkout page tracks manual continue clicks');
 assert.match(checkout, /checkout_auto_redirect/, 'checkout page tracks automatic redirects');
 assert.match(checkout, /Instant browser download after completed Stripe checkout\./, 'checkout page has buyer reassurance copy');
+assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count before Stripe');
+assert.match(checkout, /After Stripe confirms payment/, 'checkout page explains paid download before Stripe');
+assert.match(checkout, /Public-record screening file only/, 'checkout page states source boundary before Stripe');
 assert.match(checkout, /href="\/preview\.html"/, 'checkout page links preview for buyer reassurance');
 assert.match(checkout, /href="\/inside-the-zip\.html"/, 'checkout page links ZIP contents for buyer reassurance');
 assert.match(checkout, /href="\/support\.html"/, 'checkout page links support and refund boundary');
-assert.match(checkout, /\}, 650\);/, 'checkout page quickly redirects buyers to Stripe');
+assert.match(checkout, /\}, 1800\);/, 'checkout page gives buyers time to read reassurance before Stripe');
 assert.match(checkout, /<noscript>/, 'checkout page has no-JavaScript fallback copy');
 assert.match(checkout, /\/_vercel\/insights\/script\.js/, 'checkout page needs Web Analytics script');
 

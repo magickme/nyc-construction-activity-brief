@@ -509,7 +509,7 @@ function productJsonLd(description, url = checkoutUrl) {
   };
 }
 
-function checkoutHtml() {
+function checkoutHtml(rows) {
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -527,6 +527,20 @@ function checkoutHtml() {
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
         <p class="fine">If the redirect does not start, use the button below. The current launch price is $9.50. No promo code is required.</p>
+        <div class="grid">
+          <div class="card">
+            <h2>What you get</h2>
+            <p>Full ${escapeHtml(rows.length)}-row CSV, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, and version file.</p>
+          </div>
+          <div class="card">
+            <h2>Delivery</h2>
+            <p>After Stripe confirms payment, the success page starts the ZIP download in your browser and keeps a manual download button as fallback.</p>
+          </div>
+          <div class="card">
+            <h2>Boundary</h2>
+            <p>Public-record screening file only. No private contacts, full street addresses, agency endorsement, guaranteed leads, or revenue estimate.</p>
+          </div>
+        </div>
         <ul>
           <li>Instant browser download after completed Stripe checkout.</li>
           <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
@@ -574,7 +588,7 @@ function checkoutHtml() {
           window.va('event', { name: 'checkout_auto_redirect', data: { source } });
         } catch (error) {}
         window.location.replace(stripeUrl);
-      }, 650);
+      }, 1800);
     </script>
   </body>
 </html>
@@ -5098,7 +5112,7 @@ fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
 fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
 fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
-fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
+fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml(rows));
 fs.writeFileSync(path.join(root, 'buy.html'), buyHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
