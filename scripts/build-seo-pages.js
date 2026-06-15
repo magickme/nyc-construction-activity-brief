@@ -603,7 +603,7 @@ function buyHtml(rows) {
   const source = 'buy-page';
   const checkout = checkoutHref(source);
   const description = 'Buy the current NYC Weekly Construction Activity Brief ZIP with source-linked DOB NOW rows, buyer workbook, priority slices, and instant browser download.';
-  const product = productJsonLd(description, checkout);
+  const product = productJsonLd(description, `${baseUrl}/buy.html`);
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -642,7 +642,7 @@ ${socialImageMeta()}
             <p>No private contacts, owner names, applicant names, full street addresses, agency endorsement, guaranteed leads, or revenue estimate.</p>
           </div>
         </div>
-        <a id="buy-link" class="button" href="${checkout}">Continue to checkout</a>
+        <a id="buy-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Continue to Stripe</a>
         <p>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
@@ -651,7 +651,7 @@ ${socialImageMeta()}
         </p>
         <p class="fine">No guaranteed leads, owner contact data, or agency-endorsed information.</p>
         <noscript>
-          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same tracked checkout path.</p>
+          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout. You can also use the <a href="${checkout}">checkout bridge</a>.</p>
         </noscript>
       </section>
     </main>
@@ -659,9 +659,16 @@ ${socialImageMeta()}
       const params = new URLSearchParams(window.location.search);
       const rawSource = params.get('source') || '${source}';
       const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : '${source}';
-      const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=' + encodeURIComponent(source);
+      const stripeParams = new URLSearchParams({
+        utm_source: 'nyc_construction_activity_brief',
+        utm_medium: 'owned_site',
+        utm_campaign: 'current_issue_launch',
+        utm_content: source,
+        client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
+      });
+      const stripeUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const link = document.getElementById('buy-link');
-      link.href = checkoutUrl;
+      link.href = stripeUrl;
       link.addEventListener('click', () => {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -677,8 +684,8 @@ ${socialImageMeta()}
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
           window.va('event', { name: 'buy_page_auto_redirect', data: { source } });
         } catch (error) {}
-        window.location.replace(checkoutUrl);
-      }, 1200);
+        window.location.replace(stripeUrl);
+      }, 900);
     </script>
   </body>
 </html>
