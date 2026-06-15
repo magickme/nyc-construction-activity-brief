@@ -3,6 +3,7 @@ const MAUTIC_TIMEOUT_MS = 5000;
 const PRODUCT_TAG = 'wealth:nyc-construction-activity-brief';
 const SAMPLE_REQUEST_TAG = 'wealth:nyc-construction-activity-brief:sample-request';
 const SITE_SOURCE_TAG = 'source:nyc-construction-activity-brief-site';
+const NYC_BUYER_SEGMENT_ID = 80;
 const BUYER_TYPES = new Set([
   'construction-support-vendor',
   'specialty-subcontractor',
@@ -214,8 +215,34 @@ async function createOrUpdateMauticContact(contact, env = process.env, fetchImpl
   }
 
   const data = await response.json().catch(() => ({}));
+  const contactId = data.contact?.id || data.id || null;
+  if (!contactId) {
+    const error = new Error('Mautic contact id missing');
+    error.statusCode = 502;
+    throw error;
+  }
+
+  const segmentResponse = await fetchWithTimeout(
+    fetchImpl,
+    `${config.baseUrl}/api/segments/${NYC_BUYER_SEGMENT_ID}/contact/${contactId}/add`,
+    {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+    'Mautic segment add',
+  );
+
+  if (!segmentResponse.ok) {
+    const error = new Error('Mautic segment add failed');
+    error.statusCode = 502;
+    throw error;
+  }
+
   return {
-    contactId: data.contact?.id || data.id || null,
+    contactId,
+    segmentId: NYC_BUYER_SEGMENT_ID,
   };
 }
 
@@ -243,6 +270,7 @@ module.exports = async function handler(req, res) {
       ok: true,
       saved: true,
       contact_id_present: Boolean(result.contactId),
+      segment_id: result.segmentId,
     });
   } catch (error) {
     return sendJson(res, error.statusCode || 502, { error: 'request_not_saved' });
@@ -251,6 +279,7 @@ module.exports = async function handler(req, res) {
 
 module.exports._private = {
   BUYER_TYPES,
+  NYC_BUYER_SEGMENT_ID,
   buildMauticContactPayload,
   createOrUpdateMauticContact,
   mauticConfig,

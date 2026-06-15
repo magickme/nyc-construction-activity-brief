@@ -4,6 +4,7 @@ const {
   buildMauticContactPayload,
   createOrUpdateMauticContact,
   mauticConfig,
+  NYC_BUYER_SEGMENT_ID,
   sourcePathTag,
   slugTagPart,
   validateSampleRequest,
@@ -11,6 +12,7 @@ const {
   _resetForTesting,
 } = require('./sample-request')._private;
 
+assert.equal(NYC_BUYER_SEGMENT_ID, 80);
 assert.equal(validEmail('buyer@example.com'), true);
 assert.equal(validEmail('not-an-email'), false);
 assert.equal(slugTagPart('Sidewalk Shed / Supported Scaffold'), 'sidewalk-shed-supported-scaffold');
@@ -108,6 +110,12 @@ async function main() {
         json: async () => ({ contact: { id: 123 } }),
       };
     }
+    if (url === 'https://mautic.example.com/api/segments/80/contact/123/add') {
+      return {
+        ok: true,
+        json: async () => ({ success: 1 }),
+      };
+    }
     throw new Error(`unexpected URL ${url}`);
   };
 
@@ -122,8 +130,8 @@ async function main() {
     },
     mockFetch,
   );
-  assert.deepEqual(result, { contactId: 123 });
-  assert.equal(calls.length, 2);
+  assert.deepEqual(result, { contactId: 123, segmentId: 80 });
+  assert.equal(calls.length, 3);
   assert.equal(calls[1].init.method, 'POST');
   assert.equal(calls[1].init.headers.authorization, 'Bearer token-value');
   assert.deepEqual(JSON.parse(calls[1].init.body).tags, [
@@ -135,6 +143,9 @@ async function main() {
     'wealth:ncab:territory:brooklyn-11201',
     'wealth:ncab:source-page:topics-nyc-plumbing-permit-activity-html',
   ]);
+  assert.equal(calls[2].url, 'https://mautic.example.com/api/segments/80/contact/123/add');
+  assert.equal(calls[2].init.method, 'POST');
+  assert.equal(calls[2].init.headers.authorization, 'Bearer token-value');
 
   console.log('sample request tests passed');
 }
