@@ -23,6 +23,11 @@
     "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N",
     "priceUsd": 49,
     "rowCount": 142,
+    "promotion": {
+      "code": "NCAB25",
+      "percentOff": 25,
+      "maxRedemptions": 25
+    },
     "files": [
       "README.md",
       "nyc-construction-activity-preview.csv",

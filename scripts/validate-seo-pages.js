@@ -136,6 +136,7 @@ assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytic
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
+assert.match(index, /Use code <strong>NCAB25<\/strong> in Stripe checkout for 25% off/, 'index needs launch discount copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
 assert.match(index, /Buyer workbook with a fast review path/, 'index needs buyer workbook offer copy');
@@ -208,6 +209,8 @@ assert.equal(currentIssue.publicPreview.fullIssueRowCount, manifest.sourceRows, 
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N', 'current issue JSON links checkout');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
+assert.equal(currentIssue.paidZip.promotion.code, 'NCAB25', 'current issue JSON lists promo code');
+assert.equal(currentIssue.paidZip.promotion.percentOff, 25, 'current issue JSON lists promo percent');
 assert.ok(currentIssue.paidZip.files.includes('README.md'), 'current issue JSON lists package README');
 assert.ok(currentIssue.paidZip.files.includes('buyer-workbook.md'), 'current issue JSON lists buyer workbook');
 assert.ok(currentIssue.paidZip.files.includes('buyer-priority-slices.csv'), 'current issue JSON lists priority slices');
@@ -220,12 +223,14 @@ assert.match(feed, /<rss version="2\.0">/, 'RSS feed has rss root');
 assert.match(feed, /<title>NYC Weekly Construction Activity Brief<\/title>/, 'RSS feed names product');
 assert.match(feed, /Current NYC construction activity brief: 142 paid issue rows/, 'RSS feed describes current issue');
 assert.match(feed, /The free CSV preview has 25 rows/, 'RSS feed describes free preview size');
+assert.match(feed, /Use code NCAB25 for 25% off/, 'RSS feed describes promo code');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
 
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
 assert.match(llms, /Free CSV preview rows: 25/, 'llms.txt has free preview row count');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
+assert.match(llms, /Promo code: NCAB25 for 25% off/, 'llms.txt lists promo code');
 assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');
 assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 

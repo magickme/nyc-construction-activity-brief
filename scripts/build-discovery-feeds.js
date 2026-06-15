@@ -4,6 +4,8 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N';
+const promoCode = 'NCAB25';
+const promoPercentOff = 25;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
@@ -111,6 +113,11 @@ function buildCurrentIssueJson(rows, manifest) {
       checkoutUrl,
       priceUsd: 49,
       rowCount: stats.rowCount,
+      promotion: {
+        code: promoCode,
+        percentOff: promoPercentOff,
+        maxRedemptions: 25,
+      },
       files: [
         'README.md',
         'nyc-construction-activity-preview.csv',
@@ -156,7 +163,7 @@ function buildFeedXml(rows, manifest) {
     {
       title: `Current NYC construction activity brief: ${stats.rowCount} paid issue rows`,
       url: `${baseUrl}/`,
-      description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
+      description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Use code ${promoCode} for ${promoPercentOff}% off while redemptions remain. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
     },
     {
       title: 'Browse current permit activity segments',
@@ -208,6 +215,7 @@ Current issue:
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
 - Checkout: ${checkoutUrl}
 - Price: $49 one-time ZIP download
+- Promo code: ${promoCode} for ${promoPercentOff}% off while redemptions remain
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
 
 Primary pages:
