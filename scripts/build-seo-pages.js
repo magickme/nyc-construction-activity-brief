@@ -595,7 +595,7 @@ function checkoutHtml(rows) {
 `;
 }
 
-function buyHtml() {
+function buyHtml(rows) {
   const source = 'buy-page';
   const checkout = checkoutHref(source);
   return `<!doctype html>
@@ -613,12 +613,27 @@ function buyHtml() {
     <main>
       <section class="section card">
         <h1>Buy the current issue ZIP.</h1>
-        <p class="lede">You are being sent to the tracked checkout bridge for the NYC Weekly Construction Activity Brief current issue.</p>
+        <p class="lede">One current-issue ZIP for buyers who want the selected NYC DOB NOW rows packaged for spreadsheet review.</p>
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
+        <div class="grid">
+          <div class="card">
+            <h2>Included</h2>
+            <p>Full ${escapeHtml(rows.length)}-row CSV, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, and version file.</p>
+          </div>
+          <div class="card">
+            <h2>Worth checking</h2>
+            <p>At $75/hour, the $9.50 launch price breaks even at about 8 minutes of avoided manual sorting.</p>
+          </div>
+          <div class="card">
+            <h2>Boundary</h2>
+            <p>No private contacts, owner names, applicant names, full street addresses, agency endorsement, guaranteed leads, or revenue estimate.</p>
+          </div>
+        </div>
         <a id="buy-link" class="button" href="${checkout}">Continue to checkout</a>
         <p>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+          <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
           <a class="button secondary" href="/support.html">Support and refunds</a>
         </p>
         <p class="fine">No guaranteed leads, owner contact data, or agency-endorsed information.</p>
@@ -641,8 +656,12 @@ function buyHtml() {
         window.va('event', { name: 'buy_page_viewed', data: { source: '${source}' } });
       } catch (error) {}
       window.setTimeout(() => {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name: 'buy_page_auto_redirect', data: { source: '${source}' } });
+        } catch (error) {}
         window.location.replace(checkoutUrl);
-      }, 650);
+      }, 1200);
     </script>
   </body>
 </html>
@@ -5113,7 +5132,7 @@ fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
 fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml(rows));
-fs.writeFileSync(path.join(root, 'buy.html'), buyHtml());
+fs.writeFileSync(path.join(root, 'buy.html'), buyHtml(rows));
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),

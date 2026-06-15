@@ -320,12 +320,18 @@ assert.match(buy, /<title>Buy Current Issue \| NYC Construction Activity Brief<\
 assert.match(buy, /<meta name="robots" content="noindex">/, 'buy page must be noindex');
 assert.match(buy, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html">/, 'buy page needs canonical');
 assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page"/, 'buy page links tracked checkout');
+assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
+assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
+assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
 assert.match(buy, /buy_page_viewed/, 'buy page tracks page view');
 assert.match(buy, /buy_page_continue_clicked/, 'buy page tracks manual continue click');
+assert.match(buy, /buy_page_auto_redirect/, 'buy page tracks automatic redirect');
 assert.match(buy, /window\.location\.replace\(checkoutUrl\);/, 'buy page redirects to checkout bridge');
 assert.match(buy, /href="\/preview\.html"/, 'buy page links preview');
 assert.match(buy, /href="\/inside-the-zip\.html"/, 'buy page links ZIP contents');
+assert.match(buy, /href="\/free-vs-paid\.html"/, 'buy page links free vs paid page');
 assert.match(buy, /href="\/support\.html"/, 'buy page links support');
+assert.match(buy, /\}, 1200\);/, 'buy page gives buyers time to read purchase facts');
 
 const notFound = read('404.html');
 assert.match(notFound, /<title>Page Not Found \| NYC Construction Activity Brief<\/title>/, '404 page needs title');
