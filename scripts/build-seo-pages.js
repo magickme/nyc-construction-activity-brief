@@ -296,6 +296,16 @@ function conversionBar(source) {
 `;
 }
 
+function topPurchaseCta(source) {
+  return `      <p>
+        <a class="button" href="${checkoutHref(source)}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
+
+`;
+}
+
 const coreConversionPages = [
   ['', 'home-sticky'],
   ['preview.html', 'preview-sticky'],
@@ -350,6 +360,53 @@ const coreConversionPages = [
   ['sample-segments.html', 'sample-segments-sticky'],
 ];
 
+const coreTopCtaPages = [
+  ['preview.html', 'preview-top'],
+  ['current-issue.html', 'current-issue-top'],
+  ['faq.html', 'faq-top'],
+  ['csv-field-guide.html', 'csv-field-guide-top'],
+  ['sample-request.html', 'sample-request-top'],
+  ['methodology.html', 'methodology-top'],
+  ['permit-research-workflow.html', 'permit-research-workflow-top'],
+  ['nyc-dob-permit-data-download.html', 'nyc-dob-permit-data-download-top'],
+  ['nyc-building-permit-data.html', 'building-permit-data-top'],
+  ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-top'],
+  ['nyc-dob-now-approved-permits.html', 'nyc-dob-now-approved-permits-top'],
+  ['dob-now-build-approved-permits.html', 'dob-now-build-approved-permits-top'],
+  ['nyc-dob-permit-alerts.html', 'nyc-dob-permit-alerts-top'],
+  ['nyc-dob-permit-tracker.html', 'nyc-dob-permit-tracker-top'],
+  ['nyc-dob-permit-monitoring.html', 'nyc-dob-permit-monitoring-top'],
+  ['nyc-dob-permit-watchlist.html', 'nyc-dob-permit-watchlist-top'],
+  ['nyc-construction-permit-search.html', 'nyc-construction-permit-search-top'],
+  ['nyc-dob-permit-lookup.html', 'nyc-dob-permit-lookup-top'],
+  ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-top'],
+  ['weekly-nyc-construction-permit-report.html', 'weekly-nyc-construction-report-top'],
+  ['dob-now-permit-search-alternative.html', 'dob-now-alternative-top'],
+  ['nyc-construction-permit-leads.html', 'permit-leads-top'],
+  ['nyc-permit-activity-by-zip.html', 'permit-activity-by-zip-top'],
+  ['manhattan-construction-permit-activity.html', 'manhattan-permit-activity-top'],
+  ['brooklyn-construction-permit-activity.html', 'brooklyn-permit-activity-top'],
+  ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-top'],
+  ['nyc-plumbing-permits.html', 'plumbing-permits-top'],
+  ['nyc-sprinkler-permits.html', 'sprinkler-permits-top'],
+  ['nyc-mechanical-systems-permits.html', 'mechanical-systems-permits-top'],
+  ['nyc-supported-scaffold-permits.html', 'supported-scaffold-permits-top'],
+  ['nyc-structural-permits.html', 'structural-permits-top'],
+  ['nyc-construction-fence-permits.html', 'construction-fence-permits-top'],
+  ['contractor-permit-research.html', 'contractor-top'],
+  ['contractor-supplier-permit-research.html', 'contractor-supplier-top'],
+  ['broker-developer-permit-research.html', 'broker-developer-top'],
+  ['real-estate-investor-permit-research.html', 'real-estate-investor-top'],
+  ['construction-consultant-permit-research.html', 'construction-consultant-top'],
+  ['construction-risk-permit-research.html', 'construction-risk-top'],
+  ['permit-expediter-research.html', 'permit-expediter-top'],
+  ['property-manager-permit-research.html', 'property-manager-top'],
+  ['material-supplier-permit-research.html', 'material-supplier-top'],
+  ['building-service-vendor-permit-research.html', 'building-service-vendor-top'],
+  ['subcontractor-permit-research.html', 'subcontractor-top'],
+  ['sample-segments.html', 'sample-segments-top'],
+];
+
 function applyCoreConversionBars() {
   for (const [relativePath, source] of coreConversionPages) {
     const filePath = path.join(root, relativePath || 'index.html');
@@ -363,6 +420,25 @@ function applyCoreConversionBars() {
     });
     html = html.replace(/\s*<\/body>/, `\n${conversionBar(source)}  </body>`);
     fs.writeFileSync(filePath, html);
+  }
+}
+
+function applyCoreTopCtas() {
+  for (const [relativePath, source] of coreTopCtaPages) {
+    const filePath = path.join(root, relativePath);
+    let html = fs.readFileSync(filePath, 'utf8');
+    const expectedHref = checkoutHref(source);
+    if (html.includes(`href="${expectedHref}">Buy $9.50 ZIP</a>`)) {
+      continue;
+    }
+    const updated = html.replace(
+      /(<p class="lede">[\s\S]*?<\/p>\n)/,
+      `$1${topPurchaseCta(source)}`,
+    );
+    if (updated === html) {
+      throw new Error(`could not insert top purchase CTA in ${relativePath}`);
+    }
+    fs.writeFileSync(filePath, updated);
   }
 }
 
@@ -8795,5 +8871,6 @@ fs.writeFileSync(
 );
 updateIndex(manualPages, generatedPages);
 applyCoreConversionBars();
+applyCoreTopCtas();
 
 console.log(`generated ${pages.length} SEO pages from ${rows.length} source rows`);

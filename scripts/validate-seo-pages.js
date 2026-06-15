@@ -183,6 +183,15 @@ function assertConversionBar(html, label, source) {
   );
 }
 
+function assertTopPurchaseCta(html, label, source) {
+  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/buy.html?source=${source}`;
+  assert.match(
+    html,
+    new RegExp(`<p class="lede">[\\s\\S]+href="${expectedCheckout.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">Buy \\$9\\.50 ZIP</a>[\\s\\S]+The buy page shows sample rows first\\. Stripe checkout starts after your next click\\.[\\s\\S]+<section`),
+    `${label} has an above-fold attributed buy CTA`,
+  );
+}
+
 const coreConversionPages = [
   ['index.html', 'home-sticky'],
   ['preview.html', 'preview-sticky'],
@@ -239,6 +248,53 @@ const coreConversionPages = [
   ['sample-segments.html', 'sample-segments-sticky'],
 ];
 
+const coreTopCtaPages = [
+  ['preview.html', 'preview-top'],
+  ['current-issue.html', 'current-issue-top'],
+  ['faq.html', 'faq-top'],
+  ['csv-field-guide.html', 'csv-field-guide-top'],
+  ['sample-request.html', 'sample-request-top'],
+  ['methodology.html', 'methodology-top'],
+  ['permit-research-workflow.html', 'permit-research-workflow-top'],
+  ['nyc-dob-permit-data-download.html', 'nyc-dob-permit-data-download-top'],
+  ['nyc-building-permit-data.html', 'building-permit-data-top'],
+  ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-top'],
+  ['nyc-dob-now-approved-permits.html', 'nyc-dob-now-approved-permits-top'],
+  ['dob-now-build-approved-permits.html', 'dob-now-build-approved-permits-top'],
+  ['nyc-dob-permit-alerts.html', 'nyc-dob-permit-alerts-top'],
+  ['nyc-dob-permit-tracker.html', 'nyc-dob-permit-tracker-top'],
+  ['nyc-dob-permit-monitoring.html', 'nyc-dob-permit-monitoring-top'],
+  ['nyc-dob-permit-watchlist.html', 'nyc-dob-permit-watchlist-top'],
+  ['nyc-construction-permit-search.html', 'nyc-construction-permit-search-top'],
+  ['nyc-dob-permit-lookup.html', 'nyc-dob-permit-lookup-top'],
+  ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-top'],
+  ['weekly-nyc-construction-permit-report.html', 'weekly-nyc-construction-report-top'],
+  ['dob-now-permit-search-alternative.html', 'dob-now-alternative-top'],
+  ['nyc-construction-permit-leads.html', 'permit-leads-top'],
+  ['nyc-permit-activity-by-zip.html', 'permit-activity-by-zip-top'],
+  ['manhattan-construction-permit-activity.html', 'manhattan-permit-activity-top'],
+  ['brooklyn-construction-permit-activity.html', 'brooklyn-permit-activity-top'],
+  ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-top'],
+  ['nyc-plumbing-permits.html', 'plumbing-permits-top'],
+  ['nyc-sprinkler-permits.html', 'sprinkler-permits-top'],
+  ['nyc-mechanical-systems-permits.html', 'mechanical-systems-permits-top'],
+  ['nyc-supported-scaffold-permits.html', 'supported-scaffold-permits-top'],
+  ['nyc-structural-permits.html', 'structural-permits-top'],
+  ['nyc-construction-fence-permits.html', 'construction-fence-permits-top'],
+  ['contractor-permit-research.html', 'contractor-top'],
+  ['contractor-supplier-permit-research.html', 'contractor-supplier-top'],
+  ['broker-developer-permit-research.html', 'broker-developer-top'],
+  ['real-estate-investor-permit-research.html', 'real-estate-investor-top'],
+  ['construction-consultant-permit-research.html', 'construction-consultant-top'],
+  ['construction-risk-permit-research.html', 'construction-risk-top'],
+  ['permit-expediter-research.html', 'permit-expediter-top'],
+  ['property-manager-permit-research.html', 'property-manager-top'],
+  ['material-supplier-permit-research.html', 'material-supplier-top'],
+  ['building-service-vendor-permit-research.html', 'building-service-vendor-top'],
+  ['subcontractor-permit-research.html', 'subcontractor-top'],
+  ['sample-segments.html', 'sample-segments-top'],
+];
+
 assert.equal(manifest.sourceRows, 142, 'manifest source row count changed unexpectedly');
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
 assert.ok(manifest.generatedPages >= 65, 'expected at least 65 generated long-tail pages');
@@ -250,6 +306,10 @@ for (const page of pages) {
 
 for (const [page, source] of coreConversionPages) {
   assertConversionBar(read(page), page, source);
+}
+
+for (const [page, source] of coreTopCtaPages) {
+  assertTopPurchaseCta(read(page), page, source);
 }
 
 const index = read('index.html');
