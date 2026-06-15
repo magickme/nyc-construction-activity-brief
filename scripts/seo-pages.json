@@ -517,6 +517,17 @@
     "sampleLine": "Risk research screen | work type | ZIP | issued date | status | cost bucket | source link"
   },
   {
+    "slug": "nyc-construction-permit-json-sample",
+    "title": "NYC Construction Permit JSON Sample | Weekly DOB Brief",
+    "description": "Download a public NYC construction permit JSON sample with selected DOB NOW rows, source links, ZIP, work type, issued date, and buyer-safe fields.",
+    "h1": "NYC construction permit JSON sample for data review.",
+    "lede": "The public JSON and JSONL previews show the same buyer-safe field shape used in the current issue package, limited to 25 selected rows.",
+    "audience": "Data buyers, analysts, proptech operators, and small teams checking whether the current issue fields fit their review workflow.",
+    "currentSample": "The public JSON and JSONL previews include 25 selected rows. The paid ZIP includes the full 142-row current issue CSV, buyer workbook, priority slices, QA report, and source registry.",
+    "useCase": "Use this page to inspect the public field names and row shape before buying the current ZIP. The sample is not a bulk API, historical dataset, live feed, or enriched contact file.",
+    "sampleLine": "JSON preview | JSONL preview | work type | ZIP | issued date | status | public source link"
+  },
+  {
     "slug": "nyc-real-estate-investor-permit-research",
     "title": "NYC Real Estate Investor Permit Research | DOB Brief",
     "description": "A weekly NYC real estate investor permit research page for reviewing selected DOB activity by ZIP, work type, date, and source link.",
