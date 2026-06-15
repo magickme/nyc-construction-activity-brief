@@ -518,7 +518,13 @@
     "workTypeRequest": "Facade restoration and exterior access",
     "territoryRequest": "NYC",
     "buyerTypeRequest": "specialty-subcontractor",
-    "monitoringGoalRequest": "Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC."
+    "monitoringGoalRequest": "Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC.",
+    "stats": [
+      "40 selected sidewalk shed rows in the current paid issue.",
+      "13 selected supported scaffold rows in the current paid issue.",
+      "9 selected construction fence rows in the current paid issue.",
+      "12 selected structural rows in the current paid issue."
+    ]
   },
   {
     "slug": "nyc-masonry-contractor-permit-research",
@@ -533,7 +539,13 @@
     "workTypeRequest": "Masonry, restoration, and exterior access",
     "territoryRequest": "NYC",
     "buyerTypeRequest": "specialty-subcontractor",
-    "monitoringGoalRequest": "Masonry-adjacent structural, sidewalk shed, scaffold, and construction fence permit activity in NYC."
+    "monitoringGoalRequest": "Masonry-adjacent structural, sidewalk shed, scaffold, and construction fence permit activity in NYC.",
+    "stats": [
+      "40 selected sidewalk shed rows in the current paid issue.",
+      "13 selected supported scaffold rows in the current paid issue.",
+      "9 selected construction fence rows in the current paid issue.",
+      "12 selected structural rows in the current paid issue."
+    ]
   },
   {
     "slug": "nyc-construction-risk-permit-research",
