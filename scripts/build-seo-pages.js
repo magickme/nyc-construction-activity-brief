@@ -775,6 +775,7 @@ function checkoutHtml(rows) {
         </ul>
         <a id="stripe-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue to Stripe</a>
         <p>
+          <a class="button secondary" href="/invoice-request.html?source=checkout-bridge">Need invoice help?</a>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
           <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -889,6 +890,7 @@ ${socialImageMeta()}
         <p>
           <a data-buy-link="top" class="button" href="${topCheckout}">Buy $9.50 ZIP on Stripe</a>
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
+          <a class="button secondary" href="/invoice-request.html?source=buy-page-top">Need invoice help?</a>
         </p>
         <section class="section" data-checkout-cancelled hidden>
           <h2>Checkout was not completed</h2>

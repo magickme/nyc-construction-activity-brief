@@ -444,6 +444,7 @@ assert.match(checkout, /This is a one-time ZIP purchase\. It does not create a s
 assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count before Stripe');
 assert.match(checkout, /After Stripe confirms payment/, 'checkout page explains paid download before Stripe');
 assert.match(checkout, /Public-record screening file only/, 'checkout page states source boundary before Stripe');
+assert.match(checkout, /href="\/invoice-request\.html\?source=checkout-bridge">Need invoice help\?<\/a>/, 'checkout bridge routes procurement-blocked buyers to invoice help before Stripe');
 assert.match(checkout, /href="\/preview\.html"/, 'checkout page links preview for buyer reassurance');
 assert.match(checkout, /href="\/inside-the-zip\.html"/, 'checkout page links ZIP contents for buyer reassurance');
 assert.match(checkout, /href="\/support\.html"/, 'checkout page links support and refund boundary');
@@ -465,6 +466,7 @@ assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\
 assert.match(buy, /function linkSource\(link\)/, 'buy page reads the clicked CTA source before creating checkout');
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-activity-preview\.csv">Open free CSV preview<\/a>/, 'buy page gives uncertain buyers an above-fold CSV preview CTA');
+assert.match(buy, /href="\/invoice-request\.html\?source=buy-page-top">Need invoice help\?<\/a>/, 'buy page gives procurement-blocked buyers an above-fold invoice CTA');
 assert.match(buy, /No account setup, subscription, or recurring charge\./, 'buy page reassures buyers before checkout bridge');
 assert.match(buy, /<img class="issue-snapshot buy-page-snapshot" src="\/assets\/current-issue-snapshot\.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">/, 'buy page shows current issue snapshot before checkout CTA');
 assert.match(buy, /<p class="fine">\$9\.50 one-time launch price\. Instant browser download after completed Stripe checkout\. No promo code is required\.<\/p>\s*<p class="fine">No account setup, subscription, or recurring charge\.<\/p>\s*<img class="issue-snapshot buy-page-snapshot"[^>]+>\s*<p>\s*<a data-buy-link="top" class="button"/, 'buy page puts snapshot and purchase CTA above sample rows');
