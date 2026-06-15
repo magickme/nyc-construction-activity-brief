@@ -662,6 +662,11 @@ function buildFeedXml(rows, manifest) {
       description: `Current sprinkler permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Sprinklers') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
     },
     {
+      title: 'NYC mechanical systems permit leads',
+      url: `${baseUrl}/nyc-mechanical-systems-permit-leads.html`,
+      description: `Current mechanical systems permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Mechanical Systems') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
+    },
+    {
       title: 'NYC mechanical systems permits',
       url: `${baseUrl}/nyc-mechanical-systems-permits.html`,
       description: `Current mechanical systems permit screening page for buyers reviewing selected public DOB rows before checkout.`,
@@ -682,9 +687,19 @@ function buildFeedXml(rows, manifest) {
       description: `Current structural permit screening page for buyers reviewing selected public DOB rows before checkout.`,
     },
     {
+      title: 'NYC structural permit leads',
+      url: `${baseUrl}/nyc-structural-permit-leads.html`,
+      description: `Current structural permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Structural') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
+    },
+    {
       title: 'NYC construction fence permits',
       url: `${baseUrl}/nyc-construction-fence-permits.html`,
       description: `Current construction fence permit screening page for buyers reviewing selected public DOB rows before checkout.`,
+    },
+    {
+      title: 'NYC construction fence permit leads',
+      url: `${baseUrl}/nyc-construction-fence-permit-leads.html`,
+      description: `Current construction fence permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Construction Fence') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
     },
     {
       title: 'Buyer guide for the current ZIP',
@@ -900,6 +915,27 @@ function buildJsonFeed(rows, manifest) {
       content_text: `Current sprinkler permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Sprinklers') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
       date_published: generatedAt,
     },
+    {
+      id: `${baseUrl}/nyc-mechanical-systems-permit-leads.html`,
+      url: `${baseUrl}/nyc-mechanical-systems-permit-leads.html`,
+      title: 'NYC mechanical systems permit leads',
+      content_text: `Current mechanical systems permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Mechanical Systems') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
+      date_published: generatedAt,
+    },
+    {
+      id: `${baseUrl}/nyc-structural-permit-leads.html`,
+      url: `${baseUrl}/nyc-structural-permit-leads.html`,
+      title: 'NYC structural permit leads',
+      content_text: `Current structural permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Structural') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
+      date_published: generatedAt,
+    },
+    {
+      id: `${baseUrl}/nyc-construction-fence-permit-leads.html`,
+      url: `${baseUrl}/nyc-construction-fence-permit-leads.html`,
+      title: 'NYC construction fence permit leads',
+      content_text: `Current construction fence permit lead-research page for buyers screening ${(stats.workTypes.find((item) => item.name === 'Construction Fence') || {}).count || 0} selected public DOB rows without private contacts or guaranteed sales.`,
+      date_published: generatedAt,
+    },
     ...manifest.slugs.slice(0, 12).map((slug) => ({
       id: `${baseUrl}/topics/${slug}.html`,
       url: `${baseUrl}/topics/${slug}.html`,
@@ -999,10 +1035,13 @@ Primary pages:
 - NYC plumbing permits: ${baseUrl}/nyc-plumbing-permits.html
 - NYC sprinkler permit leads: ${baseUrl}/nyc-sprinkler-permit-leads.html
 - NYC sprinkler permits: ${baseUrl}/nyc-sprinkler-permits.html
+- NYC mechanical systems permit leads: ${baseUrl}/nyc-mechanical-systems-permit-leads.html
 - NYC mechanical systems permits: ${baseUrl}/nyc-mechanical-systems-permits.html
 - NYC supported scaffold permits: ${baseUrl}/nyc-supported-scaffold-permits.html
 - NYC supported scaffold permit leads: ${baseUrl}/nyc-supported-scaffold-permit-leads.html
+- NYC structural permit leads: ${baseUrl}/nyc-structural-permit-leads.html
 - NYC structural permits: ${baseUrl}/nyc-structural-permits.html
+- NYC construction fence permit leads: ${baseUrl}/nyc-construction-fence-permit-leads.html
 - NYC construction fence permits: ${baseUrl}/nyc-construction-fence-permits.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
@@ -1074,7 +1113,7 @@ Product-Feed: ${productFeedUrl}
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

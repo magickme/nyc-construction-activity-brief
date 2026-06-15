@@ -495,6 +495,9 @@ assert.match(buy, /40 sidewalk shed rows, 29 plumbing rows, 21 sprinkler rows, 1
 assert.match(buy, /href="\/nyc-sidewalk-shed-permit-leads\.html">Check sidewalk shed leads<\/a>/, 'buy page links sidewalk shed leads page before checkout');
 assert.match(buy, /href="\/nyc-plumbing-permit-leads\.html">Check plumbing leads<\/a>/, 'buy page links plumbing leads page before checkout');
 assert.match(buy, /href="\/nyc-sprinkler-permit-leads\.html">Check sprinkler leads<\/a>/, 'buy page links sprinkler leads page before checkout');
+assert.match(buy, /href="\/nyc-mechanical-systems-permit-leads\.html">Check mechanical leads<\/a>/, 'buy page links mechanical leads page before checkout');
+assert.match(buy, /href="\/nyc-structural-permit-leads\.html">Check structural leads<\/a>/, 'buy page links structural leads page before checkout');
+assert.match(buy, /href="\/nyc-construction-fence-permit-leads\.html">Check fence leads<\/a>/, 'buy page links construction fence leads page before checkout');
 assert.match(buy, /href="\/topics\/nyc-exterior-work-permit-research\.html">Check exterior-access fit<\/a>/, 'buy page links exterior fit page before checkout');
 assert.match(buy, /data-first-use-plan/, 'buy page gives buyers an immediate use plan before checkout');
 assert.match(buy, /Filter the priority-slices CSV to sidewalk shed, plumbing, sprinkler, supported scaffold, construction fence, or structural rows\./, 'buy page explains the first action after download');
@@ -1815,6 +1818,61 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(sprinklerPermitLeads, pattern, `nyc-sprinkler-permit-leads.html contains private data pattern ${pattern}`);
 }
 
+const tradePermitLeadPages = [
+  {
+    file: 'nyc-mechanical-systems-permit-leads.html',
+    label: 'mechanical systems',
+    title: 'NYC Mechanical Systems Permit Leads | Public DOB Signals',
+    rowText: 'Mechanical Systems rows: 18',
+    permitsHref: '/nyc-mechanical-systems-permits.html',
+    topicHref: '/topics/nyc-mechanical-systems-permit-csv-sample.html',
+    source: 'mechanical-systems-permit-leads',
+  },
+  {
+    file: 'nyc-structural-permit-leads.html',
+    label: 'structural',
+    title: 'NYC Structural Permit Leads | Public DOB Signals',
+    rowText: 'Structural rows: 12',
+    permitsHref: '/nyc-structural-permits.html',
+    topicHref: '/topics/nyc-structural-permit-activity.html',
+    source: 'structural-permit-leads',
+  },
+  {
+    file: 'nyc-construction-fence-permit-leads.html',
+    label: 'construction fence',
+    title: 'NYC Construction Fence Permit Leads | Public DOB Signals',
+    rowText: 'Construction Fence rows: 9',
+    permitsHref: '/nyc-construction-fence-permits.html',
+    topicHref: '/topics/nyc-construction-fence-permits.html',
+    source: 'construction-fence-permit-leads',
+  },
+];
+
+for (const page of tradePermitLeadPages) {
+  const html = read(page.file);
+  assert.match(html, new RegExp(`<title>${page.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<\\/title>`), `${page.file} needs title`);
+  assert.match(html, new RegExp(`<link rel="canonical" href="https:\\/\\/nyc-construction-activity-brief\\.vercel\\.app\\/${page.file}">`), `${page.file} needs canonical`);
+  assert.match(html, /"@type":"Product"/, `${page.file} needs Product structured data`);
+  assert.match(html, /"@type":"Dataset"/, `${page.file} needs Dataset structured data`);
+  assert.match(html, /"@type":"FAQPage"/, `${page.file} needs FAQ structured data`);
+  assert.match(html, new RegExp(`NYC ${page.label} permit leads from public DOB signals`), `${page.file} needs headline`);
+  assert.match(html, new RegExp(page.rowText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${page.file} needs current row count`);
+  assert.match(html, new RegExp(`Top ZIPs for ${page.label} rows:`), `${page.file} needs ZIP mix`);
+  assert.match(html, /Use it for manual lead research/, `${page.file} needs use-case section`);
+  assert.match(html, /This is a public-record screening file, not a finished lead list\./, `${page.file} keeps claims boundary visible`);
+  assert.match(html, new RegExp(`href="${page.permitsHref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${page.file} links permit page`);
+  assert.match(html, new RegExp(`href="${page.topicHref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${page.file} links topic page`);
+  assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${page.file} links CSV sample`);
+  assert.match(html, new RegExp(`href="https:\\/\\/nyc-construction-activity-brief\\.vercel\\.app\\/buy\\.html\\?source=${page.source}"`), `${page.file} links tracked buy page`);
+  assertSampleRequestForm(html, page.file);
+  for (const pattern of bannedCopyPatterns) {
+    assert.doesNotMatch(html, pattern, `${page.file} contains banned copy pattern ${pattern}`);
+  }
+  for (const pattern of privateDataPatterns) {
+    assert.doesNotMatch(html, pattern, `${page.file} contains private data pattern ${pattern}`);
+  }
+}
+
 const plumbingPermits = read('nyc-plumbing-permits.html');
 assert.match(plumbingPermits, /<title>NYC Plumbing Permits \| Current DOB Activity<\/title>/, 'plumbing permits page needs title');
 assert.match(plumbingPermits, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permits\.html">/, 'plumbing permits page needs canonical');
@@ -2826,7 +2884,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-structural-permit-leads.html', 'nyc-construction-fence-permit-leads.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -2904,10 +2962,13 @@ assert.equal(currentIssue.publicPreview.plumbingPermitLeadsUrl, 'https://nyc-con
 assert.equal(currentIssue.publicPreview.plumbingPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html', 'current issue JSON public preview links plumbing permits page');
 assert.equal(currentIssue.publicPreview.sprinklerPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permit-leads.html', 'current issue JSON public preview links sprinkler permit leads page');
 assert.equal(currentIssue.publicPreview.sprinklerPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html', 'current issue JSON public preview links sprinkler permits page');
+assert.equal(currentIssue.publicPreview.mechanicalSystemsPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permit-leads.html', 'current issue JSON public preview links mechanical systems permit leads page');
 assert.equal(currentIssue.publicPreview.mechanicalSystemsPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html', 'current issue JSON public preview links mechanical systems permits page');
 assert.equal(currentIssue.publicPreview.supportedScaffoldPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html', 'current issue JSON public preview links supported scaffold permits page');
 assert.equal(currentIssue.publicPreview.supportedScaffoldPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permit-leads.html', 'current issue JSON public preview links supported scaffold permit leads page');
+assert.equal(currentIssue.publicPreview.structuralPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html', 'current issue JSON public preview links structural permit leads page');
 assert.equal(currentIssue.publicPreview.structuralPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html', 'current issue JSON public preview links structural permits page');
+assert.equal(currentIssue.publicPreview.constructionFencePermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html', 'current issue JSON public preview links construction fence permit leads page');
 assert.equal(currentIssue.publicPreview.constructionFencePermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html', 'current issue JSON public preview links construction fence permits page');
 assert.equal(currentIssue.publicPreview.purchaseUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON public preview exposes buy page as purchase URL');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
@@ -2974,10 +3035,13 @@ assert.equal(currentIssue.paidZip.brooklynPermitActivityUrl, 'https://nyc-constr
 assert.equal(currentIssue.paidZip.sidewalkShedPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html', 'current issue JSON paid ZIP links sidewalk shed permits page');
 assert.equal(currentIssue.paidZip.plumbingPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html', 'current issue JSON paid ZIP links plumbing permits page');
 assert.equal(currentIssue.paidZip.sprinklerPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html', 'current issue JSON paid ZIP links sprinkler permits page');
+assert.equal(currentIssue.paidZip.mechanicalSystemsPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permit-leads.html', 'current issue JSON paid ZIP links mechanical systems permit leads page');
 assert.equal(currentIssue.paidZip.mechanicalSystemsPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html', 'current issue JSON paid ZIP links mechanical systems permits page');
 assert.equal(currentIssue.paidZip.supportedScaffoldPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html', 'current issue JSON paid ZIP links supported scaffold permits page');
 assert.equal(currentIssue.paidZip.supportedScaffoldPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permit-leads.html', 'current issue JSON paid ZIP links supported scaffold permit leads page');
+assert.equal(currentIssue.paidZip.structuralPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html', 'current issue JSON paid ZIP links structural permit leads page');
 assert.equal(currentIssue.paidZip.structuralPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html', 'current issue JSON paid ZIP links structural permits page');
+assert.equal(currentIssue.paidZip.constructionFencePermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html', 'current issue JSON paid ZIP links construction fence permit leads page');
 assert.equal(currentIssue.paidZip.constructionFencePermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html', 'current issue JSON paid ZIP links construction fence permits page');
 assert.equal(currentIssue.paidZip.plumbingPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permit-leads.html', 'current issue JSON paid ZIP links plumbing permit leads page');
 assert.equal(currentIssue.paidZip.sprinklerPermitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permit-leads.html', 'current issue JSON paid ZIP links sprinkler permit leads page');
@@ -3073,7 +3137,7 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nyc-construction-activity-brief.vercel.app/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 30, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 33, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html'), 'JSON Feed links DOB approved permits page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html'), 'JSON Feed links DOB NOW approved permits page');
@@ -3085,6 +3149,9 @@ assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-a
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html'), 'JSON Feed links DOB permit search page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html'), 'JSON Feed links construction permit search page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html'), 'JSON Feed links DOB permit lookup page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permit-leads.html'), 'JSON Feed links mechanical systems permit leads page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html'), 'JSON Feed links structural permit leads page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html'), 'JSON Feed links construction fence permit leads page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html'), 'JSON Feed links building permits page');
 assert.ok(jsonFeed.items.some((item) => /142 source-linked rows|142 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
 assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
@@ -3145,10 +3212,13 @@ assert.match(llms, /NYC plumbing permit leads: https:\/\/nyc-construction-activi
 assert.match(llms, /NYC plumbing permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permits\.html/, 'llms.txt links plumbing permits page');
 assert.match(llms, /NYC sprinkler permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sprinkler-permit-leads\.html/, 'llms.txt links sprinkler permit leads page');
 assert.match(llms, /NYC sprinkler permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sprinkler-permits\.html/, 'llms.txt links sprinkler permits page');
+assert.match(llms, /NYC mechanical systems permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-mechanical-systems-permit-leads\.html/, 'llms.txt links mechanical systems permit leads page');
 assert.match(llms, /NYC mechanical systems permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-mechanical-systems-permits\.html/, 'llms.txt links mechanical systems permits page');
 assert.match(llms, /NYC supported scaffold permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-supported-scaffold-permits\.html/, 'llms.txt links supported scaffold permits page');
 assert.match(llms, /NYC supported scaffold permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-supported-scaffold-permit-leads\.html/, 'llms.txt links supported scaffold permit leads page');
+assert.match(llms, /NYC structural permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-structural-permit-leads\.html/, 'llms.txt links structural permit leads page');
 assert.match(llms, /NYC structural permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-structural-permits\.html/, 'llms.txt links structural permits page');
+assert.match(llms, /NYC construction fence permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-fence-permit-leads\.html/, 'llms.txt links construction fence permit leads page');
 assert.match(llms, /NYC construction fence permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-fence-permits\.html/, 'llms.txt links construction fence permits page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
@@ -3184,6 +3254,9 @@ assert.match(JSON.stringify(dataPackage), /nyc-sidewalk-shed-permit-leads\.html/
 assert.match(JSON.stringify(dataPackage), /nyc-supported-scaffold-permit-leads\.html/, 'data package JSON links supported scaffold permit leads page');
 assert.match(JSON.stringify(dataPackage), /nyc-plumbing-permit-leads\.html/, 'data package JSON links plumbing permit leads page');
 assert.match(JSON.stringify(dataPackage), /nyc-sprinkler-permit-leads\.html/, 'data package JSON links sprinkler permit leads page');
+assert.match(JSON.stringify(dataPackage), /nyc-mechanical-systems-permit-leads\.html/, 'data package JSON links mechanical systems permit leads page');
+assert.match(JSON.stringify(dataPackage), /nyc-structural-permit-leads\.html/, 'data package JSON links structural permit leads page');
+assert.match(JSON.stringify(dataPackage), /nyc-construction-fence-permit-leads\.html/, 'data package JSON links construction fence permit leads page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/faq.html'), 'data package JSON links FAQ page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-building-permit-data.html'), 'data package JSON links building permit data page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html'), 'data package JSON links building permits page');
