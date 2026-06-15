@@ -797,6 +797,18 @@ function checkoutHtml(rows) {
           <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
           <li>No private contact data, owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
         </ul>
+        <section class="section" data-checkout-source-fit="buy-page-source-sidewalk-shed" hidden>
+          <h2>Sidewalk shed checkout check</h2>
+          <p>This checkout path is for the 40 selected sidewalk shed rows in the current ZIP. The same download also includes the full 142-row issue and buyer workbook.</p>
+        </section>
+        <section class="section" data-checkout-source-fit="buy-page-source-plumbing" hidden>
+          <h2>Plumbing checkout check</h2>
+          <p>This checkout path is for the 29 selected plumbing rows in the current ZIP. The same download also includes the full 142-row issue and buyer workbook.</p>
+        </section>
+        <section class="section" data-checkout-source-fit="buy-page-source-exterior-access" hidden>
+          <h2>Exterior-access checkout check</h2>
+          <p>This checkout path is for the 74 selected exterior-access rows across sidewalk shed, supported scaffold, construction fence, and structural activity. The same download also includes the full 142-row issue.</p>
+        </section>
         <a id="stripe-link" class="button" href="#stripe-checkout">Continue to Stripe</a>
         <p>
           <a id="invoice-help-link" class="button secondary" href="/invoice-request.html?source=checkout-bridge">Need invoice help?</a>
@@ -829,6 +841,11 @@ function checkoutHtml(rows) {
       const invoiceHelpLink = document.getElementById('invoice-help-link');
       const sampleHelpLink = document.getElementById('sample-help-link');
       link.dataset.fallbackUrl = fallbackUrl;
+      const checkoutSourceFitPanel = document.querySelector('[data-checkout-source-fit="' + source + '"]');
+      if (checkoutSourceFitPanel) {
+        checkoutSourceFitPanel.hidden = false;
+        trackEvent('checkout_source_fit_viewed', { source });
+      }
       if (invoiceHelpLink) {
         const invoiceSource = [source, 'invoice'].join('-').slice(0, 80);
         invoiceHelpLink.href = '/invoice-request.html?source=' + encodeURIComponent(invoiceSource);

@@ -489,6 +489,14 @@ assert.doesNotMatch(checkout, /window\.setTimeout\(async \(\) => \{[\s\S]*?windo
 assert.match(checkout, /Instant browser download after completed Stripe checkout\./, 'checkout page has buyer reassurance copy');
 assert.match(checkout, /This is a one-time ZIP purchase\. It does not create a subscription, account, or recurring charge\./, 'checkout page reassures buyers there is no subscription or account');
 assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count before Stripe');
+assert.match(checkout, /data-checkout-source-fit="buy-page-source-sidewalk-shed" hidden/, 'checkout page has sidewalk shed source-fit panel');
+assert.match(checkout, /This checkout path is for the 40 selected sidewalk shed rows/, 'checkout page source-fit panel states sidewalk shed count');
+assert.match(checkout, /data-checkout-source-fit="buy-page-source-plumbing" hidden/, 'checkout page has plumbing source-fit panel');
+assert.match(checkout, /This checkout path is for the 29 selected plumbing rows/, 'checkout page source-fit panel states plumbing count');
+assert.match(checkout, /data-checkout-source-fit="buy-page-source-exterior-access" hidden/, 'checkout page has exterior-access source-fit panel');
+assert.match(checkout, /This checkout path is for the 74 selected exterior-access rows/, 'checkout page source-fit panel states exterior-access count');
+assert.match(checkout, /const checkoutSourceFitPanel = document\.querySelector\('\[data-checkout-source-fit="' \+ source \+ '"\]'\);/, 'checkout page finds source-fit panel from checkout source');
+assert.match(checkout, /checkout_source_fit_viewed/, 'checkout page tracks source-fit panel views');
 assert.match(checkout, /After Stripe confirms payment/, 'checkout page explains paid download before Stripe');
 assert.match(checkout, /Public-record screening file only/, 'checkout page states source boundary before Stripe');
 assert.match(checkout, /href="\/invoice-request\.html\?source=checkout-bridge">Need invoice help\?<\/a>/, 'checkout bridge routes procurement-blocked buyers to invoice help before Stripe');
