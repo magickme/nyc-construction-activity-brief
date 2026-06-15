@@ -118,6 +118,7 @@ function buildCurrentIssueJson(rows, manifest) {
       pricingUrl: `${baseUrl}/pricing.html`,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
+      faqUrl: `${baseUrl}/faq.html`,
       freeVsPaidUrl: `${baseUrl}/free-vs-paid.html`,
       researchWorkflowUrl: `${baseUrl}/permit-research-workflow.html`,
       contractorGuideUrl: `${baseUrl}/contractor-permit-research.html`,
@@ -176,6 +177,7 @@ function buildCurrentIssueJson(rows, manifest) {
       productFeedUrl,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
+      faqUrl: `${baseUrl}/faq.html`,
       freeVsPaidUrl: `${baseUrl}/free-vs-paid.html`,
       researchWorkflowUrl: `${baseUrl}/permit-research-workflow.html`,
       contractorGuideUrl: `${baseUrl}/contractor-permit-research.html`,
@@ -309,6 +311,7 @@ function buildDataPackageJson(rows, manifest) {
     },
     buyer_pages: [
       `${baseUrl}/who-should-buy.html`,
+      `${baseUrl}/faq.html`,
       `${baseUrl}/free-vs-paid.html`,
       `${baseUrl}/permit-research-workflow.html`,
       `${baseUrl}/inside-the-zip.html`,
@@ -381,6 +384,11 @@ function buildFeedXml(rows, manifest) {
       title: 'Who should buy the current issue',
       url: `${baseUrl}/who-should-buy.html`,
       description: `Buyer fit checklist for deciding whether the current ${stats.rowCount}-row ZIP is useful before opening Stripe checkout.`,
+    },
+    {
+      title: 'Buyer FAQ for the current issue',
+      url: `${baseUrl}/faq.html`,
+      description: `Plain answers on price, files, instant download delivery, source limits, privacy boundary, and support for the current ${stats.rowCount}-row ZIP.`,
     },
     {
       title: 'Free preview and paid ZIP comparison',
@@ -652,6 +660,7 @@ Primary pages:
 - Pricing: ${baseUrl}/pricing.html
 - Time saved calculator: ${baseUrl}/time-saved-calculator.html
 - Who should buy: ${baseUrl}/who-should-buy.html
+- Buyer FAQ: ${baseUrl}/faq.html
 - Free preview vs paid ZIP: ${baseUrl}/free-vs-paid.html
 - Research workflow: ${baseUrl}/permit-research-workflow.html
 - Contractor guide: ${baseUrl}/contractor-permit-research.html
@@ -745,7 +754,7 @@ Product-Feed: ${productFeedUrl}
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

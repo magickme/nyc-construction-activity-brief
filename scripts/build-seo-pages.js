@@ -302,6 +302,7 @@ const coreConversionPages = [
   ['current-issue.html', 'current-issue-sticky'],
   ['pricing.html', 'pricing-sticky'],
   ['inside-the-zip.html', 'inside-the-zip-sticky'],
+  ['faq.html', 'faq-sticky'],
   ['free-vs-paid.html', 'free-vs-paid-sticky'],
   ['buyer-guide.html', 'buyer-guide-sticky'],
   ['csv-field-guide.html', 'csv-field-guide-sticky'],
@@ -6593,6 +6594,182 @@ ${sampleRequestSection({
 `;
 }
 
+function faqHtml(rows) {
+  const description = 'Plain answers about the current NYC construction activity ZIP, including price, files, delivery, source limits, privacy boundary, and support.';
+  const range = sampleRange(rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const workTypeMix = describeCounts(rows, (row) => row.work_type, 7);
+  const zipMix = describeCounts(rows, (row) => row.zip_code, 6);
+  const product = productJsonLd(description, checkoutHref('faq'));
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What do I get after buying the current issue?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `You get a ZIP with the full ${rows.length}-row current issue CSV, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, version file, and claims boundary.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How is the ZIP delivered?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Stripe redirects completed buyers to the success page. The download endpoint verifies the paid Checkout Session before serving the ZIP in the browser.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I inspect the data before paying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The public preview includes 25 rows, CSV, JSON, JSONL, a Markdown sample brief, data package metadata, and segment pages.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the brief include private contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is this a lead list?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It is a public-record screening file. It does not guarantee leads, buying intent, project value, or sales outcomes.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should I verify before using a row?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Open the source URL and check the current public DOB record before outreach, quoting, routing, reporting, or planning.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAQ | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/faq.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FAQ | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/faq.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Questions buyers ask before checkout.</h1>
+      <p class="lede">Use this page to check price, files, source limits, delivery, privacy boundary, and support before buying the current issue ZIP.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$9.50</p>
+          <p>One-time launch price for the current issue ZIP. No subscription or promo code is required.</p>
+        </div>
+        <div class="card">
+          <h2>Current issue</h2>
+          <p>${escapeHtml(rows.length)} paid rows from selected NYC DOB NOW approved permit activity. The free preview has 25 rows.</p>
+        </div>
+        <div class="card">
+          <h2>Delivery</h2>
+          <p>Instant browser download after Stripe confirms a paid Checkout Session for this product.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Top work types: ${escapeHtml(workTypeMix)}.</li>
+          <li>Top ZIPs: ${escapeHtml(zipMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Payment and delivery</h2>
+        <h3>What happens after I pay?</h3>
+        <p>Stripe redirects the completed Checkout Session to the success page. The site verifies that paid session before serving the ZIP.</p>
+        <h3>Is delivery handled by email?</h3>
+        <p>No. Delivery is an instant browser download. The product does not rely on a fulfillment email.</p>
+        <h3>What if the download does not start?</h3>
+        <p>The success page keeps a manual download button. The support page explains common missing-session, unpaid-session, expired-session, and browser-download cases.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Files and preview</h2>
+        <h3>What files are included?</h3>
+        <p>The paid ZIP includes the full CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, version file, and privacy/claims boundary.</p>
+        <h3>Can I inspect the row shape before checkout?</h3>
+        <p>Yes. Use the browser preview, CSV preview, JSON preview, JSONL preview, Markdown sample brief, field guide, and data package JSON before paying.</p>
+        <h3>What is the difference between free and paid?</h3>
+        <p>The free preview has 25 public rows. The paid ZIP has the full current issue and buyer files for a faster review pass.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Source and privacy boundary</h2>
+        <h3>Where does the data come from?</h3>
+        <p>The current issue uses selected rows from NYC DOB NOW: Build - Approved Permits, published through NYC Open Data.</p>
+        <h3>Does it include contacts?</h3>
+        <p>No. It excludes owner names, applicant names, phone numbers, email addresses, full street addresses, and enriched contact data.</p>
+        <h3>Is it a lead list?</h3>
+        <p>No. It is a public-record screening file. It does not guarantee leads, buying intent, project value, or sales outcomes.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Before buying</h2>
+        <ol>
+          <li>Open the free preview and confirm the columns fit your work.</li>
+          <li>Check the segment hub for your ZIP, borough, work type, date, or cost bucket.</li>
+          <li>Read the file list and delivery page if you need a clear package boundary.</li>
+          <li>Buy the ZIP only if the current issue saves enough manual sorting time.</li>
+          <li>Verify source URLs before outreach, quoting, routing, reporting, or planning.</li>
+        </ol>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download CSV preview</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('faq')}">Buy instant ZIP</a>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function previewHtml(fullRows) {
   const publicRows = parseCsv(fs.readFileSync(publicPreviewCsvPath, 'utf8'));
   const rows = previewRows(publicRows);
@@ -6726,7 +6903,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -6764,6 +6941,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/current-issue.html">Current issue highlights</a></p>
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
         <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
+        <p><a class="button secondary" href="/faq.html">Buyer FAQ</a></p>
         <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
         <p><a class="button secondary" href="/permit-research-workflow.html">Research workflow</a></p>
         <p><a class="button secondary" href="/contractor-permit-research.html">Contractor permit research</a></p>
@@ -7166,6 +7344,7 @@ fs.writeFileSync(path.join(root, 'who-should-buy.html'), whoShouldBuyHtml(rows))
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));
 fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
+fs.writeFileSync(path.join(root, 'faq.html'), faqHtml(rows));
 fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
 fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
