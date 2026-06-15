@@ -529,12 +529,23 @@ assert.match(buy, /href="\/free-vs-paid\.html"/, 'buy page links free vs paid pa
 assert.match(buy, /href="\/support\.html"/, 'buy page links support');
 assert.match(buy, /data-procurement-intent/, 'buy page captures procurement-blocked buyer intent');
 assert.match(buy, /Card blocked by procurement\?/, 'buy page names procurement checkout blocker');
-assert.match(buy, /write <code>invoice<\/code> or <code>procurement<\/code> in the monitoring goal/, 'buy page routes invoice requests through product request form');
+assert.match(buy, /href="\/invoice-request\.html"/, 'buy page routes invoice requests to dedicated request page');
 assert.match(buy, /paid ZIP delivery still requires a completed Stripe Checkout Session/, 'buy page keeps fulfillment gate clear on procurement copy');
-assert.match(buy, /Request invoice help/, 'buy page has invoice-help anchor to request form');
+assert.match(buy, /Request invoice help/, 'buy page has invoice-help link');
 assertSampleRequestForm(buy, 'buy page');
 assert.match(buy, /value="Selected DOB work types"/, 'buy page sample request seeds work type field');
 assert.match(buy, /value="NYC"/, 'buy page sample request seeds territory field');
+
+const invoiceRequest = read('invoice-request.html');
+assert.match(invoiceRequest, /<title>Invoice Request \| NYC Construction Activity Brief<\/title>/, 'invoice request page needs title');
+assert.match(invoiceRequest, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/invoice-request\.html">/, 'invoice request page needs canonical');
+assert.match(invoiceRequest, /Request invoice help for the current issue\./, 'invoice request page names invoice help');
+assert.match(invoiceRequest, /purchase order, or procurement approval/, 'invoice request page names procurement blocker');
+assert.match(invoiceRequest, /Paid ZIP delivery still requires a completed Stripe Checkout Session/, 'invoice request page keeps fulfillment gate clear');
+assertSampleRequestForm(invoiceRequest, 'invoice request page');
+assert.match(invoiceRequest, /<option value="data-buyer" selected>Data buyer<\/option>/, 'invoice request page preselects data buyer type');
+assert.match(invoiceRequest, /Invoice or procurement approval needed before buying the current issue ZIP\./, 'invoice request page seeds invoice procurement monitoring goal');
+assert.match(invoiceRequest, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'invoice request page links free CSV preview');
 
 const notFound = read('404.html');
 assert.match(notFound, /<title>Page Not Found \| NYC Construction Activity Brief<\/title>/, '404 page needs title');
@@ -2679,7 +2690,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -2688,7 +2699,7 @@ for (const page of ['feed.xml', 'feed.json', 'current-issue.json', 'data-package
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 67, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 68, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 

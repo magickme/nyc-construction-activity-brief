@@ -941,9 +941,9 @@ ${socialImageMeta()}
         <p class="fine">No guaranteed leads, owner contact data, or agency-endorsed information.</p>
         <section class="section" data-procurement-intent>
           <h2>Card blocked by procurement?</h2>
-          <p>If Stripe checkout is blocked by an internal approval or invoice process, use the request form below and write <code>invoice</code> or <code>procurement</code> in the monitoring goal. This captures product interest only; paid ZIP delivery still requires a completed Stripe Checkout Session.</p>
+          <p>If Stripe checkout is blocked by an internal approval or invoice process, use the invoice request page. This captures product interest only; paid ZIP delivery still requires a completed Stripe Checkout Session.</p>
           <p>
-            <a class="button secondary" href="#sample-request">Request invoice help</a>
+            <a class="button secondary" href="/invoice-request.html">Request invoice help</a>
             <a class="button secondary" href="/support.html">Check support boundary</a>
           </p>
         </section>
@@ -1158,6 +1158,12 @@ ${page.faqs.map((faq) => `        <h3>${escapeHtml(faq.question)}</h3>
 function sampleRequestSection(context = {}) {
   const workType = escapeHtml(context.workType || '');
   const territory = escapeHtml(context.territory || '');
+  const buyerType = context.buyerType || '';
+  const monitoringGoal = escapeHtml(context.monitoringGoal || '');
+  const buyerOption = (value, label) => {
+    const selected = buyerType === value ? ' selected' : '';
+    return `<option value="${value}"${selected}>${label}</option>`;
+  };
   return `      <section id="sample-request" class="section card sample-request">
         <h2>Request a future sample cut</h2>
         <p>If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
@@ -1178,23 +1184,23 @@ function sampleRequestSection(context = {}) {
             Buyer type
             <select name="buyer_type" required>
               <option value="">Choose one</option>
-              <option value="construction-support-vendor">Construction-support vendor</option>
-              <option value="specialty-subcontractor">Specialty subcontractor</option>
-              <option value="supplier">Supplier</option>
-              <option value="local-b2b-service-provider">Local B2B service provider</option>
-              <option value="real-estate-investor">Real estate investor or acquisition researcher</option>
-              <option value="broker-developer">Broker or developer</option>
-              <option value="permit-expediter">Permit expediter or filing consultant</option>
-              <option value="risk-researcher">Risk, lending, or compliance researcher</option>
-              <option value="consultant-analyst">Consultant or analyst</option>
-              <option value="property-manager">Property manager or facilities team</option>
-              <option value="data-buyer">Data buyer</option>
-              <option value="other">Other</option>
+              ${buyerOption('construction-support-vendor', 'Construction-support vendor')}
+              ${buyerOption('specialty-subcontractor', 'Specialty subcontractor')}
+              ${buyerOption('supplier', 'Supplier')}
+              ${buyerOption('local-b2b-service-provider', 'Local B2B service provider')}
+              ${buyerOption('real-estate-investor', 'Real estate investor or acquisition researcher')}
+              ${buyerOption('broker-developer', 'Broker or developer')}
+              ${buyerOption('permit-expediter', 'Permit expediter or filing consultant')}
+              ${buyerOption('risk-researcher', 'Risk, lending, or compliance researcher')}
+              ${buyerOption('consultant-analyst', 'Consultant or analyst')}
+              ${buyerOption('property-manager', 'Property manager or facilities team')}
+              ${buyerOption('data-buyer', 'Data buyer')}
+              ${buyerOption('other', 'Other')}
             </select>
           </label>
           <label>
             What do you want to monitor?
-            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required></textarea>
+            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required>${monitoringGoal}</textarea>
           </label>
           <label class="checkbox">
             <input name="consent" type="checkbox" required>
@@ -8055,6 +8061,112 @@ ${sampleRequestSection({
 `;
 }
 
+function invoiceRequestHtml(rows) {
+  const description = 'Request product-specific invoice or procurement help for the NYC Weekly Construction Activity Brief current issue ZIP.';
+  const range = sampleRange(rows);
+  const product = productJsonLd(description, checkoutHref('invoice-request-page'));
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Can I request invoice help before buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Use this product-specific request page if card checkout is blocked by internal invoice, purchase order, or procurement approval.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this deliver the paid ZIP?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. Paid ZIP delivery still requires a completed Stripe Checkout Session and the verified success page.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What happens to the request?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The request is tagged for this product and used to identify invoice or procurement-blocked buyer interest.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Invoice Request | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/invoice-request.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Invoice Request | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/invoice-request.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Request invoice help for the current issue.</h1>
+      <p class="lede">Use this page when the $9.50 card checkout is blocked by an internal invoice, purchase order, or procurement approval process.</p>
+      <p>
+        <a class="button" href="${checkoutHref('invoice-request-top')}">Try card checkout</a>
+        <a class="button secondary" href="#sample-request">Send invoice request</a>
+        <a class="button secondary" href="/buy.html">Review buy page</a>
+      </p>
+      <p class="fine">This captures product interest only. Paid ZIP delivery still requires a completed Stripe Checkout Session.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current ZIP</h2>
+          <p>${escapeHtml(rows.length)} source-linked rows for the ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(rows[0]?.source_fetch_date || range.latestIssuedDate)} source window.</p>
+        </div>
+        <div class="card">
+          <h2>Use this if</h2>
+          <p>Your team needs invoice, purchase order, or procurement approval before using a card.</p>
+        </div>
+        <div class="card">
+          <h2>Boundary</h2>
+          <p>No private contacts, owner names, full street addresses, agency endorsement, guaranteed leads, or procurement advice.</p>
+        </div>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+        buyerType: 'data-buyer',
+        monitoringGoal: 'Invoice or procurement approval needed before buying the current issue ZIP.',
+      })}
+
+      <section class="section card">
+        <h2>Before you request</h2>
+        <ul>
+          <li>Use Stripe checkout if a card purchase is allowed.</li>
+          <li>Use the free preview if you need to confirm the row shape first.</li>
+          <li>Do not send card numbers, bank details, passwords, or confidential client data.</li>
+        </ul>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+      </section>
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function faqHtml(rows) {
   const description = 'Plain answers about the current NYC construction activity ZIP, including price, files, delivery, source limits, privacy boundary, and support.';
   const range = sampleRange(rows);
@@ -8431,7 +8543,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -8899,6 +9011,7 @@ fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
 fs.writeFileSync(path.join(root, 'faq.html'), faqHtml(rows));
 fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
 fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows));
+fs.writeFileSync(path.join(root, 'invoice-request.html'), invoiceRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml(rows));
 fs.writeFileSync(path.join(root, 'buy.html'), buyHtml(rows));
