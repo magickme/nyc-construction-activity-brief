@@ -51,6 +51,7 @@ Primary pages:
 - NYC DOB permit data download: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html
 - NYC DOB approved permits: https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html
 - NYC DOB NOW approved permits: https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html
+- DOB NOW Build approved permits: https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html
 - NYC DOB permit search companion: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html
 - NYC construction permit search companion: https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html
 - NYC DOB permit lookup companion: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html

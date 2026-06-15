@@ -71,6 +71,13 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html",
+      "title": "DOB NOW Build approved permits",
+      "content_text": "Dataset-name buyer page for reviewing selected DOB NOW: Build approved permit rows from the current 142-row weekly CSV ZIP.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html",
       "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html",
       "title": "NYC DOB permit search companion",
