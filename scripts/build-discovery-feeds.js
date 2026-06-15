@@ -4,11 +4,10 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
-const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50';
+const stripeCheckoutUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P';
 const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
-const promoCode = 'NYC50';
-const promoPercentOff = 50;
-const promoMaxRedemptions = 10;
+const launchPriceUsd = 24.5;
+const standardPriceUsd = 49;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
@@ -116,7 +115,8 @@ function buildCurrentIssueJson(rows, manifest) {
       imageUrl: socialImageUrl,
       checkoutUrl,
       stripeCheckoutUrl,
-      priceUsd: 49,
+      priceUsd: launchPriceUsd,
+      standardPriceUsd,
     },
     paidZip: {
       checkoutUrl,
@@ -125,12 +125,13 @@ function buildCurrentIssueJson(rows, manifest) {
       pricingUrl: `${baseUrl}/pricing.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
-      priceUsd: 49,
+      priceUsd: launchPriceUsd,
+      standardPriceUsd,
       rowCount: stats.rowCount,
-      promotion: {
-        code: promoCode,
-        percentOff: promoPercentOff,
-        maxRedemptions: promoMaxRedemptions,
+      launchPricing: {
+        priceUsd: launchPriceUsd,
+        standardPriceUsd,
+        promoCodeRequired: false,
       },
       files: [
         'README.md',
@@ -177,7 +178,7 @@ function buildFeedXml(rows, manifest) {
     {
       title: `Current NYC construction activity brief: ${stats.rowCount} paid issue rows`,
       url: `${baseUrl}/`,
-      description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Use code ${promoCode} for ${promoPercentOff}% off while the first ${promoMaxRedemptions} redemptions remain. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
+      description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Launch price is $${launchPriceUsd.toFixed(2)}. Standard price is $${standardPriceUsd}. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
     },
     {
       title: 'Browse current permit activity segments',
@@ -192,7 +193,7 @@ function buildFeedXml(rows, manifest) {
     {
       title: 'Pricing and break-even guide',
       url: `${baseUrl}/pricing.html`,
-      description: `One-time $49 ZIP, NYC50 launch promo, and simple time-saved examples for deciding whether the current issue is worth buying.`,
+      description: `One-time $${launchPriceUsd.toFixed(2)} launch-price ZIP and simple time-saved examples for deciding whether the current issue is worth buying.`,
     },
     {
       title: 'Buyer guide for the current ZIP',
@@ -250,8 +251,9 @@ Current issue:
 - Checkout: ${checkoutUrl}
 - Stripe Payment Link: ${stripeCheckoutUrl}
 - Social image: ${socialImageUrl}
-- Price: $49 one-time ZIP download
-- Promo code: ${promoCode} for ${promoPercentOff}% off while the first ${promoMaxRedemptions} redemptions remain
+- Price: $${launchPriceUsd.toFixed(2)} one-time ZIP download
+- Standard price: $${standardPriceUsd}
+- Promo code required: no
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
 
 Primary pages:

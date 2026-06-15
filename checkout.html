@@ -17,15 +17,15 @@
       <section class="section card">
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
-        <p class="fine">If the redirect does not start, use the button below. The Stripe checkout has promo code NYC50 prefilled for 50% off while the first 10 redemptions remain.</p>
-        <a id="stripe-link" class="button" href="https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50">Continue to Stripe</a>
+        <p class="fine">If the redirect does not start, use the button below. The current launch price is $24.50. No promo code is required.</p>
+        <a id="stripe-link" class="button" href="https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P">Continue to Stripe</a>
       </section>
     </main>
     <script>
       const params = new URLSearchParams(window.location.search);
       const rawSource = params.get('source') || 'site';
       const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'site';
-      const stripeUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50';
+      const stripeUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P';
       const link = document.getElementById('stripe-link');
       link.href = stripeUrl;
       try {

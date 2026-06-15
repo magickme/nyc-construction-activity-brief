@@ -4,7 +4,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
-const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50';
+const stripeCheckoutUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P';
 const checkoutUrl = `${baseUrl}/checkout.html`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
@@ -346,7 +346,7 @@ function productJsonLd(description, url = checkoutUrl) {
       '@type': 'Offer',
       url,
       priceCurrency: 'USD',
-      price: '49.00',
+      price: '24.50',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
     },
@@ -370,7 +370,7 @@ function checkoutHtml() {
       <section class="section card">
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
-        <p class="fine">If the redirect does not start, use the button below. The Stripe checkout has promo code NYC50 prefilled for 50% off while the first 10 redemptions remain.</p>
+        <p class="fine">If the redirect does not start, use the button below. The current launch price is $24.50. No promo code is required.</p>
         <a id="stripe-link" class="button" href="${stripeCheckoutUrl}">Continue to Stripe</a>
       </section>
     </main>
@@ -710,8 +710,8 @@ ${socialImageMeta()}
 
       <section class="section card">
         <h2>Get the current issue</h2>
-        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue.</p>
-        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
+        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue. Current launch price is $24.50.</p>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
@@ -946,7 +946,7 @@ ${socialImageMeta()}
 
       <section class="section card">
         <h2>Current issue facts</h2>
-        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <ul>
           <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
           <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
@@ -1109,7 +1109,7 @@ function pricingHtml(rows) {
         name: 'What does the current issue cost?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The current issue is a one-time $49 ZIP purchase. Promo code NYC50 gives 50% off while the first 10 redemptions remain.',
+          text: 'The current issue launch price is a one-time $24.50 ZIP purchase. The standard price is $49.',
         },
       },
       {
@@ -1157,14 +1157,14 @@ ${socialImageMeta()}
 
       <section class="grid">
         <div class="card">
-          <h2>Standard price</h2>
-          <p class="price">$49</p>
-          <p>One current-issue ZIP. No subscription.</p>
+          <h2>Launch price</h2>
+          <p class="price">$24.50</p>
+          <p>One current-issue ZIP. No subscription. No promo code is required.</p>
         </div>
         <div class="card">
-          <h2>Launch promo</h2>
-          <p class="price">$24.50</p>
-          <p>Use code <strong>NYC50</strong> for 50% off while the first 10 redemptions remain.</p>
+          <h2>Standard price</h2>
+          <p class="price">$49</p>
+          <p>The current launch price is already applied in Stripe checkout.</p>
         </div>
         <div class="card">
           <h2>Delivery</h2>
@@ -1174,7 +1174,7 @@ ${socialImageMeta()}
 
       <section class="section card">
         <h2>Current issue snapshot</h2>
-        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
       </section>
 
       <section class="section card">
@@ -1186,7 +1186,7 @@ ${socialImageMeta()}
               <tr>
                 <th>Hourly value of research time</th>
                 <th>Break-even at $49</th>
-                <th>Break-even with NYC50</th>
+                <th>Break-even at $24.50</th>
               </tr>
             </thead>
             <tbody>
@@ -1303,7 +1303,7 @@ ${socialImageMeta()}
 
       <section class="section card">
         <h2>Current issue snapshot</h2>
-        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
       </section>
 
       <section class="section card">

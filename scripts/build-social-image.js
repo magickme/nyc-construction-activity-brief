@@ -76,7 +76,7 @@ function addText(args, { x, y, text, size, color = '#17211b', font = fontRegular
 function addBarRows(args, counts, maxCount) {
   const colors = ['#214d35', '#b7791f', '#7b5b2a', '#536056', '#8a6f3e'];
   for (const [index, [label, count]] of counts.slice(0, 5).entries()) {
-    const y = 278 + index * 62;
+    const y = 268 + index * 57;
     const width = Math.round((count / maxCount) * 570);
     addText(args, { x: 84, y, text: label, size: 22, font: fontBold });
     args.push('-fill', colors[index], '-draw', `roundrectangle 84,${y + 22} ${84 + width},${y + 44} 8,8`);
@@ -108,7 +108,7 @@ addText(args, { x: 84, y: 242, text: 'PAID ISSUE ROWS', size: 17, color: '#53605
 addText(args, { x: 282, y: 212, text: '25', size: 52, font: fontBold });
 addText(args, { x: 282, y: 242, text: 'FREE PREVIEW ROWS', size: 17, color: '#536056', font: fontBold });
 addText(args, { x: 500, y: 212, text: '$24.50', size: 52, font: fontBold });
-addText(args, { x: 500, y: 242, text: 'WITH NYC50', size: 17, color: '#536056', font: fontBold });
+addText(args, { x: 500, y: 242, text: 'LAUNCH PRICE', size: 17, color: '#536056', font: fontBold });
 addBarRows(args, workTypeCounts, maxCount);
 addText(args, { x: 84, y: 580, text: `Top ZIPs: ${zipCounts}`, size: 20, color: '#536056' });
 addText(args, { x: 730, y: 580, text: 'DOB NOW rows. No lead guarantee.', size: 20, color: '#536056' });
