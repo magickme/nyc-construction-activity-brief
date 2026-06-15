@@ -124,6 +124,7 @@ function buildCurrentIssueJson(rows, manifest) {
       supportUrl: `${baseUrl}/support.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
+      sampleRequestUrl: `${baseUrl}/sample-request.html`,
       imageUrl: socialImageUrl,
       buyUrl,
       checkoutUrl,
@@ -149,6 +150,7 @@ function buildCurrentIssueJson(rows, manifest) {
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
+      sampleRequestUrl: `${baseUrl}/sample-request.html`,
       priceUsd: launchPriceUsd,
       standardPriceUsd,
       rowCount: stats.rowCount,
@@ -281,6 +283,11 @@ function buildFeedXml(rows, manifest) {
       description: 'Download troubleshooting, Stripe session handling, common download errors, and refund boundary for the current digital ZIP.',
     },
     {
+      title: 'Request a future sample cut',
+      url: `${baseUrl}/sample-request.html`,
+      description: 'Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.',
+    },
+    {
       title: 'Methodology and source boundary',
       url: `${baseUrl}/methodology.html`,
       description: 'Source, privacy boundary, excluded fields, buyer ZIP contents, and claims limits for the current issue.',
@@ -351,6 +358,7 @@ Primary pages:
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Support and refunds: ${baseUrl}/support.html
+- Sample request: ${baseUrl}/sample-request.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
 - Sample brief: ${baseUrl}/sample/nyc-weekly-construction-activity-sample.md
 - Segment hub: ${baseUrl}/sample-segments.html
@@ -405,7 +413,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

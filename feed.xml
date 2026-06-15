@@ -118,6 +118,13 @@
       <description>Download troubleshooting, Stripe session handling, common download errors, and refund boundary for the current digital ZIP.</description>
     </item>
     <item>
+      <title>Request a future sample cut</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/sample-request.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/sample-request.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.</description>
+    </item>
+    <item>
       <title>Methodology and source boundary</title>
       <link>https://nyc-construction-activity-brief.vercel.app/methodology.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/methodology.html</guid>

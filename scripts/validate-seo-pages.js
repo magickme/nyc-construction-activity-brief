@@ -188,6 +188,7 @@ const coreConversionPages = [
   ['csv-field-guide.html', 'csv-field-guide-sticky'],
   ['delivery.html', 'delivery-sticky'],
   ['support.html', 'support-sticky'],
+  ['sample-request.html', 'sample-request-sticky'],
   ['methodology.html', 'methodology-sticky'],
   ['time-saved-calculator.html', 'time-saved-calculator-sticky'],
   ['who-should-buy.html', 'who-should-buy-sticky'],
@@ -258,6 +259,7 @@ assert.match(index, /href="\/permit-expediter-research\.html"/, 'index links per
 assert.match(index, /href="\/inside-the-zip\.html"/, 'index links inside the ZIP page');
 assert.match(index, /href="\/csv-field-guide\.html"/, 'index links CSV field guide');
 assert.match(index, /href="\/support\.html"/, 'index links support page');
+assert.match(index, /href="\/sample-request\.html"/, 'index links sample request page');
 for (const page of pages) {
   assert.match(index, new RegExp(`href="/${page}"`), `index links ${page}`);
 }
@@ -897,6 +899,34 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(support, pattern, `support.html contains private data pattern ${pattern}`);
 }
 
+const sampleRequest = read('sample-request.html');
+assert.match(sampleRequest, /<title>Request a Sample Cut \| NYC Construction Activity Brief<\/title>/, 'sample request page needs title');
+assert.match(sampleRequest, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-request\.html">/, 'sample request page needs canonical');
+assert.match(sampleRequest, /<meta property="og:title" content="Request a Sample Cut \| NYC Construction Activity Brief">/, 'sample request page needs OG title');
+assert.match(sampleRequest, /"@type":"Product"/, 'sample request page needs Product structured data');
+assert.match(sampleRequest, /"@type":"FAQPage"/, 'sample request page needs FAQ structured data');
+assert.match(sampleRequest, /\/_vercel\/insights\/script\.js/, 'sample request page needs Web Analytics script');
+assert.match(sampleRequest, /Request a future sample cut/, 'sample request page needs headline');
+assert.match(sampleRequest, /Product-specific request only/, 'sample request page needs product-specific meta copy');
+assert.match(sampleRequest, /work type, territory, or buyer view/, 'sample request page explains request scope');
+assert.match(sampleRequest, /Requests are used only for this product's buyer segment/, 'sample request page states product-only routing');
+assert.match(sampleRequest, /Do not send private account details/, 'sample request page warns against sensitive data');
+assert.match(sampleRequest, /href="\/preview\.html"/, 'sample request page links preview');
+assert.match(sampleRequest, /href="\/sample-segments\.html"/, 'sample request page links segment hub');
+assert.match(sampleRequest, /href="\/current-issue\.html"/, 'sample request page links current issue');
+assert.match(sampleRequest, /href="\/inside-the-zip\.html"/, 'sample request page links inside ZIP');
+assert.match(sampleRequest, /href="\/pricing\.html"/, 'sample request page links pricing');
+assert.match(sampleRequest, /href="\/support\.html"/, 'sample request page links support');
+assert.match(sampleRequest, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=sample-request-page"/, 'sample request page links tracked checkout');
+assertSampleRequestForm(sampleRequest, 'sample request page');
+assert.match(sampleRequest, /No guaranteed leads\./, 'sample request page keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(sampleRequest, pattern, `sample-request.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(sampleRequest, pattern, `sample-request.html contains private data pattern ${pattern}`);
+}
+
 const hub = read('sample-segments.html');
 assert.match(hub, /<title>NYC Permit Activity Segments \| ZIP and Work Type Pages<\/title>/, 'hub needs title');
 assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html">/, 'hub needs canonical');
@@ -951,7 +981,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -960,7 +990,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 21, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 22, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -991,11 +1021,13 @@ assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.c
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
 assert.equal(currentIssue.publicPreview.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON public preview links delivery page');
 assert.equal(currentIssue.publicPreview.supportUrl, 'https://nyc-construction-activity-brief.vercel.app/support.html', 'current issue JSON public preview links support page');
+assert.equal(currentIssue.publicPreview.sampleRequestUrl, 'https://nyc-construction-activity-brief.vercel.app/sample-request.html', 'current issue JSON public preview links sample request page');
 assert.equal(currentIssue.publicPreview.imageUrl, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'current issue JSON public preview links social image');
 assert.equal(currentIssue.publicPreview.buyUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON public preview links buy page');
 assert.equal(currentIssue.paidZip.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON paid ZIP links buyer guide');
 assert.equal(currentIssue.paidZip.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON paid ZIP links delivery page');
 assert.equal(currentIssue.paidZip.supportUrl, 'https://nyc-construction-activity-brief.vercel.app/support.html', 'current issue JSON paid ZIP links support page');
+assert.equal(currentIssue.paidZip.sampleRequestUrl, 'https://nyc-construction-activity-brief.vercel.app/sample-request.html', 'current issue JSON paid ZIP links sample request page');
 assert.equal(currentIssue.paidZip.imageUrl, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'current issue JSON paid ZIP links social image');
 assert.equal(currentIssue.paidZip.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP links tracked checkout');
 assert.equal(currentIssue.paidZip.buyUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON paid ZIP links buy page');
@@ -1043,6 +1075,7 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/samp
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'RSS feed links buyer guide');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'RSS feed links delivery page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/support\.html/, 'RSS feed links support page');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-request\.html/, 'RSS feed links sample request page');
 
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
@@ -1066,6 +1099,7 @@ assert.match(llms, /Social image: https:\/\/nyc-construction-activity-brief\.ver
 assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'llms.txt links buyer guide');
 assert.match(llms, /Delivery steps: https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'llms.txt links delivery page');
 assert.match(llms, /Support and refunds: https:\/\/nyc-construction-activity-brief\.vercel\.app\/support\.html/, 'llms.txt links support page');
+assert.match(llms, /Sample request: https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-request\.html/, 'llms.txt links sample request page');
 assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');
 assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 

@@ -178,6 +178,7 @@ const coreConversionPages = [
   ['csv-field-guide.html', 'csv-field-guide-sticky'],
   ['delivery.html', 'delivery-sticky'],
   ['support.html', 'support-sticky'],
+  ['sample-request.html', 'sample-request-sticky'],
   ['methodology.html', 'methodology-sticky'],
   ['time-saved-calculator.html', 'time-saved-calculator-sticky'],
   ['who-should-buy.html', 'who-should-buy-sticky'],
@@ -3178,6 +3179,113 @@ ${sampleRequestSection({
 `;
 }
 
+function sampleRequestHtml(rows) {
+  const description = 'Request a future NYC construction activity sample cut by work type, ZIP, borough, or buyer use case. Product-specific request only.';
+  const range = sampleRange(rows);
+  const product = productJsonLd(description, checkoutHref('sample-request-page'));
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What can I request?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You can request a future sample cut by work type, ZIP, borough, or buyer use case when the current preview does not match your research need.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this add me to a newsletter?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The request is product-specific and is not added to a MagickMe course list, global newsletter, campaign, form, email, or unrelated segment.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Will this trigger manual fulfillment?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. Paid buyers use the automated Stripe success page and download endpoint. Sample requests help choose future public previews.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request a Sample Cut | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/sample-request.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Request a Sample Cut | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/sample-request.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Request a future sample cut.</h1>
+      <p class="lede">Send one product-specific request for a work type, territory, or buyer view that is not covered by the current preview.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>What to request</h2>
+          <p>Ask for a sample by DOB work type, ZIP code, borough, or buyer use case.</p>
+        </div>
+        <div class="card">
+          <h2>Where it goes</h2>
+          <p>Requests are used only for this product's buyer segment and future preview planning.</p>
+        </div>
+        <div class="card">
+          <h2>Current ZIP</h2>
+          <p>${escapeHtml(rows.length)} source-linked rows for ${escapeHtml(range.firstIssuedDate)} through ${escapeHtml(range.latestIssuedDate)}. If that fits, buy the instant ZIP.</p>
+        </div>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Selected DOB work types',
+        territory: 'NYC',
+      })}
+
+      <section class="section card">
+        <h2>Before you request</h2>
+        <ul>
+          <li>Check the free public preview and segment hub first.</li>
+          <li>Use the current ZIP if you need the complete source-linked issue now.</li>
+          <li>Do not send private account details, card numbers, passwords, or confidential client data.</li>
+        </ul>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample-segments.html">Browse sample segments</a>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button" href="${checkoutHref('sample-request-page')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, or legal advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function previewHtml(fullRows) {
   const publicRows = parseCsv(fs.readFileSync(publicPreviewCsvPath, 'utf8'));
   const rows = previewRows(publicRows);
@@ -3309,7 +3417,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -3358,6 +3466,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
+        <p><a class="button secondary" href="/sample-request.html">Request a future sample cut</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
         <p><a class="button secondary" href="/methodology.html">Read methodology and source boundary</a></p>
         <details>
@@ -3702,6 +3811,7 @@ fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
 fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));
 fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
 fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
+fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
 fs.writeFileSync(path.join(root, 'buy.html'), buyHtml());
