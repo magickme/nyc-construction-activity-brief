@@ -4,7 +4,11 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N';
-const sampleCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
+const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
+const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
+const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
+  ? fullIssueCsvPath
+  : publicPreviewCsvPath;
 const manifestPath = path.join(root, 'scripts', 'generated-pages-manifest.json');
 
 function escapeHtml(value) {
@@ -72,8 +76,16 @@ function issueStats(rows) {
   };
 }
 
+function publicPreviewRowCount() {
+  if (!fs.existsSync(publicPreviewCsvPath)) return null;
+  const text = fs.readFileSync(publicPreviewCsvPath, 'utf8').trim();
+  if (!text) return 0;
+  return Math.max(0, text.split(/\r?\n/).length - 1);
+}
+
 function buildCurrentIssueJson(rows, manifest) {
   const stats = issueStats(rows);
+  const previewRows = publicPreviewRowCount() ?? stats.rowCount;
   return {
     product: 'NYC Weekly Construction Activity Brief',
     issue: 'current',
@@ -86,7 +98,8 @@ function buildCurrentIssueJson(rows, manifest) {
       latestIssuedDate: stats.latestIssuedDate,
     },
     publicPreview: {
-      rowCount: stats.rowCount,
+      rowCount: previewRows,
+      fullIssueRowCount: stats.rowCount,
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       methodologyUrl: `${baseUrl}/methodology.html`,
@@ -97,6 +110,7 @@ function buildCurrentIssueJson(rows, manifest) {
     paidZip: {
       checkoutUrl,
       priceUsd: 49,
+      rowCount: stats.rowCount,
       files: [
         'README.md',
         'nyc-construction-activity-preview.csv',
@@ -135,18 +149,19 @@ function buildCurrentIssueJson(rows, manifest) {
 
 function buildFeedXml(rows, manifest) {
   const stats = issueStats(rows);
+  const previewRows = publicPreviewRowCount() ?? stats.rowCount;
   const pubDate = new Date(`${stats.sourceFetchDate || new Date().toISOString().slice(0, 10)}T12:00:00Z`).toUTCString();
   const topWorkTypes = stats.workTypes.slice(0, 5).map((item) => `${item.name} ${item.count}`).join(' | ');
   const items = [
     {
-      title: `Current NYC construction activity brief: ${stats.rowCount} public preview rows`,
+      title: `Current NYC construction activity brief: ${stats.rowCount} paid issue rows`,
       url: `${baseUrl}/`,
-      description: `Current public preview covers issued dates ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
+      description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
     },
     {
       title: 'Browse current permit activity segments',
       url: `${baseUrl}/sample-segments.html`,
-      description: `ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current ${stats.rowCount}-row public CSV preview.`,
+      description: `ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current ${stats.rowCount}-row paid issue.`,
     },
     {
       title: 'Methodology and source boundary',
@@ -186,7 +201,9 @@ function buildLlmsTxt(rows, manifest) {
 Source-linked weekly NYC DOB NOW construction permit activity brief.
 
 Current issue:
-- Public preview rows: ${stats.rowCount}
+- Paid issue rows: ${stats.rowCount}
+- Paid ZIP rows: ${stats.rowCount}
+- Free CSV preview rows: ${publicPreviewRowCount() ?? stats.rowCount}
 - Source fetch date: ${stats.sourceFetchDate}
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
 - Checkout: ${checkoutUrl}

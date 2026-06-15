@@ -3,7 +3,9 @@
 Source-linked weekly NYC DOB NOW construction permit activity brief.
 
 Current issue:
-- Public preview rows: 142
+- Paid issue rows: 142
+- Paid ZIP rows: 142
+- Free CSV preview rows: 25
 - Source fetch date: 2026-06-15
 - Issued dates in preview: 2026-06-09 to 2026-06-12
 - Checkout: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N

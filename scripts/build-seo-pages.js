@@ -4,7 +4,10 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N';
-const sampleCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
+const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
+const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
+  ? fullIssueCsvPath
+  : path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const manualPages = require('./seo-pages.json').map((page) => ({ ...page, group: 'core' }));
 
 const workTypeCopy = {
@@ -1039,7 +1042,7 @@ fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),
   `${JSON.stringify({
     sourceFetchDate: rows[0] && rows[0].source_fetch_date,
-    source: 'sample/nyc-construction-activity-preview.csv',
+    source: path.relative(root, sampleCsvPath),
     sourceRows: rows.length,
     manualPages: manualPages.length,
     generatedPages: generatedPages.length,

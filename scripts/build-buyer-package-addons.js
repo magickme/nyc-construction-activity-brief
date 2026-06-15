@@ -3,7 +3,10 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const packageDir = path.resolve(root, '..', 'package');
-const sampleCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
+const fullIssueCsvPath = path.join(packageDir, 'nyc-construction-activity-preview.csv');
+const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
+  ? fullIssueCsvPath
+  : path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 
 function parseCsvLine(line) {
   const values = [];
@@ -205,13 +208,7 @@ function updatePackageDocs() {
   const versionPath = path.join(packageDir, 'version.txt');
   if (fs.existsSync(versionPath)) {
     let version = fs.readFileSync(versionPath, 'utf8');
-    version = version
-      .replace(/\n- buyer-workbook\.md/g, '')
-      .replace(/\n- buyer-priority-slices\.csv/g, '');
-    if (!version.includes('Included package files:')) {
-      version = version.replace(
-        '\nValidation commands:',
-        `\nIncluded package files:
+    const includedSection = `Included package files:
 - nyc-construction-activity-preview.csv
 - nyc-construction-activity-preview.md
 - nyc-weekly-construction-activity-sample.md
@@ -221,10 +218,11 @@ function updatePackageDocs() {
 - source-registry.md
 - privacy-and-claims-boundary.md
 - qa-report.json
-- version.txt
-
-Validation commands:`,
-      );
+- version.txt`;
+    if (version.includes('Included package files:')) {
+      version = version.replace(/Included package files:\n[\s\S]*?\n\nValidation commands:/, `${includedSection}\n\nValidation commands:`);
+    } else {
+      version = version.replace('\nValidation commands:', `\n${includedSection}\n\nValidation commands:`);
     }
     version = insertUniqueLine(version, '- node scripts/build-seo-pages.js', '- node scripts/build-buyer-package-addons.js');
     version = insertUniqueLine(version, '- node scripts/build-buyer-package-addons.js', '- node scripts/validate-buyer-package.js');

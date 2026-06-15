@@ -10,7 +10,8 @@
     "latestIssuedDate": "2026-06-12"
   },
   "publicPreview": {
-    "rowCount": 142,
+    "rowCount": 25,
+    "fullIssueRowCount": 142,
     "csvUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
     "sampleBriefUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
     "methodologyUrl": "https://nyc-construction-activity-brief.vercel.app/methodology.html",
@@ -21,6 +22,7 @@
   "paidZip": {
     "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N",
     "priceUsd": 49,
+    "rowCount": 142,
     "files": [
       "README.md",
       "nyc-construction-activity-preview.csv",

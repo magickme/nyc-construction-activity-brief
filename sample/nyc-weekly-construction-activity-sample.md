@@ -1,23 +1,24 @@
 # NYC Weekly Construction Activity Preview
 
-Generated: 2026-06-15T02:21:35+00:00
-Date range: 2026-06-09 to 2026-06-15
+Generated: 2026-06-15
+Date range: 2026-06-09 to 2026-06-12
 Source: NYC DOB NOW: Build - Approved Permits
-Rows in public preview: 142
+Rows in free public preview: 25
+Rows in paid ZIP: 142
 
-This is a draft public-record permit signal preview, not a lead list. It excludes owner names, applicant names, phone numbers, email addresses, and full street addresses.
+This is a public-record permit signal preview, not a lead list. It excludes owner names, applicant names, phone numbers, email addresses, and full street addresses.
 
 ## Included Work Types
 
 - Sidewalk Shed
-- Supported Scaffold
-- Construction Fence
 - Plumbing
-- Mechanical Systems
 - Sprinklers
+- Mechanical Systems
+- Supported Scaffold
 - Structural
+- Construction Fence
 
-## Top Counts By Work Type
+## Top Counts By Work Type In Paid Issue
 
 - Sidewalk Shed: 40
 - Plumbing: 29
@@ -27,7 +28,7 @@ This is a draft public-record permit signal preview, not a lead list. It exclude
 - Structural: 12
 - Construction Fence: 9
 
-## Top Counts By ZIP
+## Top Counts By ZIP In Paid Issue
 
 - 10003: 37
 - 10011: 37
@@ -35,12 +36,12 @@ This is a draft public-record permit signal preview, not a lead list. It exclude
 - 11206: 22
 - 11211: 20
 
-## Counts By Borough
+## Counts By Borough In Paid Issue
 
 - MANHATTAN: 74
 - BROOKLYN: 68
 
-## Example Rows
+## Example Rows From Free Preview
 
 | issued_date | borough | zip_code | work_type | estimated_job_cost_bucket | permit_status | job_description_short |
 |---|---|---|---|---|---|---|
@@ -54,8 +55,6 @@ This is a draft public-record permit signal preview, not a lead list. It exclude
 | 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF TEMPORARY SIDEWALK SHED AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY. |
 | 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF TEMPORARY HEAVY DUTY SIDEWALK SHED AND PIPE SCAFFOLD AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY.SIDEWALK SHED SHALL COMPLY WITH CHAPTER #33 OF 2022 THE NYC BUILDING CODE.LIVE LOAD 300PSF. |
 | 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Supported Scaffold | under_10k | Permit Issued | INSTALLATION OF TEMPORARY HEAVY DUTY SIDEWALK SHED AND PIPE SCAFFOLD AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY.SIDEWALK SHED SHALL COMPLY WITH CHAPTER #33 OF 2022 THE NYC BUILDING CODE.LIVE LOAD 300PSF. |
-| 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF HEAVY DUTY SIDEWALK SHED. NO CHANGE IN USE, OCCUPANCY OR EGRESS. ALL WORK TO COMPLY WITH CHAPTER 33 OF NYCBC |
-| 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Mechanical Systems | 50k_to_100k | Permit Issued | [description withheld: location detail] |
 
 ## Source Caveat
 

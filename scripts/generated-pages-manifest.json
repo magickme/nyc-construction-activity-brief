@@ -1,6 +1,6 @@
 {
   "sourceFetchDate": "2026-06-15",
-  "source": "sample/nyc-construction-activity-preview.csv",
+  "source": "../package/nyc-construction-activity-preview.csv",
   "sourceRows": 142,
   "manualPages": 31,
   "generatedPages": 65,

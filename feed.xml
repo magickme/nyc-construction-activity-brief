@@ -6,18 +6,18 @@
     <description>Current source-linked NYC construction permit activity pages, sample CSV, and paid ZIP checkout.</description>
     <lastBuildDate>Mon, 15 Jun 2026 12:00:00 GMT</lastBuildDate>
     <item>
-      <title>Current NYC construction activity brief: 142 public preview rows</title>
+      <title>Current NYC construction activity brief: 142 paid issue rows</title>
       <link>https://nyc-construction-activity-brief.vercel.app/</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/</guid>
       <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
-      <description>Current public preview covers issued dates 2026-06-09 through 2026-06-12. Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13.</description>
+      <description>Current paid issue has 142 source-linked rows. The free CSV preview has 25 rows. Issued dates run 2026-06-09 through 2026-06-12. Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13.</description>
     </item>
     <item>
       <title>Browse current permit activity segments</title>
       <link>https://nyc-construction-activity-brief.vercel.app/sample-segments.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/sample-segments.html</guid>
       <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
-      <description>ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current 142-row public CSV preview.</description>
+      <description>ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current 142-row paid issue.</description>
     </item>
     <item>
       <title>Methodology and source boundary</title>
