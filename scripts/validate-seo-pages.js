@@ -444,6 +444,12 @@ assert.match(buy, /"price":"9.50"/, 'buy page needs current price structured dat
 assert.match(buy, /href="https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q\?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static"/, 'buy page static fallback links Stripe with attribution');
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /<p class="fine">\$9\.50 one-time launch price\. Instant browser download after completed Stripe checkout\. No promo code is required\.<\/p>\s*<p>\s*<a data-buy-link="top" class="button"/, 'buy page puts a purchase CTA above sample rows');
+assert.match(buy, /data-buy-confidence/, 'buy page has pre-checkout confidence block');
+assert.match(buy, /<h2>Before you pay<\/h2>/, 'buy page names pre-checkout checks');
+assert.match(buy, /Open the free preview if you need to confirm the row shape first\./, 'buy page points uncertain buyers to the preview');
+assert.match(buy, /Use the support page for the refund boundary and download troubleshooting steps\./, 'buy page surfaces support and refund boundary before checkout');
+assert.match(buy, /Keep the Stripe receipt and success-page URL if the browser download is interrupted\./, 'buy page gives interrupted-download evidence steps before checkout');
+assert.match(buy, /Buy only if the full 142-row file saves enough manual sorting time\./, 'buy page gives a clear paid-value threshold');
 assert.match(buy, /data-buy-link="after-sample"/, 'buy page keeps a post-sample purchase CTA');
 assert.equal((buy.match(/data-buy-link="/g) || []).length, 2, 'buy page has exactly two purchase CTAs');
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
