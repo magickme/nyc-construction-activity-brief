@@ -210,7 +210,13 @@
           });
           if (!response.ok) throw new Error('request failed');
           form.reset();
-          if (status) status.textContent = 'Request saved. I will use this to choose future sample cuts.';
+          try {
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+            window.va('event', { name: 'sample_request_saved', data: { source: 'sample-request-form' } });
+          } catch (error) {}
+          if (status) {
+            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/checkout.html?source=sample-request-success">buy the instant ZIP</a>.';
+          }
         } catch (error) {
           if (status) status.textContent = 'Request was not saved. Try again, or buy the current ZIP if it already fits.';
         } finally {

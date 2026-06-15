@@ -98,6 +98,8 @@ function assertHtmlPage(relativePath) {
   assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links tracked checkout`);
   assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
+  assert.match(html, /sample_request_saved/, `${relativePath} tracks saved sample requests`);
+  assert.match(html, /\/checkout\.html\?source=sample-request-success/, `${relativePath} links checkout after saved sample request`);
   assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
   if (generatedPages.includes(relativePath)) {
@@ -147,6 +149,8 @@ assert.match(index, /Buyer workbook with a fast review path/, 'index needs buyer
 assert.match(index, /Priority-slices CSV grouped by work type/, 'index needs priority-slices offer copy');
 assert.match(index, /data-sample-request-form/, 'index needs sample request form');
 assert.match(index, /\/api\/sample-request/, 'index posts sample requests to API');
+assert.match(index, /sample_request_saved/, 'index tracks saved sample requests');
+assert.match(index, /\/checkout\.html\?source=sample-request-success/, 'index links checkout after saved sample request');
 assert.match(index, /This does not join the MagickMe newsletter\./, 'index needs list-separation copy');
 assert.match(index, /href="\/preview\.html"/, 'index links public preview page');
 assert.match(index, /href="\/pricing\.html"/, 'index links pricing page');
@@ -183,6 +187,8 @@ assert.match(preview, /href="\/pricing\.html"/, 'preview page links pricing page
 assert.match(preview, new RegExp(`href="${checkoutUrl}"`), 'preview page links tracked checkout');
 assert.match(preview, /data-sample-request-form/, 'preview page needs sample request form');
 assert.match(preview, /\/api\/sample-request/, 'preview page posts sample requests to API');
+assert.match(preview, /sample_request_saved/, 'preview page tracks saved sample requests');
+assert.match(preview, /\/checkout\.html\?source=sample-request-success/, 'preview page links checkout after saved sample request');
 assert.match(preview, /No guaranteed leads\./, 'preview page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(preview, pattern, `preview.html contains banned copy pattern ${pattern}`);
@@ -280,6 +286,8 @@ assert.match(hub, /<link rel="alternate" type="application\/json"[^>]+href="http
 assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
 assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
+assert.match(hub, /sample_request_saved/, 'hub tracks saved sample requests');
+assert.match(hub, /\/checkout\.html\?source=sample-request-success/, 'hub links checkout after saved sample request');
 assert.match(hub, /href="\/preview\.html"/, 'hub links public preview page');
 assert.match(hub, /href="\/pricing\.html"/, 'hub links pricing page');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
