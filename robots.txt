@@ -5,3 +5,4 @@ Sitemap: https://nyc-construction-activity-brief.vercel.app/sitemap.xml
 Feed: https://nyc-construction-activity-brief.vercel.app/feed.xml
 Current-Issue: https://nyc-construction-activity-brief.vercel.app/current-issue.json
 Data-Package: https://nyc-construction-activity-brief.vercel.app/data-package.json
+Product-Feed: https://nyc-construction-activity-brief.vercel.app/product-feed.xml

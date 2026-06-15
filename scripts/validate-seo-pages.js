@@ -2012,11 +2012,11 @@ for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'prici
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
 assert.doesNotMatch(sitemap, new RegExp(`<loc>${baseUrl}\\/checkout\\.html</loc>`), 'sitemap must not include noindex checkout page');
-for (const page of ['feed.xml', 'current-issue.json', 'data-package.json', 'llms.txt']) {
+for (const page of ['feed.xml', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 52, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 53, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -2026,6 +2026,7 @@ assert.match(robots, new RegExp(`Sitemap: ${baseUrl}/sitemap.xml`));
 assert.match(robots, new RegExp(`Feed: ${baseUrl}/feed.xml`), 'robots points to RSS feed');
 assert.match(robots, new RegExp(`Current-Issue: ${baseUrl}/current-issue.json`), 'robots points to current issue JSON');
 assert.match(robots, new RegExp(`Data-Package: ${baseUrl}/data-package.json`), 'robots points to data package JSON');
+assert.match(robots, new RegExp(`Product-Feed: ${baseUrl}/product-feed.xml`), 'robots points to product feed XML');
 
 const currentIssue = JSON.parse(read('current-issue.json'));
 const dataPackage = JSON.parse(read('data-package.json'));
@@ -2040,6 +2041,7 @@ assert.equal(currentIssue.publicPreview.jsonUrl, 'https://nyc-construction-activ
 assert.equal(currentIssue.publicPreview.jsonlUrl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl', 'current issue JSON links public JSONL preview');
 assert.equal(currentIssue.publicPreview.sampleBriefUrl, 'https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md', 'current issue JSON links sample brief');
 assert.equal(currentIssue.publicPreview.dataPackageUrl, 'https://nyc-construction-activity-brief.vercel.app/data-package.json', 'current issue JSON links data package JSON');
+assert.equal(currentIssue.publicPreview.productFeedUrl, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'current issue JSON links product feed XML');
 assert.equal(currentIssue.publicPreview.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON public preview links pricing page');
 assert.equal(currentIssue.publicPreview.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON public preview links time saved calculator');
 assert.equal(currentIssue.publicPreview.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON public preview links who should buy page');
@@ -2096,6 +2098,7 @@ assert.equal(currentIssue.paidZip.currentIssueUrl, 'https://nyc-construction-act
 assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON paid ZIP keeps Stripe checkout URL');
 assert.equal(currentIssue.paidZip.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON paid ZIP links pricing page');
 assert.equal(currentIssue.paidZip.dataPackageUrl, 'https://nyc-construction-activity-brief.vercel.app/data-package.json', 'current issue JSON paid ZIP links data package JSON');
+assert.equal(currentIssue.paidZip.productFeedUrl, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'current issue JSON paid ZIP links product feed XML');
 assert.equal(currentIssue.paidZip.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON paid ZIP links time saved calculator');
 assert.equal(currentIssue.paidZip.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON paid ZIP links who should buy page');
 assert.equal(currentIssue.paidZip.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON paid ZIP links free vs paid page');
@@ -2190,6 +2193,19 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/deli
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/support\.html/, 'RSS feed links support page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-request\.html/, 'RSS feed links sample request page');
 
+const productFeed = read('product-feed.xml');
+assert.match(productFeed, /<rss version="2\.0" xmlns:g="http:\/\/base\.google\.com\/ns\/1\.0">/, 'product feed has Google-compatible RSS root');
+assert.match(productFeed, /<title>NYC Weekly Construction Activity Brief product feed<\/title>/, 'product feed names the feed');
+assert.match(productFeed, /<g:id>nyc-construction-activity-brief-current<\/g:id>/, 'product feed has stable product id');
+assert.match(productFeed, /<title>NYC Weekly Construction Activity Brief current ZIP<\/title>/, 'product feed names the current ZIP');
+assert.match(productFeed, /<link>https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=product-feed<\/link>/, 'product feed links tracked buy page');
+assert.match(productFeed, /<g:image_link>https:\/\/nyc-construction-activity-brief\.vercel\.app\/assets\/current-issue-snapshot\.png<\/g:image_link>/, 'product feed links social image');
+assert.match(productFeed, /<g:availability>in_stock<\/g:availability>/, 'product feed marks availability');
+assert.match(productFeed, /<g:price>9\.50 USD<\/g:price>/, 'product feed exposes launch price');
+assert.match(productFeed, /current 142-row NYC DOB permit CSV/, 'product feed describes paid row count');
+assert.match(productFeed, /free preview has 25 rows/, 'product feed describes preview row count');
+assert.match(productFeed, /<g:identifier_exists>no<\/g:identifier_exists>/, 'product feed avoids unsupported product identifiers');
+
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
 assert.match(llms, /Free CSV preview rows: 25/, 'llms.txt has free preview row count');
@@ -2197,6 +2213,7 @@ assert.match(llms, /Primary purchase page: https:\/\/nyc-construction-activity-b
 assert.match(llms, /Checkout bridge: https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=current-issue/, 'llms.txt labels checkout bridge');
 assert.match(llms, /Current issue page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.html/, 'llms.txt links current issue page');
 assert.match(llms, /Data package JSON: https:\/\/nyc-construction-activity-brief\.vercel\.app\/data-package\.json/, 'llms.txt links data package JSON');
+assert.match(llms, /Product feed XML: https:\/\/nyc-construction-activity-brief\.vercel\.app\/product-feed\.xml/, 'llms.txt links product feed XML');
 assert.match(llms, /Buy page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'llms.txt links buy page');
 assert.match(llms, /Public preview: https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html/, 'llms.txt links public preview page');
 assert.match(llms, /Pricing: https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'llms.txt links pricing page');
@@ -2259,6 +2276,7 @@ assert.equal(dataPackage.paid_zip.price_usd, '9.50', 'data package JSON exposes 
 assert.equal(dataPackage.paid_zip.buy_url, 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=data-package', 'data package JSON links tracked buy page');
 assert.equal(dataPackage.paid_zip.checkout_bridge_url, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=data-package', 'data package JSON links tracked checkout bridge');
 assert.equal(dataPackage.paid_zip.stripe_payment_link, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'data package JSON links Stripe Payment Link fallback');
+assert.equal(dataPackage.paid_zip.product_feed_url, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'data package JSON links product feed XML');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html'), 'data package JSON links permit data download page');
 assert.ok(dataPackage.paid_zip.files.includes('buyer-workbook.md'), 'data package JSON lists buyer workbook');
 assert.ok(dataPackage.paid_zip.files.includes('buyer-priority-slices.csv'), 'data package JSON lists priority slices');

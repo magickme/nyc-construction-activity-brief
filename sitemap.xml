@@ -684,4 +684,8 @@
     <loc>https://nyc-construction-activity-brief.vercel.app/data-package.json</loc>
     <lastmod>2026-06-15</lastmod>
   </url>
+  <url>
+    <loc>https://nyc-construction-activity-brief.vercel.app/product-feed.xml</loc>
+    <lastmod>2026-06-15</lastmod>
+  </url>
 </urlset>

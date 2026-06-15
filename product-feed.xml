@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>NYC Weekly Construction Activity Brief product feed</title>
+    <link>https://nyc-construction-activity-brief.vercel.app/</link>
+    <description>Product feed for the current NYC Weekly Construction Activity Brief ZIP.</description>
+    <item>
+      <g:id>nyc-construction-activity-brief-current</g:id>
+      <title>NYC Weekly Construction Activity Brief current ZIP</title>
+      <description>One-time $9.50 digital ZIP download with the current 142-row NYC DOB permit CSV, buyer workbook, priority-slices CSV, source registry, QA report, and public-record boundary notes. The free preview has 25 rows.</description>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>9.50 USD</g:price>
+      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
+      <g:product_type>Digital data download</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
+      <g:custom_label_1>142-row-paid-zip</g:custom_label_1>
+      <g:custom_label_2>25-row-free-preview</g:custom_label_2>
+    </item>
+  </channel>
+</rss>

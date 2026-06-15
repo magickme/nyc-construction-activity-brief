@@ -8,6 +8,7 @@ const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
 const buyUrl = `${baseUrl}/buy.html`;
 const dataPackageUrl = `${baseUrl}/data-package.json`;
+const productFeedUrl = `${baseUrl}/product-feed.xml`;
 const launchPriceUsd = 9.5;
 const standardPriceUsd = 49;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
@@ -113,6 +114,7 @@ function buildCurrentIssueJson(rows, manifest) {
       jsonlUrl: `${baseUrl}/sample/nyc-construction-activity-preview.jsonl`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
       dataPackageUrl,
+      productFeedUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
@@ -171,6 +173,7 @@ function buildCurrentIssueJson(rows, manifest) {
       imageUrl: socialImageUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
       dataPackageUrl,
+      productFeedUrl,
       timeSavedCalculatorUrl: `${baseUrl}/time-saved-calculator.html`,
       whoShouldBuyUrl: `${baseUrl}/who-should-buy.html`,
       freeVsPaidUrl: `${baseUrl}/free-vs-paid.html`,
@@ -288,6 +291,7 @@ function buildDataPackageJson(rows, manifest) {
       buy_url: `${baseUrl}/buy.html?source=data-package`,
       checkout_bridge_url: `${baseUrl}/checkout.html?source=data-package`,
       stripe_payment_link: stripeCheckoutUrl,
+      product_feed_url: productFeedUrl,
       delivery: 'Instant browser download after completed Stripe checkout.',
       files: [
         'README.md',
@@ -584,6 +588,37 @@ ${items.map((item) => `    <item>
 `;
 }
 
+function buildProductFeedXml(rows) {
+  const stats = issueStats(rows);
+  const previewRows = publicPreviewRowCount() ?? stats.rowCount;
+  const description = `One-time $${launchPriceUsd.toFixed(2)} digital ZIP download with the current ${stats.rowCount}-row NYC DOB permit CSV, buyer workbook, priority-slices CSV, source registry, QA report, and public-record boundary notes. The free preview has ${previewRows} rows.`;
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>NYC Weekly Construction Activity Brief product feed</title>
+    <link>${baseUrl}/</link>
+    <description>Product feed for the current NYC Weekly Construction Activity Brief ZIP.</description>
+    <item>
+      <g:id>nyc-construction-activity-brief-current</g:id>
+      <title>NYC Weekly Construction Activity Brief current ZIP</title>
+      <description>${escapeHtml(description)}</description>
+      <link>${baseUrl}/buy.html?source=product-feed</link>
+      <g:image_link>${socialImageUrl}</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>${launchPriceUsd.toFixed(2)} USD</g:price>
+      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
+      <g:product_type>Digital data download</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
+      <g:custom_label_1>${stats.rowCount}-row-paid-zip</g:custom_label_1>
+      <g:custom_label_2>${previewRows}-row-free-preview</g:custom_label_2>
+    </item>
+  </channel>
+</rss>
+`;
+}
+
 function buildLlmsTxt(rows, manifest) {
   const stats = issueStats(rows);
   return `# NYC Weekly Construction Activity Brief
@@ -611,6 +646,7 @@ Primary pages:
 - Current issue page: ${baseUrl}/current-issue.html
 - Current issue JSON: ${baseUrl}/current-issue.json
 - Data package JSON: ${dataPackageUrl}
+- Product feed XML: ${productFeedUrl}
 - RSS feed: ${baseUrl}/feed.xml
 - Public preview: ${baseUrl}/preview.html
 - Pricing: ${baseUrl}/pricing.html
@@ -701,6 +737,7 @@ Sitemap: ${baseUrl}/sitemap.xml
 Feed: ${baseUrl}/feed.xml
 Current-Issue: ${baseUrl}/current-issue.json
 Data-Package: ${dataPackageUrl}
+Product-Feed: ${productFeedUrl}
 `;
   fs.writeFileSync(robotsPath, text);
 }
@@ -708,7 +745,7 @@ Data-Package: ${dataPackageUrl}
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'data-package.json', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
@@ -729,6 +766,7 @@ const stats = issueStats(rows);
 fs.writeFileSync(path.join(root, 'current-issue.json'), `${JSON.stringify(buildCurrentIssueJson(rows, manifest), null, 2)}\n`);
 fs.writeFileSync(path.join(root, 'data-package.json'), `${JSON.stringify(buildDataPackageJson(rows, manifest), null, 2)}\n`);
 fs.writeFileSync(path.join(root, 'feed.xml'), buildFeedXml(rows, manifest));
+fs.writeFileSync(path.join(root, 'product-feed.xml'), buildProductFeedXml(rows));
 fs.writeFileSync(path.join(root, 'llms.txt'), buildLlmsTxt(rows, manifest));
 updateHtmlAlternates();
 updateRobots();
