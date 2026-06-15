@@ -3,6 +3,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
+const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50';
 const checkoutUrl = `${baseUrl}/checkout.html`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
@@ -156,6 +157,14 @@ function analyticsSnippet() {
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>`;
+}
+
+function socialImageMeta() {
+  return `    <meta property="og:image" content="${socialImageUrl}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="${socialImageUrl}">`;
 }
 
 function sampleRequestScript() {
@@ -614,7 +623,7 @@ function pageHtml(page) {
     <meta property="og:title" content="${escapedTitle}">
     <meta property="og:description" content="${escapedDescription}">
     <meta property="og:url" content="${url}">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(breadcrumb)}</script>
@@ -688,7 +697,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
     <meta property="og:title" content="NYC Permit Activity Segments">
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${baseUrl}/sample-segments.html">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     ${analyticsSnippet()}
@@ -702,6 +711,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
       <section class="section card">
         <h2>Get the current issue</h2>
         <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue.</p>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
@@ -783,7 +793,7 @@ function methodologyHtml(rows) {
     <meta property="og:title" content="NYC Construction Activity Brief Methodology">
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${baseUrl}/methodology.html">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(dataset)}</script>
     <script type="application/ld+json">${jsonScript(faq)}</script>
@@ -907,7 +917,7 @@ function buyerGuideHtml(rows) {
     <meta property="og:title" content="Buyer Guide | NYC Construction Activity ZIP">
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${baseUrl}/buyer-guide.html">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(faq)}</script>
@@ -936,6 +946,7 @@ function buyerGuideHtml(rows) {
 
       <section class="section card">
         <h2>Current issue facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
         <ul>
           <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
           <li>Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
@@ -1031,7 +1042,7 @@ function deliveryHtml(rows) {
     <meta property="og:title" content="Delivery | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${baseUrl}/delivery.html">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(faq)}</script>
@@ -1132,7 +1143,7 @@ function pricingHtml(rows) {
     <meta property="og:title" content="Pricing and ROI | NYC Construction Activity Brief">
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${baseUrl}/pricing.html">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(faq)}</script>
@@ -1159,6 +1170,11 @@ function pricingHtml(rows) {
           <h2>Delivery</h2>
           <p>Instant browser download after completed Stripe checkout.</p>
         </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue snapshot</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
       </section>
 
       <section class="section card">
@@ -1258,7 +1274,7 @@ function previewHtml(fullRows) {
     <meta property="og:title" content="Public Preview | NYC Construction Activity Brief">
     <meta property="og:description" content="${escapeHtml(description)}">
     <meta property="og:url" content="${baseUrl}/preview.html">
-    <meta name="twitter:card" content="summary">
+${socialImageMeta()}
     <link rel="stylesheet" href="/styles.css">
     <script type="application/ld+json">${jsonScript(product)}</script>
     <script type="application/ld+json">${jsonScript(dataset)}</script>
@@ -1283,6 +1299,11 @@ function previewHtml(fullRows) {
           <h2>Source window</h2>
           <p>${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}. Latest issued row: ${escapeHtml(range.latestIssuedDate)}.</p>
         </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current issue snapshot</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and NYC50 pricing">
       </section>
 
       <section class="section card">

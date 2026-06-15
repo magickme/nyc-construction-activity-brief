@@ -3,6 +3,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
+const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50';
 const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
 const promoCode = 'NYC50';
@@ -112,6 +113,7 @@ function buildCurrentIssueJson(rows, manifest) {
       deliveryUrl: `${baseUrl}/delivery.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
+      imageUrl: socialImageUrl,
       checkoutUrl,
       stripeCheckoutUrl,
       priceUsd: 49,
@@ -119,6 +121,7 @@ function buildCurrentIssueJson(rows, manifest) {
     paidZip: {
       checkoutUrl,
       stripeCheckoutUrl,
+      imageUrl: socialImageUrl,
       pricingUrl: `${baseUrl}/pricing.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
@@ -246,6 +249,7 @@ Current issue:
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
 - Checkout: ${checkoutUrl}
 - Stripe Payment Link: ${stripeCheckoutUrl}
+- Social image: ${socialImageUrl}
 - Price: $49 one-time ZIP download
 - Promo code: ${promoCode} for ${promoPercentOff}% off while the first ${promoMaxRedemptions} redemptions remain
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv

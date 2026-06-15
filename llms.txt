@@ -10,6 +10,7 @@ Current issue:
 - Issued dates in preview: 2026-06-09 to 2026-06-12
 - Checkout: https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue
 - Stripe Payment Link: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50
+- Social image: https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png
 - Price: $49 one-time ZIP download
 - Promo code: NYC50 for 50% off while the first 10 redemptions remain
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv

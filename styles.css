@@ -114,6 +114,17 @@ li {
   padding: 18px;
 }
 
+.issue-snapshot {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 18px 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+}
+
 .table-wrap {
   overflow-x: auto;
 }

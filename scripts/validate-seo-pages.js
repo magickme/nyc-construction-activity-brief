@@ -7,6 +7,8 @@ const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html\\?source=[a-z0-9._-]+';
 const relativeCheckoutUrl = '/checkout.html\\?source=[a-z0-9._-]+';
 const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N\\?prefilled_promo_code=NYC50';
+const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
+const socialImagePath = path.join(root, 'assets/current-issue-snapshot.png');
 const pageData = require('./seo-pages.json');
 const manifest = require('./generated-pages-manifest.json');
 const pages = manifest.slugs.map((slug) => `topics/${slug}.html`);
@@ -86,7 +88,11 @@ function assertHtmlPage(relativePath) {
   assert.match(html, new RegExp(`<link rel="alternate" type="application/json"[^>]+href="${baseUrl}/current-issue\\.json">`), `${relativePath} links current issue JSON`);
   assert.match(html, /<meta property="og:title" content="[^"]+">/, `${relativePath} needs OG title`);
   assert.match(html, /<meta property="og:description" content="[^"]+">/, `${relativePath} needs OG description`);
-  assert.match(html, /<meta name="twitter:card" content="summary">/, `${relativePath} needs Twitter card`);
+  assert.match(html, new RegExp(`<meta property="og:image" content="${socialImageUrl}">`), `${relativePath} needs social image`);
+  assert.match(html, /<meta property="og:image:width" content="1200">/, `${relativePath} needs social image width`);
+  assert.match(html, /<meta property="og:image:height" content="630">/, `${relativePath} needs social image height`);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image">/, `${relativePath} needs large Twitter card`);
+  assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialImageUrl}">`), `${relativePath} needs Twitter image`);
   assert.match(html, /"@type":"Product"/, `${relativePath} needs Product structured data`);
   assert.match(html, /"@type":"Offer"/, `${relativePath} needs Offer structured data`);
   assert.match(html, /"price":"49.00"/, `${relativePath} needs current price structured data`);
@@ -136,6 +142,11 @@ assert.match(
 assert.match(index, new RegExp(`<link rel="alternate" type="application/rss\\+xml"[^>]+href="${baseUrl}/feed\\.xml">`), 'index links RSS feed');
 assert.match(index, new RegExp(`<link rel="alternate" type="application/json"[^>]+href="${baseUrl}/current-issue\\.json">`), 'index links current issue JSON');
 assert.match(index, /<meta property="og:title" content="[^"]+">/, 'index needs OG title');
+assert.match(index, new RegExp(`<meta property="og:image" content="${socialImageUrl}">`), 'index needs social image');
+assert.match(index, /<meta property="og:image:width" content="1200">/, 'index needs social image width');
+assert.match(index, /<meta property="og:image:height" content="630">/, 'index needs social image height');
+assert.match(index, /<meta name="twitter:card" content="summary_large_image">/, 'index needs large Twitter card');
+assert.match(index, new RegExp(`<meta name="twitter:image" content="${socialImageUrl}">`), 'index needs Twitter image');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
 assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytics script');
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
@@ -145,6 +156,7 @@ assert.match(index, new RegExp(`href="${relativeCheckoutUrl}"`), 'index links tr
 assert.match(index, /Use code <strong>NYC50<\/strong> in Stripe checkout for 50% off/, 'index needs launch discount copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
+assert.match(index, /src="\/assets\/current-issue-snapshot\.png"/, 'index needs current issue snapshot image');
 assert.match(index, /Buyer workbook with a fast review path/, 'index needs buyer workbook offer copy');
 assert.match(index, /Priority-slices CSV grouped by work type/, 'index needs priority-slices offer copy');
 assert.match(index, /data-sample-request-form/, 'index needs sample request form');
@@ -173,6 +185,7 @@ const preview = read('preview.html');
 assert.match(preview, /<title>Public Preview \| NYC Construction Activity Brief<\/title>/, 'preview page needs title');
 assert.match(preview, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html">/, 'preview page needs canonical');
 assert.match(preview, /<meta property="og:title" content="Public Preview \| NYC Construction Activity Brief">/, 'preview page needs OG title');
+assert.match(preview, /src="\/assets\/current-issue-snapshot\.png"/, 'preview page needs current issue snapshot image');
 assert.match(preview, /"@type":"Product"/, 'preview page needs Product structured data');
 assert.match(preview, /"@type":"Dataset"/, 'preview page needs Dataset structured data');
 assert.match(preview, /\/_vercel\/insights\/script\.js/, 'preview page needs Web Analytics script');
@@ -201,6 +214,7 @@ const pricing = read('pricing.html');
 assert.match(pricing, /<title>Pricing and ROI \| NYC Construction Activity Brief<\/title>/, 'pricing page needs title');
 assert.match(pricing, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html">/, 'pricing page needs canonical');
 assert.match(pricing, /<meta property="og:title" content="Pricing and ROI \| NYC Construction Activity Brief">/, 'pricing page needs OG title');
+assert.match(pricing, /src="\/assets\/current-issue-snapshot\.png"/, 'pricing page needs current issue snapshot image');
 assert.match(pricing, /"@type":"Product"/, 'pricing page needs Product structured data');
 assert.match(pricing, /"@type":"FAQPage"/, 'pricing page needs FAQ structured data');
 assert.match(pricing, /\/_vercel\/insights\/script\.js/, 'pricing page needs Web Analytics script');
@@ -226,6 +240,7 @@ const buyerGuide = read('buyer-guide.html');
 assert.match(buyerGuide, /<title>Buyer Guide \| NYC Construction Activity ZIP<\/title>/, 'buyer guide needs title');
 assert.match(buyerGuide, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html">/, 'buyer guide needs canonical');
 assert.match(buyerGuide, /<meta property="og:title" content="Buyer Guide \| NYC Construction Activity ZIP">/, 'buyer guide needs OG title');
+assert.match(buyerGuide, /src="\/assets\/current-issue-snapshot\.png"/, 'buyer guide needs current issue snapshot image');
 assert.match(buyerGuide, /"@type":"Product"/, 'buyer guide needs Product structured data');
 assert.match(buyerGuide, /"@type":"Offer"/, 'buyer guide needs Offer structured data');
 assert.match(buyerGuide, /"price":"49.00"/, 'buyer guide needs current price structured data');
@@ -284,6 +299,7 @@ assert.match(hub, /<link rel="canonical" href="https:\/\/nyc-construction-activi
 assert.match(hub, /<link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">/, 'hub links RSS feed');
 assert.match(hub, /<link rel="alternate" type="application\/json"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.json">/, 'hub links current issue JSON');
 assert.match(hub, /\/_vercel\/insights\/script\.js/, 'hub needs Web Analytics script');
+assert.match(hub, /src="\/assets\/current-issue-snapshot\.png"/, 'hub needs current issue snapshot image');
 assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
 assert.match(hub, /sample_request_saved/, 'hub tracks saved sample requests');
@@ -345,8 +361,10 @@ assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-a
 assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50', 'current issue JSON keeps Stripe checkout URL');
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
 assert.equal(currentIssue.publicPreview.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON public preview links delivery page');
+assert.equal(currentIssue.publicPreview.imageUrl, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'current issue JSON public preview links social image');
 assert.equal(currentIssue.paidZip.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON paid ZIP links buyer guide');
 assert.equal(currentIssue.paidZip.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON paid ZIP links delivery page');
+assert.equal(currentIssue.paidZip.imageUrl, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'current issue JSON paid ZIP links social image');
 assert.equal(currentIssue.paidZip.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP links tracked checkout');
 assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50', 'current issue JSON paid ZIP keeps Stripe checkout URL');
 assert.equal(currentIssue.paidZip.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON paid ZIP links pricing page');
@@ -382,6 +400,7 @@ assert.match(llms, /Pricing: https:\/\/nyc-construction-activity-brief\.vercel\.
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code: NYC50 for 50% off/, 'llms.txt lists promo code');
 assert.match(llms, /Stripe Payment Link: https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N\?prefilled_promo_code=NYC50/, 'llms.txt keeps Stripe checkout URL');
+assert.match(llms, /Social image: https:\/\/nyc-construction-activity-brief\.vercel\.app\/assets\/current-issue-snapshot\.png/, 'llms.txt links social image');
 assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'llms.txt links buyer guide');
 assert.match(llms, /Delivery steps: https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'llms.txt links delivery page');
 assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');
@@ -392,5 +411,10 @@ assert.equal(publicCsv.length - 1, 25, 'public CSV preview must stay limited to 
 
 const indexNowKey = read('320c87511764a53abe2cd8aa0481f1bc.txt').trim();
 assert.equal(indexNowKey, '320c87511764a53abe2cd8aa0481f1bc', 'IndexNow key file must match submission script');
+
+assert.ok(fs.existsSync(socialImagePath), 'current issue snapshot PNG exists');
+const socialImage = fs.readFileSync(socialImagePath);
+assert.equal(socialImage.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', 'current issue snapshot is a PNG');
+assert.ok(socialImage.length > 10000, 'current issue snapshot PNG has real image content');
 
 console.log('seo page validation passed');
