@@ -216,6 +216,7 @@ const coreConversionPages = [
   ['property-manager-permit-research.html', 'property-manager-sticky'],
   ['material-supplier-permit-research.html', 'material-supplier-sticky'],
   ['building-service-vendor-permit-research.html', 'building-service-vendor-sticky'],
+  ['subcontractor-permit-research.html', 'subcontractor-sticky'],
   ['sample-segments.html', 'sample-segments-sticky'],
 ];
 
@@ -1608,6 +1609,59 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(buildingServiceVendor, pattern, `building-service-vendor-permit-research.html contains private data pattern ${pattern}`);
 }
 
+const subcontractor = read('subcontractor-permit-research.html');
+assert.match(subcontractor, /<title>Subcontractor Permit Research \| NYC Construction Brief<\/title>/, 'subcontractor guide needs title');
+assert.match(subcontractor, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/subcontractor-permit-research\.html">/, 'subcontractor guide needs canonical');
+assert.match(subcontractor, /<meta property="og:title" content="Subcontractor Permit Research \| NYC Construction Brief">/, 'subcontractor guide needs OG title');
+assert.match(subcontractor, /src="\/assets\/current-issue-snapshot\.png"/, 'subcontractor guide needs current issue snapshot image');
+assert.match(subcontractor, /"@type":"Product"/, 'subcontractor guide needs Product structured data');
+assert.match(subcontractor, /"@type":"Dataset"/, 'subcontractor guide needs Dataset structured data');
+assert.match(subcontractor, /"@type":"FAQPage"/, 'subcontractor guide needs FAQ structured data');
+assert.match(subcontractor, /"price":"9.50"/, 'subcontractor guide needs current price structured data');
+assert.match(subcontractor, /\/_vercel\/insights\/script\.js/, 'subcontractor guide needs Web Analytics script');
+assert.match(subcontractor, /NYC permit research for subcontractors/, 'subcontractor guide needs headline');
+assert.match(subcontractor, /Subcontractor review pass/, 'subcontractor guide needs review path');
+assert.match(subcontractor, /Useful subcontractor research pages/, 'subcontractor guide needs research page links');
+assert.match(subcontractor, /buyer-workbook\.md/, 'subcontractor guide mentions buyer workbook');
+assert.match(subcontractor, /buyer-priority-slices\.csv/, 'subcontractor guide mentions priority slices');
+assert.match(subcontractor, /source_url/, 'subcontractor guide mentions source_url');
+assert.match(subcontractor, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'subcontractor guide needs row counts');
+assert.match(subcontractor, /Top work types: Sidewalk Shed 40/, 'subcontractor guide needs work type mix');
+assert.match(subcontractor, /Status mix:/, 'subcontractor guide needs status mix');
+assert.match(subcontractor, /Cost buckets:/, 'subcontractor guide needs cost bucket mix');
+assert.match(subcontractor, /href="\/topics\/nyc-dob-permit-alerts-for-subcontractors\.html"/, 'subcontractor guide links subcontractor alerts topic');
+assert.match(subcontractor, /href="\/topics\/nyc-subcontractor-prospecting-permit-data\.html"/, 'subcontractor guide links subcontractor prospecting topic');
+assert.match(subcontractor, /href="\/topics\/nyc-dob-permit-data-for-contractors\.html"/, 'subcontractor guide links contractor data topic');
+assert.match(subcontractor, /href="\/topics\/nyc-permit-intelligence-for-contractors\.html"/, 'subcontractor guide links contractor permit intelligence topic');
+assert.match(subcontractor, /href="\/topics\/nyc-commercial-renovation-permits\.html"/, 'subcontractor guide links commercial renovation topic');
+assert.match(subcontractor, /href="\/preview\.html"/, 'subcontractor guide links preview');
+assert.match(subcontractor, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'subcontractor guide links sample CSV');
+assert.match(subcontractor, /href="\/current-issue\.html"/, 'subcontractor guide links current issue page');
+assert.match(subcontractor, /href="\/sample-segments\.html"/, 'subcontractor guide links segment hub');
+assert.match(subcontractor, /href="\/who-should-buy\.html"/, 'subcontractor guide links who should buy page');
+assert.match(subcontractor, /href="\/free-vs-paid\.html"/, 'subcontractor guide links free vs paid page');
+assert.match(subcontractor, /href="\/permit-research-workflow\.html"/, 'subcontractor guide links research workflow page');
+assert.match(subcontractor, /href="\/contractor-supplier-permit-research\.html"/, 'subcontractor guide links contractor and supplier guide');
+assert.match(subcontractor, /href="\/material-supplier-permit-research\.html"/, 'subcontractor guide links material supplier guide');
+assert.match(subcontractor, /href="\/nyc-permit-activity-by-zip\.html"/, 'subcontractor guide links ZIP activity page');
+assert.doesNotMatch(subcontractor, /href="\/subcontractor-permit-research\.html"/, 'subcontractor guide must not self-link');
+assert.match(subcontractor, /href="\/inside-the-zip\.html"/, 'subcontractor guide links inside ZIP');
+assert.match(subcontractor, /href="\/csv-field-guide\.html"/, 'subcontractor guide links CSV field guide');
+assert.match(subcontractor, /href="\/time-saved-calculator\.html"/, 'subcontractor guide links time saved calculator');
+assert.match(subcontractor, /href="\/pricing\.html"/, 'subcontractor guide links pricing');
+assert.match(subcontractor, /href="\/support\.html"/, 'subcontractor guide links support');
+assert.match(subcontractor, new RegExp(`href="${purchaseUrl}"`), 'subcontractor guide links tracked buy page');
+assertSampleRequestForm(subcontractor, 'subcontractor guide');
+assert.match(subcontractor, /No guaranteed leads\./, 'subcontractor guide keeps claims boundary visible');
+assert.match(subcontractor, /No owner names/, 'subcontractor guide keeps private-contact boundary visible');
+assert.match(subcontractor, /estimating advice/, 'subcontractor guide keeps advice boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(subcontractor, pattern, `subcontractor-permit-research.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(subcontractor, pattern, `subcontractor-permit-research.html contains private data pattern ${pattern}`);
+}
+
 const buyerGuide = read('buyer-guide.html');
 assert.match(buyerGuide, /<title>Buyer Guide \| NYC Construction Activity ZIP<\/title>/, 'buyer guide needs title');
 assert.match(buyerGuide, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html">/, 'buyer guide needs canonical');
@@ -1795,7 +1849,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -1804,7 +1858,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 43, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 44, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -1829,6 +1883,7 @@ assert.equal(currentIssue.publicPreview.researchWorkflowUrl, 'https://nyc-constr
 assert.equal(currentIssue.publicPreview.contractorSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html', 'current issue JSON public preview links contractor and supplier guide');
 assert.equal(currentIssue.publicPreview.materialSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/material-supplier-permit-research.html', 'current issue JSON public preview links material supplier guide');
 assert.equal(currentIssue.publicPreview.buildingServiceVendorGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/building-service-vendor-permit-research.html', 'current issue JSON public preview links building-service vendor guide');
+assert.equal(currentIssue.publicPreview.subcontractorGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/subcontractor-permit-research.html', 'current issue JSON public preview links subcontractor guide');
 assert.equal(currentIssue.publicPreview.brokerDeveloperGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/broker-developer-permit-research.html', 'current issue JSON public preview links broker and developer guide');
 assert.equal(currentIssue.publicPreview.realEstateInvestorGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/real-estate-investor-permit-research.html', 'current issue JSON public preview links real estate investor guide');
 assert.equal(currentIssue.publicPreview.constructionConsultantGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/construction-consultant-permit-research.html', 'current issue JSON public preview links construction consultant guide');
@@ -1879,6 +1934,7 @@ assert.equal(currentIssue.paidZip.researchWorkflowUrl, 'https://nyc-construction
 assert.equal(currentIssue.paidZip.contractorSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html', 'current issue JSON paid ZIP links contractor and supplier guide');
 assert.equal(currentIssue.paidZip.materialSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/material-supplier-permit-research.html', 'current issue JSON paid ZIP links material supplier guide');
 assert.equal(currentIssue.paidZip.buildingServiceVendorGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/building-service-vendor-permit-research.html', 'current issue JSON paid ZIP links building-service vendor guide');
+assert.equal(currentIssue.paidZip.subcontractorGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/subcontractor-permit-research.html', 'current issue JSON paid ZIP links subcontractor guide');
 assert.equal(currentIssue.paidZip.brokerDeveloperGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/broker-developer-permit-research.html', 'current issue JSON paid ZIP links broker and developer guide');
 assert.equal(currentIssue.paidZip.realEstateInvestorGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/real-estate-investor-permit-research.html', 'current issue JSON paid ZIP links real estate investor guide');
 assert.equal(currentIssue.paidZip.constructionConsultantGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/construction-consultant-permit-research.html', 'current issue JSON paid ZIP links construction consultant guide');
