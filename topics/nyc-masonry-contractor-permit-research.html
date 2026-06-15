@@ -75,18 +75,18 @@
           </label>
           <label>
             Work type requested
-            <input name="work_type_requested" value="" placeholder="Plumbing, sidewalk shed, structural..." required>
+            <input name="work_type_requested" value="Masonry, restoration, and exterior access" placeholder="Plumbing, sidewalk shed, structural..." required>
           </label>
           <label>
             ZIP codes or borough
-            <input name="territory_requested" value="" placeholder="11201, Brooklyn, Manhattan..." required>
+            <input name="territory_requested" value="NYC" placeholder="11201, Brooklyn, Manhattan..." required>
           </label>
           <label>
             Buyer type
             <select name="buyer_type" required>
               <option value="">Choose one</option>
               <option value="construction-support-vendor">Construction-support vendor</option>
-              <option value="specialty-subcontractor">Specialty subcontractor</option>
+              <option value="specialty-subcontractor" selected>Specialty subcontractor</option>
               <option value="supplier">Supplier</option>
               <option value="local-b2b-service-provider">Local B2B service provider</option>
               <option value="real-estate-investor">Real estate investor or acquisition researcher</option>
@@ -101,7 +101,7 @@
           </label>
           <label>
             What do you want to monitor?
-            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required></textarea>
+            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required>Masonry-adjacent structural, sidewalk shed, scaffold, and construction fence permit activity in NYC.</textarea>
           </label>
           <label class="checkbox">
             <input name="consent" type="checkbox" required>

@@ -1345,6 +1345,8 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
 ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
     workType: page.workTypeRequest,
     territory: page.territoryRequest,
+    buyerType: page.buyerTypeRequest,
+    monitoringGoal: page.monitoringGoalRequest,
   })}${faqSection(page)}      <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, or full street addresses are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>

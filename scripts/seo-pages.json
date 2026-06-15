@@ -514,7 +514,11 @@
     "audience": "Facade restoration firms, masonry contractors, scaffold companies, waterproofing suppliers, and exterior-work service providers checking public permit activity.",
     "currentSample": "The current issue includes selected exterior-access and structural rows from the 2026-06-09 to 2026-06-15 pull.",
     "useCase": "Use this page to decide whether the current exterior-access mix is worth deeper source-record review. It does not include private contacts, bid timing, contractor names, or guaranteed jobs.",
-    "sampleLine": "Facade restoration screen | work type | ZIP | issued date | status | DOB NOW source link"
+    "sampleLine": "Facade restoration screen | work type | ZIP | issued date | status | DOB NOW source link",
+    "workTypeRequest": "Facade restoration and exterior access",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "specialty-subcontractor",
+    "monitoringGoalRequest": "Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC."
   },
   {
     "slug": "nyc-masonry-contractor-permit-research",
@@ -525,7 +529,11 @@
     "audience": "Masonry contractors, restoration firms, scaffold vendors, material suppliers, waterproofing teams, and exterior-repair service providers checking public permit activity.",
     "currentSample": "The current issue includes selected exterior-access and structural rows from the 2026-06-09 to 2026-06-15 pull.",
     "useCase": "Use this page to decide whether the current masonry-adjacent permit mix is worth deeper source-record review. It does not include private contacts, bid timing, contractor names, or guaranteed jobs.",
-    "sampleLine": "Masonry contractor screen | work type | ZIP | issued date | status | DOB NOW source link"
+    "sampleLine": "Masonry contractor screen | work type | ZIP | issued date | status | DOB NOW source link",
+    "workTypeRequest": "Masonry, restoration, and exterior access",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "specialty-subcontractor",
+    "monitoringGoalRequest": "Masonry-adjacent structural, sidewalk shed, scaffold, and construction fence permit activity in NYC."
   },
   {
     "slug": "nyc-construction-risk-permit-research",
