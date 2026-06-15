@@ -585,6 +585,21 @@
     "monitoringGoalRequest": "Selected NYC DOB permit activity for architecture and design-team research."
   },
   {
+    "slug": "nyc-permit-data-for-engineers",
+    "title": "NYC Permit Data for Engineers | Weekly DOB Brief",
+    "description": "A weekly NYC permit data page for engineers reviewing selected DOB rows by work type, ZIP, issued date, status, cost bucket, and source link.",
+    "h1": "NYC permit data for engineers reviewing public DOB rows.",
+    "lede": "The current issue helps engineering teams screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Engineers, MEP teams, structural consultants, project managers, and permit coordinators checking public construction activity by work type and territory.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual public-record review by ZIP, work type, issued date, status, and source link. It does not provide engineering advice, code advice, filing advice, owner contacts, applicant contacts, or a complete DOB database.",
+    "sampleLine": "Engineering research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Engineering permit research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "construction-consultant",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for engineering and design-team research."
+  },
+  {
     "slug": "nyc-real-estate-investor-permit-research",
     "title": "NYC Real Estate Investor Permit Research | DOB Brief",
     "description": "A weekly NYC real estate investor permit research page for reviewing selected DOB activity by ZIP, work type, date, and source link.",
