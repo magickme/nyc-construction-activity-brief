@@ -461,6 +461,7 @@ assert.match(buy, /"@type":"Product"/, 'buy page needs Product structured data')
 assert.match(buy, /"price":"9.50"/, 'buy page needs current price structured data');
 assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page"/, 'buy page visible CTAs default to tracked checkout bridge');
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
+assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-activity-preview\.csv">Open free CSV preview<\/a>/, 'buy page gives uncertain buyers an above-fold CSV preview CTA');
 assert.match(buy, /<p class="fine">\$9\.50 one-time launch price\. Instant browser download after completed Stripe checkout\. No promo code is required\.<\/p>\s*<p>\s*<a data-buy-link="top" class="button"/, 'buy page puts a purchase CTA above sample rows');
 assert.match(buy, /data-buy-confidence/, 'buy page has pre-checkout confidence block');
 assert.match(buy, /<h2>Before you pay<\/h2>/, 'buy page names pre-checkout checks');
@@ -468,6 +469,9 @@ assert.match(buy, /Open the free preview if you need to confirm the row shape fi
 assert.match(buy, /Use the support page for the refund boundary and download troubleshooting steps\./, 'buy page surfaces support and refund boundary before checkout');
 assert.match(buy, /Keep the Stripe receipt and success-page URL if the browser download is interrupted\./, 'buy page gives interrupted-download evidence steps before checkout');
 assert.match(buy, /Buy only if the full 142-row file saves enough manual sorting time\./, 'buy page gives a clear paid-value threshold');
+assert.match(buy, /data-buyer-fit-check/, 'buy page has a fast buyer-fit check before sample rows');
+assert.match(buy, /work type, borough, ZIP, issued date, status, cost bucket, short job description, and source URL/, 'buy page states the fields buyers can evaluate before paying');
+assert.match(buy, /It does not add private contacts or lead scoring\./, 'buy page keeps paid ZIP boundary near buyer-fit copy');
 assert.match(buy, /data-buy-link="after-sample"/, 'buy page keeps a post-sample purchase CTA');
 assert.equal((buy.match(/data-buy-link="/g) || []).length, 2, 'buy page has exactly two purchase CTAs');
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');

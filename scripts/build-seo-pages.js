@@ -859,6 +859,7 @@ ${socialImageMeta()}
         <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
         <p>
           <a data-buy-link="top" class="button" href="${checkout}">Buy $9.50 ZIP on Stripe</a>
+          <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
         </p>
         <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
         <section class="section" data-buy-confidence>
@@ -869,6 +870,11 @@ ${socialImageMeta()}
             <li>Keep the Stripe receipt and success-page URL if the browser download is interrupted.</li>
             <li>Buy only if the full ${escapeHtml(rows.length)}-row file saves enough manual sorting time.</li>
           </ul>
+        </section>
+        <section class="section" data-buyer-fit-check>
+          <h2>Fast buyer-fit check</h2>
+          <p>Use the free CSV preview first if you need to see the columns. Buy when these public DOB fields are enough for your review pass: work type, borough, ZIP, issued date, status, cost bucket, short job description, and source URL.</p>
+          <p class="fine">The paid ZIP adds the full current issue, buyer workbook, priority slices, source registry, QA report, and README. It does not add private contacts or lead scoring.</p>
         </section>
         <div class="grid">
           <div class="card">
