@@ -167,6 +167,43 @@ function conversionBar(source) {
 `;
 }
 
+const coreConversionPages = [
+  ['', 'home-sticky'],
+  ['preview.html', 'preview-sticky'],
+  ['current-issue.html', 'current-issue-sticky'],
+  ['pricing.html', 'pricing-sticky'],
+  ['inside-the-zip.html', 'inside-the-zip-sticky'],
+  ['free-vs-paid.html', 'free-vs-paid-sticky'],
+  ['buyer-guide.html', 'buyer-guide-sticky'],
+  ['csv-field-guide.html', 'csv-field-guide-sticky'],
+  ['delivery.html', 'delivery-sticky'],
+  ['support.html', 'support-sticky'],
+  ['methodology.html', 'methodology-sticky'],
+  ['time-saved-calculator.html', 'time-saved-calculator-sticky'],
+  ['who-should-buy.html', 'who-should-buy-sticky'],
+  ['permit-research-workflow.html', 'permit-research-workflow-sticky'],
+  ['contractor-supplier-permit-research.html', 'contractor-supplier-sticky'],
+  ['broker-developer-permit-research.html', 'broker-developer-sticky'],
+  ['permit-expediter-research.html', 'permit-expediter-sticky'],
+  ['sample-segments.html', 'sample-segments-sticky'],
+];
+
+function applyCoreConversionBars() {
+  for (const [relativePath, source] of coreConversionPages) {
+    const filePath = path.join(root, relativePath || 'index.html');
+    let html = fs.readFileSync(filePath, 'utf8');
+    html = html.replace(/\s+<aside class="conversion-bar" data-conversion-bar>[\s\S]*?<\/aside>\n(?=\s*<\/body>)/, '\n');
+    html = html.replace(/<body(?![^>]*class=)>/, '<body class="has-conversion-bar">');
+    html = html.replace(/<body class="([^"]*)">/, (_match, className) => {
+      const classes = new Set(className.split(/\s+/).filter(Boolean));
+      classes.add('has-conversion-bar');
+      return `<body class="${[...classes].join(' ')}">`;
+    });
+    html = html.replace(/\s*<\/body>/, `\n${conversionBar(source)}  </body>`);
+    fs.writeFileSync(filePath, html);
+  }
+}
+
 function analyticsSnippet() {
   return `<script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -3621,5 +3658,6 @@ fs.writeFileSync(
   }, null, 2)}\n`,
 );
 updateIndex(manualPages, generatedPages);
+applyCoreConversionBars();
 
 console.log(`generated ${pages.length} SEO pages from ${rows.length} source rows`);

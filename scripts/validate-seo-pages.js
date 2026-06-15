@@ -165,6 +165,39 @@ function assertSampleRequestForm(html, label) {
   assert.match(html, /This does not join the MagickMe newsletter\./, `${label} keeps list-separation copy`);
 }
 
+function assertConversionBar(html, label, source) {
+  const expectedCheckout = `https://nyc-construction-activity-brief.vercel.app/checkout.html?source=${source}`;
+  assert.match(html, /class="[^"]*has-conversion-bar[^"]*"/, `${label} uses sticky conversion bar layout`);
+  assert.match(html, /data-conversion-bar/, `${label} needs sticky conversion bar`);
+  assert.match(html, /Sample request/, `${label} conversion bar links sample request`);
+  assert.match(
+    html,
+    new RegExp(`data-conversion-bar[\\s\\S]+href="${expectedCheckout.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+    `${label} conversion bar links attributed checkout`,
+  );
+}
+
+const coreConversionPages = [
+  ['index.html', 'home-sticky'],
+  ['preview.html', 'preview-sticky'],
+  ['current-issue.html', 'current-issue-sticky'],
+  ['pricing.html', 'pricing-sticky'],
+  ['inside-the-zip.html', 'inside-the-zip-sticky'],
+  ['free-vs-paid.html', 'free-vs-paid-sticky'],
+  ['buyer-guide.html', 'buyer-guide-sticky'],
+  ['csv-field-guide.html', 'csv-field-guide-sticky'],
+  ['delivery.html', 'delivery-sticky'],
+  ['support.html', 'support-sticky'],
+  ['methodology.html', 'methodology-sticky'],
+  ['time-saved-calculator.html', 'time-saved-calculator-sticky'],
+  ['who-should-buy.html', 'who-should-buy-sticky'],
+  ['permit-research-workflow.html', 'permit-research-workflow-sticky'],
+  ['contractor-supplier-permit-research.html', 'contractor-supplier-sticky'],
+  ['broker-developer-permit-research.html', 'broker-developer-sticky'],
+  ['permit-expediter-research.html', 'permit-expediter-sticky'],
+  ['sample-segments.html', 'sample-segments-sticky'],
+];
+
 assert.equal(manifest.sourceRows, 142, 'manifest source row count changed unexpectedly');
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
 assert.ok(manifest.generatedPages >= 65, 'expected at least 65 generated long-tail pages');
@@ -172,6 +205,10 @@ assert.equal(manifest.totalTopicPages, pages.length, 'manifest topic page count 
 
 for (const page of pages) {
   assertHtmlPage(page);
+}
+
+for (const [page, source] of coreConversionPages) {
+  assertConversionBar(read(page), page, source);
 }
 
 const index = read('index.html');
