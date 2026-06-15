@@ -138,6 +138,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buildingPermitDataUrl: `${baseUrl}/nyc-building-permit-data.html`,
       permitDataDownloadUrl: `${baseUrl}/nyc-dob-permit-data-download.html`,
+      dobPermitSearchUrl: `${baseUrl}/nyc-dob-permit-search.html`,
       permitCsvUrl: `${baseUrl}/nyc-dob-permit-csv.html`,
       permitDataApiAlternativeUrl: `${baseUrl}/nyc-permit-data-api-alternative.html`,
       weeklyPermitReportUrl: `${baseUrl}/weekly-nyc-construction-permit-report.html`,
@@ -199,6 +200,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       buildingPermitDataUrl: `${baseUrl}/nyc-building-permit-data.html`,
       permitDataDownloadUrl: `${baseUrl}/nyc-dob-permit-data-download.html`,
+      dobPermitSearchUrl: `${baseUrl}/nyc-dob-permit-search.html`,
       permitCsvUrl: `${baseUrl}/nyc-dob-permit-csv.html`,
       permitDataApiAlternativeUrl: `${baseUrl}/nyc-permit-data-api-alternative.html`,
       weeklyPermitReportUrl: `${baseUrl}/weekly-nyc-construction-permit-report.html`,
@@ -323,6 +325,7 @@ function buildDataPackageJson(rows, manifest) {
       `${baseUrl}/inside-the-zip.html`,
       `${baseUrl}/nyc-building-permit-data.html`,
       `${baseUrl}/nyc-dob-permit-data-download.html`,
+      `${baseUrl}/nyc-dob-permit-search.html`,
       `${baseUrl}/nyc-permit-data-api-alternative.html`,
       `${baseUrl}/contractor-permit-research.html`,
       `${baseUrl}/subcontractor-permit-research.html`,
@@ -486,6 +489,11 @@ function buildFeedXml(rows, manifest) {
       title: 'NYC DOB permit data download',
       url: `${baseUrl}/nyc-dob-permit-data-download.html`,
       description: `Download-focused buyer page with public preview files, data package metadata, delivery steps, and the full ${stats.rowCount}-row paid ZIP path.`,
+    },
+    {
+      title: 'NYC DOB permit search companion',
+      url: `${baseUrl}/nyc-dob-permit-search.html`,
+      description: `Search-focused buyer page for using the current ${stats.rowCount}-row ZIP as a weekly companion to manual NYC DOB permit source checks.`,
     },
     {
       title: 'NYC permit data API alternative',
@@ -680,6 +688,13 @@ function buildJsonFeed(rows, manifest) {
       content_text: 'Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.',
       date_published: generatedAt,
     },
+    {
+      id: `${baseUrl}/nyc-dob-permit-search.html`,
+      url: `${baseUrl}/nyc-dob-permit-search.html`,
+      title: 'NYC DOB permit search companion',
+      content_text: `Search-focused buyer page for using the current ${stats.rowCount}-row ZIP as a weekly companion to manual NYC DOB permit source checks.`,
+      date_published: generatedAt,
+    },
     ...manifest.slugs.slice(0, 12).map((slug) => ({
       id: `${baseUrl}/topics/${slug}.html`,
       url: `${baseUrl}/topics/${slug}.html`,
@@ -754,6 +769,7 @@ Primary pages:
 - CSV field guide: ${baseUrl}/csv-field-guide.html
 - NYC building permit data: ${baseUrl}/nyc-building-permit-data.html
 - NYC DOB permit data download: ${baseUrl}/nyc-dob-permit-data-download.html
+- NYC DOB permit search companion: ${baseUrl}/nyc-dob-permit-search.html
 - NYC DOB permit CSV: ${baseUrl}/nyc-dob-permit-csv.html
 - NYC permit data API alternative: ${baseUrl}/nyc-permit-data-api-alternative.html
 - Weekly NYC construction permit report: ${baseUrl}/weekly-nyc-construction-permit-report.html
@@ -839,7 +855,7 @@ Product-Feed: ${productFeedUrl}
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-permit-search.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
