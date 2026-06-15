@@ -453,6 +453,10 @@ assert.match(checkout, /utm_content: source/, 'checkout page passes source as UT
 assert.match(checkout, /client_reference_id: \['ncab', source\.replace/, 'checkout page passes non-sensitive client reference to Stripe');
 assert.match(checkout, /Continue to Stripe/, 'checkout page has fallback link');
 assert.match(checkout, /client_reference_id=ncab_checkout_static_fallback/, 'checkout page static fallback has client reference');
+assert.match(checkout, /id="invoice-help-link" class="button secondary" href="\/invoice-request\.html\?source=checkout-bridge"/, 'checkout page keeps invoice fallback link');
+assert.match(checkout, /const invoiceHelpLink = document\.getElementById\('invoice-help-link'\);/, 'checkout page finds invoice link');
+assert.match(checkout, /const invoiceSource = \[source, 'invoice'\]\.join\('-'\)\.slice\(0, 80\);/, 'checkout page builds source-specific invoice attribution');
+assert.match(checkout, /invoiceHelpLink\.href = '\/invoice-request\.html\?source=' \+ encodeURIComponent\(invoiceSource\);/, 'checkout page preserves source on invoice help link');
 assert.match(checkout, /utm_content=checkout_static_fallback/, 'checkout page static fallback has UTM content');
 assert.match(checkout, /\/api\/create-checkout-session/, 'checkout page creates first-party checkout sessions');
 assert.match(checkout, /method: 'POST'/, 'checkout page posts checkout session request');

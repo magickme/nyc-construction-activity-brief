@@ -40,7 +40,7 @@
         </ul>
         <a id="stripe-link" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue to Stripe</a>
         <p>
-          <a class="button secondary" href="/invoice-request.html?source=checkout-bridge">Need invoice help?</a>
+          <a id="invoice-help-link" class="button secondary" href="/invoice-request.html?source=checkout-bridge">Need invoice help?</a>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
           <a class="button secondary" href="/support.html">Support and refunds</a>
@@ -64,7 +64,12 @@
       });
       const fallbackUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
+      const invoiceHelpLink = document.getElementById('invoice-help-link');
       link.href = fallbackUrl;
+      if (invoiceHelpLink) {
+        const invoiceSource = [source, 'invoice'].join('-').slice(0, 80);
+        invoiceHelpLink.href = '/invoice-request.html?source=' + encodeURIComponent(invoiceSource);
+      }
       function trackEvent(name, data) {
         try {
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
