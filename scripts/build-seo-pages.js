@@ -942,7 +942,7 @@ ${socialImageMeta()}
           <h2>Checkout was not completed</h2>
           <p>If card checkout was blocked by invoice or purchase-order approval, send an invoice request. If you only needed to check the file shape, open the preview and then retry checkout when the current ZIP fits.</p>
           <p>
-            <a data-buy-link="cancelled-retry" class="button" href="${checkoutHref('buy-page-cancelled-retry')}">Retry Stripe checkout</a>
+            <a data-buy-link="cancelled-retry" class="button" href="${checkoutBridgeHref('buy-page-cancelled-retry')}">Retry Stripe checkout</a>
             <a class="button secondary" href="/invoice-request.html">Request invoice help</a>
             <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
           </p>

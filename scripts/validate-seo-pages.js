@@ -490,6 +490,11 @@ assert.match(buy, /"@type":"Product"/, 'buy page needs Product structured data')
 assert.match(buy, /"price":"9.50"/, 'buy page needs current price structured data');
 assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-top"/, 'buy page top CTA uses tracked checkout bridge source');
 assert.match(buy, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-after-sample"/, 'buy page after-sample CTA uses tracked checkout bridge source');
+assert.match(
+  buy,
+  /data-buy-link="cancelled-retry" class="button" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-cancelled-retry"/,
+  'buy page cancelled retry CTA uses tracked checkout bridge source',
+);
 assert.match(buy, /function linkSource\(link\)/, 'buy page reads the clicked CTA source before creating checkout');
 assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete purchase price');
 assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-activity-preview\.csv">Open free CSV preview<\/a>/, 'buy page gives uncertain buyers an above-fold CSV preview CTA');

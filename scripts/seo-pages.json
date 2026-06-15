@@ -570,6 +570,21 @@
     "sampleLine": "JSON preview | JSONL preview | work type | ZIP | issued date | status | public source link"
   },
   {
+    "slug": "nyc-permit-data-for-architects",
+    "title": "NYC Permit Data for Architects | Weekly DOB Brief",
+    "description": "A weekly NYC permit data page for architects and design professionals reviewing selected DOB rows by work type, ZIP, issued date, status, and source link.",
+    "h1": "NYC permit data for architects and design professionals.",
+    "lede": "The current issue helps architecture firms and design teams screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Architects, design professionals, project managers, and permit coordinators checking public construction activity by territory and work type.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual public-record review by ZIP, work type, issued date, and source link. It does not provide filing advice, code advice, legal advice, owner contacts, applicant contacts, or a complete DOB database.",
+    "sampleLine": "Architect research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Architecture and design permit research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "construction-consultant",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for architecture and design-team research."
+  },
+  {
     "slug": "nyc-real-estate-investor-permit-research",
     "title": "NYC Real Estate Investor Permit Research | DOB Brief",
     "description": "A weekly NYC real estate investor permit research page for reviewing selected DOB activity by ZIP, work type, date, and source link.",
