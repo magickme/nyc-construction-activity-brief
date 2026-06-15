@@ -587,6 +587,8 @@ assert.match(timeSavedCalculator, /"price":"9.50"/, 'time saved calculator needs
 assert.match(timeSavedCalculator, /"@type":"FAQPage"/, 'time saved calculator needs FAQ structured data');
 assert.match(timeSavedCalculator, /\/_vercel\/insights\/script\.js/, 'time saved calculator needs Web Analytics script');
 assert.match(timeSavedCalculator, /Time saved calculator for the current issue ZIP/, 'time saved calculator needs headline');
+assert.match(timeSavedCalculator, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=time-saved-calculator-top"/, 'time saved calculator has above-fold buy CTA');
+assert.match(timeSavedCalculator, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'time saved calculator explains top CTA checkout path');
 assert.match(timeSavedCalculator, /Calculate break-even time/, 'time saved calculator needs calculator section');
 assert.match(timeSavedCalculator, /id="hourly-rate"/, 'time saved calculator needs hourly input');
 assert.match(timeSavedCalculator, /id="minutes-saved"/, 'time saved calculator needs minutes input');
@@ -2421,6 +2423,8 @@ assert.match(delivery, /"@type":"Product"/, 'delivery page needs Product structu
 assert.match(delivery, /"@type":"Offer"/, 'delivery page needs Offer structured data');
 assert.match(delivery, /"@type":"FAQPage"/, 'delivery page needs FAQ structured data');
 assert.match(delivery, /\/_vercel\/insights\/script\.js/, 'delivery page needs Web Analytics script');
+assert.match(delivery, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=delivery-top"/, 'delivery page has above-fold buy CTA');
+assert.match(delivery, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'delivery page explains top CTA checkout path');
 assert.match(delivery, /creates a product-scoped Stripe Checkout Session/, 'delivery page explains first-party checkout session');
 assert.match(delivery, /Payment Link kept as fallback/, 'delivery page explains Payment Link fallback');
 assert.doesNotMatch(delivery, /Payment Link is product-scoped/, 'delivery page must not describe Payment Link as the primary path');
@@ -2457,6 +2461,8 @@ assert.match(support, /<meta property="og:title" content="Support and Refunds \|
 assert.match(support, /"@type":"Product"/, 'support page needs Product structured data');
 assert.match(support, /"@type":"FAQPage"/, 'support page needs FAQ structured data');
 assert.match(support, /\/_vercel\/insights\/script\.js/, 'support page needs Web Analytics script');
+assert.match(support, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=support-top"/, 'support page has above-fold buy CTA');
+assert.match(support, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'support page explains top CTA checkout path');
 assert.match(support, /success\.html\?session_id=\{CHECKOUT_SESSION_ID\}/, 'support page explains success redirect');
 assert.match(support, /\/api\/download/, 'support page explains download gate');
 assert.match(support, /missing_or_invalid_session_id/, 'support page explains missing session error');

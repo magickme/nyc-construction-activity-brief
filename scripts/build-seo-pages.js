@@ -6912,6 +6912,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Time saved calculator for the current issue ZIP.</h1>
       <p class="lede">Use this arithmetic check before checkout. It compares the $9.50 launch price with the manual sorting time you expect the prepared files to save.</p>
+      <p>
+        <a class="button" href="${checkoutHref('time-saved-calculator-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">
@@ -7248,6 +7253,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Instant ZIP delivery after paid Stripe checkout.</h1>
       <p class="lede">The current issue is delivered by the browser after Stripe confirms payment. There is no manual email fulfillment step.</p>
+      <p>
+        <a class="button" href="${checkoutHref('delivery-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">
@@ -7723,6 +7733,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Support and refund boundary for the current issue.</h1>
       <p class="lede">The product is a digital ZIP delivered by the browser after Stripe confirms payment. This page explains what to check if the download does not appear.</p>
+      <p>
+        <a class="button" href="${checkoutHref('support-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">
