@@ -4,7 +4,9 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
-const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N\\?prefilled_promo_code=NCAB25';
+const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html\\?source=[a-z0-9._-]+';
+const relativeCheckoutUrl = '/checkout.html\\?source=[a-z0-9._-]+';
+const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N\\?prefilled_promo_code=NCAB25';
 const pageData = require('./seo-pages.json');
 const manifest = require('./generated-pages-manifest.json');
 const pages = manifest.slugs.map((slug) => `topics/${slug}.html`);
@@ -93,7 +95,7 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
-  assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links promo-prefilled checkout`);
+  assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links tracked checkout`);
   assert.match(html, /data-sample-request-form/, `${relativePath} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${relativePath} posts sample requests to API`);
   assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
@@ -137,6 +139,7 @@ assert.match(index, /\/_vercel\/insights\/script\.js/, 'index needs Web Analytic
 assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not promise email delivery');
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
+assert.match(index, new RegExp(`href="${relativeCheckoutUrl}"`), 'index links tracked checkout');
 assert.match(index, /Use code <strong>NCAB25<\/strong> in Stripe checkout for 25% off/, 'index needs launch discount copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
@@ -151,6 +154,14 @@ for (const page of pages) {
 assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub');
 assert.match(index, /href="\/buyer-guide\.html"/, 'index links buyer guide');
 assert.match(index, /href="\/delivery\.html"/, 'index links delivery page');
+
+const checkout = read('checkout.html');
+assert.match(checkout, /<title>Opening Stripe Checkout \| NYC Construction Activity Brief<\/title>/, 'checkout page needs title');
+assert.match(checkout, /<meta name="robots" content="noindex">/, 'checkout page must be noindex');
+assert.match(checkout, /checkout_intent/, 'checkout page tracks checkout intent');
+assert.match(checkout, new RegExp(stripeCheckoutUrl), 'checkout page redirects to promo-prefilled Stripe checkout');
+assert.match(checkout, /Continue to Stripe/, 'checkout page has fallback link');
+assert.match(checkout, /\/_vercel\/insights\/script\.js/, 'checkout page needs Web Analytics script');
 
 const buyerGuide = read('buyer-guide.html');
 assert.match(buyerGuide, /<title>Buyer Guide \| NYC Construction Activity ZIP<\/title>/, 'buyer guide needs title');
@@ -169,7 +180,7 @@ assert.match(buyerGuide, /href="\/sample\/nyc-construction-activity-preview\.csv
 assert.match(buyerGuide, /href="\/sample-segments\.html"/, 'buyer guide links segment hub');
 assert.match(buyerGuide, /href="\/delivery\.html"/, 'buyer guide links delivery page');
 assert.match(buyerGuide, /href="\/methodology\.html"/, 'buyer guide links methodology');
-assert.match(buyerGuide, new RegExp(`href="${checkoutUrl}"`), 'buyer guide links promo-prefilled checkout');
+assert.match(buyerGuide, new RegExp(`href="${checkoutUrl}"`), 'buyer guide links tracked checkout');
 assert.match(buyerGuide, /No guaranteed leads\./, 'buyer guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(buyerGuide, pattern, `buyer-guide.html contains banned copy pattern ${pattern}`);
@@ -194,7 +205,7 @@ assert.match(delivery, /nyc-weekly-construction-activity-brief-current\.zip/, 'd
 assert.match(delivery, /rejects missing, invalid, or unpaid sessions/i, 'delivery page explains download gate');
 assert.match(delivery, /href="\/buyer-guide\.html"/, 'delivery page links buyer guide');
 assert.match(delivery, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'delivery page links sample CSV');
-assert.match(delivery, new RegExp(`href="${checkoutUrl}"`), 'delivery page links promo-prefilled checkout');
+assert.match(delivery, new RegExp(`href="${checkoutUrl}"`), 'delivery page links tracked checkout');
 assert.match(delivery, /No physical item ships\./, 'delivery page explains digital delivery');
 assert.match(delivery, /not a guaranteed lead list/, 'delivery page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -214,7 +225,7 @@ assert.match(hub, /data-sample-request-form/, 'hub needs sample request form');
 assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
-assert.match(hub, new RegExp(`href="${checkoutUrl}"`), 'hub links promo-prefilled checkout');
+assert.match(hub, new RegExp(`href="${checkoutUrl}"`), 'hub links tracked checkout');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }
@@ -229,7 +240,7 @@ assert.match(methodology, /Latest issued row in the file:/, 'methodology needs s
 assert.match(methodology, /The public package excludes owner names/, 'methodology needs privacy boundary');
 assert.match(methodology, /Not a live alert feed\./, 'methodology needs product boundary');
 assert.match(methodology, /No guaranteed leads\./, 'methodology keeps claims boundary visible');
-assert.match(methodology, new RegExp(`href="${checkoutUrl}"`), 'methodology links promo-prefilled checkout');
+assert.match(methodology, new RegExp(`href="${checkoutUrl}"`), 'methodology links tracked checkout');
 assert.match(methodology, /"@type":"Dataset"/, 'methodology needs Dataset structured data');
 assert.match(methodology, /"@type":"DataDownload"/, 'methodology needs DataDownload structured data');
 assert.match(methodology, /"contentUrl":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample\/nyc-construction-activity-preview\.csv"/, 'methodology Dataset links CSV preview');
@@ -238,7 +249,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'checkout.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -246,7 +257,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 8, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 9, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -261,11 +272,14 @@ assert.equal(currentIssue.product, 'NYC Weekly Construction Activity Brief', 'cu
 assert.equal(currentIssue.issue, 'current', 'current issue JSON marks current issue');
 assert.equal(currentIssue.publicPreview.rowCount, 25, 'current issue JSON row count matches public preview');
 assert.equal(currentIssue.publicPreview.fullIssueRowCount, manifest.sourceRows, 'current issue JSON full issue row count matches manifest');
-assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25', 'current issue JSON links promo-prefilled checkout');
+assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
+assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25', 'current issue JSON keeps Stripe checkout URL');
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
 assert.equal(currentIssue.publicPreview.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON public preview links delivery page');
 assert.equal(currentIssue.paidZip.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON paid ZIP links buyer guide');
 assert.equal(currentIssue.paidZip.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON paid ZIP links delivery page');
+assert.equal(currentIssue.paidZip.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP links tracked checkout');
+assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25', 'current issue JSON paid ZIP keeps Stripe checkout URL');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
 assert.equal(currentIssue.paidZip.promotion.code, 'NCAB25', 'current issue JSON lists promo code');
@@ -292,6 +306,7 @@ assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names p
 assert.match(llms, /Free CSV preview rows: 25/, 'llms.txt has free preview row count');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code: NCAB25 for 25% off/, 'llms.txt lists promo code');
+assert.match(llms, /Stripe Payment Link: https:\/\/buy\.stripe\.com\/dRmdR9aHv3vk6az8rlcAo0N\?prefilled_promo_code=NCAB25/, 'llms.txt keeps Stripe checkout URL');
 assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'llms.txt links buyer guide');
 assert.match(llms, /Delivery steps: https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'llms.txt links delivery page');
 assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');

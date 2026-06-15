@@ -3,7 +3,8 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
-const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
+const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
+const checkoutUrl = `${baseUrl}/checkout.html`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
   ? fullIssueCsvPath
@@ -65,6 +66,10 @@ function escapeHtml(value) {
 
 function jsonScript(value) {
   return JSON.stringify(value).replaceAll('<', '\\u003c');
+}
+
+function checkoutHref(source = 'site') {
+  return `${checkoutUrl}?source=${encodeURIComponent(source)}`;
 }
 
 function analyticsSnippet() {
@@ -240,6 +245,47 @@ function productJsonLd(description, url = checkoutUrl) {
       itemCondition: 'https://schema.org/NewCondition',
     },
   };
+}
+
+function checkoutHtml() {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Opening Stripe Checkout | NYC Construction Activity Brief</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="${baseUrl}/checkout.html">
+    <link rel="stylesheet" href="/styles.css">
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <section class="section card">
+        <h1>Opening Stripe checkout.</h1>
+        <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
+        <p class="fine">If the redirect does not start, use the button below. The Stripe checkout has promo code NCAB25 prefilled while redemptions remain.</p>
+        <a id="stripe-link" class="button" href="${stripeCheckoutUrl}">Continue to Stripe</a>
+      </section>
+    </main>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const rawSource = params.get('source') || 'site';
+      const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'site';
+      const stripeUrl = '${stripeCheckoutUrl}';
+      const link = document.getElementById('stripe-link');
+      link.href = stripeUrl;
+      try {
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        window.va('event', { name: 'checkout_intent', data: { source } });
+      } catch (error) {}
+      window.setTimeout(() => {
+        window.location.replace(stripeUrl);
+      }, 220);
+    </script>
+  </body>
+</html>
+`;
 }
 
 function datasetJsonLd(rows) {
@@ -506,7 +552,7 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
-        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutHref('topic')}">Buy instant ZIP</a>
       </section>
 
 ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
@@ -525,7 +571,7 @@ ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
 
 function hubHtml(pages) {
   const description = 'Browse data-backed NYC construction permit activity pages generated from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
-  const product = productJsonLd(description, `${baseUrl}/sample-segments.html`);
+  const product = productJsonLd(description, checkoutHref('segment-hub'));
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
@@ -562,7 +608,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
-        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutHref('segment-hub')}">Buy instant ZIP</a>
       </section>
 
 ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
@@ -703,7 +749,7 @@ ${territories}
         <p>No guaranteed leads. Source records can be incomplete, delayed, revised, duplicated, or mislabeled. This product is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
-        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutHref('methodology')}">Buy instant ZIP</a>
       </section>
     </main>
   </body>
@@ -823,7 +869,7 @@ function buyerGuideHtml(rows) {
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
-        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutHref('buyer-guide')}">Buy instant ZIP</a>
       </section>
 
       <section class="section card">
@@ -927,7 +973,7 @@ function deliveryHtml(rows) {
         <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list and is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
-        <a class="button" href="${checkoutUrl}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutHref('delivery')}">Buy instant ZIP</a>
       </section>
     </main>
   </body>
@@ -936,7 +982,7 @@ function deliveryHtml(rows) {
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1265,6 +1311,7 @@ fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
+fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),

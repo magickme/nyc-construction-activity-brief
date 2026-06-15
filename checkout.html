@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Opening Stripe Checkout | NYC Construction Activity Brief</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://nyc-construction-activity-brief.vercel.app/checkout.html">
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="section card">
+        <h1>Opening Stripe checkout.</h1>
+        <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
+        <p class="fine">If the redirect does not start, use the button below. The Stripe checkout has promo code NCAB25 prefilled while redemptions remain.</p>
+        <a id="stripe-link" class="button" href="https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25">Continue to Stripe</a>
+      </section>
+    </main>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const rawSource = params.get('source') || 'site';
+      const source = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'site';
+      const stripeUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
+      const link = document.getElementById('stripe-link');
+      link.href = stripeUrl;
+      try {
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        window.va('event', { name: 'checkout_intent', data: { source } });
+      } catch (error) {}
+      window.setTimeout(() => {
+        window.location.replace(stripeUrl);
+      }, 220);
+    </script>
+  </body>
+</html>

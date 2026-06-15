@@ -3,7 +3,8 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
-const checkoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
+const stripeCheckoutUrl = 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NCAB25';
+const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
 const promoCode = 'NCAB25';
 const promoPercentOff = 25;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
@@ -109,10 +110,12 @@ function buildCurrentIssueJson(rows, manifest) {
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
       checkoutUrl,
+      stripeCheckoutUrl,
       priceUsd: 49,
     },
     paidZip: {
       checkoutUrl,
+      stripeCheckoutUrl,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       priceUsd: 49,
@@ -228,6 +231,7 @@ Current issue:
 - Source fetch date: ${stats.sourceFetchDate}
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
 - Checkout: ${checkoutUrl}
+- Stripe Payment Link: ${stripeCheckoutUrl}
 - Price: $49 one-time ZIP download
 - Promo code: ${promoCode} for ${promoPercentOff}% off while redemptions remain
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
@@ -292,7 +296,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
