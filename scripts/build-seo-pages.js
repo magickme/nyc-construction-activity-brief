@@ -490,6 +490,60 @@ function checkoutHtml() {
 `;
 }
 
+function buyHtml() {
+  const source = 'buy-page';
+  const checkout = checkoutHref(source);
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buy Current Issue | NYC Construction Activity Brief</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="${baseUrl}/buy.html">
+    <link rel="stylesheet" href="/styles.css">
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <section class="section card">
+        <h1>Buy the current issue ZIP.</h1>
+        <p class="lede">You are being sent to the tracked checkout bridge for the NYC Weekly Construction Activity Brief current issue.</p>
+        <p class="fine">$24.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
+        <a id="buy-link" class="button" href="${checkout}">Continue to checkout</a>
+        <p>
+          <a class="button secondary" href="/preview.html">Check preview</a>
+          <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+          <a class="button secondary" href="/support.html">Support and refunds</a>
+        </p>
+        <p class="fine">No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+        <noscript>
+          <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same tracked checkout path.</p>
+        </noscript>
+      </section>
+    </main>
+    <script>
+      const checkoutUrl = '${checkout}';
+      const link = document.getElementById('buy-link');
+      link.addEventListener('click', () => {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name: 'buy_page_continue_clicked', data: { source: '${source}' } });
+        } catch (error) {}
+      });
+      try {
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        window.va('event', { name: 'buy_page_viewed', data: { source: '${source}' } });
+      } catch (error) {}
+      window.setTimeout(() => {
+        window.location.replace(checkoutUrl);
+      }, 650);
+    </script>
+  </body>
+</html>
+`;
+}
+
 function datasetJsonLd(rows) {
   const range = sampleRange(rows);
   const fetchDate = rows[0] && rows[0].source_fetch_date;
@@ -3644,6 +3698,7 @@ fs.writeFileSync(path.join(root, 'inside-the-zip.html'), insideZipHtml(rows));
 fs.writeFileSync(path.join(root, 'support.html'), supportHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
+fs.writeFileSync(path.join(root, 'buy.html'), buyHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));
 fs.writeFileSync(
   path.join(root, 'scripts', 'generated-pages-manifest.json'),

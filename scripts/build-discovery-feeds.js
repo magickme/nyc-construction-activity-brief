@@ -6,6 +6,7 @@ const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P';
 const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
+const buyUrl = `${baseUrl}/buy.html`;
 const launchPriceUsd = 24.5;
 const standardPriceUsd = 49;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
@@ -124,12 +125,14 @@ function buildCurrentIssueJson(rows, manifest) {
       methodologyUrl: `${baseUrl}/methodology.html`,
       segmentHubUrl: `${baseUrl}/sample-segments.html`,
       imageUrl: socialImageUrl,
+      buyUrl,
       checkoutUrl,
       stripeCheckoutUrl,
       priceUsd: launchPriceUsd,
       standardPriceUsd,
     },
     paidZip: {
+      buyUrl,
       checkoutUrl,
       stripeCheckoutUrl,
       imageUrl: socialImageUrl,
@@ -320,6 +323,7 @@ Current issue:
 - Free CSV preview rows: ${publicPreviewRowCount() ?? stats.rowCount}
 - Source fetch date: ${stats.sourceFetchDate}
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
+- Buy page: ${buyUrl}
 - Checkout: ${checkoutUrl}
 - Stripe Payment Link: ${stripeCheckoutUrl}
 - Social image: ${socialImageUrl}

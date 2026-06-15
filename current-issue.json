@@ -32,12 +32,14 @@
     "methodologyUrl": "https://nyc-construction-activity-brief.vercel.app/methodology.html",
     "segmentHubUrl": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
     "imageUrl": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
+    "buyUrl": "https://nyc-construction-activity-brief.vercel.app/buy.html",
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
     "stripeCheckoutUrl": "https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P",
     "priceUsd": 24.5,
     "standardPriceUsd": 49
   },
   "paidZip": {
+    "buyUrl": "https://nyc-construction-activity-brief.vercel.app/buy.html",
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
     "stripeCheckoutUrl": "https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P",
     "imageUrl": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
