@@ -192,6 +192,7 @@ const coreConversionPages = [
   ['nyc-construction-permit-leads.html', 'permit-leads-sticky'],
   ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-sticky'],
   ['nyc-plumbing-permits.html', 'plumbing-permits-sticky'],
+  ['nyc-sprinkler-permits.html', 'sprinkler-permits-sticky'],
   ['delivery.html', 'delivery-sticky'],
   ['support.html', 'support-sticky'],
   ['sample-request.html', 'sample-request-sticky'],
@@ -270,6 +271,7 @@ assert.match(index, /href="\/dob-now-permit-search-alternative\.html"/, 'index l
 assert.match(index, /href="\/nyc-construction-permit-leads\.html"/, 'index links permit leads alternative page');
 assert.match(index, /href="\/nyc-sidewalk-shed-permits\.html"/, 'index links sidewalk shed permits page');
 assert.match(index, /href="\/nyc-plumbing-permits\.html"/, 'index links plumbing permits page');
+assert.match(index, /href="\/nyc-sprinkler-permits\.html"/, 'index links sprinkler permits page');
 assert.match(index, /href="\/support\.html"/, 'index links support page');
 assert.match(index, /href="\/sample-request\.html"/, 'index links sample request page');
 for (const page of pages) {
@@ -809,6 +811,39 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(plumbingPermits, pattern, `nyc-plumbing-permits.html contains private data pattern ${pattern}`);
 }
 
+const sprinklerPermits = read('nyc-sprinkler-permits.html');
+assert.match(sprinklerPermits, /<title>NYC Sprinkler Permits \| Current DOB Activity<\/title>/, 'sprinkler permits page needs title');
+assert.match(sprinklerPermits, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sprinkler-permits\.html">/, 'sprinkler permits page needs canonical');
+assert.match(sprinklerPermits, /<meta property="og:title" content="NYC Sprinkler Permits \| Current DOB Activity">/, 'sprinkler permits page needs OG title');
+assert.match(sprinklerPermits, /src="\/assets\/current-issue-snapshot\.png"/, 'sprinkler permits page needs current issue snapshot image');
+assert.match(sprinklerPermits, /"@type":"Product"/, 'sprinkler permits page needs Product structured data');
+assert.match(sprinklerPermits, /"@type":"Dataset"/, 'sprinkler permits page needs Dataset structured data');
+assert.match(sprinklerPermits, /"@type":"FAQPage"/, 'sprinkler permits page needs FAQ structured data');
+assert.match(sprinklerPermits, /"price":"9.50"/, 'sprinkler permits page needs current price structured data');
+assert.match(sprinklerPermits, /\/_vercel\/insights\/script\.js/, 'sprinkler permits page needs Web Analytics script');
+assert.match(sprinklerPermits, /NYC sprinkler permits in the current issue/, 'sprinkler permits page needs headline');
+assert.match(sprinklerPermits, /Free preview rows: 25/, 'sprinkler permits page needs free preview count');
+assert.match(sprinklerPermits, /Paid ZIP rows: 142/, 'sprinkler permits page needs paid row count');
+assert.match(sprinklerPermits, /Sprinkler rows: 21/, 'sprinkler permits page needs sprinkler row count');
+assert.match(sprinklerPermits, /Top ZIPs for sprinkler rows:/, 'sprinkler permits page needs ZIP mix');
+assert.match(sprinklerPermits, /href="\/topics\/nyc-sprinkler-permit-activity\.html"/, 'sprinkler permits page links topic page');
+assert.match(sprinklerPermits, /href="\/topics\/sprinkler-contractor-permit-research-nyc\.html"/, 'sprinkler permits page links contractor topic page');
+assert.match(sprinklerPermits, /href="\/nyc-construction-permit-leads\.html"/, 'sprinkler permits page links permit leads page');
+assert.match(sprinklerPermits, /href="\/weekly-nyc-construction-permit-report\.html"/, 'sprinkler permits page links weekly report page');
+assert.match(sprinklerPermits, /href="\/sample-segments\.html"/, 'sprinkler permits page links segment hub');
+assert.match(sprinklerPermits, /href="\/inside-the-zip\.html"/, 'sprinkler permits page links ZIP contents');
+assert.match(sprinklerPermits, /href="\/pricing\.html"/, 'sprinkler permits page links pricing');
+assert.match(sprinklerPermits, /href="\/support\.html"/, 'sprinkler permits page links support');
+assert.match(sprinklerPermits, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=sprinkler-permits"/, 'sprinkler permits page links tracked checkout');
+assertSampleRequestForm(sprinklerPermits, 'sprinkler permits page');
+assert.match(sprinklerPermits, /No guaranteed leads\./, 'sprinkler permits page keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(sprinklerPermits, pattern, `nyc-sprinkler-permits.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(sprinklerPermits, pattern, `nyc-sprinkler-permits.html contains private data pattern ${pattern}`);
+}
+
 const freeVsPaid = read('free-vs-paid.html');
 assert.match(freeVsPaid, /<title>Free Preview vs Paid ZIP \| NYC Construction Brief<\/title>/, 'free vs paid page needs title');
 assert.match(freeVsPaid, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html">/, 'free vs paid page needs canonical');
@@ -1205,7 +1240,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -1214,7 +1249,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 28, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 29, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -1246,6 +1281,7 @@ assert.equal(currentIssue.publicPreview.dobNowAlternativeUrl, 'https://nyc-const
 assert.equal(currentIssue.publicPreview.permitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-leads.html', 'current issue JSON public preview links permit leads page');
 assert.equal(currentIssue.publicPreview.sidewalkShedPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html', 'current issue JSON public preview links sidewalk shed permits page');
 assert.equal(currentIssue.publicPreview.plumbingPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html', 'current issue JSON public preview links plumbing permits page');
+assert.equal(currentIssue.publicPreview.sprinklerPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html', 'current issue JSON public preview links sprinkler permits page');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
 assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON keeps Stripe checkout URL');
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
@@ -1278,6 +1314,7 @@ assert.equal(currentIssue.paidZip.dobNowAlternativeUrl, 'https://nyc-constructio
 assert.equal(currentIssue.paidZip.permitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-leads.html', 'current issue JSON paid ZIP links permit leads page');
 assert.equal(currentIssue.paidZip.sidewalkShedPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html', 'current issue JSON paid ZIP links sidewalk shed permits page');
 assert.equal(currentIssue.paidZip.plumbingPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html', 'current issue JSON paid ZIP links plumbing permits page');
+assert.equal(currentIssue.paidZip.sprinklerPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html', 'current issue JSON paid ZIP links sprinkler permits page');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
 assert.equal(currentIssue.paidZip.launchPricing.priceUsd, 9.5, 'current issue JSON lists launch price');
@@ -1313,6 +1350,7 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/dob-
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-permit-leads\.html/, 'RSS feed links permit leads page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sidewalk-shed-permits\.html/, 'RSS feed links sidewalk shed permits page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permits\.html/, 'RSS feed links plumbing permits page');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sprinkler-permits\.html/, 'RSS feed links sprinkler permits page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'RSS feed links buyer guide');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'RSS feed links delivery page');
@@ -1340,6 +1378,7 @@ assert.match(llms, /DOB NOW permit search alternative: https:\/\/nyc-constructio
 assert.match(llms, /NYC construction permit leads alternative: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-permit-leads\.html/, 'llms.txt links permit leads page');
 assert.match(llms, /NYC sidewalk shed permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sidewalk-shed-permits\.html/, 'llms.txt links sidewalk shed permits page');
 assert.match(llms, /NYC plumbing permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permits\.html/, 'llms.txt links plumbing permits page');
+assert.match(llms, /NYC sprinkler permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sprinkler-permits\.html/, 'llms.txt links sprinkler permits page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
 assert.match(llms, /Stripe Payment Link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt keeps Stripe checkout URL');

@@ -185,6 +185,7 @@ const coreConversionPages = [
   ['nyc-construction-permit-leads.html', 'permit-leads-sticky'],
   ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-sticky'],
   ['nyc-plumbing-permits.html', 'plumbing-permits-sticky'],
+  ['nyc-sprinkler-permits.html', 'sprinkler-permits-sticky'],
   ['methodology.html', 'methodology-sticky'],
   ['time-saved-calculator.html', 'time-saved-calculator-sticky'],
   ['who-should-buy.html', 'who-should-buy-sticky'],
@@ -2233,6 +2234,153 @@ ${socialImageMeta()}
 
 ${sampleRequestSection({
         workType: 'Plumbing',
+        territory: 'NYC',
+      })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
+function sprinklerPermitsHtml(rows) {
+  const sprinklerRows = rows.filter((row) => row.work_type === 'Sprinklers');
+  const description = 'NYC sprinkler permits page for buyers screening selected public DOB sprinkler activity by ZIP, issued date, status, cost bucket, and source link.';
+  const range = sampleRange(sprinklerRows.length ? sprinklerRows : rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const zipMix = describeCounts(sprinklerRows, (row) => row.zip_code, 6);
+  const boroughMix = describeCounts(sprinklerRows, (row) => titleCase(row.borough), 5);
+  const costMix = describeCounts(sprinklerRows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 6);
+  const product = productJsonLd(description, checkoutHref('sprinkler-permits'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Does the current issue include sprinkler permits?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes. The current paid issue includes ${sprinklerRows.length} selected sprinkler permit rows from the public DOB source file.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Who should review the sprinkler slice?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sprinkler contractors, fire-protection suppliers, inspection-adjacent service providers, and construction researchers can use it to build a short manual source-check list.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this include private contact data?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It excludes private contact data, owner names, applicant names, phone numbers, email addresses, and full street addresses.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Sprinkler Permits | Current DOB Activity</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/nyc-sprinkler-permits.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Sprinkler Permits | Current DOB Activity">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/nyc-sprinkler-permits.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC sprinkler permits in the current issue.</h1>
+      <p class="lede">Use the public preview to check field fit, then buy the ZIP if the current sprinkler slice saves enough weekly sorting time.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Sprinkler rows</h2>
+          <p>${escapeHtml(sprinklerRows.length)} selected rows in the paid issue.</p>
+        </div>
+        <div class="card">
+          <h2>Review fields</h2>
+          <p>ZIP, borough, issued date, status, cost bucket, permit identifiers, short description, and source link.</p>
+        </div>
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$9.50</p>
+          <p>One-time Stripe checkout with instant browser download.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current sprinkler facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest sprinkler row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Free preview rows: 25.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}.</li>
+          <li>Sprinkler rows: ${escapeHtml(sprinklerRows.length)}.</li>
+          <li>Top ZIPs for sprinkler rows: ${escapeHtml(zipMix)}.</li>
+          <li>Borough mix: ${escapeHtml(boroughMix)}.</li>
+          <li>Cost buckets: ${escapeHtml(costMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Who this page is for</h2>
+        <ul>
+          <li>Sprinkler contractors checking selected public permit activity.</li>
+          <li>Fire-protection suppliers and service firms sorting by ZIP and issued date.</li>
+          <li>Construction researchers building a short manual source-check list.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Use this order</h2>
+        <ol>
+          <li>Open the free preview and confirm the CSV fields match your review process.</li>
+          <li>Check the sprinkler count, ZIP mix, borough mix, and issued-date range.</li>
+          <li>Buy the ZIP if the full current issue saves enough weekly sorting time.</li>
+          <li>Open source links before outreach, quoting, routing, underwriting, or planning.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, enriched contact data, agency endorsement, legal advice, or filing advice are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/topics/nyc-sprinkler-permit-activity.html">Sprinkler topic page</a>
+        <a class="button secondary" href="/topics/sprinkler-contractor-permit-research-nyc.html">Contractor research page</a>
+        <a class="button secondary" href="/nyc-construction-permit-leads.html">Permit leads alternative</a>
+        <a class="button secondary" href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a>
+        <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('sprinkler-permits')}">Buy instant ZIP</a>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Sprinklers',
         territory: 'NYC',
       })}
     </main>
@@ -4296,7 +4444,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'feed.xml', 'current-issue.json', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -4348,6 +4496,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/nyc-construction-permit-leads.html">NYC construction permit leads alternative</a></p>
         <p><a class="button secondary" href="/nyc-sidewalk-shed-permits.html">NYC sidewalk shed permits</a></p>
         <p><a class="button secondary" href="/nyc-plumbing-permits.html">NYC plumbing permits</a></p>
+        <p><a class="button secondary" href="/nyc-sprinkler-permits.html">NYC sprinkler permits</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
@@ -4690,6 +4839,7 @@ fs.writeFileSync(path.join(root, 'dob-now-permit-search-alternative.html'), dobN
 fs.writeFileSync(path.join(root, 'nyc-construction-permit-leads.html'), permitLeadsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-sidewalk-shed-permits.html'), sidewalkShedPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-plumbing-permits.html'), plumbingPermitsHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-sprinkler-permits.html'), sprinklerPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'free-vs-paid.html'), freeVsPaidHtml(rows));
 fs.writeFileSync(path.join(root, 'permit-research-workflow.html'), researchWorkflowHtml(rows));
 fs.writeFileSync(path.join(root, 'contractor-supplier-permit-research.html'), contractorSupplierHtml(rows));
