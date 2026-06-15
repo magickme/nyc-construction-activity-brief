@@ -300,6 +300,16 @@ assert.match(buy, /href="\/preview\.html"/, 'buy page links preview');
 assert.match(buy, /href="\/inside-the-zip\.html"/, 'buy page links ZIP contents');
 assert.match(buy, /href="\/support\.html"/, 'buy page links support');
 
+const notFound = read('404.html');
+assert.match(notFound, /<title>Page Not Found \| NYC Construction Activity Brief<\/title>/, '404 page needs title');
+assert.match(notFound, /<meta name="robots" content="noindex">/, '404 page must be noindex');
+assert.match(notFound, /href="\/buy\.html"/, '404 page links buy page');
+assert.match(notFound, /href="\/current-issue\.html"/, '404 page links current issue');
+assert.match(notFound, /href="\/preview\.html"/, '404 page links preview');
+assert.match(notFound, /href="\/support\.html"/, '404 page links support');
+assert.match(notFound, /not_found_recovery_viewed/, '404 page tracks recovery view');
+assert.match(notFound, /window\.location\.pathname\.slice\(0, 120\)/, '404 page bounds path telemetry');
+
 const success = read('success.html');
 assert.match(success, /<meta name="robots" content="noindex">/, 'success page must be noindex');
 assert.match(success, /The ZIP download starts automatically/, 'success page explains automatic download');
