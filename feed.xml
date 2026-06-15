@@ -132,6 +132,13 @@
       <description>Current sidewalk shed permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
     </item>
     <item>
+      <title>NYC plumbing permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Current plumbing permit screening page for buyers reviewing selected public DOB rows before checkout.</description>
+    </item>
+    <item>
       <title>Buyer guide for the current ZIP</title>
       <link>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</guid>
