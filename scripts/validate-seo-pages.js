@@ -2190,6 +2190,14 @@ assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 
 const publicCsv = read('sample/nyc-construction-activity-preview.csv').trim().split(/\r?\n/);
 assert.equal(publicCsv.length - 1, 25, 'public CSV preview must stay limited to 25 rows');
+const publicMarkdown = read('sample/nyc-weekly-construction-activity-sample.md');
+assert.match(publicMarkdown, /Buy the current issue ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=sample-md/, 'public Markdown sample links tracked buy page');
+assert.match(publicMarkdown, /Pricing: https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'public Markdown sample links pricing page');
+assert.match(publicMarkdown, /Support and refunds: https:\/\/nyc-construction-activity-brief\.vercel\.app\/support\.html/, 'public Markdown sample links support page');
+assert.match(publicMarkdown, /Current launch price: \$9\.50/, 'public Markdown sample states current launch price');
+assert.match(publicMarkdown, /buyer workbook, priority-slices CSV/, 'public Markdown sample lists buyer files');
+assert.match(publicMarkdown, /Rows in free public preview: 25/, 'public Markdown sample keeps preview row count');
+assert.match(publicMarkdown, /Rows in paid ZIP: 142/, 'public Markdown sample keeps paid ZIP row count');
 const publicJson = JSON.parse(read('sample/nyc-construction-activity-preview.json'));
 assert.equal(publicJson.public_preview_rows, 25, 'public JSON preview declares 25 preview rows');
 assert.equal(publicJson.paid_zip_rows, 142, 'public JSON preview declares paid ZIP row count');

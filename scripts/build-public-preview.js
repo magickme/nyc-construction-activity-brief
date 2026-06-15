@@ -148,6 +148,11 @@ Rows in paid ZIP: ${rows.length}
 
 This is a public-record permit signal preview, not a lead list. It excludes owner names, applicant names, phone numbers, email addresses, and full street addresses.
 
+Buy the current issue ZIP: ${baseUrl}/buy.html?source=sample-md
+Pricing: ${baseUrl}/pricing.html
+Support and refunds: ${baseUrl}/support.html
+Current launch price: $9.50. The paid ZIP includes ${rows.length} rows, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, and version file.
+
 ## Included Work Types
 
 ${countBy(rows, (row) => row.work_type).map(([name]) => `- ${name}`).join('\n')}
