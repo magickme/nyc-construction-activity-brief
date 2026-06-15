@@ -9,6 +9,12 @@ const BUYER_TYPES = new Set([
   'specialty-subcontractor',
   'supplier',
   'local-b2b-service-provider',
+  'real-estate-investor',
+  'broker-developer',
+  'permit-expediter',
+  'risk-researcher',
+  'consultant-analyst',
+  'property-manager',
   'data-buyer',
   'other',
 ]);

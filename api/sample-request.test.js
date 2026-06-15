@@ -45,6 +45,30 @@ assert.deepEqual(buildMauticContactPayload(valid.value), {
   ],
 });
 
+const investor = validateSampleRequest({
+  email: 'investor@example.com',
+  work_type_requested: 'Structural',
+  territory_requested: 'Manhattan',
+  buyer_type: 'real-estate-investor',
+  monitoring_goal: 'I want a weekly public permit screen before manual acquisition research.',
+  source_path: '/topics/nyc-real-estate-investor-permit-research.html',
+  consent: 'true',
+  website: '',
+});
+assert.equal(investor.ok, true);
+assert.deepEqual(buildMauticContactPayload(investor.value), {
+  email: 'investor@example.com',
+  tags: [
+    'wealth:nyc-construction-activity-brief',
+    'wealth:nyc-construction-activity-brief:sample-request',
+    'source:nyc-construction-activity-brief-site',
+    'wealth:ncab:buyer:real-estate-investor',
+    'wealth:ncab:work-type:structural',
+    'wealth:ncab:territory:manhattan',
+    'wealth:ncab:source-page:topics-nyc-real-estate-investor-permit-research-html',
+  ],
+});
+
 const invalid = validateSampleRequest({
   email: 'bad',
   work_type_requested: '',
