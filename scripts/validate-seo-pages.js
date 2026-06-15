@@ -337,6 +337,7 @@ assert.match(currentIssuePage, /href="\/pricing\.html"/, 'current issue page lin
 assert.match(currentIssuePage, /href="\/delivery\.html"/, 'current issue page links delivery');
 assert.match(currentIssuePage, /href="\/support\.html"/, 'current issue page links support');
 assert.match(currentIssuePage, new RegExp(`href="${checkoutUrl}"`), 'current issue page links tracked checkout');
+assertSampleRequestForm(currentIssuePage, 'current issue page');
 assert.match(currentIssuePage, /No guaranteed leads\./, 'current issue page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(currentIssuePage, pattern, `current-issue.html contains banned copy pattern ${pattern}`);
