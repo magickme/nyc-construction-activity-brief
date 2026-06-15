@@ -15,6 +15,7 @@
     "previewUrl": "https://nyc-construction-activity-brief.vercel.app/preview.html",
     "csvUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
     "sampleBriefUrl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
+    "pricingUrl": "https://nyc-construction-activity-brief.vercel.app/pricing.html",
     "buyerGuideUrl": "https://nyc-construction-activity-brief.vercel.app/buyer-guide.html",
     "deliveryUrl": "https://nyc-construction-activity-brief.vercel.app/delivery.html",
     "methodologyUrl": "https://nyc-construction-activity-brief.vercel.app/methodology.html",
@@ -26,6 +27,7 @@
   "paidZip": {
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
     "stripeCheckoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N?prefilled_promo_code=NYC50",
+    "pricingUrl": "https://nyc-construction-activity-brief.vercel.app/pricing.html",
     "buyerGuideUrl": "https://nyc-construction-activity-brief.vercel.app/buyer-guide.html",
     "deliveryUrl": "https://nyc-construction-activity-brief.vercel.app/delivery.html",
     "priceUsd": 49,

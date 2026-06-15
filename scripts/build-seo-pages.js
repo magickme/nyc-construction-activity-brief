@@ -699,6 +699,7 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button" href="${checkoutHref('segment-hub')}">Buy instant ZIP</a>
       </section>
@@ -961,6 +962,7 @@ function buyerGuideHtml(rows) {
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button secondary" href="/sample-segments.html">Browse segment pages</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
         <a class="button" href="${checkoutHref('buyer-guide')}">Buy instant ZIP</a>
@@ -1066,9 +1068,143 @@ function deliveryHtml(rows) {
         <p>The download endpoint rejects missing, invalid, or unpaid sessions. A direct visit without a valid paid session returns an error instead of the ZIP.</p>
         <p class="fine">No physical item ships. This public-record permit signal brief is not a guaranteed lead list and is not affiliated with or endorsed by NYC, DOB, or any agency.</p>
         <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
         <a class="button" href="${checkoutHref('delivery')}">Buy instant ZIP</a>
+      </section>
+    </main>
+  </body>
+</html>
+`;
+}
+
+function pricingHtml(rows) {
+  const description = 'Pricing and break-even guide for the NYC Weekly Construction Activity Brief current issue ZIP.';
+  const range = sampleRange(rows);
+  const product = productJsonLd(description, checkoutHref('pricing'));
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What does the current issue cost?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The current issue is a one-time $49 ZIP purchase. Promo code NYC50 gives 50% off while the first 10 redemptions remain.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'When is the ZIP worth buying?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Buy it when a source-linked CSV, buyer workbook, and priority-slices file save enough manual sorting time to justify the price.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does the price include leads or contacts?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The ZIP is a public-record screening file. It does not include private contact data or guaranteed leads.',
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pricing and ROI | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/pricing.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pricing and ROI | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/pricing.html">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Pricing for the current issue ZIP.</h1>
+      <p class="lede">A one-time purchase for buyers who want the current ${escapeHtml(rows.length)}-row issue packaged for spreadsheet review instead of sorting selected DOB NOW rows manually.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Standard price</h2>
+          <p class="price">$49</p>
+          <p>One current-issue ZIP. No subscription.</p>
+        </div>
+        <div class="card">
+          <h2>Launch promo</h2>
+          <p class="price">$24.50</p>
+          <p>Use code <strong>NYC50</strong> for 50% off while the first 10 redemptions remain.</p>
+        </div>
+        <div class="card">
+          <h2>Delivery</h2>
+          <p>Instant browser download after completed Stripe checkout.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Break-even guide</h2>
+        <p>Use this as a time-saved check before buying. These are arithmetic examples, not a lead or revenue guarantee.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Hourly value of research time</th>
+                <th>Break-even at $49</th>
+                <th>Break-even with NYC50</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$50/hour</td>
+                <td>About 59 minutes saved</td>
+                <td>About 30 minutes saved</td>
+              </tr>
+              <tr>
+                <td>$75/hour</td>
+                <td>About 40 minutes saved</td>
+                <td>About 20 minutes saved</td>
+              </tr>
+              <tr>
+                <td>$100/hour</td>
+                <td>About 30 minutes saved</td>
+                <td>About 15 minutes saved</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>What the price buys</h2>
+        <ul>
+          <li>Full ${escapeHtml(rows.length)}-row current issue CSV for the ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(rows[0]?.source_fetch_date || range.latestIssuedDate)} source window.</li>
+          <li>Buyer workbook for a fast review pass.</li>
+          <li>Priority-slices CSV grouped by work type, borough, ZIP, count, latest issued date, cost-bucket mix, status mix, and source URL.</li>
+          <li>Markdown brief, public sample notes, source registry, QA report, version file, buyer README, and claims boundary.</li>
+        </ul>
+        <a class="button secondary" href="/preview.html">View public preview</a>
+        <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
+        <a class="button secondary" href="/delivery.html">Read delivery steps</a>
+        <a class="button" href="${checkoutHref('pricing')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
   </body>
@@ -1178,6 +1314,7 @@ ${rows.map((row) => `              <tr>
 ${sampleRequestSection()}      <section class="section card">
         <h2>Boundary</h2>
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="/buyer-guide.html">Read buyer guide</a>
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="/methodology.html">Read methodology</a>
@@ -1190,7 +1327,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'checkout.html', 'preview.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'checkout.html', 'preview.html', 'pricing.html', 'buyer-guide.html', 'delivery.html', 'sample-segments.html', 'methodology.html', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1225,6 +1362,7 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
 ${manualPageLinks(manualPagesForLinks)}
         </ul>
         <p><a class="button secondary" href="/preview.html">View public preview</a></p>
+        <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
@@ -1559,6 +1697,7 @@ fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'delivery.html'), deliveryHtml(rows));
+fs.writeFileSync(path.join(root, 'pricing.html'), pricingHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml());
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemapXml(pages));

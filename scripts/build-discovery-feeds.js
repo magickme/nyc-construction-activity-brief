@@ -107,6 +107,7 @@ function buildCurrentIssueJson(rows, manifest) {
       previewUrl: `${baseUrl}/preview.html`,
       csvUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
       sampleBriefUrl: `${baseUrl}/sample/nyc-weekly-construction-activity-sample.md`,
+      pricingUrl: `${baseUrl}/pricing.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       methodologyUrl: `${baseUrl}/methodology.html`,
@@ -118,6 +119,7 @@ function buildCurrentIssueJson(rows, manifest) {
     paidZip: {
       checkoutUrl,
       stripeCheckoutUrl,
+      pricingUrl: `${baseUrl}/pricing.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       priceUsd: 49,
@@ -185,6 +187,11 @@ function buildFeedXml(rows, manifest) {
       description: `Browse the free ${previewRows}-row public preview in the browser before buying the full ${stats.rowCount}-row ZIP.`,
     },
     {
+      title: 'Pricing and break-even guide',
+      url: `${baseUrl}/pricing.html`,
+      description: `One-time $49 ZIP, NYC50 launch promo, and simple time-saved examples for deciding whether the current issue is worth buying.`,
+    },
+    {
       title: 'Buyer guide for the current ZIP',
       url: `${baseUrl}/buyer-guide.html`,
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
@@ -248,6 +255,7 @@ Primary pages:
 - Current issue JSON: ${baseUrl}/current-issue.json
 - RSS feed: ${baseUrl}/feed.xml
 - Public preview: ${baseUrl}/preview.html
+- Pricing: ${baseUrl}/pricing.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Sample CSV: ${baseUrl}/sample/nyc-construction-activity-preview.csv
@@ -304,7 +312,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['checkout.html', 'preview.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['checkout.html', 'preview.html', 'pricing.html', 'buyer-guide.html', 'delivery.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

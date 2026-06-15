@@ -91,6 +91,12 @@ li {
   font-weight: 700;
 }
 
+.price {
+  margin: 8px 0;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
 .secondary {
   background: transparent;
   color: var(--green);
