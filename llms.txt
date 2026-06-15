@@ -73,6 +73,7 @@ Primary pages:
 - NYC sprinkler permits: https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html
 - NYC mechanical systems permits: https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html
 - NYC supported scaffold permits: https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html
+- NYC supported scaffold permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permit-leads.html
 - NYC structural permits: https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html
 - NYC construction fence permits: https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html
 - Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html

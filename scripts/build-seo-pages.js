@@ -362,6 +362,7 @@ const coreConversionPages = [
   ['nyc-permit-activity-by-zip.html', 'permit-activity-by-zip-sticky'],
   ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-sticky'],
   ['nyc-sidewalk-shed-permit-leads.html', 'sidewalk-shed-permit-leads-sticky'],
+  ['nyc-supported-scaffold-permit-leads.html', 'supported-scaffold-permit-leads-sticky'],
   ['nyc-plumbing-permits.html', 'plumbing-permits-sticky'],
   ['nyc-sprinkler-permits.html', 'sprinkler-permits-sticky'],
   ['nyc-mechanical-systems-permits.html', 'mechanical-systems-permits-sticky'],
@@ -414,6 +415,7 @@ const coreTopCtaPages = [
   ['brooklyn-construction-permit-activity.html', 'brooklyn-permit-activity-top'],
   ['nyc-sidewalk-shed-permits.html', 'sidewalk-shed-permits-top'],
   ['nyc-sidewalk-shed-permit-leads.html', 'sidewalk-shed-permit-leads-top'],
+  ['nyc-supported-scaffold-permit-leads.html', 'supported-scaffold-permit-leads-top'],
   ['nyc-plumbing-permits.html', 'plumbing-permits-top'],
   ['nyc-sprinkler-permits.html', 'sprinkler-permits-top'],
   ['nyc-mechanical-systems-permits.html', 'mechanical-systems-permits-top'],
@@ -4293,6 +4295,143 @@ ${sampleRequestSection({
         territory: 'NYC',
         buyerType: 'construction-support-vendor',
         monitoringGoal: 'Sidewalk shed permit activity for manual lead research in NYC.',
+      })}
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
+function supportedScaffoldPermitLeadsHtml(rows) {
+  const scaffoldRows = rows.filter((row) => row.work_type === 'Supported Scaffold');
+  const description = 'NYC supported scaffold permit leads page for teams screening public DOB supported scaffold activity by ZIP, issued date, status, cost bucket, and source link.';
+  const range = sampleRange(scaffoldRows.length ? scaffoldRows : rows);
+  const fetchDate = rows[0] && rows[0].source_fetch_date;
+  const zipMix = describeCounts(scaffoldRows, (row) => row.zip_code, 6);
+  const boroughMix = describeCounts(scaffoldRows, (row) => titleCase(row.borough), 5);
+  const costMix = describeCounts(scaffoldRows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 6);
+  const product = productJsonLd(description, checkoutHref('supported-scaffold-permit-leads'));
+  const dataset = datasetJsonLd(rows);
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is this a supported scaffold lead list?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It is a public-record screening file for manual research. It does not include private contacts, outreach automation, lead scoring, or guaranteed sales.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What supported scaffold data is visible before purchase?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'This page shows the current supported scaffold row count, top ZIP mix, borough mix, cost buckets, public preview links, and source boundaries before checkout.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does the paid ZIP add for supported scaffold research?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The paid ZIP includes the full ${rows.length}-row current issue CSV, buyer workbook, priority-slices CSV, QA report, source registry, and package notes.`,
+        },
+      },
+    ],
+  };
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Supported Scaffold Permit Leads | Public DOB Signals</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/nyc-supported-scaffold-permit-leads.html">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Supported Scaffold Permit Leads | Public DOB Signals">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/nyc-supported-scaffold-permit-leads.html">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(product)}</script>
+    <script type="application/ld+json">${jsonScript(dataset)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC supported scaffold permit leads from public DOB signals.</h1>
+      <p class="lede">Use this page to check whether the current supported scaffold slice is worth buying for your own manual research.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current supported scaffold slice</h2>
+          <p>${escapeHtml(scaffoldRows.length)} selected supported scaffold rows in the paid issue.</p>
+        </div>
+        <div class="card">
+          <h2>Best first sort</h2>
+          <p>Start with ZIP, borough, issued date, status, and cost bucket before opening source records.</p>
+        </div>
+        <div class="card">
+          <h2>Current price</h2>
+          <p class="price">$9.50</p>
+          <p>One-time Stripe checkout with instant browser download.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Current supported scaffold lead-research facts</h2>
+        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <ul>
+          <li>Source: NYC DOB NOW: Build - Approved Permits.</li>
+          <li>Source window: ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(fetchDate || range.latestIssuedDate)}.</li>
+          <li>Latest supported scaffold row in the file: ${escapeHtml(range.latestIssuedDate)}.</li>
+          <li>Free preview rows: 25.</li>
+          <li>Paid ZIP rows: ${escapeHtml(rows.length)}.</li>
+          <li>Supported scaffold rows: ${escapeHtml(scaffoldRows.length)}.</li>
+          <li>Top ZIPs for supported scaffold rows: ${escapeHtml(zipMix)}.</li>
+          <li>Borough mix: ${escapeHtml(boroughMix)}.</li>
+          <li>Cost buckets: ${escapeHtml(costMix)}.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Use it for manual lead research</h2>
+        <ol>
+          <li>Open the free preview and confirm the field shape.</li>
+          <li>Buy the ZIP if 13 current supported scaffold rows are enough to save sorting time.</li>
+          <li>Filter the priority-slices CSV to supported scaffold rows.</li>
+          <li>Open source URLs for rows that fit your territory before any follow-up.</li>
+        </ol>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>This is a public-record screening file, not a finished lead list. No private contacts, owner names, applicant names, phone numbers, email addresses, full street addresses, lead scores, outreach automation, agency endorsement, legal advice, filing advice, or guaranteed sales are included.</p>
+        <a class="button secondary" href="/nyc-supported-scaffold-permits.html">Supported scaffold permits page</a>
+        <a class="button secondary" href="/topics/nyc-supported-scaffold-permits.html">Supported scaffold topic page</a>
+        <a class="button secondary" href="/topics/supported-scaffold-contractor-permit-research-nyc.html">Contractor research page</a>
+        <a class="button secondary" href="/nyc-sidewalk-shed-permit-leads.html">Sidewalk shed lead-research page</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
+        <a class="button" href="${checkoutHref('supported-scaffold-permit-leads')}">Buy instant ZIP</a>
+      </section>
+
+${sampleRequestSection({
+        workType: 'Supported Scaffold',
+        territory: 'NYC',
+        buyerType: 'construction-support-vendor',
+        monitoringGoal: 'Supported scaffold permit activity for manual lead research in NYC.',
       })}
     </main>
     ${sampleRequestScript()}
@@ -8745,7 +8884,7 @@ ${sampleRequestSection()}      <section class="section card">
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -9197,6 +9336,7 @@ fs.writeFileSync(path.join(root, 'nyc-construction-permit-leads.html'), permitLe
 fs.writeFileSync(path.join(root, 'nyc-permit-activity-by-zip.html'), zipActivityHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-sidewalk-shed-permits.html'), sidewalkShedPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-sidewalk-shed-permit-leads.html'), sidewalkShedPermitLeadsHtml(rows));
+fs.writeFileSync(path.join(root, 'nyc-supported-scaffold-permit-leads.html'), supportedScaffoldPermitLeadsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-plumbing-permits.html'), plumbingPermitsHtml(rows));
 fs.writeFileSync(path.join(root, 'nyc-sprinkler-permits.html'), sprinklerPermitsHtml(rows));
 for (const page of boroughLandingPages) {
