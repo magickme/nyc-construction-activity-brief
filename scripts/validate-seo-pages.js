@@ -3330,6 +3330,9 @@ assert.match(llms, /NYC construction permit leads alternative: https:\/\/nyc-con
 assert.match(llms, /NYC permit activity by ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-permit-activity-by-zip\.html/, 'llms.txt links ZIP permit activity page');
 assert.match(llms, /Manhattan construction permit activity: https:\/\/nyc-construction-activity-brief\.vercel\.app\/manhattan-construction-permit-activity\.html/, 'llms.txt links Manhattan permit activity page');
 assert.match(llms, /Brooklyn construction permit activity: https:\/\/nyc-construction-activity-brief\.vercel\.app\/brooklyn-construction-permit-activity\.html/, 'llms.txt links Brooklyn permit activity page');
+assert.match(llms, /Queens construction permit activity request: https:\/\/nyc-construction-activity-brief\.vercel\.app\/queens-construction-permit-activity\.html/, 'llms.txt links Queens demand capture page');
+assert.match(llms, /Bronx construction permit activity request: https:\/\/nyc-construction-activity-brief\.vercel\.app\/bronx-construction-permit-activity\.html/, 'llms.txt links Bronx demand capture page');
+assert.match(llms, /Staten Island construction permit activity request: https:\/\/nyc-construction-activity-brief\.vercel\.app\/staten-island-construction-permit-activity\.html/, 'llms.txt links Staten Island demand capture page');
 assert.match(llms, /NYC sidewalk shed permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sidewalk-shed-permits\.html/, 'llms.txt links sidewalk shed permits page');
 assert.match(llms, /NYC sidewalk shed permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sidewalk-shed-permit-leads\.html/, 'llms.txt links sidewalk shed permit leads page');
 assert.match(llms, /NYC plumbing permit leads: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permit-leads\.html/, 'llms.txt links plumbing permit leads page');
