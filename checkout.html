@@ -41,10 +41,12 @@
         <a id="stripe-link" class="button" href="#stripe-checkout">Continue to Stripe</a>
         <p>
           <a id="invoice-help-link" class="button secondary" href="/invoice-request.html?source=checkout-bridge">Need invoice help?</a>
+          <a id="sample-help-link" class="button secondary" href="/sample-request.html?source=checkout-bridge-sample">Need a different sample?</a>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
           <a class="button secondary" href="/support.html">Support and refunds</a>
         </p>
+        <p class="fine">If the current work type or ZIP mix is close but not exact, send a product-specific sample request before paying.</p>
         <p class="fine">Stripe handles payment. The success page uses the paid Checkout Session to unlock the ZIP.</p>
         <noscript>
           <p class="fine">JavaScript is off, so use this Stripe Payment Link fallback instead of the checkout bridge.</p>
@@ -66,10 +68,18 @@
       const fallbackUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
       const invoiceHelpLink = document.getElementById('invoice-help-link');
+      const sampleHelpLink = document.getElementById('sample-help-link');
       link.dataset.fallbackUrl = fallbackUrl;
       if (invoiceHelpLink) {
         const invoiceSource = [source, 'invoice'].join('-').slice(0, 80);
         invoiceHelpLink.href = '/invoice-request.html?source=' + encodeURIComponent(invoiceSource);
+      }
+      if (sampleHelpLink) {
+        const sampleSource = [source, 'sample'].join('-').slice(0, 80);
+        sampleHelpLink.href = '/sample-request.html?source=' + encodeURIComponent(sampleSource);
+        sampleHelpLink.addEventListener('click', () => {
+          trackEvent('checkout_sample_help_clicked', { source });
+        });
       }
       function trackEvent(name, data) {
         try {

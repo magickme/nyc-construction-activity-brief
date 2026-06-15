@@ -464,9 +464,14 @@ assert.match(checkout, /id="stripe-link" class="button" href="#stripe-checkout"/
 assert.match(checkout, /Continue with Stripe fallback/, 'checkout page no-JavaScript fallback has explicit button');
 assert.match(checkout, /client_reference_id=ncab_checkout_static_fallback/, 'checkout page static fallback has client reference');
 assert.match(checkout, /id="invoice-help-link" class="button secondary" href="\/invoice-request\.html\?source=checkout-bridge"/, 'checkout page keeps invoice fallback link');
+assert.match(checkout, /id="sample-help-link" class="button secondary" href="\/sample-request\.html\?source=checkout-bridge-sample"/, 'checkout page links sample request fallback');
 assert.match(checkout, /const invoiceHelpLink = document\.getElementById\('invoice-help-link'\);/, 'checkout page finds invoice link');
+assert.match(checkout, /const sampleHelpLink = document\.getElementById\('sample-help-link'\);/, 'checkout page finds sample request link');
 assert.match(checkout, /const invoiceSource = \[source, 'invoice'\]\.join\('-'\)\.slice\(0, 80\);/, 'checkout page builds source-specific invoice attribution');
 assert.match(checkout, /invoiceHelpLink\.href = '\/invoice-request\.html\?source=' \+ encodeURIComponent\(invoiceSource\);/, 'checkout page preserves source on invoice help link');
+assert.match(checkout, /const sampleSource = \[source, 'sample'\]\.join\('-'\)\.slice\(0, 80\);/, 'checkout page builds source-specific sample request attribution');
+assert.match(checkout, /sampleHelpLink\.href = '\/sample-request\.html\?source=' \+ encodeURIComponent\(sampleSource\);/, 'checkout page preserves source on sample request link');
+assert.match(checkout, /checkout_sample_help_clicked/, 'checkout page tracks sample request fallback clicks');
 assert.match(checkout, /utm_content=checkout_static_fallback/, 'checkout page static fallback has UTM content');
 assert.match(checkout, /\/api\/create-checkout-session/, 'checkout page creates first-party checkout sessions');
 assert.match(checkout, /method: 'POST'/, 'checkout page posts checkout session request');
@@ -487,6 +492,8 @@ assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count 
 assert.match(checkout, /After Stripe confirms payment/, 'checkout page explains paid download before Stripe');
 assert.match(checkout, /Public-record screening file only/, 'checkout page states source boundary before Stripe');
 assert.match(checkout, /href="\/invoice-request\.html\?source=checkout-bridge">Need invoice help\?<\/a>/, 'checkout bridge routes procurement-blocked buyers to invoice help before Stripe');
+assert.match(checkout, /href="\/sample-request\.html\?source=checkout-bridge-sample">Need a different sample\?<\/a>/, 'checkout bridge routes non-ready buyers to sample request before Stripe');
+assert.match(checkout, /If the current work type or ZIP mix is close but not exact, send a product-specific sample request before paying\./, 'checkout page captures sample-fit hesitation before Stripe');
 assert.match(checkout, /href="\/preview\.html"/, 'checkout page links preview for buyer reassurance');
 assert.match(checkout, /href="\/inside-the-zip\.html"/, 'checkout page links ZIP contents for buyer reassurance');
 assert.match(checkout, /href="\/support\.html"/, 'checkout page links support and refund boundary');
