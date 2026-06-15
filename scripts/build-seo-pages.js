@@ -506,10 +506,12 @@ function alternateDiscoveryLinks() {
 
 function sampleRequestScript() {
   return `<script>
-      function sampleRequestFallbackHref(data, source) {
-        const subject = 'NYC Construction Brief sample request';
+      function sampleRequestFallbackHref(data, source, form) {
+        const subject = form && form.dataset.fallbackSubject
+          ? form.dataset.fallbackSubject
+          : 'NYC Construction Brief sample request';
         const lines = [
-          'Sample request source: ' + source,
+          (form && form.dataset.fallbackSourceLabel ? form.dataset.fallbackSourceLabel : 'Sample request source') + ': ' + source,
           'Email: ' + (data.email || ''),
           'Work type: ' + (data.work_type_requested || ''),
           'Territory: ' + (data.territory_requested || ''),
@@ -532,7 +534,7 @@ function sampleRequestScript() {
         const rawEntrySource = new URLSearchParams(window.location.search).get('source') || '';
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
-        const fallbackHref = sampleRequestFallbackHref(data, requestSource);
+        const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
@@ -548,7 +550,8 @@ function sampleRequestScript() {
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
+            status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -556,7 +559,9 @@ function sampleRequestScript() {
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. <a href="' + fallbackHref + '">Email this request</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
+            const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
+            status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
@@ -1243,14 +1248,30 @@ function sampleRequestSection(context = {}) {
   const territory = escapeHtml(context.territory || '');
   const buyerType = context.buyerType || '';
   const monitoringGoal = escapeHtml(context.monitoringGoal || '');
+  const heading = escapeHtml(context.heading || 'Request a future sample cut');
+  const intro = escapeHtml(
+    context.intro ||
+      'If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.',
+  );
+  const consentCopy = escapeHtml(context.consentCopy || 'You may reply about this public-record sample request.');
+  const buttonCopy = escapeHtml(context.buttonCopy || 'Send sample request');
+  const statusCopy = escapeHtml(context.statusCopy || 'This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.');
+  const formAttributes = [
+    'data-sample-request-form',
+    context.fallbackSubject ? `data-fallback-subject="${escapeHtml(context.fallbackSubject)}"` : '',
+    context.fallbackSourceLabel ? `data-fallback-source-label="${escapeHtml(context.fallbackSourceLabel)}"` : '',
+    context.successCopy ? `data-success-copy="${escapeHtml(context.successCopy)}"` : '',
+    context.failedCopy ? `data-failed-copy="${escapeHtml(context.failedCopy)}"` : '',
+    context.emailFallbackLabel ? `data-email-fallback-label="${escapeHtml(context.emailFallbackLabel)}"` : '',
+  ].filter(Boolean).join(' ');
   const buyerOption = (value, label) => {
     const selected = buyerType === value ? ' selected' : '';
     return `<option value="${value}"${selected}>${label}</option>`;
   };
   return `      <section id="sample-request" class="section card sample-request">
-        <h2>Request a future sample cut</h2>
-        <p>If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
-        <form data-sample-request-form>
+        <h2>${heading}</h2>
+        <p>${intro}</p>
+        <form ${formAttributes}>
           <label>
             Email
             <input name="email" type="email" autocomplete="email" required>
@@ -1287,11 +1308,11 @@ function sampleRequestSection(context = {}) {
           </label>
           <label class="checkbox">
             <input name="consent" type="checkbox" required>
-            You may reply about this public-record sample request.
+            ${consentCopy}
           </label>
           <input class="hp" name="website" tabindex="-1" autocomplete="off">
-          <button class="button" type="submit">Send sample request</button>
-          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+          <button class="button" type="submit">${buttonCopy}</button>
+          <p class="fine" data-sample-request-status>${statusCopy}</p>
         </form>
       </section>
 
@@ -8909,10 +8930,20 @@ ${socialImageMeta()}
       </section>
 
 ${sampleRequestSection({
+        heading: 'Send invoice or procurement request',
+        intro: 'Use this form when card checkout is blocked by invoice, purchase order, or procurement approval. The request is tagged for this product and does not deliver the paid ZIP.',
         workType: 'Selected DOB work types',
         territory: 'NYC',
         buyerType: 'data-buyer',
         monitoringGoal: 'Invoice or procurement approval needed before buying the current issue ZIP.',
+        consentCopy: 'You may reply about this invoice or procurement request.',
+        buttonCopy: 'Send invoice request',
+        statusCopy: 'This does not join the MagickMe newsletter. Paid ZIP delivery still requires completed Stripe checkout.',
+        fallbackSubject: 'NYC Construction Brief invoice request',
+        fallbackSourceLabel: 'Invoice request source',
+        successCopy: 'Invoice request saved. I will use this to follow up on procurement-blocked buyer interest.',
+        failedCopy: 'Invoice request was not saved.',
+        emailFallbackLabel: 'Email this invoice request',
       })}
 
       <section class="section card">

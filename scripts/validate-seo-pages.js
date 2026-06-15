@@ -169,7 +169,10 @@ function assertHtmlPage(relativePath) {
   assert.doesNotMatch(html, rawCostBucketPattern, `${relativePath} contains raw cost bucket labels`);
 }
 
-function assertSampleRequestForm(html, label) {
+function assertSampleRequestForm(html, label, options = {}) {
+  const subject = options.subject || 'NYC Construction Brief sample request';
+  const failedLinkCopy = options.failedLinkCopy || 'Email this request';
+  const statusCopy = options.statusCopy || 'This does not join the MagickMe newsletter.';
   assert.match(html, /href="#sample-request"/, `${label} links sample request form`);
   assert.match(html, /id="sample-request"/, `${label} has sample request form anchor`);
   assert.match(html, /data-sample-request-form/, `${label} needs sample request form`);
@@ -181,10 +184,10 @@ function assertSampleRequestForm(html, label) {
   assert.match(html, /sampleRequestFallbackHref/, `${label} builds email fallback for failed sample requests`);
   assert.match(html, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, `${label} email fallback uses support address without exposing it directly`);
   assert.match(html, /'mailto:' \+ supportAddress/, `${label} email fallback builds mailto link`);
-  assert.match(html, /NYC Construction Brief sample request/, `${label} email fallback has product-specific subject`);
+  assert.match(html, new RegExp(subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${label} email fallback has product-specific subject`);
   assert.match(html, /Monitoring goal: /, `${label} email fallback preserves request details`);
-  assert.match(html, /Email this request/, `${label} failed sample request copy preserves buyer intent`);
-  assert.match(html, /This does not join the MagickMe newsletter\./, `${label} keeps list-separation copy`);
+  assert.match(html, new RegExp(failedLinkCopy.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${label} failed sample request copy preserves buyer intent`);
+  assert.match(html, new RegExp(statusCopy.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${label} keeps list-separation copy`);
 }
 
 function assertConversionBar(html, label, source) {
@@ -596,7 +599,14 @@ assert.match(invoiceRequest, /<link rel="canonical" href="https:\/\/nyc-construc
 assert.match(invoiceRequest, /Request invoice help for the current issue\./, 'invoice request page names invoice help');
 assert.match(invoiceRequest, /purchase order, or procurement approval/, 'invoice request page names procurement blocker');
 assert.match(invoiceRequest, /Paid ZIP delivery still requires a completed Stripe Checkout Session/, 'invoice request page keeps fulfillment gate clear');
-assertSampleRequestForm(invoiceRequest, 'invoice request page');
+assertSampleRequestForm(invoiceRequest, 'invoice request page', {
+  subject: 'NYC Construction Brief invoice request',
+  failedLinkCopy: 'Email this invoice request',
+  statusCopy: 'Paid ZIP delivery still requires completed Stripe checkout.',
+});
+assert.match(invoiceRequest, /Send invoice or procurement request/, 'invoice request page labels invoice form');
+assert.match(invoiceRequest, /Invoice request saved\. I will use this to follow up on procurement-blocked buyer interest\./, 'invoice request page has invoice-specific success copy');
+assert.match(invoiceRequest, /Invoice request source/, 'invoice request fallback labels invoice source');
 assert.match(invoiceRequest, /<option value="data-buyer" selected>Data buyer<\/option>/, 'invoice request page preselects data buyer type');
 assert.match(invoiceRequest, /Invoice or procurement approval needed before buying the current issue ZIP\./, 'invoice request page seeds invoice procurement monitoring goal');
 assert.match(invoiceRequest, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'invoice request page links free CSV preview');

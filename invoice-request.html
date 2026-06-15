@@ -60,9 +60,9 @@
       </section>
 
       <section id="sample-request" class="section card sample-request">
-        <h2>Request a future sample cut</h2>
-        <p>If this page is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
-        <form data-sample-request-form>
+        <h2>Send invoice or procurement request</h2>
+        <p>Use this form when card checkout is blocked by invoice, purchase order, or procurement approval. The request is tagged for this product and does not deliver the paid ZIP.</p>
+        <form data-sample-request-form data-fallback-subject="NYC Construction Brief invoice request" data-fallback-source-label="Invoice request source" data-success-copy="Invoice request saved. I will use this to follow up on procurement-blocked buyer interest." data-failed-copy="Invoice request was not saved." data-email-fallback-label="Email this invoice request">
           <label>
             Email
             <input name="email" type="email" autocomplete="email" required>
@@ -99,11 +99,11 @@
           </label>
           <label class="checkbox">
             <input name="consent" type="checkbox" required>
-            You may reply about this public-record sample request.
+            You may reply about this invoice or procurement request.
           </label>
           <input class="hp" name="website" tabindex="-1" autocomplete="off">
-          <button class="button" type="submit">Send sample request</button>
-          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+          <button class="button" type="submit">Send invoice request</button>
+          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. Paid ZIP delivery still requires completed Stripe checkout.</p>
         </form>
       </section>
 
@@ -122,10 +122,12 @@
       </section>
     </main>
     <script>
-      function sampleRequestFallbackHref(data, source) {
-        const subject = 'NYC Construction Brief sample request';
+      function sampleRequestFallbackHref(data, source, form) {
+        const subject = form && form.dataset.fallbackSubject
+          ? form.dataset.fallbackSubject
+          : 'NYC Construction Brief sample request';
         const lines = [
-          'Sample request source: ' + source,
+          (form && form.dataset.fallbackSourceLabel ? form.dataset.fallbackSourceLabel : 'Sample request source') + ': ' + source,
           'Email: ' + (data.email || ''),
           'Work type: ' + (data.work_type_requested || ''),
           'Territory: ' + (data.territory_requested || ''),
@@ -148,7 +150,7 @@
         const rawEntrySource = new URLSearchParams(window.location.search).get('source') || '';
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
-        const fallbackHref = sampleRequestFallbackHref(data, requestSource);
+        const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
@@ -164,7 +166,8 @@
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
+            status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -172,7 +175,9 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. <a href="' + fallbackHref + '">Email this request</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
+            const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
+            status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;

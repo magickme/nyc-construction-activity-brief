@@ -182,10 +182,12 @@
 
     </main>
     <script>
-      function sampleRequestFallbackHref(data, source) {
-        const subject = 'NYC Construction Brief sample request';
+      function sampleRequestFallbackHref(data, source, form) {
+        const subject = form && form.dataset.fallbackSubject
+          ? form.dataset.fallbackSubject
+          : 'NYC Construction Brief sample request';
         const lines = [
-          'Sample request source: ' + source,
+          (form && form.dataset.fallbackSourceLabel ? form.dataset.fallbackSourceLabel : 'Sample request source') + ': ' + source,
           'Email: ' + (data.email || ''),
           'Work type: ' + (data.work_type_requested || ''),
           'Territory: ' + (data.territory_requested || ''),
@@ -208,7 +210,7 @@
         const rawEntrySource = new URLSearchParams(window.location.search).get('source') || '';
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
-        const fallbackHref = sampleRequestFallbackHref(data, requestSource);
+        const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
@@ -224,7 +226,8 @@
             window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
           } catch (error) {}
           if (status) {
-            status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
+            status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
           try {
@@ -232,7 +235,9 @@
             window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
           } catch (trackingError) {}
           if (status) {
-            status.innerHTML = 'Request was not saved. <a href="' + fallbackHref + '">Email this request</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
+            const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
+            status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
         } finally {
           if (button) button.disabled = false;
