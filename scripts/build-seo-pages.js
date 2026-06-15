@@ -797,7 +797,7 @@ function checkoutHtml(rows) {
           <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
           <li>No private contact data, owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
         </ul>
-        <a id="stripe-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue to Stripe</a>
+        <a id="stripe-link" class="button" href="#stripe-checkout">Continue to Stripe</a>
         <p>
           <a id="invoice-help-link" class="button secondary" href="/invoice-request.html?source=checkout-bridge">Need invoice help?</a>
           <a class="button secondary" href="/preview.html">Check preview</a>
@@ -806,7 +806,8 @@ function checkoutHtml(rows) {
         </p>
         <p class="fine">Stripe handles payment. The success page uses the paid Checkout Session to unlock the ZIP.</p>
         <noscript>
-          <p class="fine">JavaScript is off, so the button above opens the Stripe Payment Link fallback.</p>
+          <p class="fine">JavaScript is off, so use this Stripe Payment Link fallback instead of the checkout bridge.</p>
+          <p><a class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static_fallback&amp;client_reference_id=ncab_checkout_static_fallback">Continue with Stripe fallback</a></p>
         </noscript>
       </section>
     </main>
@@ -824,7 +825,7 @@ function checkoutHtml(rows) {
       const fallbackUrl = '${stripeCheckoutUrl}?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
       const invoiceHelpLink = document.getElementById('invoice-help-link');
-      link.href = fallbackUrl;
+      link.dataset.fallbackUrl = fallbackUrl;
       if (invoiceHelpLink) {
         const invoiceSource = [source, 'invoice'].join('-').slice(0, 80);
         invoiceHelpLink.href = '/invoice-request.html?source=' + encodeURIComponent(invoiceSource);

@@ -455,6 +455,8 @@ assert.match(checkout, /utm_campaign: 'current_issue_launch'/, 'checkout page pa
 assert.match(checkout, /utm_content: source/, 'checkout page passes source as UTM content to Stripe');
 assert.match(checkout, /client_reference_id: \['ncab', source\.replace/, 'checkout page passes non-sensitive client reference to Stripe');
 assert.match(checkout, /Continue to Stripe/, 'checkout page has fallback link');
+assert.match(checkout, /id="stripe-link" class="button" href="#stripe-checkout"/, 'checkout page JS link does not default to Payment Link fallback');
+assert.match(checkout, /Continue with Stripe fallback/, 'checkout page no-JavaScript fallback has explicit button');
 assert.match(checkout, /client_reference_id=ncab_checkout_static_fallback/, 'checkout page static fallback has client reference');
 assert.match(checkout, /id="invoice-help-link" class="button secondary" href="\/invoice-request\.html\?source=checkout-bridge"/, 'checkout page keeps invoice fallback link');
 assert.match(checkout, /const invoiceHelpLink = document\.getElementById\('invoice-help-link'\);/, 'checkout page finds invoice link');
@@ -469,6 +471,7 @@ assert.match(checkout, /checkout_session_fallback/, 'checkout page tracks Paymen
 assert.match(checkout, /checkout_continue_clicked/, 'checkout page tracks manual continue clicks');
 assert.match(checkout, /link\.addEventListener\('click', async \(event\)/, 'checkout page creates checkout sessions only after buyer click');
 assert.match(checkout, /link\.setAttribute\('aria-busy', 'true'\);/, 'checkout page marks manual continue while creating checkout');
+assert.match(checkout, /link\.dataset\.fallbackUrl = fallbackUrl;/, 'checkout page keeps fallback URL out of default JS link href');
 assert.match(checkout, /window\.location\.assign\(await createCheckoutUrl\(\)\);/, 'checkout page sends manual buyers to first-party session or fallback URL');
 assert.doesNotMatch(checkout, /const checkoutUrlPromise = createCheckoutUrl\(\);/, 'checkout page must not create checkout sessions on page load');
 assert.doesNotMatch(checkout, /checkout_auto_redirect/, 'checkout page must not auto-redirect before buyer review');
