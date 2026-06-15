@@ -646,7 +646,8 @@ function pageHtml(page) {
   const url = `${baseUrl}/topics/${page.slug}.html`;
   const escapedTitle = escapeHtml(page.title);
   const escapedDescription = escapeHtml(page.description);
-  const product = productJsonLd(page.description);
+  const trackedCheckoutUrl = checkoutHref(topicCheckoutSource(page));
+  const product = productJsonLd(page.description, trackedCheckoutUrl);
   const breadcrumb = breadcrumbJsonLd(page);
   const faq = faqJsonLd(page);
 
@@ -699,7 +700,7 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
-        <a class="button" href="${checkoutHref(topicCheckoutSource(page))}">Buy instant ZIP</a>
+        <a class="button" href="${trackedCheckoutUrl}">Buy instant ZIP</a>
       </section>
 
 ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({

@@ -104,10 +104,16 @@ function assertHtmlPage(relativePath) {
   assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links tracked checkout`);
   if (relativePath.startsWith('topics/')) {
     const slug = relativePath.replace(/^topics\//, '').replace(/\.html$/, '');
+    const attributedCheckoutUrl = `${baseUrl}/checkout.html?source=topic-${slug}`;
     assert.match(
       html,
-      new RegExp(`href="${baseUrl}/checkout\\.html\\?source=topic-${slug}"`),
+      new RegExp(`href="${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
       `${relativePath} uses page-specific checkout attribution`,
+    );
+    assert.match(
+      html,
+      new RegExp(`"url":"${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+      `${relativePath} Product schema uses page-specific checkout attribution`,
     );
     assert.doesNotMatch(html, /href="(?:https:\/\/nyc-construction-activity-brief\.vercel\.app)?\/checkout\.html\?source=topic"/, `${relativePath} must not use generic topic attribution`);
   }
