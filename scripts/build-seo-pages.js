@@ -1517,10 +1517,16 @@ ${socialImageMeta()}
         <a class="button secondary" href="/who-should-buy.html">Who should buy</a>
         <a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a>
         <a class="button secondary" href="/pricing.html">Check pricing</a>
+        <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutHref('permit-research-workflow')}">Buy instant ZIP</a>
       </section>
+${sampleRequestSection({
+    workType: 'Selected DOB work types',
+    territory: 'NYC',
+  })}
     </main>
+    ${sampleRequestScript()}
   </body>
 </html>
 `;

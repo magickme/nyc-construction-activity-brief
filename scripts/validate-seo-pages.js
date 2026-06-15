@@ -560,6 +560,7 @@ assert.match(researchWorkflow, /href="\/time-saved-calculator\.html"/, 'research
 assert.match(researchWorkflow, /href="\/pricing\.html"/, 'research workflow page links pricing');
 assert.match(researchWorkflow, /href="\/support\.html"/, 'research workflow page links support');
 assert.match(researchWorkflow, new RegExp(`href="${checkoutUrl}"`), 'research workflow page links tracked checkout');
+assertSampleRequestForm(researchWorkflow, 'research workflow page');
 assert.match(researchWorkflow, /No guaranteed leads\./, 'research workflow page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(researchWorkflow, pattern, `permit-research-workflow.html contains banned copy pattern ${pattern}`);
