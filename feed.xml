@@ -104,6 +104,13 @@
       <description>Preview the public 25-row NYC DOB permit CSV before buying the full 142-row current issue ZIP.</description>
     </item>
     <item>
+      <title>Weekly NYC construction permit report</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/weekly-nyc-construction-permit-report.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/weekly-nyc-construction-permit-report.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Source-linked weekly permit report for reviewing the current 142-row paid issue before checkout.</description>
+    </item>
+    <item>
       <title>Buyer guide for the current ZIP</title>
       <link>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/buyer-guide.html</guid>
