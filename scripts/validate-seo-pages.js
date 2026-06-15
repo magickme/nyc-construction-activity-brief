@@ -449,6 +449,7 @@ assert.match(insideZip, /href="\/pricing\.html"/, 'inside ZIP page links pricing
 assert.match(insideZip, /href="\/delivery\.html"/, 'inside ZIP page links delivery');
 assert.match(insideZip, /href="\/support\.html"/, 'inside ZIP page links support page');
 assert.match(insideZip, new RegExp(`href="${checkoutUrl}"`), 'inside ZIP page links tracked checkout');
+assertSampleRequestForm(insideZip, 'inside ZIP page');
 assert.match(insideZip, /No guaranteed leads\./, 'inside ZIP page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(insideZip, pattern, `inside-the-zip.html contains banned copy pattern ${pattern}`);
