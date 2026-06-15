@@ -467,9 +467,12 @@ for (const boroughPage of [
   assert.match(html, new RegExp(`Do not buy it for ${boroughName} coverage unless the current issue page shows rows that fit your territory\\.`), `${fileName} must avoid unsupported purchase claims`);
   assert.match(html, new RegExp(`Request ${boroughName} sample cut`), `${fileName} must route searchers to sample request`);
   assert.match(html, new RegExp(`Request ${boroughName} sample</a>`), `${fileName} must keep sticky CTA request-focused`);
+  assert.match(html, /data-current-issue-cta="false"/, `${fileName} sample request form must stay request-only`);
   assert.doesNotMatch(html, /Buy ZIP/, `${fileName} must not show a buy CTA for unsupported borough coverage`);
   assert.doesNotMatch(html, /\$9\.50 current issue ZIP/, `${fileName} must not show generic paid ZIP sticky copy`);
   assert.doesNotMatch(html, new RegExp(`checkout\\.html\\?source=${requestSource}`), `${fileName} must not route unsupported borough demand to checkout`);
+  assert.match(html, /form\.dataset\.currentIssueCta === 'false'[\s\S]*status\.textContent = successCopy/, `${fileName} must use request-only success handling`);
+  assert.match(html, /form\.dataset\.currentIssueCta === 'false'[\s\S]*status\.innerHTML = failedCopy \+ ' <a href="' \+ fallbackHref \+ '">' \+ emailLabel \+ '<\/a>\.';/, `${fileName} must use request-only fallback handling`);
   assert.match(html, new RegExp(`value="${boroughName} construction permit activity"`), `${fileName} must seed borough work type request`);
   assert.match(html, new RegExp(`value="${boroughName}"`), `${fileName} must seed borough territory request`);
   assert.match(html, /\/api\/sample-request/, `${fileName} must post to sample request API`);

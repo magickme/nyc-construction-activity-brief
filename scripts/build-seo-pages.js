@@ -582,7 +582,11 @@ function sampleRequestScript() {
           } catch (error) {}
           if (status) {
             const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
-            status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            if (form.dataset.currentIssueCta === 'false') {
+              status.textContent = successCopy;
+            } else {
+              status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            }
           }
         } catch (error) {
           try {
@@ -592,7 +596,11 @@ function sampleRequestScript() {
           if (status) {
             const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
             const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
-            status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            if (form.dataset.currentIssueCta === 'false') {
+              status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>.';
+            } else {
+              status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            }
           }
         } finally {
           if (button) button.disabled = false;
@@ -1441,6 +1449,7 @@ function sampleRequestSection(context = {}) {
     context.successCopy ? `data-success-copy="${escapeHtml(context.successCopy)}"` : '',
     context.failedCopy ? `data-failed-copy="${escapeHtml(context.failedCopy)}"` : '',
     context.emailFallbackLabel ? `data-email-fallback-label="${escapeHtml(context.emailFallbackLabel)}"` : '',
+    context.currentIssueCta === false ? 'data-current-issue-cta="false"' : '',
   ].filter(Boolean).join(' ');
   const buyerOption = (value, label) => {
     const selected = buyerType === value ? ' selected' : '';
@@ -9647,6 +9656,7 @@ ${sampleRequestSection({
         fallbackSourceLabel: `${config.boroughName} sample request source`,
         successCopy: `${config.boroughName} request saved. I will use this to choose future sample cuts.`,
         failedCopy: `${config.boroughName} request was not saved.`,
+        currentIssueCta: false,
       })}
     </main>
 ${boroughRequestConversionBar(config)}

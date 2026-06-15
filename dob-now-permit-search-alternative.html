@@ -227,7 +227,11 @@
           } catch (error) {}
           if (status) {
             const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
-            status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            if (form.dataset.currentIssueCta === 'false') {
+              status.textContent = successCopy;
+            } else {
+              status.innerHTML = successCopy + ' If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
+            }
           }
         } catch (error) {
           try {
@@ -237,7 +241,11 @@
           if (status) {
             const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
             const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
-            status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            if (form.dataset.currentIssueCta === 'false') {
+              status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>.';
+            } else {
+              status.innerHTML = failedCopy + ' <a href="' + fallbackHref + '">' + emailLabel + '</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
+            }
           }
         } finally {
           if (button) button.disabled = false;
