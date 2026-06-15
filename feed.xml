@@ -188,6 +188,13 @@
       <description>Download-focused buyer page with public preview files, data package metadata, delivery steps, and the full 142-row paid ZIP path.</description>
     </item>
     <item>
+      <title>NYC DOB approved permits</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Source-focused buyer page for reviewing selected DOB approved permit rows from the current 142-row weekly CSV ZIP.</description>
+    </item>
+    <item>
       <title>NYC DOB permit search companion</title>
       <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html</guid>
