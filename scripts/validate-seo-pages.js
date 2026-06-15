@@ -479,11 +479,13 @@ assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete pur
 assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-activity-preview\.csv">Open free CSV preview<\/a>/, 'buy page gives uncertain buyers an above-fold CSV preview CTA');
 assert.match(buy, /href="\/invoice-request\.html\?source=buy-page-top">Need invoice help\?<\/a>/, 'buy page gives procurement-blocked buyers an above-fold invoice CTA');
 assert.match(buy, /data-current-best-fit/, 'buy page names the best current buyer fit before checkout');
-assert.match(buy, /40 sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows/, 'buy page states current exterior-access row counts before checkout');
-assert.match(buy, /href="\/nyc-sidewalk-shed-permits\.html">Check sidewalk shed fit<\/a>/, 'buy page links sidewalk shed fit page before checkout');
+assert.match(buy, /40 sidewalk shed rows, 29 plumbing rows, 21 sprinkler rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows/, 'buy page states current strongest row counts before checkout');
+assert.match(buy, /href="\/nyc-sidewalk-shed-permit-leads\.html">Check sidewalk shed leads<\/a>/, 'buy page links sidewalk shed leads page before checkout');
+assert.match(buy, /href="\/nyc-plumbing-permit-leads\.html">Check plumbing leads<\/a>/, 'buy page links plumbing leads page before checkout');
+assert.match(buy, /href="\/nyc-sprinkler-permit-leads\.html">Check sprinkler leads<\/a>/, 'buy page links sprinkler leads page before checkout');
 assert.match(buy, /href="\/topics\/nyc-exterior-work-permit-research\.html">Check exterior-access fit<\/a>/, 'buy page links exterior fit page before checkout');
 assert.match(buy, /data-first-use-plan/, 'buy page gives buyers an immediate use plan before checkout');
-assert.match(buy, /Filter the priority-slices CSV to sidewalk shed, supported scaffold, construction fence, or structural rows\./, 'buy page explains the first action after download');
+assert.match(buy, /Filter the priority-slices CSV to sidewalk shed, plumbing, sprinkler, supported scaffold, construction fence, or structural rows\./, 'buy page explains the first action after download');
 assert.match(buy, /It is not a contact list, outreach automation, or permit filing service\./, 'buy page keeps the first-use plan inside the public-record boundary');
 assert.match(buy, /No account setup, subscription, or recurring charge\./, 'buy page reassures buyers before checkout bridge');
 assert.match(buy, /<img class="issue-snapshot buy-page-snapshot" src="\/assets\/current-issue-snapshot\.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">/, 'buy page shows current issue snapshot before checkout CTA');
