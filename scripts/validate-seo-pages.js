@@ -3206,6 +3206,12 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-permit-activity-by-zip\.html/, 'RSS feed links ZIP permit activity page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/manhattan-construction-permit-activity\.html/, 'RSS feed links Manhattan permit activity page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/brooklyn-construction-permit-activity\.html/, 'RSS feed links Brooklyn permit activity page');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/queens-construction-permit-activity\.html/, 'RSS feed links Queens demand capture page');
+assert.match(feed, /The current paid issue does not include Queens rows\./, 'RSS feed states Queens coverage gap');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/bronx-construction-permit-activity\.html/, 'RSS feed links Bronx demand capture page');
+assert.match(feed, /The current paid issue does not include Bronx rows\./, 'RSS feed states Bronx coverage gap');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/staten-island-construction-permit-activity\.html/, 'RSS feed links Staten Island demand capture page');
+assert.match(feed, /The current paid issue does not include Staten Island rows\./, 'RSS feed states Staten Island coverage gap');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-sidewalk-shed-permits\.html/, 'RSS feed links sidewalk shed permits page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permit-leads\.html/, 'RSS feed links plumbing permit leads page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-plumbing-permits\.html/, 'RSS feed links plumbing permits page');
@@ -3256,8 +3262,11 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nyc-construction-activity-brief.vercel.app/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 46, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 49, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html' && /does not include Queens rows/.test(item.content_text)), 'JSON Feed links Queens demand capture page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html' && /does not include Bronx rows/.test(item.content_text)), 'JSON Feed links Bronx demand capture page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html' && /does not include Staten Island rows/.test(item.content_text)), 'JSON Feed links Staten Island demand capture page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html'), 'JSON Feed links DOB approved permits page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html'), 'JSON Feed links DOB NOW approved permits page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html'), 'JSON Feed links DOB NOW Build approved permits page');

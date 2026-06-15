@@ -440,6 +440,27 @@
       <description>Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.</description>
     </item>
     <item>
+      <title>Queens construction permit activity request</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Queens demand-capture page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Queens rows.</description>
+    </item>
+    <item>
+      <title>Bronx construction permit activity request</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Bronx demand-capture page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Bronx rows.</description>
+    </item>
+    <item>
+      <title>Staten Island construction permit activity request</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Staten Island demand-capture page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Staten Island rows.</description>
+    </item>
+    <item>
       <title>Methodology and source boundary</title>
       <link>https://nyc-construction-activity-brief.vercel.app/methodology.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/methodology.html</guid>

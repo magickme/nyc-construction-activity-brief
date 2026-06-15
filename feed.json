@@ -50,6 +50,27 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html",
+      "title": "Queens construction permit activity request",
+      "content_text": "Queens sample request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Queens rows.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html",
+      "title": "Bronx construction permit activity request",
+      "content_text": "Bronx sample request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Bronx rows.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html",
+      "title": "Staten Island construction permit activity request",
+      "content_text": "Staten Island sample request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Staten Island rows.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html",
       "url": "https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html",
       "title": "NYC building permits",
