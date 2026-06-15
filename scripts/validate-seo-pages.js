@@ -353,7 +353,6 @@ assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch pric
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
 assert.match(buy, /buy_page_viewed/, 'buy page tracks page view');
 assert.match(buy, /buy_page_continue_clicked/, 'buy page tracks manual continue click');
-assert.match(buy, /buy_page_auto_redirect/, 'buy page tracks automatic redirect');
 assert.match(buy, /const rawSource = params\.get\('source'\) \|\| 'buy-page';/, 'buy page reads source query');
 assert.match(buy, /utm_source: 'nyc_construction_activity_brief'/, 'buy page passes UTM source to Stripe');
 assert.match(buy, /utm_medium: 'owned_site'/, 'buy page passes UTM medium to Stripe');
@@ -365,15 +364,16 @@ assert.match(buy, /method: 'POST'/, 'buy page posts checkout session request');
 assert.match(buy, /body: JSON\.stringify\(\{ source \}\)/, 'buy page sends source to checkout session API');
 assert.match(buy, /buy_page_checkout_session_created/, 'buy page tracks first-party checkout session creation');
 assert.match(buy, /buy_page_checkout_session_fallback/, 'buy page tracks Payment Link fallback');
-assert.match(buy, /window\.location\.replace\(await checkoutUrlPromise\);/, 'buy page redirects to first-party session or fallback URL');
+assert.match(buy, /link\.addEventListener\('click', async \(event\)/, 'buy page creates checkout sessions only after buyer click');
+assert.match(buy, /window\.location\.assign\(await createCheckoutUrl\(\)\);/, 'buy page sends clickers to first-party session or fallback URL');
+assert.doesNotMatch(buy, /buy_page_auto_redirect/, 'buy page must not auto-redirect indexed visitors');
+assert.doesNotMatch(buy, /const checkoutUrlPromise = createCheckoutUrl\(\);/, 'buy page must not create checkout sessions on page load');
 assert.doesNotMatch(buy, /window\.location\.replace\(stripeUrl\);/, 'buy page must not redirect directly to Payment Link JS URL');
-assert.match(buy, /\}, 900\);/, 'buy page uses shorter direct Stripe redirect delay');
 assert.match(buy, /checkout\.html\?source=buy-page/, 'buy page keeps checkout bridge fallback for no-JavaScript users');
 assert.match(buy, /href="\/preview\.html"/, 'buy page links preview');
 assert.match(buy, /href="\/inside-the-zip\.html"/, 'buy page links ZIP contents');
 assert.match(buy, /href="\/free-vs-paid\.html"/, 'buy page links free vs paid page');
 assert.match(buy, /href="\/support\.html"/, 'buy page links support');
-assert.match(buy, /\}, 900\);/, 'buy page gives buyers a short purchase-fact pause before Stripe');
 
 const notFound = read('404.html');
 assert.match(notFound, /<title>Page Not Found \| NYC Construction Activity Brief<\/title>/, '404 page needs title');

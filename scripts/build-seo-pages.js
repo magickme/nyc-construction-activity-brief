@@ -760,17 +760,13 @@ ${socialImageMeta()}
           return fallbackUrl;
         }
       }
-      const checkoutUrlPromise = createCheckoutUrl();
       link.addEventListener('click', async (event) => {
         event.preventDefault();
         trackEvent('buy_page_continue_clicked', { source });
-        window.location.assign(await checkoutUrlPromise);
+        link.setAttribute('aria-busy', 'true');
+        window.location.assign(await createCheckoutUrl());
       });
       trackEvent('buy_page_viewed', { source });
-      window.setTimeout(async () => {
-        trackEvent('buy_page_auto_redirect', { source });
-        window.location.replace(await checkoutUrlPromise);
-      }, 900);
     </script>
   </body>
 </html>
