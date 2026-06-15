@@ -1156,6 +1156,11 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="lede">${escapeHtml(page.lede)}</p>
+      <p>
+        <a class="button" href="${trackedCheckoutUrl}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">

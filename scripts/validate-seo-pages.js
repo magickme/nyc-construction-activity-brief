@@ -117,6 +117,11 @@ function assertHtmlPage(relativePath) {
     );
     assert.match(
       html,
+      new RegExp(`<p class="lede">[\\s\\S]+href="${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[\\s\\S]+The buy page shows sample rows first\\. Stripe checkout starts after your next click\\.[\\s\\S]+<section class="grid">`),
+      `${relativePath} has an above-fold attributed buy CTA`,
+    );
+    assert.match(
+      html,
       new RegExp(`"url":"${attributedPurchaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
       `${relativePath} Product schema uses page-specific buy attribution`,
     );
