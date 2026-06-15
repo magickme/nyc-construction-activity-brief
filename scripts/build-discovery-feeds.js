@@ -94,6 +94,23 @@ function buildCurrentIssueJson(rows, manifest) {
       checkoutUrl,
       priceUsd: 49,
     },
+    paidZip: {
+      checkoutUrl,
+      priceUsd: 49,
+      files: [
+        'README.md',
+        'nyc-construction-activity-preview.csv',
+        'nyc-construction-activity-preview.md',
+        'nyc-weekly-construction-activity-sample.md',
+        'buyer-workbook.md',
+        'buyer-priority-slices.csv',
+        'buyer-readme.md',
+        'source-registry.md',
+        'privacy-and-claims-boundary.md',
+        'qa-report.json',
+        'version.txt',
+      ],
+    },
     counts: {
       workTypes: stats.workTypes,
       zipCodes: stats.zipCodes,
@@ -174,6 +191,7 @@ Current issue:
 - Issued dates in preview: ${stats.firstIssuedDate} to ${stats.latestIssuedDate}
 - Checkout: ${checkoutUrl}
 - Price: $49 one-time ZIP download
+- Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
 
 Primary pages:
 - Home: ${baseUrl}/

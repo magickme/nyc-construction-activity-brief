@@ -8,6 +8,7 @@ Current issue:
 - Issued dates in preview: 2026-06-09 to 2026-06-12
 - Checkout: https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N
 - Price: $49 one-time ZIP download
+- Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
 
 Primary pages:
 - Home: https://nyc-construction-activity-brief.vercel.app/

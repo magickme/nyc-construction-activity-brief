@@ -18,6 +18,23 @@
     "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N",
     "priceUsd": 49
   },
+  "paidZip": {
+    "checkoutUrl": "https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N",
+    "priceUsd": 49,
+    "files": [
+      "README.md",
+      "nyc-construction-activity-preview.csv",
+      "nyc-construction-activity-preview.md",
+      "nyc-weekly-construction-activity-sample.md",
+      "buyer-workbook.md",
+      "buyer-priority-slices.csv",
+      "buyer-readme.md",
+      "source-registry.md",
+      "privacy-and-claims-boundary.md",
+      "qa-report.json",
+      "version.txt"
+    ]
+  },
   "counts": {
     "workTypes": [
       {

@@ -137,6 +137,8 @@ assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
+assert.match(index, /Buyer workbook with a fast review path/, 'index needs buyer workbook offer copy');
+assert.match(index, /Priority-slices CSV grouped by work type/, 'index needs priority-slices offer copy');
 assert.match(index, /data-sample-request-form/, 'index needs sample request form');
 assert.match(index, /\/api\/sample-request/, 'index posts sample requests to API');
 assert.match(index, /This does not join the MagickMe newsletter\./, 'index needs list-separation copy');
@@ -202,6 +204,10 @@ assert.equal(currentIssue.product, 'NYC Weekly Construction Activity Brief', 'cu
 assert.equal(currentIssue.issue, 'current', 'current issue JSON marks current issue');
 assert.equal(currentIssue.publicPreview.rowCount, manifest.sourceRows, 'current issue JSON row count matches manifest');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://buy.stripe.com/dRmdR9aHv3vk6az8rlcAo0N', 'current issue JSON links checkout');
+assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
+assert.ok(currentIssue.paidZip.files.includes('README.md'), 'current issue JSON lists package README');
+assert.ok(currentIssue.paidZip.files.includes('buyer-workbook.md'), 'current issue JSON lists buyer workbook');
+assert.ok(currentIssue.paidZip.files.includes('buyer-priority-slices.csv'), 'current issue JSON lists priority slices');
 assert.equal(currentIssue.boundary.includesPrivateContactData, false, 'current issue JSON keeps private-contact boundary');
 assert.equal(currentIssue.boundary.leadGuarantee, false, 'current issue JSON keeps claims boundary');
 assert.equal(currentIssue.generatedPages.totalTopicPages, pages.length, 'current issue JSON topic page count matches manifest');
@@ -215,6 +221,7 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/samp
 const llms = read('llms.txt');
 assert.match(llms, /# NYC Weekly Construction Activity Brief/, 'llms.txt names product');
 assert.match(llms, /Public preview rows: 142/, 'llms.txt has row count');
+assert.match(llms, /Buyer-only files: buyer-workbook\.md, buyer-priority-slices\.csv/, 'llms.txt lists buyer-only files');
 assert.match(llms, /No guaranteed leads\./, 'llms.txt keeps claims boundary');
 
 const indexNowKey = read('320c87511764a53abe2cd8aa0481f1bc.txt').trim();
