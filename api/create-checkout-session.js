@@ -16,6 +16,10 @@ function sanitizeSource(value) {
   return text;
 }
 
+function isSyntheticCheckoutSource(source) {
+  return source === 'automation-probe';
+}
+
 async function readJsonBody(req) {
   let body = '';
   for await (const chunk of req) {
@@ -102,6 +106,10 @@ module.exports = async function handler(req, res) {
   }
 
   const source = sanitizeSource(body.source);
+  if (isSyntheticCheckoutSource(source)) {
+    return sendJson(res, 400, { error: 'synthetic_checkout_blocked' });
+  }
+
   let session;
   try {
     session = await createCheckoutSession(source);
@@ -120,5 +128,6 @@ module.exports._private = {
   LAUNCH_PRICE_CENTS,
   checkoutParams,
   createCheckoutSession,
+  isSyntheticCheckoutSource,
   sanitizeSource,
 };

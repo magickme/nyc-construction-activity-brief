@@ -6,6 +6,7 @@ const {
   PRODUCT_METADATA_VALUE,
   checkoutParams,
   createCheckoutSession,
+  isSyntheticCheckoutSource,
   sanitizeSource,
 } = handler._private;
 
@@ -13,6 +14,8 @@ assert.equal(sanitizeSource('topic-nyc-plumbing'), 'topic-nyc-plumbing');
 assert.equal(sanitizeSource('../bad'), 'site');
 assert.equal(sanitizeSource(''), 'site');
 assert.equal(sanitizeSource('a'.repeat(81)), 'site');
+assert.equal(isSyntheticCheckoutSource('automation-probe'), true);
+assert.equal(isSyntheticCheckoutSource('buy-page'), false);
 
 const params = checkoutParams('topic-nyc-plumbing');
 assert.equal(params.get('mode'), 'payment');
