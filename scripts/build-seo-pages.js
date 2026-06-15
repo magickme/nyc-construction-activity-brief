@@ -4832,6 +4832,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Free preview and paid ZIP comparison.</h1>
       <p class="lede">Check what you can inspect before checkout and what the $9.50 paid ZIP adds for the current issue.</p>
+      <p>
+        <a class="button" href="${checkoutHref('free-vs-paid-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">
@@ -7348,6 +7353,11 @@ ${socialImageMeta()}
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Pricing for the current issue ZIP.</h1>
       <p class="lede">A one-time purchase for buyers who want the current ${escapeHtml(rows.length)}-row issue packaged for spreadsheet review instead of sorting selected DOB NOW rows manually.</p>
+      <p>
+        <a class="button" href="${checkoutHref('pricing-top')}">Buy $9.50 ZIP</a>
+        <a class="button secondary" href="/free-vs-paid.html">Compare free vs paid</a>
+      </p>
+      <p class="fine">The buy page shows sample rows first. Stripe checkout starts after your next click.</p>
 
       <section class="grid">
         <div class="card">

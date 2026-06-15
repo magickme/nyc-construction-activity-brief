@@ -515,6 +515,8 @@ assert.match(pricing, /<h2>Break-even guide<\/h2>/, 'pricing page needs break-ev
 assert.match(pricing, /\$49/, 'pricing page needs standard price');
 assert.match(pricing, /\$9\.50/, 'pricing page needs discounted price');
 assert.match(pricing, /No promo code is required/, 'pricing page needs direct launch price copy');
+assert.match(pricing, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=pricing-top"/, 'pricing page has above-fold buy CTA');
+assert.match(pricing, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'pricing page explains top CTA checkout path');
 assert.match(pricing, /About 8 minutes saved/, 'pricing page needs current launch price break-even examples');
 assert.match(pricing, /href="\/preview\.html"/, 'pricing page links public preview');
 assert.match(pricing, /href="\/free-vs-paid\.html"/, 'pricing page links free vs paid page');
@@ -1745,6 +1747,8 @@ assert.match(freeVsPaid, /"@type":"FAQPage"/, 'free vs paid page needs FAQ struc
 assert.match(freeVsPaid, /"price":"9.50"/, 'free vs paid page needs current price structured data');
 assert.match(freeVsPaid, /\/_vercel\/insights\/script\.js/, 'free vs paid page needs Web Analytics script');
 assert.match(freeVsPaid, /Free preview and paid ZIP comparison/, 'free vs paid page needs headline');
+assert.match(freeVsPaid, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=free-vs-paid-top"/, 'free vs paid page has above-fold buy CTA');
+assert.match(freeVsPaid, /The buy page shows sample rows first\. Stripe checkout starts after your next click\./, 'free vs paid page explains top CTA checkout path');
 assert.match(freeVsPaid, /<h2>Comparison<\/h2>/, 'free vs paid page needs comparison section');
 assert.match(freeVsPaid, /When the paid ZIP is worth it/, 'free vs paid page needs paid decision section');
 assert.match(freeVsPaid, /break-even is about 8 minutes/, 'free vs paid page needs launch price break-even copy');
