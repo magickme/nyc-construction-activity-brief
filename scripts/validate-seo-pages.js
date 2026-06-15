@@ -111,7 +111,7 @@ function assertHtmlPage(relativePath) {
   assert.doesNotMatch(html, rawCostBucketPattern, `${relativePath} contains raw cost bucket labels`);
 }
 
-assert.equal(manifest.sourceRows, 192, 'manifest source row count changed unexpectedly');
+assert.equal(manifest.sourceRows, 142, 'manifest source row count changed unexpectedly');
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
 assert.ok(manifest.generatedPages >= 65, 'expected at least 65 generated long-tail pages');
 assert.equal(manifest.totalTopicPages, pages.length, 'manifest topic page count must match slugs');

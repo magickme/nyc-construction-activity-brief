@@ -221,7 +221,7 @@ function productJsonLd(description, url = checkoutUrl) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'NYC Weekly Construction Activity Brief - First Issue',
+    name: 'NYC Weekly Construction Activity Brief - Current Issue',
     description,
     category: 'Digital construction permit activity brief',
     brand: {
@@ -247,7 +247,7 @@ function datasetJsonLd(rows) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
-    name: 'NYC Weekly Construction Activity Brief - First Issue Public Preview',
+    name: 'NYC Weekly Construction Activity Brief - Current Issue Public Preview',
     description:
       'Selected NYC DOB NOW approved permit rows packaged as a weekly public-record construction activity CSV preview and buyer brief.',
     url: `${baseUrl}/methodology.html`,
@@ -551,11 +551,11 @@ ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.ht
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>NYC permit activity segments from the current public preview.</h1>
-      <p class="lede">These pages are generated from the 192-row public CSV preview. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
+      <p class="lede">These pages are generated from the 142-row public CSV preview. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
 
       <section class="section card">
         <h2>Get the current issue</h2>
-        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-01 to 2026-06-08 issue.</p>
+        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue.</p>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
         <a class="button secondary" href="/sample/nyc-weekly-construction-activity-sample.md">Read sample brief</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
@@ -774,8 +774,8 @@ function buildGeneratedPages(rows) {
       h1: `NYC DOB permit activity in ZIP ${zipCode}.`,
       lede: `The current public preview includes ${count} selected DOB NOW permit rows for ${boroughs} ZIP ${zipCode}.`,
       audience: `Construction-support vendors and subcontractors watching permit activity in ${zipCode}.`,
-      currentSample: `ZIP ${zipCode} has ${count} rows in the 2026-06-01 to 2026-06-08 public preview.`,
-      useCase: `Use this page to check the ZIP ${zipCode} activity mix before buying the first issue package or reviewing source records manually.`,
+      currentSample: `ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 public preview.`,
+      useCase: `Use this page to check the ZIP ${zipCode} activity mix before buying the current issue package or reviewing source records manually.`,
       sampleLine: `ZIP ${zipCode} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
       rows: sampleRows(matchingRows),
       stats: [
@@ -816,8 +816,8 @@ function buildGeneratedPages(rows) {
       h1: `${boroughName} ${work.lowerLabel} permit activity.`,
       lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows in ${boroughName}.`,
       audience: `${sentenceCase(work.buyer)} watching ${boroughName} public permit activity.`,
-      currentSample: `${boroughName} ${work.lowerLabel} has ${count} rows in the 2026-06-01 to 2026-06-08 public preview.`,
-      useCase: `Use this page to review the ${boroughName} ${work.lowerLabel} sample before deciding whether the first issue package is worth buying.`,
+      currentSample: `${boroughName} ${work.lowerLabel} has ${count} rows in the 2026-06-09 to 2026-06-15 public preview.`,
+      useCase: `Use this page to review the ${boroughName} ${work.lowerLabel} sample before deciding whether the current issue package is worth buying.`,
       sampleLine: `${boroughName} | ${work.label} | ZIP | issued date | status | DOB NOW source link`,
       rows: sampleRows(matchingRows),
       stats: [
@@ -858,7 +858,7 @@ function buildGeneratedPages(rows) {
       h1: `${work.label} permit activity in ZIP ${zipCode}.`,
       lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows for ${boroughName} ZIP ${zipCode}.`,
       audience: `${sentenceCase(work.buyer)} watching ZIP ${zipCode}.`,
-      currentSample: `${work.label} in ZIP ${zipCode} has ${count} rows in the 2026-06-01 to 2026-06-08 public preview.`,
+      currentSample: `${work.label} in ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 public preview.`,
       useCase: `Use this page to scan ${work.lowerLabel} activity in ZIP ${zipCode} before opening the DOB NOW source records one by one.`,
       sampleLine: `${work.label} | ${zipCode} | ${boroughName} | issued date | status | source link`,
       rows: sampleRows(matchingRows),
@@ -898,8 +898,8 @@ function buildGeneratedPages(rows) {
       h1: `NYC ${work.lowerLabel} permit CSV sample.`,
       lede: `The current public preview includes ${count} selected ${work.lowerLabel} rows from ${range}.`,
       audience: `${sentenceCase(work.buyer)} comparing public permit activity across selected NYC ZIP codes.`,
-      currentSample: `${work.label} has ${count} rows in the current 192-row public preview.`,
-      useCase: `Use this page to inspect the ${work.lowerLabel} sample before downloading the public CSV or buying the first issue package.`,
+      currentSample: `${work.label} has ${count} rows in the current 142-row public preview.`,
+      useCase: `Use this page to inspect the ${work.lowerLabel} sample before downloading the public CSV or buying the current issue package.`,
       sampleLine: `${work.label} | top ZIPs: ${describeCounts(matchingRows, (row) => row.zip_code)}`,
       rows: sampleRows(matchingRows),
       stats: [
@@ -1010,7 +1010,7 @@ function buildGeneratedPages(rows) {
       faqs: [
         {
           question: 'Can issued-date pages become outdated?',
-          answer: 'Yes. This page describes the current first issue sample only. Use the source link for the current public record state.',
+          answer: 'Yes. This page describes the current issue sample only. Use the source link for the current public record state.',
         },
         {
           question: 'Why include issued-date pages?',

@@ -1,21 +1,13 @@
-# NYC Weekly Construction Activity Brief
+# NYC Weekly Construction Activity Preview
 
-Sample date: 2026-06-08
-Sample range: 2026-06-01 to 2026-06-08
-Status: draft public preview
+Generated: 2026-06-15T02:21:35+00:00
+Date range: 2026-06-09 to 2026-06-15
 Source: NYC DOB NOW: Build - Approved Permits
+Rows in public preview: 142
 
-## What This Is
+This is a draft public-record permit signal preview, not a lead list. It excludes owner names, applicant names, phone numbers, email addresses, and full street addresses.
 
-This is a weekly public-record permit signal brief for selected NYC construction work types. It turns a bounded DOB NOW sample into a short digest that can be reviewed by work type, ZIP, borough, and estimated project-size bucket.
-
-This sample is not a lead list. It does not include owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data.
-
-## Who It Is For
-
-This first version is aimed at construction-support vendors, suppliers, and specialty subcontractors who want to monitor project activity in specific NYC work types.
-
-Initial work types:
+## Included Work Types
 
 - Sidewalk Shed
 - Supported Scaffold
@@ -25,87 +17,48 @@ Initial work types:
 - Sprinklers
 - Structural
 
-Initial ZIPs:
+## Top Counts By Work Type
 
-- 11211
-- 11206
-- 10011
-- 10003
-- 11201
+- Sidewalk Shed: 40
+- Plumbing: 29
+- Sprinklers: 21
+- Mechanical Systems: 18
+- Supported Scaffold: 13
+- Structural: 12
+- Construction Fence: 9
 
-## Sample Snapshot
+## Top Counts By ZIP
 
-Public preview rows: 192
+- 10003: 37
+- 10011: 37
+- 11201: 26
+- 11206: 22
+- 11211: 20
 
-Top work-type counts:
+## Counts By Borough
 
-- Plumbing: 49
-- Sidewalk Shed: 37
-- Sprinklers: 29
-- Mechanical Systems: 24
-- Supported Scaffold: 24
-- Structural: 22
-- Construction Fence: 7
+- MANHATTAN: 74
+- BROOKLYN: 68
 
-Top ZIP counts:
+## Example Rows
 
-- 10011: 53
-- 10003: 50
-- 11201: 36
-- 11211: 29
-- 11206: 24
+| issued_date | borough | zip_code | work_type | estimated_job_cost_bucket | permit_status | job_description_short |
+|---|---|---|---|---|---|---|
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | Installation of a temporarily heavy-duty sidewalk shed per plan submitted. Work shall comply with 2022 building codes chapter 33. No change in use, egress and/or occupancy with this application. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | Installation of a temporarily heavy-duty sidewalk shed per plan submitted. Work shall comply with 2022 building codes chapter 33. No change in use, egress and/or occupancy with this application. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Mechanical Systems | 50k_to_100k | Permit Issued | SPRINKLER WORK AS PER PLANS. NO CHANGE OF USE, EGRESS OR OCCUPANCY UNDER THIS APPLICATION. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF TEMPORARY HEAVY DUTY SIDEWALK SHED AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY. SIDEWALK SHED SHALL COMPLY WITH CHAPTER #33 OF 2022 THE NYC BUILDING CODE. LIVE LOAD 300PSF. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Mechanical Systems | 50k_to_100k | Permit Issued | INSTALLATION OF MECHANICAL EQUIPMENT (AIR CONDITIONING WITH PIPING AND CONTROLS AND TOILET/KITCHEN EXHAUST SYSTEM). SCOPE OF WORK INLCUDES PROVIDING SPLIT AC UNITS W/ ROOF CONDENSERS & INDOOR AIR HANDLERS, PROVIDING H... |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | Installation of a temporarily heavy-duty sidewalk shed per plan submitted. Work shall comply with 2022 building codes chapter 33. No change in use, egress and/or occupancy with this application. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | Installation of temporary sidewalk shed per plan submitted. Work shall comply with 2022 building codes chapter 33. No change in use, egress and/or occupancy with this application. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10003 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF TEMPORARY SIDEWALK SHED AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF TEMPORARY HEAVY DUTY SIDEWALK SHED AND PIPE SCAFFOLD AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY.SIDEWALK SHED SHALL COMPLY WITH CHAPTER #33 OF 2022 THE NYC BUILDING CODE.LIVE LOAD 300PSF. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Supported Scaffold | under_10k | Permit Issued | INSTALLATION OF TEMPORARY HEAVY DUTY SIDEWALK SHED AND PIPE SCAFFOLD AS PER PLANS. NO CHANGE IN USE, EGRESS OR OCCUPANCY.SIDEWALK SHED SHALL COMPLY WITH CHAPTER #33 OF 2022 THE NYC BUILDING CODE.LIVE LOAD 300PSF. |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Sidewalk Shed | under_10k | Permit Issued | INSTALLATION OF HEAVY DUTY SIDEWALK SHED. NO CHANGE IN USE, OCCUPANCY OR EGRESS. ALL WORK TO COMPLY WITH CHAPTER 33 OF NYCBC |
+| 2026-06-12T00:00:00.000 | MANHATTAN | 10011 | Mechanical Systems | 50k_to_100k | Permit Issued | [description withheld: location detail] |
 
-Borough counts:
+## Source Caveat
 
-- Manhattan: 103
-- Brooklyn: 89
+Public DOB NOW approved-permit records can be incomplete, delayed, revised, duplicated, or mislabeled. Not affiliated with or endorsed by NYC or DOB.
 
-## Included In The Public Preview
-
-- Source name and source link
-- Fetch date
-- Borough
-- ZIP code
-- Work type
-- Issued date
-- Permit status
-- Estimated job-cost bucket
-- Work permit ID
-- Job filing number
-- Short job description
-- Source caveat
-
-## Not Included
-
-- Owner names
-- Applicant names
-- Permittee names
-- Phone numbers
-- Email addresses
-- Full street addresses
-- Owner addresses
-- Applicant addresses
-- Latitude/longitude
-- Enriched contact data
-- Lead scores
-- Revenue or conversion predictions
-
-## Example Use
-
-A scaffold, sidewalk-shed, plumbing, mechanical, sprinkler, or construction-support business could use the brief to see where relevant project activity appeared during the sample week, then decide whether the source records are worth deeper review.
-
-The brief does not tell the buyer who to contact or whether contact is appropriate.
-
-## Source Limitations
-
-Source records can be incomplete, delayed, revised, duplicated, or mislabeled. Some DOB permit categories may live in separate sources. The sample only uses DOB NOW approved permits from the selected work types and ZIPs.
-
-This product is not affiliated with or endorsed by NYC, DOB, or any agency.
-
-## Files
-
-- Public preview CSV: `samples/public-preview/nyc-construction-activity-preview.csv`
-- Public preview Markdown: `samples/public-preview/nyc-construction-activity-preview.md`
-- QA report: `samples/public-preview/qa-report.json`
-- Private QA CSV: `samples/private-qa/nyc-dob-now-private-qa.csv`
-
+Use source links and your own professional judgment before making decisions.
