@@ -1,5 +1,4 @@
 const DEFAULT_PAYMENT_LINK_IDS = [
-  'plink_1TgEa1DmKyUECkDHzfi9Cf2o',
   'plink_1TgClADmKyUECkDHS6FKhOXp',
 ];
 const ZIP_NAME = 'nyc-weekly-construction-activity-brief-v0.1.zip';
