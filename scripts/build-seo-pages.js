@@ -431,7 +431,7 @@ function checkoutHtml() {
       } catch (error) {}
       window.setTimeout(() => {
         window.location.replace(stripeUrl);
-      }, 220);
+      }, 1800);
     </script>
   </body>
 </html>
