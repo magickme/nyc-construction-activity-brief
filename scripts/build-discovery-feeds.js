@@ -121,6 +121,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       permitCsvUrl: `${baseUrl}/nyc-dob-permit-csv.html`,
       weeklyPermitReportUrl: `${baseUrl}/weekly-nyc-construction-permit-report.html`,
+      dobNowAlternativeUrl: `${baseUrl}/dob-now-permit-search-alternative.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
@@ -151,6 +152,7 @@ function buildCurrentIssueJson(rows, manifest) {
       csvFieldGuideUrl: `${baseUrl}/csv-field-guide.html`,
       permitCsvUrl: `${baseUrl}/nyc-dob-permit-csv.html`,
       weeklyPermitReportUrl: `${baseUrl}/weekly-nyc-construction-permit-report.html`,
+      dobNowAlternativeUrl: `${baseUrl}/dob-now-permit-search-alternative.html`,
       buyerGuideUrl: `${baseUrl}/buyer-guide.html`,
       deliveryUrl: `${baseUrl}/delivery.html`,
       supportUrl: `${baseUrl}/support.html`,
@@ -282,6 +284,11 @@ function buildFeedXml(rows, manifest) {
       description: `Source-linked weekly permit report for reviewing the current ${stats.rowCount}-row paid issue before checkout.`,
     },
     {
+      title: 'DOB NOW permit search alternative',
+      url: `${baseUrl}/dob-now-permit-search-alternative.html`,
+      description: `Compare manual DOB NOW permit search with the current ${stats.rowCount}-row paid ZIP for weekly source-linked screening.`,
+    },
+    {
       title: 'Buyer guide for the current ZIP',
       url: `${baseUrl}/buyer-guide.html`,
       description: `Who should buy the current ${stats.rowCount}-row ZIP, who should use the free ${previewRows}-row preview first, and what is excluded from the paid files.`,
@@ -371,6 +378,7 @@ Primary pages:
 - CSV field guide: ${baseUrl}/csv-field-guide.html
 - NYC DOB permit CSV: ${baseUrl}/nyc-dob-permit-csv.html
 - Weekly NYC construction permit report: ${baseUrl}/weekly-nyc-construction-permit-report.html
+- DOB NOW permit search alternative: ${baseUrl}/dob-now-permit-search-alternative.html
 - Buyer guide: ${baseUrl}/buyer-guide.html
 - Delivery steps: ${baseUrl}/delivery.html
 - Support and refunds: ${baseUrl}/support.html
@@ -429,7 +437,7 @@ Current-Issue: ${baseUrl}/current-issue.json
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'permit-expediter-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-csv.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'feed.xml', 'current-issue.json', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

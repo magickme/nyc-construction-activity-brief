@@ -35,6 +35,7 @@ Primary pages:
 - CSV field guide: https://nyc-construction-activity-brief.vercel.app/csv-field-guide.html
 - NYC DOB permit CSV: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-csv.html
 - Weekly NYC construction permit report: https://nyc-construction-activity-brief.vercel.app/weekly-nyc-construction-permit-report.html
+- DOB NOW permit search alternative: https://nyc-construction-activity-brief.vercel.app/dob-now-permit-search-alternative.html
 - Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html
 - Delivery steps: https://nyc-construction-activity-brief.vercel.app/delivery.html
 - Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
