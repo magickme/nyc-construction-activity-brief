@@ -656,7 +656,8 @@ assert.match(preview, /href="\/permit-research-workflow\.html"/, 'preview page l
 assert.match(preview, /href="\/inside-the-zip\.html"/, 'preview page links inside the ZIP page');
 assert.match(preview, /href="\/pricing\.html"/, 'preview page links pricing page');
 assert.match(preview, /href="\/support\.html"/, 'preview page links support page');
-assert.match(preview, new RegExp(`href="${purchaseUrl}"`), 'preview page links tracked buy page');
+assert.match(preview, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=preview"/, 'preview page Product schema links checkout bridge');
+assert.match(preview, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=preview"/, 'preview page post-review CTA links checkout bridge');
 assert.match(preview, /data-sample-request-form/, 'preview page needs sample request form');
 assert.match(preview, /\/api\/sample-request/, 'preview page posts sample requests to API');
 assert.match(preview, /data\.source_path = window\.location\.pathname;/, 'preview page sends source path with sample request');
@@ -737,7 +738,8 @@ assert.match(currentIssuePage, /href="\/csv-field-guide\.html"/, 'current issue 
 assert.match(currentIssuePage, /href="\/pricing\.html"/, 'current issue page links pricing');
 assert.match(currentIssuePage, /href="\/delivery\.html"/, 'current issue page links delivery');
 assert.match(currentIssuePage, /href="\/support\.html"/, 'current issue page links support');
-assert.match(currentIssuePage, new RegExp(`href="${purchaseUrl}"`), 'current issue page links tracked buy page');
+assert.match(currentIssuePage, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=current-issue-page"/, 'current issue page Product schema links checkout bridge');
+assert.match(currentIssuePage, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=current-issue-page"/, 'current issue page post-review CTA links checkout bridge');
 assertSampleRequestForm(currentIssuePage, 'current issue page');
 assert.match(currentIssuePage, /No guaranteed leads\./, 'current issue page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -2866,7 +2868,8 @@ assert.match(hub, /href="\/csv-field-guide\.html"/, 'hub links CSV field guide')
 assert.match(hub, /href="\/support\.html"/, 'hub links support page');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
-assert.match(hub, new RegExp(`href="${purchaseUrl}"`), 'hub links tracked buy page');
+assert.match(hub, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub Product schema links checkout bridge');
+assert.match(hub, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub post-review CTA links checkout bridge');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }

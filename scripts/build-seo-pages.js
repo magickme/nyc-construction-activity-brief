@@ -1419,7 +1419,7 @@ ${conversionBar(topicCheckoutSource(page))}
 
 function hubHtml(pages) {
   const description = 'Browse data-backed NYC construction permit activity pages generated from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
-  const product = productJsonLd(description, checkoutHref('segment-hub'));
+  const product = productJsonLd(description, checkoutBridgeHref('segment-hub'));
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
@@ -1471,7 +1471,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/pricing.html">Check pricing</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
-        <a class="button" href="${checkoutHref('segment-hub')}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutBridgeHref('segment-hub')}">Buy instant ZIP</a>
       </section>
 
 ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
@@ -7623,7 +7623,7 @@ function currentIssueHtml(rows) {
   const zipMix = describeCounts(rows, (row) => row.zip_code, 5);
   const statusMix = describeCounts(rows, (row) => row.permit_status, 5);
   const costMix = describeCounts(rows, (row) => costBucketLabel(row.estimated_job_cost_bucket), 6);
-  const product = productJsonLd(description, checkoutHref('current-issue-page'));
+  const product = productJsonLd(description, checkoutBridgeHref('current-issue-page'));
   const dataset = datasetJsonLd(rows);
   const faq = {
     '@context': 'https://schema.org',
@@ -7735,7 +7735,7 @@ ${socialImageMeta()}
         <a class="button secondary" href="/delivery.html">Read delivery steps</a>
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
-        <a class="button" href="${checkoutHref('current-issue-page')}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutBridgeHref('current-issue-page')}">Buy instant ZIP</a>
       </section>
 
 ${sampleRequestSection({
@@ -9117,7 +9117,7 @@ function previewHtml(fullRows) {
   const workTypeOptions = [...new Set(rows.map((row) => row.workType))].sort();
   const zipOptions = [...new Set(rows.map((row) => row.zipCode))].sort();
   const description = `Browse the ${rows.length}-row public preview for the current NYC construction activity brief before buying the full ${fullRows.length}-row ZIP.`;
-  const product = productJsonLd(description, checkoutHref('preview'));
+  const product = productJsonLd(description, checkoutBridgeHref('preview'));
   const dataset = {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
@@ -9243,7 +9243,7 @@ ${rows.map((row) => `              <tr data-preview-row data-work-type="${escape
         <a class="button secondary" href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a>
         <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
         <a class="button secondary" href="/csv-field-guide.html">CSV field guide</a>
-        <a class="button" href="${checkoutHref('preview')}">Buy instant ZIP</a>
+        <a class="button" href="${checkoutBridgeHref('preview')}">Buy instant ZIP</a>
       </section>
 
 ${sampleRequestSection()}      <section class="section card">
