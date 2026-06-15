@@ -736,6 +736,7 @@ assert.match(buyerGuide, /href="\/delivery\.html"/, 'buyer guide links delivery 
 assert.match(buyerGuide, /href="\/support\.html"/, 'buyer guide links support page');
 assert.match(buyerGuide, /href="\/methodology\.html"/, 'buyer guide links methodology');
 assert.match(buyerGuide, new RegExp(`href="${checkoutUrl}"`), 'buyer guide links tracked checkout');
+assertSampleRequestForm(buyerGuide, 'buyer guide');
 assert.match(buyerGuide, /No guaranteed leads\./, 'buyer guide keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(buyerGuide, pattern, `buyer-guide.html contains banned copy pattern ${pattern}`);
