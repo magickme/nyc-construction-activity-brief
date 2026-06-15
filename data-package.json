@@ -1,0 +1,187 @@
+{
+  "product": "NYC Weekly Construction Activity Brief",
+  "issue": "current",
+  "generated_at_source_fetch_date": "2026-06-15",
+  "url": "https://nyc-construction-activity-brief.vercel.app/data-package.json",
+  "source": {
+    "name": "NYC DOB NOW: Build - Approved Permits",
+    "dataset_id": "rbx6-tga4",
+    "url": "https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4",
+    "first_issued_date": "2026-06-09",
+    "latest_issued_date": "2026-06-12"
+  },
+  "public_preview": {
+    "rows": 25,
+    "sample_urls": {
+      "csv": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
+      "json": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json",
+      "jsonl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl",
+      "markdown_brief": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md"
+    },
+    "current_issue_url": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
+    "preview_page_url": "https://nyc-construction-activity-brief.vercel.app/preview.html",
+    "field_guide_url": "https://nyc-construction-activity-brief.vercel.app/csv-field-guide.html"
+  },
+  "paid_zip": {
+    "rows": 142,
+    "price_usd": "9.50",
+    "standard_price_usd": "49.00",
+    "buy_url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=data-package",
+    "checkout_bridge_url": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=data-package",
+    "stripe_payment_link": "https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q",
+    "delivery": "Instant browser download after completed Stripe checkout.",
+    "files": [
+      "README.md",
+      "nyc-construction-activity-preview.csv",
+      "nyc-construction-activity-preview.md",
+      "nyc-weekly-construction-activity-sample.md",
+      "buyer-workbook.md",
+      "buyer-priority-slices.csv",
+      "buyer-readme.md",
+      "source-registry.md",
+      "privacy-and-claims-boundary.md",
+      "qa-report.json",
+      "version.txt"
+    ]
+  },
+  "buyer_pages": [
+    "https://nyc-construction-activity-brief.vercel.app/who-should-buy.html",
+    "https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html",
+    "https://nyc-construction-activity-brief.vercel.app/permit-research-workflow.html",
+    "https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html",
+    "https://nyc-construction-activity-brief.vercel.app/nyc-permit-data-api-alternative.html",
+    "https://nyc-construction-activity-brief.vercel.app/contractor-permit-research.html",
+    "https://nyc-construction-activity-brief.vercel.app/subcontractor-permit-research.html",
+    "https://nyc-construction-activity-brief.vercel.app/material-supplier-permit-research.html",
+    "https://nyc-construction-activity-brief.vercel.app/building-service-vendor-permit-research.html"
+  ],
+  "counts": {
+    "work_types": [
+      {
+        "name": "Sidewalk Shed",
+        "count": 40
+      },
+      {
+        "name": "Plumbing",
+        "count": 29
+      },
+      {
+        "name": "Sprinklers",
+        "count": 21
+      },
+      {
+        "name": "Mechanical Systems",
+        "count": 18
+      },
+      {
+        "name": "Supported Scaffold",
+        "count": 13
+      },
+      {
+        "name": "Structural",
+        "count": 12
+      },
+      {
+        "name": "Construction Fence",
+        "count": 9
+      }
+    ],
+    "zip_codes": [
+      {
+        "zipCode": "10003",
+        "count": 37
+      },
+      {
+        "zipCode": "10011",
+        "count": 37
+      },
+      {
+        "zipCode": "11201",
+        "count": 26
+      },
+      {
+        "zipCode": "11206",
+        "count": 22
+      },
+      {
+        "zipCode": "11211",
+        "count": 20
+      }
+    ],
+    "boroughs": [
+      {
+        "name": "MANHATTAN",
+        "count": 74
+      },
+      {
+        "name": "BROOKLYN",
+        "count": 68
+      }
+    ],
+    "cost_buckets": [
+      {
+        "name": "under_10k",
+        "count": 64
+      },
+      {
+        "name": "10k_to_50k",
+        "count": 32
+      },
+      {
+        "name": "50k_to_100k",
+        "count": 19
+      },
+      {
+        "name": "100k_to_250k",
+        "count": 17
+      },
+      {
+        "name": "250k_to_1m",
+        "count": 7
+      },
+      {
+        "name": "1m_plus",
+        "count": 3
+      }
+    ]
+  },
+  "generated_topic_pages": {
+    "count": 119,
+    "sample_urls": [
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-leads.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/dob-now-permit-search-alternative.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-sales-prospecting.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-data-for-vendors.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-contractor-market-research.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-activity-by-zip.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-now-public-records.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-alerts.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-alerts-by-zip.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-approved-permits-open-data.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-export-csv.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-renovation-permit-leads.html",
+      "https://nyc-construction-activity-brief.vercel.app/topics/nyc-commercial-renovation-permits.html"
+    ]
+  },
+  "boundaries": {
+    "includes_private_contact_data": false,
+    "includes_owner_names": false,
+    "includes_applicant_names": false,
+    "includes_full_street_addresses": false,
+    "sends_email_fulfillment": false,
+    "agency_endorsed": false,
+    "lead_guarantee": false
+  }
+}
