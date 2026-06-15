@@ -45,7 +45,7 @@ function checkoutParams(source) {
   return new URLSearchParams({
     mode: 'payment',
     success_url: `${BASE_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/buy.html?source=${encodeURIComponent(source)}`,
+    cancel_url: `${BASE_URL}/buy.html?source=${encodeURIComponent(source)}&checkout=cancelled`,
     client_reference_id: clientReferenceId,
     'line_items[0][quantity]': '1',
     'line_items[0][price_data][currency]': 'usd',

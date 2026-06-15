@@ -890,6 +890,15 @@ ${socialImageMeta()}
           <a data-buy-link="top" class="button" href="${topCheckout}">Buy $9.50 ZIP on Stripe</a>
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
         </p>
+        <section class="section" data-checkout-cancelled hidden>
+          <h2>Checkout was not completed</h2>
+          <p>If card checkout was blocked by invoice or purchase-order approval, send an invoice request. If you only needed to check the file shape, open the preview and then retry checkout when the current ZIP fits.</p>
+          <p>
+            <a data-buy-link="cancelled-retry" class="button" href="${checkoutHref('buy-page-cancelled-retry')}">Retry Stripe checkout</a>
+            <a class="button secondary" href="/invoice-request.html">Request invoice help</a>
+            <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
+          </p>
+        </section>
         <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
         <section class="section" data-buy-confidence>
           <h2>Before you pay</h2>
@@ -984,6 +993,11 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
       const rawSource = params.get('source') || '${defaultSource}';
       const pageSource = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : '${defaultSource}';
       const links = [...document.querySelectorAll('[data-buy-link]')];
+      const cancelledPanel = document.querySelector('[data-checkout-cancelled]');
+      if (params.get('checkout') === 'cancelled' && cancelledPanel) {
+        cancelledPanel.hidden = false;
+        trackEvent('checkout_cancelled_return', { source: pageSource });
+      }
       function linkSource(link) {
         const url = new URL(link.href, window.location.href);
         const rawLinkSource = url.searchParams.get('source') || pageSource;
@@ -8598,6 +8612,10 @@ function generatedPageLinks(pages) {
 function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
   const indexPath = path.join(root, 'index.html');
   let index = fs.readFileSync(indexPath, 'utf8');
+  index = index.replace(
+    /      <section class="section card">\n        <h2>Exterior access buyers<\/h2>\n[\s\S]*?      <\/section>\n\n/g,
+    '',
+  );
   const replacement = `      <section class="section card">
         <h2>Exterior access buyers</h2>
         <p>The current paid issue includes 40 selected sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows for facade, masonry, restoration, and exterior-access screening.</p>

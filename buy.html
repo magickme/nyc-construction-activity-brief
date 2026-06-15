@@ -37,6 +37,15 @@
           <a data-buy-link="top" class="button" href="https://nyc-construction-activity-brief.vercel.app/checkout.html?source=buy-page-top">Buy $9.50 ZIP on Stripe</a>
           <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
         </p>
+        <section class="section" data-checkout-cancelled hidden>
+          <h2>Checkout was not completed</h2>
+          <p>If card checkout was blocked by invoice or purchase-order approval, send an invoice request. If you only needed to check the file shape, open the preview and then retry checkout when the current ZIP fits.</p>
+          <p>
+            <a data-buy-link="cancelled-retry" class="button" href="https://nyc-construction-activity-brief.vercel.app/buy.html?source=buy-page-cancelled-retry">Retry Stripe checkout</a>
+            <a class="button secondary" href="/invoice-request.html">Request invoice help</a>
+            <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
+          </p>
+        </section>
         <p class="fine">Checkout opens after your click. The success page verifies payment before serving the ZIP.</p>
         <section class="section" data-buy-confidence>
           <h2>Before you pay</h2>
@@ -256,6 +265,11 @@
       const rawSource = params.get('source') || 'buy-page';
       const pageSource = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'buy-page';
       const links = [...document.querySelectorAll('[data-buy-link]')];
+      const cancelledPanel = document.querySelector('[data-checkout-cancelled]');
+      if (params.get('checkout') === 'cancelled' && cancelledPanel) {
+        cancelledPanel.hidden = false;
+        trackEvent('checkout_cancelled_return', { source: pageSource });
+      }
       function linkSource(link) {
         const url = new URL(link.href, window.location.href);
         const rawLinkSource = url.searchParams.get('source') || pageSource;

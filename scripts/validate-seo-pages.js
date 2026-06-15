@@ -478,7 +478,11 @@ assert.match(buy, /data-buyer-fit-check/, 'buy page has a fast buyer-fit check b
 assert.match(buy, /work type, borough, ZIP, issued date, status, cost bucket, short job description, and source URL/, 'buy page states the fields buyers can evaluate before paying');
 assert.match(buy, /It does not add private contacts or lead scoring\./, 'buy page keeps paid ZIP boundary near buyer-fit copy');
 assert.match(buy, /data-buy-link="after-sample"/, 'buy page keeps a post-sample purchase CTA');
-assert.equal((buy.match(/data-buy-link="/g) || []).length, 2, 'buy page has exactly two purchase CTAs');
+assert.match(buy, /data-checkout-cancelled hidden/, 'buy page has a hidden checkout-cancel recovery panel');
+assert.match(buy, /Checkout was not completed/, 'buy page names the cancelled-checkout recovery state');
+assert.match(buy, /data-buy-link="cancelled-retry"/, 'buy page has a retry CTA for cancelled Stripe sessions');
+assert.match(buy, /Request invoice help/, 'buy page routes procurement-blocked buyers to invoice help after cancelled checkout');
+assert.equal((buy.match(/data-buy-link="/g) || []).length, 3, 'buy page has two normal purchase CTAs and one cancelled-checkout retry CTA');
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
 assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
