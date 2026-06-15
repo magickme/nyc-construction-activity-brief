@@ -69,6 +69,7 @@ Primary pages:
 - Brooklyn construction permit activity: https://nyc-construction-activity-brief.vercel.app/brooklyn-construction-permit-activity.html
 - NYC sidewalk shed permits: https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html
 - NYC sidewalk shed permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permit-leads.html
+- NYC plumbing permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permit-leads.html
 - NYC plumbing permits: https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html
 - NYC sprinkler permits: https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html
 - NYC mechanical systems permits: https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html
