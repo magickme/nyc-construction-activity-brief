@@ -156,6 +156,17 @@ function topicCheckoutSource(page) {
   return `topic-${page.slug}`.slice(0, 80);
 }
 
+function conversionBar(source) {
+  return `    <aside class="conversion-bar" data-conversion-bar>
+      <p><strong>$24.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
+      <div class="conversion-actions">
+        <a class="button secondary" href="#sample-request">Sample request</a>
+        <a class="button" href="${checkoutHref(source)}">Buy ZIP</a>
+      </div>
+    </aside>
+`;
+}
+
 function analyticsSnippet() {
   return `<script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -681,7 +692,7 @@ ${socialImageMeta()}
 ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` : ''}
     ${analyticsSnippet()}
   </head>
-  <body>
+  <body class="has-conversion-bar">
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>${escapeHtml(page.h1)}</h1>
@@ -720,6 +731,7 @@ ${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
         <p>No guaranteed leads. No owner names, applicant names, phone numbers, email addresses, or full street addresses are included. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
       </section>
     </main>
+${conversionBar(topicCheckoutSource(page))}
     ${sampleRequestScript()}
   </body>
 </html>

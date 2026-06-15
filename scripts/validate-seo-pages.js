@@ -102,9 +102,13 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /href="\/sample\/nyc-construction-activity-preview\.csv"/, `${relativePath} links sample CSV`);
   assert.match(html, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, `${relativePath} links sample brief`);
   assert.match(html, new RegExp(`href="${checkoutUrl}"`), `${relativePath} links tracked checkout`);
-  if (relativePath.startsWith('topics/')) {
-    const slug = relativePath.replace(/^topics\//, '').replace(/\.html$/, '');
-    const attributedCheckoutUrl = `${baseUrl}/checkout.html?source=topic-${slug}`;
+  const slug = relativePath.startsWith('topics/')
+    ? relativePath.replace(/^topics\//, '').replace(/\.html$/, '')
+    : null;
+  const attributedCheckoutUrl = slug
+    ? `${baseUrl}/checkout.html?source=topic-${slug}`
+    : null;
+  if (slug) {
     assert.match(
       html,
       new RegExp(`href="${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
@@ -124,6 +128,14 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /sample_request_saved/, `${relativePath} tracks saved sample requests`);
   assert.match(html, /sample_request_failed/, `${relativePath} tracks failed sample requests`);
   assert.match(html, /encodeURIComponent\(requestSource\)/, `${relativePath} links checkout with page-specific sample request source`);
+  assert.match(html, /class="has-conversion-bar"/, `${relativePath} uses sticky conversion bar layout`);
+  assert.match(html, /data-conversion-bar/, `${relativePath} needs sticky conversion bar`);
+  assert.match(html, /Sample request/, `${relativePath} conversion bar links sample request`);
+  assert.match(
+    html,
+    new RegExp(`data-conversion-bar[\\s\\S]+href="${attributedCheckoutUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`),
+    `${relativePath} conversion bar links attributed checkout`,
+  );
   assert.match(html, /This does not join the MagickMe newsletter\./, `${relativePath} needs list-separation copy`);
   assert.match(html, /No guaranteed leads\./, `${relativePath} keeps claims boundary visible`);
   if (generatedPages.includes(relativePath)) {
