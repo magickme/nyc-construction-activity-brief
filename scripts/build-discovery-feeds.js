@@ -230,6 +230,11 @@ function buildFeedXml(rows, manifest) {
       description: `Current paid issue has ${stats.rowCount} source-linked rows. The free CSV preview has ${previewRows} rows. Launch price is $${launchPriceUsd.toFixed(2)}. Standard price is $${standardPriceUsd}. Issued dates run ${stats.firstIssuedDate} through ${stats.latestIssuedDate}. Top work types: ${topWorkTypes}.`,
     },
     {
+      title: 'Buy the current issue ZIP',
+      url: buyUrl,
+      description: `One-time $${launchPriceUsd.toFixed(2)} launch-price ZIP with the full ${stats.rowCount}-row CSV, buyer workbook, priority-slices CSV, source registry, QA report, and instant browser download after paid Stripe checkout.`,
+    },
+    {
       title: 'Browse current permit activity segments',
       url: `${baseUrl}/sample-segments.html`,
       description: `ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current ${stats.rowCount}-row paid issue.`,

@@ -13,6 +13,13 @@
       <description>Current paid issue has 142 source-linked rows. The free CSV preview has 25 rows. Launch price is $9.50. Standard price is $49. Issued dates run 2026-06-09 through 2026-06-12. Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13.</description>
     </item>
     <item>
+      <title>Buy the current issue ZIP</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/buy.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>One-time $9.50 launch-price ZIP with the full 142-row CSV, buyer workbook, priority-slices CSV, source registry, QA report, and instant browser download after paid Stripe checkout.</description>
+    </item>
+    <item>
       <title>Browse current permit activity segments</title>
       <link>https://nyc-construction-activity-brief.vercel.app/sample-segments.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/sample-segments.html</guid>

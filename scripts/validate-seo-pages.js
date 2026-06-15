@@ -1446,6 +1446,9 @@ assert.match(feed, /Current NYC construction activity brief: 142 paid issue rows
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.html/, 'RSS feed links current issue page');
 assert.match(feed, /The free CSV preview has 25 rows/, 'RSS feed describes free preview size');
 assert.match(feed, /Launch price is \$9\.50/, 'RSS feed describes launch price');
+assert.match(feed, /Buy the current issue ZIP/, 'RSS feed includes buy page item');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'RSS feed links buy page');
+assert.match(feed, /instant browser download after paid Stripe checkout/, 'RSS feed describes paid delivery path');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html/, 'RSS feed links public preview page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'RSS feed links pricing page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/time-saved-calculator\.html/, 'RSS feed links time saved calculator');
