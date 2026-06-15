@@ -17,13 +17,13 @@
       <section class="section card">
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
-        <p class="fine">If the redirect does not start, use the button below. The current launch price is $24.50. No promo code is required.</p>
+        <p class="fine">If the redirect does not start, use the button below. The current launch price is $9.50. No promo code is required.</p>
         <ul>
           <li>Instant browser download after completed Stripe checkout.</li>
           <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
           <li>No private contact data, owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
         </ul>
-        <a id="stripe-link" class="button" href="https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static&amp;client_reference_id=ncab_checkout_static">Continue to Stripe</a>
+        <a id="stripe-link" class="button" href="https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=checkout_static&amp;client_reference_id=ncab_checkout_static">Continue to Stripe</a>
         <p>
           <a class="button secondary" href="/preview.html">Check preview</a>
           <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
@@ -46,7 +46,7 @@
         utm_content: source,
         client_reference_id: ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)].join('_').slice(0, 200),
       });
-      const stripeUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P?' + stripeParams.toString();
+      const stripeUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q?' + stripeParams.toString();
       const link = document.getElementById('stripe-link');
       link.href = stripeUrl;
       link.addEventListener('click', () => {

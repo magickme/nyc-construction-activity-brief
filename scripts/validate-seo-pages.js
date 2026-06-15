@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const checkoutUrl = 'https://nyc-construction-activity-brief.vercel.app/checkout.html\\?source=[a-z0-9._-]+';
 const relativeCheckoutUrl = '/checkout.html\\?source=[a-z0-9._-]+';
-const stripeCheckoutUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P';
+const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const socialImagePath = path.join(root, 'assets/current-issue-snapshot.png');
 const pageData = require('./seo-pages.json');
@@ -95,7 +95,7 @@ function assertHtmlPage(relativePath) {
   assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialImageUrl}">`), `${relativePath} needs Twitter image`);
   assert.match(html, /"@type":"Product"/, `${relativePath} needs Product structured data`);
   assert.match(html, /"@type":"Offer"/, `${relativePath} needs Offer structured data`);
-  assert.match(html, /"price":"24.50"/, `${relativePath} needs current price structured data`);
+  assert.match(html, /"price":"9.50"/, `${relativePath} needs current price structured data`);
   assert.match(html, /"@type":"BreadcrumbList"/, `${relativePath} needs breadcrumb structured data`);
   assert.match(html, /\/_vercel\/insights\/script\.js/, `${relativePath} needs Web Analytics script`);
   assert.match(html, /<h1>[^<]+<\/h1>/, `${relativePath} needs one visible h1`);
@@ -236,7 +236,7 @@ assert.doesNotMatch(index, /Delivered by email after purchase/i, 'index must not
 assert.match(index, /Instant download after completed Stripe checkout/, 'index needs current automated delivery copy');
 assert.match(index, /Buy instant ZIP/, 'index needs a clear instant ZIP checkout CTA');
 assert.match(index, new RegExp(`href="${relativeCheckoutUrl}"`), 'index links tracked checkout');
-assert.match(index, /Launch price is \$24\.50 for the current issue/, 'index needs launch price copy');
+assert.match(index, /Launch price is \$9\.50 for the current issue/, 'index needs launch price copy');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
 assert.match(index, /src="\/assets\/current-issue-snapshot\.png"/, 'index needs current issue snapshot image');
@@ -379,7 +379,7 @@ assert.match(pricing, /"@type":"FAQPage"/, 'pricing page needs FAQ structured da
 assert.match(pricing, /\/_vercel\/insights\/script\.js/, 'pricing page needs Web Analytics script');
 assert.match(pricing, /<h2>Break-even guide<\/h2>/, 'pricing page needs break-even section');
 assert.match(pricing, /\$49/, 'pricing page needs standard price');
-assert.match(pricing, /\$24\.50/, 'pricing page needs discounted price');
+assert.match(pricing, /\$9\.50/, 'pricing page needs discounted price');
 assert.match(pricing, /No promo code is required/, 'pricing page needs direct launch price copy');
 assert.match(pricing, /About 40 minutes saved/, 'pricing page needs break-even examples');
 assert.match(pricing, /href="\/preview\.html"/, 'pricing page links public preview');
@@ -409,7 +409,7 @@ assert.match(currentIssuePage, /src="\/assets\/current-issue-snapshot\.png"/, 'c
 assert.match(currentIssuePage, /"@type":"Product"/, 'current issue page needs Product structured data');
 assert.match(currentIssuePage, /"@type":"Dataset"/, 'current issue page needs Dataset structured data');
 assert.match(currentIssuePage, /"@type":"FAQPage"/, 'current issue page needs FAQ structured data');
-assert.match(currentIssuePage, /"price":"24.50"/, 'current issue page needs current price structured data');
+assert.match(currentIssuePage, /"price":"9.50"/, 'current issue page needs current price structured data');
 assert.match(currentIssuePage, /\/_vercel\/insights\/script\.js/, 'current issue page needs Web Analytics script');
 assert.match(currentIssuePage, /Current NYC construction activity brief/, 'current issue page needs current issue headline');
 assert.match(currentIssuePage, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'current issue page needs row counts');
@@ -447,7 +447,7 @@ assert.match(timeSavedCalculator, /<link rel="canonical" href="https:\/\/nyc-con
 assert.match(timeSavedCalculator, /<meta property="og:title" content="Time Saved Calculator \| NYC Construction Activity ZIP">/, 'time saved calculator needs OG title');
 assert.match(timeSavedCalculator, /"@type":"Product"/, 'time saved calculator needs Product structured data');
 assert.match(timeSavedCalculator, /"@type":"Offer"/, 'time saved calculator needs Offer structured data');
-assert.match(timeSavedCalculator, /"price":"24.50"/, 'time saved calculator needs current price structured data');
+assert.match(timeSavedCalculator, /"price":"9.50"/, 'time saved calculator needs current price structured data');
 assert.match(timeSavedCalculator, /"@type":"FAQPage"/, 'time saved calculator needs FAQ structured data');
 assert.match(timeSavedCalculator, /\/_vercel\/insights\/script\.js/, 'time saved calculator needs Web Analytics script');
 assert.match(timeSavedCalculator, /Time saved calculator for the current issue ZIP/, 'time saved calculator needs headline');
@@ -485,7 +485,7 @@ assert.match(whoShouldBuy, /<meta property="og:title" content="Who Should Buy \|
 assert.match(whoShouldBuy, /src="\/assets\/current-issue-snapshot\.png"/, 'who should buy page needs current issue snapshot image');
 assert.match(whoShouldBuy, /"@type":"Product"/, 'who should buy page needs Product structured data');
 assert.match(whoShouldBuy, /"@type":"Offer"/, 'who should buy page needs Offer structured data');
-assert.match(whoShouldBuy, /"price":"24.50"/, 'who should buy page needs current price structured data');
+assert.match(whoShouldBuy, /"price":"9.50"/, 'who should buy page needs current price structured data');
 assert.match(whoShouldBuy, /"@type":"FAQPage"/, 'who should buy page needs FAQ structured data');
 assert.match(whoShouldBuy, /\/_vercel\/insights\/script\.js/, 'who should buy page needs Web Analytics script');
 assert.match(whoShouldBuy, /Who should buy the current NYC construction activity ZIP/, 'who should buy page needs fit headline');
@@ -529,7 +529,7 @@ assert.match(insideZip, /\/_vercel\/insights\/script\.js/, 'inside ZIP page need
 assert.match(insideZip, /What is inside the current paid ZIP/, 'inside ZIP page needs package headline');
 assert.match(insideZip, /142 source-linked rows/, 'inside ZIP page needs paid row count');
 assert.match(insideZip, /25 rows for checking fields before purchase/, 'inside ZIP page needs preview row count');
-assert.match(insideZip, /\$24\.50/, 'inside ZIP page needs launch price');
+assert.match(insideZip, /\$9\.50/, 'inside ZIP page needs launch price');
 assert.match(insideZip, /<h2>File manifest<\/h2>/, 'inside ZIP page needs file manifest');
 assert.match(insideZip, /buyer-workbook\.md/, 'inside ZIP page lists buyer workbook');
 assert.match(insideZip, /buyer-priority-slices\.csv/, 'inside ZIP page lists priority slices');
@@ -562,7 +562,7 @@ assert.match(csvFieldGuide, /src="\/assets\/current-issue-snapshot\.png"/, 'CSV 
 assert.match(csvFieldGuide, /"@type":"Product"/, 'CSV field guide needs Product structured data');
 assert.match(csvFieldGuide, /"@type":"Dataset"/, 'CSV field guide needs Dataset structured data');
 assert.match(csvFieldGuide, /"@type":"FAQPage"/, 'CSV field guide needs FAQ structured data');
-assert.match(csvFieldGuide, /"price":"24.50"/, 'CSV field guide needs current price structured data');
+assert.match(csvFieldGuide, /"price":"9.50"/, 'CSV field guide needs current price structured data');
 assert.match(csvFieldGuide, /\/_vercel\/insights\/script\.js/, 'CSV field guide needs Web Analytics script');
 assert.match(csvFieldGuide, /CSV field guide for the current NYC construction activity issue/, 'CSV field guide needs headline');
 assert.match(csvFieldGuide, /<h2>CSV columns<\/h2>/, 'CSV field guide needs column section');
@@ -601,7 +601,7 @@ assert.match(permitCsv, /src="\/assets\/current-issue-snapshot\.png"/, 'permit C
 assert.match(permitCsv, /"@type":"Product"/, 'permit CSV page needs Product structured data');
 assert.match(permitCsv, /"@type":"Dataset"/, 'permit CSV page needs Dataset structured data');
 assert.match(permitCsv, /"@type":"FAQPage"/, 'permit CSV page needs FAQ structured data');
-assert.match(permitCsv, /"price":"24.50"/, 'permit CSV page needs current price structured data');
+assert.match(permitCsv, /"price":"9.50"/, 'permit CSV page needs current price structured data');
 assert.match(permitCsv, /\/_vercel\/insights\/script\.js/, 'permit CSV page needs Web Analytics script');
 assert.match(permitCsv, /NYC DOB permit CSV for weekly construction activity research/, 'permit CSV page needs headline');
 assert.match(permitCsv, /Preview 25 public rows before buying the full 142-row current issue ZIP/, 'permit CSV page needs free and paid row counts');
@@ -636,7 +636,7 @@ assert.match(weeklyPermitReport, /src="\/assets\/current-issue-snapshot\.png"/, 
 assert.match(weeklyPermitReport, /"@type":"Product"/, 'weekly permit report page needs Product structured data');
 assert.match(weeklyPermitReport, /"@type":"Dataset"/, 'weekly permit report page needs Dataset structured data');
 assert.match(weeklyPermitReport, /"@type":"FAQPage"/, 'weekly permit report page needs FAQ structured data');
-assert.match(weeklyPermitReport, /"price":"24.50"/, 'weekly permit report page needs current price structured data');
+assert.match(weeklyPermitReport, /"price":"9.50"/, 'weekly permit report page needs current price structured data');
 assert.match(weeklyPermitReport, /\/_vercel\/insights\/script\.js/, 'weekly permit report page needs Web Analytics script');
 assert.match(weeklyPermitReport, /Weekly NYC construction permit report for source-linked review/, 'weekly permit report page needs headline');
 assert.match(weeklyPermitReport, /Free preview rows: 25/, 'weekly permit report page needs free preview count');
@@ -670,7 +670,7 @@ assert.match(dobNowAlternative, /src="\/assets\/current-issue-snapshot\.png"/, '
 assert.match(dobNowAlternative, /"@type":"Product"/, 'DOB NOW alternative page needs Product structured data');
 assert.match(dobNowAlternative, /"@type":"Dataset"/, 'DOB NOW alternative page needs Dataset structured data');
 assert.match(dobNowAlternative, /"@type":"FAQPage"/, 'DOB NOW alternative page needs FAQ structured data');
-assert.match(dobNowAlternative, /"price":"24.50"/, 'DOB NOW alternative page needs current price structured data');
+assert.match(dobNowAlternative, /"price":"9.50"/, 'DOB NOW alternative page needs current price structured data');
 assert.match(dobNowAlternative, /\/_vercel\/insights\/script\.js/, 'DOB NOW alternative page needs Web Analytics script');
 assert.match(dobNowAlternative, /DOB NOW permit search alternative for weekly screening/, 'DOB NOW alternative page needs headline');
 assert.match(dobNowAlternative, /Free preview rows: 25/, 'DOB NOW alternative page needs free preview count');
@@ -708,7 +708,7 @@ assert.match(permitLeads, /src="\/assets\/current-issue-snapshot\.png"/, 'permit
 assert.match(permitLeads, /"@type":"Product"/, 'permit leads page needs Product structured data');
 assert.match(permitLeads, /"@type":"Dataset"/, 'permit leads page needs Dataset structured data');
 assert.match(permitLeads, /"@type":"FAQPage"/, 'permit leads page needs FAQ structured data');
-assert.match(permitLeads, /"price":"24.50"/, 'permit leads page needs current price structured data');
+assert.match(permitLeads, /"price":"9.50"/, 'permit leads page needs current price structured data');
 assert.match(permitLeads, /\/_vercel\/insights\/script\.js/, 'permit leads page needs Web Analytics script');
 assert.match(permitLeads, /NYC construction permit leads alternative/, 'permit leads page needs headline');
 assert.match(permitLeads, /Free preview rows: 25/, 'permit leads page needs free preview count');
@@ -747,7 +747,7 @@ assert.match(freeVsPaid, /src="\/assets\/current-issue-snapshot\.png"/, 'free vs
 assert.match(freeVsPaid, /"@type":"Product"/, 'free vs paid page needs Product structured data');
 assert.match(freeVsPaid, /"@type":"Dataset"/, 'free vs paid page needs Dataset structured data');
 assert.match(freeVsPaid, /"@type":"FAQPage"/, 'free vs paid page needs FAQ structured data');
-assert.match(freeVsPaid, /"price":"24.50"/, 'free vs paid page needs current price structured data');
+assert.match(freeVsPaid, /"price":"9.50"/, 'free vs paid page needs current price structured data');
 assert.match(freeVsPaid, /\/_vercel\/insights\/script\.js/, 'free vs paid page needs Web Analytics script');
 assert.match(freeVsPaid, /Free preview and paid ZIP comparison/, 'free vs paid page needs headline');
 assert.match(freeVsPaid, /<h2>Comparison<\/h2>/, 'free vs paid page needs comparison section');
@@ -785,7 +785,7 @@ assert.match(researchWorkflow, /src="\/assets\/current-issue-snapshot\.png"/, 'r
 assert.match(researchWorkflow, /"@type":"Product"/, 'research workflow page needs Product structured data');
 assert.match(researchWorkflow, /"@type":"Dataset"/, 'research workflow page needs Dataset structured data');
 assert.match(researchWorkflow, /"@type":"FAQPage"/, 'research workflow page needs FAQ structured data');
-assert.match(researchWorkflow, /"price":"24.50"/, 'research workflow page needs current price structured data');
+assert.match(researchWorkflow, /"price":"9.50"/, 'research workflow page needs current price structured data');
 assert.match(researchWorkflow, /\/_vercel\/insights\/script\.js/, 'research workflow page needs Web Analytics script');
 assert.match(researchWorkflow, /Weekly permit research workflow for the current issue/, 'research workflow page needs headline');
 assert.match(researchWorkflow, /Fifteen-minute workflow/, 'research workflow page needs workflow section');
@@ -821,7 +821,7 @@ assert.match(contractorSupplier, /src="\/assets\/current-issue-snapshot\.png"/, 
 assert.match(contractorSupplier, /"@type":"Product"/, 'contractor and supplier guide needs Product structured data');
 assert.match(contractorSupplier, /"@type":"Dataset"/, 'contractor and supplier guide needs Dataset structured data');
 assert.match(contractorSupplier, /"@type":"FAQPage"/, 'contractor and supplier guide needs FAQ structured data');
-assert.match(contractorSupplier, /"price":"24.50"/, 'contractor and supplier guide needs current price structured data');
+assert.match(contractorSupplier, /"price":"9.50"/, 'contractor and supplier guide needs current price structured data');
 assert.match(contractorSupplier, /\/_vercel\/insights\/script\.js/, 'contractor and supplier guide needs Web Analytics script');
 assert.match(contractorSupplier, /NYC permit research for contractors and suppliers/, 'contractor and supplier guide needs headline');
 assert.match(contractorSupplier, /Vendor review path/, 'contractor and supplier guide needs review path');
@@ -866,7 +866,7 @@ assert.match(brokerDeveloper, /src="\/assets\/current-issue-snapshot\.png"/, 'br
 assert.match(brokerDeveloper, /"@type":"Product"/, 'broker and developer guide needs Product structured data');
 assert.match(brokerDeveloper, /"@type":"Dataset"/, 'broker and developer guide needs Dataset structured data');
 assert.match(brokerDeveloper, /"@type":"FAQPage"/, 'broker and developer guide needs FAQ structured data');
-assert.match(brokerDeveloper, /"price":"24.50"/, 'broker and developer guide needs current price structured data');
+assert.match(brokerDeveloper, /"price":"9.50"/, 'broker and developer guide needs current price structured data');
 assert.match(brokerDeveloper, /\/_vercel\/insights\/script\.js/, 'broker and developer guide needs Web Analytics script');
 assert.match(brokerDeveloper, /NYC permit research for brokers and small developers/, 'broker and developer guide needs headline');
 assert.match(brokerDeveloper, /Research pass/, 'broker and developer guide needs research path');
@@ -913,7 +913,7 @@ assert.match(permitExpediter, /src="\/assets\/current-issue-snapshot\.png"/, 'pe
 assert.match(permitExpediter, /"@type":"Product"/, 'permit expediter guide needs Product structured data');
 assert.match(permitExpediter, /"@type":"Dataset"/, 'permit expediter guide needs Dataset structured data');
 assert.match(permitExpediter, /"@type":"FAQPage"/, 'permit expediter guide needs FAQ structured data');
-assert.match(permitExpediter, /"price":"24.50"/, 'permit expediter guide needs current price structured data');
+assert.match(permitExpediter, /"price":"9.50"/, 'permit expediter guide needs current price structured data');
 assert.match(permitExpediter, /\/_vercel\/insights\/script\.js/, 'permit expediter guide needs Web Analytics script');
 assert.match(permitExpediter, /NYC permit research for expediters and filing consultants/, 'permit expediter guide needs headline');
 assert.match(permitExpediter, /Expediter review pass/, 'permit expediter guide needs review path');
@@ -960,7 +960,7 @@ assert.match(buyerGuide, /<meta property="og:title" content="Buyer Guide \| NYC 
 assert.match(buyerGuide, /src="\/assets\/current-issue-snapshot\.png"/, 'buyer guide needs current issue snapshot image');
 assert.match(buyerGuide, /"@type":"Product"/, 'buyer guide needs Product structured data');
 assert.match(buyerGuide, /"@type":"Offer"/, 'buyer guide needs Offer structured data');
-assert.match(buyerGuide, /"price":"24.50"/, 'buyer guide needs current price structured data');
+assert.match(buyerGuide, /"price":"9.50"/, 'buyer guide needs current price structured data');
 assert.match(buyerGuide, /"@type":"FAQPage"/, 'buyer guide needs FAQ structured data');
 assert.match(buyerGuide, /\/_vercel\/insights\/script\.js/, 'buyer guide needs Web Analytics script');
 assert.match(buyerGuide, /Free preview rows: 25\./, 'buyer guide needs free preview count');
@@ -1175,7 +1175,7 @@ assert.equal(currentIssue.publicPreview.weeklyPermitReportUrl, 'https://nyc-cons
 assert.equal(currentIssue.publicPreview.dobNowAlternativeUrl, 'https://nyc-construction-activity-brief.vercel.app/dob-now-permit-search-alternative.html', 'current issue JSON public preview links DOB NOW alternative page');
 assert.equal(currentIssue.publicPreview.permitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-leads.html', 'current issue JSON public preview links permit leads page');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
-assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P', 'current issue JSON keeps Stripe checkout URL');
+assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON keeps Stripe checkout URL');
 assert.equal(currentIssue.publicPreview.buyerGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/buyer-guide.html', 'current issue JSON public preview links buyer guide');
 assert.equal(currentIssue.publicPreview.deliveryUrl, 'https://nyc-construction-activity-brief.vercel.app/delivery.html', 'current issue JSON public preview links delivery page');
 assert.equal(currentIssue.publicPreview.supportUrl, 'https://nyc-construction-activity-brief.vercel.app/support.html', 'current issue JSON public preview links support page');
@@ -1190,7 +1190,7 @@ assert.equal(currentIssue.paidZip.imageUrl, 'https://nyc-construction-activity-b
 assert.equal(currentIssue.paidZip.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON paid ZIP links tracked checkout');
 assert.equal(currentIssue.paidZip.buyUrl, 'https://nyc-construction-activity-brief.vercel.app/buy.html', 'current issue JSON paid ZIP links buy page');
 assert.equal(currentIssue.paidZip.currentIssueUrl, 'https://nyc-construction-activity-brief.vercel.app/current-issue.html', 'current issue JSON paid ZIP links current issue page');
-assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P', 'current issue JSON paid ZIP keeps Stripe checkout URL');
+assert.equal(currentIssue.paidZip.stripeCheckoutUrl, 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q', 'current issue JSON paid ZIP keeps Stripe checkout URL');
 assert.equal(currentIssue.paidZip.pricingUrl, 'https://nyc-construction-activity-brief.vercel.app/pricing.html', 'current issue JSON paid ZIP links pricing page');
 assert.equal(currentIssue.paidZip.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON paid ZIP links time saved calculator');
 assert.equal(currentIssue.paidZip.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON paid ZIP links who should buy page');
@@ -1206,7 +1206,7 @@ assert.equal(currentIssue.paidZip.dobNowAlternativeUrl, 'https://nyc-constructio
 assert.equal(currentIssue.paidZip.permitLeadsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-leads.html', 'current issue JSON paid ZIP links permit leads page');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
-assert.equal(currentIssue.paidZip.launchPricing.priceUsd, 24.5, 'current issue JSON lists launch price');
+assert.equal(currentIssue.paidZip.launchPricing.priceUsd, 9.5, 'current issue JSON lists launch price');
 assert.equal(currentIssue.paidZip.launchPricing.standardPriceUsd, 49, 'current issue JSON lists standard price');
 assert.equal(currentIssue.paidZip.launchPricing.promoCodeRequired, false, 'current issue JSON says promo code is not required');
 assert.ok(currentIssue.paidZip.files.includes('README.md'), 'current issue JSON lists package README');
@@ -1222,7 +1222,7 @@ assert.match(feed, /<title>NYC Weekly Construction Activity Brief<\/title>/, 'RS
 assert.match(feed, /Current NYC construction activity brief: 142 paid issue rows/, 'RSS feed describes current issue');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.html/, 'RSS feed links current issue page');
 assert.match(feed, /The free CSV preview has 25 rows/, 'RSS feed describes free preview size');
-assert.match(feed, /Launch price is \$24\.50/, 'RSS feed describes launch price');
+assert.match(feed, /Launch price is \$9\.50/, 'RSS feed describes launch price');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html/, 'RSS feed links public preview page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'RSS feed links pricing page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/time-saved-calculator\.html/, 'RSS feed links time saved calculator');
@@ -1264,7 +1264,7 @@ assert.match(llms, /DOB NOW permit search alternative: https:\/\/nyc-constructio
 assert.match(llms, /NYC construction permit leads alternative: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-construction-permit-leads\.html/, 'llms.txt links permit leads page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
-assert.match(llms, /Stripe Payment Link: https:\/\/buy\.stripe\.com\/7sY7sLaHv9TI2Yn5f9cAo0P/, 'llms.txt keeps Stripe checkout URL');
+assert.match(llms, /Stripe Payment Link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt keeps Stripe checkout URL');
 assert.match(llms, /Social image: https:\/\/nyc-construction-activity-brief\.vercel\.app\/assets\/current-issue-snapshot\.png/, 'llms.txt links social image');
 assert.match(llms, /Buyer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'llms.txt links buyer guide');
 assert.match(llms, /Delivery steps: https:\/\/nyc-construction-activity-brief\.vercel\.app\/delivery\.html/, 'llms.txt links delivery page');

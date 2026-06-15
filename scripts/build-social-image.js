@@ -107,7 +107,7 @@ addText(args, { x: 84, y: 212, text: String(rows.length), size: 52, font: fontBo
 addText(args, { x: 84, y: 242, text: 'PAID ISSUE ROWS', size: 17, color: '#536056', font: fontBold });
 addText(args, { x: 282, y: 212, text: '25', size: 52, font: fontBold });
 addText(args, { x: 282, y: 242, text: 'FREE PREVIEW ROWS', size: 17, color: '#536056', font: fontBold });
-addText(args, { x: 500, y: 212, text: '$24.50', size: 52, font: fontBold });
+addText(args, { x: 500, y: 212, text: '$9.50', size: 52, font: fontBold });
 addText(args, { x: 500, y: 242, text: 'LAUNCH PRICE', size: 17, color: '#536056', font: fontBold });
 addBarRows(args, workTypeCounts, maxCount);
 addText(args, { x: 84, y: 580, text: `Top ZIPs: ${zipCounts}`, size: 20, color: '#536056' });

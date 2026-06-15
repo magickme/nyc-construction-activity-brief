@@ -1,4 +1,5 @@
 const DEFAULT_PAYMENT_LINK_IDS = [
+  'plink_1TiXdBDmKyUECkDHhQ4TP8y6',
   'plink_1TiS6xDmKyUECkDHtE9ni0r3',
   'plink_1TgClADmKyUECkDHS6FKhOXp',
 ];

@@ -4,7 +4,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
-const stripeCheckoutUrl = 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P';
+const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const checkoutUrl = `${baseUrl}/checkout.html`;
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
@@ -158,7 +158,7 @@ function topicCheckoutSource(page) {
 
 function conversionBar(source) {
   return `    <aside class="conversion-bar" data-conversion-bar>
-      <p><strong>$24.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
+      <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
       <div class="conversion-actions">
         <a class="button secondary" href="#sample-request">Sample request</a>
         <a class="button" href="${checkoutHref(source)}">Buy ZIP</a>
@@ -416,7 +416,7 @@ function productJsonLd(description, url = checkoutUrl) {
       '@type': 'Offer',
       url,
       priceCurrency: 'USD',
-      price: '24.50',
+      price: '9.50',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
     },
@@ -440,7 +440,7 @@ function checkoutHtml() {
       <section class="section card">
         <h1>Opening Stripe checkout.</h1>
         <p class="lede">You are being sent to Stripe for the current NYC Weekly Construction Activity Brief ZIP.</p>
-        <p class="fine">If the redirect does not start, use the button below. The current launch price is $24.50. No promo code is required.</p>
+        <p class="fine">If the redirect does not start, use the button below. The current launch price is $9.50. No promo code is required.</p>
         <ul>
           <li>Instant browser download after completed Stripe checkout.</li>
           <li>Current ZIP includes the CSV, buyer workbook, priority slices, source registry, QA report, and claims boundary.</li>
@@ -514,7 +514,7 @@ function buyHtml() {
       <section class="section card">
         <h1>Buy the current issue ZIP.</h1>
         <p class="lede">You are being sent to the tracked checkout bridge for the NYC Weekly Construction Activity Brief current issue.</p>
-        <p class="fine">$24.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
+        <p class="fine">$9.50 one-time launch price. Instant browser download after completed Stripe checkout. No promo code is required.</p>
         <a id="buy-link" class="button" href="${checkout}">Continue to checkout</a>
         <p>
           <a class="button secondary" href="/preview.html">Check preview</a>
@@ -877,7 +877,7 @@ ${socialImageMeta()}
 
       <section class="section card">
         <h2>Get the current issue</h2>
-        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue. Current launch price is $24.50.</p>
+        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue. Current launch price is $9.50.</p>
         <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
@@ -1163,7 +1163,7 @@ ${socialImageMeta()}
           <li>Open the free CSV preview and confirm the fields are useful for your workflow.</li>
           <li>Check the segment hub for your ZIP, borough, work type, or cost bucket.</li>
           <li>Read the delivery steps and methodology page if source limits matter for your use case.</li>
-          <li>Buy the ZIP only if the current issue saves enough sorting time to justify the one-time $24.50 launch price.</li>
+          <li>Buy the ZIP only if the current issue saves enough sorting time to justify the one-time $9.50 launch price.</li>
         </ol>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
@@ -1289,7 +1289,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>No subscription or promo code is required.</p>
         </div>
       </section>
@@ -1443,7 +1443,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>Instant browser download after completed Stripe checkout.</p>
         </div>
       </section>
@@ -1575,7 +1575,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>One-time Stripe checkout with browser download.</p>
         </div>
       </section>
@@ -1712,7 +1712,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>One-time Stripe checkout with instant browser download.</p>
         </div>
       </section>
@@ -1871,7 +1871,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>One-time Stripe checkout with instant browser download.</p>
         </div>
       </section>
@@ -2019,7 +2019,7 @@ ${socialImageMeta()}
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Free preview and paid ZIP comparison.</h1>
-      <p class="lede">Check what you can inspect before checkout and what the $24.50 paid ZIP adds for the current issue.</p>
+      <p class="lede">Check what you can inspect before checkout and what the $9.50 paid ZIP adds for the current issue.</p>
 
       <section class="grid">
         <div class="card">
@@ -2032,7 +2032,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>One-time ZIP download after paid Stripe checkout.</p>
         </div>
       </section>
@@ -2207,7 +2207,7 @@ ${socialImageMeta()}
           <li>Open the public preview and check whether the row shape fits your weekly screen.</li>
           <li>Use the CSV field guide to confirm what each column means.</li>
           <li>Browse segment pages for your ZIP, borough, work type, issued date, or cost bucket.</li>
-          <li>Use the free versus paid comparison to decide whether the full ZIP is worth the $24.50 launch price.</li>
+          <li>Use the free versus paid comparison to decide whether the full ZIP is worth the $9.50 launch price.</li>
           <li>After checkout, open <code>buyer-workbook.md</code> and pick the first slice to review.</li>
           <li>Filter the full CSV by that slice, then open <code>source_url</code> for any row you may act on.</li>
         </ol>
@@ -2765,7 +2765,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Price</h2>
-          <p>$24.50 one-time launch price. Instant browser download after completed Stripe checkout.</p>
+          <p>$9.50 one-time launch price. Instant browser download after completed Stripe checkout.</p>
         </div>
       </section>
 
@@ -2837,7 +2837,7 @@ function timeSavedCalculatorHtml(rows) {
         name: 'What does the calculator measure?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'It compares the one-time $24.50 launch price with an estimated hourly value of manual research time. It is a time-saved check only.',
+          text: 'It compares the one-time $9.50 launch price with an estimated hourly value of manual research time. It is a time-saved check only.',
         },
       },
       {
@@ -2882,12 +2882,12 @@ ${socialImageMeta()}
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>Time saved calculator for the current issue ZIP.</h1>
-      <p class="lede">Use this arithmetic check before checkout. It compares the $24.50 launch price with the manual sorting time you expect the prepared files to save.</p>
+      <p class="lede">Use this arithmetic check before checkout. It compares the $9.50 launch price with the manual sorting time you expect the prepared files to save.</p>
 
       <section class="grid">
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>One current-issue ZIP. No subscription. No promo code required.</p>
         </div>
         <div class="card">
@@ -2927,7 +2927,7 @@ ${socialImageMeta()}
             <thead>
               <tr>
                 <th>Hourly value</th>
-                <th>Minutes to cover $24.50</th>
+                <th>Minutes to cover $9.50</th>
                 <th>What to check first</th>
               </tr>
             </thead>
@@ -2981,7 +2981,7 @@ ${sampleRequestSection({
       </section>
     </main>
     <script>
-      const price = 24.5;
+      const price = 9.5;
       const rate = document.getElementById('hourly-rate');
       const minutes = document.getElementById('minutes-saved');
       const result = document.getElementById('calculator-result');
@@ -3081,7 +3081,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Price</h2>
-          <p>One current-issue ZIP for $24.50. No subscription and no promo code required.</p>
+          <p>One current-issue ZIP for $9.50. No subscription and no promo code required.</p>
         </div>
       </section>
 
@@ -3122,7 +3122,7 @@ ${socialImageMeta()}
           <li>Open the public preview and confirm the fields match your workflow.</li>
           <li>Browse the segment hub for your ZIP, work type, cost bucket, or buyer page.</li>
           <li>Read the file manifest and delivery page if you need to confirm exactly what the ZIP includes.</li>
-          <li>Buy only if the $24.50 ZIP saves enough sorting time to be useful for the current issue.</li>
+          <li>Buy only if the $9.50 ZIP saves enough sorting time to be useful for the current issue.</li>
         </ol>
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
@@ -3283,7 +3283,7 @@ function pricingHtml(rows) {
         name: 'What does the current issue cost?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The current issue launch price is a one-time $24.50 ZIP purchase. The standard price is $49.',
+          text: 'The current issue launch price is a one-time $9.50 ZIP purchase. The standard price is $49.',
         },
       },
       {
@@ -3333,7 +3333,7 @@ ${socialImageMeta()}
       <section class="grid">
         <div class="card">
           <h2>Launch price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>One current-issue ZIP. No subscription. No promo code is required.</p>
         </div>
         <div class="card">
@@ -3361,7 +3361,7 @@ ${socialImageMeta()}
               <tr>
                 <th>Hourly value of research time</th>
                 <th>Break-even at $49</th>
-                <th>Break-even at $24.50</th>
+                <th>Break-even at $9.50</th>
               </tr>
             </thead>
             <tbody>
@@ -3545,7 +3545,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current price</h2>
-          <p class="price">$24.50</p>
+          <p class="price">$9.50</p>
           <p>No promo code is required.</p>
         </div>
       </section>

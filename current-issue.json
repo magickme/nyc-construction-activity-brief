@@ -39,14 +39,14 @@
     "imageUrl": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
     "buyUrl": "https://nyc-construction-activity-brief.vercel.app/buy.html",
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
-    "stripeCheckoutUrl": "https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P",
-    "priceUsd": 24.5,
+    "stripeCheckoutUrl": "https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q",
+    "priceUsd": 9.5,
     "standardPriceUsd": 49
   },
   "paidZip": {
     "buyUrl": "https://nyc-construction-activity-brief.vercel.app/buy.html",
     "checkoutUrl": "https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue",
-    "stripeCheckoutUrl": "https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P",
+    "stripeCheckoutUrl": "https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q",
     "imageUrl": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
     "pricingUrl": "https://nyc-construction-activity-brief.vercel.app/pricing.html",
     "timeSavedCalculatorUrl": "https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html",
@@ -66,12 +66,12 @@
     "deliveryUrl": "https://nyc-construction-activity-brief.vercel.app/delivery.html",
     "supportUrl": "https://nyc-construction-activity-brief.vercel.app/support.html",
     "sampleRequestUrl": "https://nyc-construction-activity-brief.vercel.app/sample-request.html",
-    "priceUsd": 24.5,
+    "priceUsd": 9.5,
     "standardPriceUsd": 49,
     "rowCount": 142,
     "currentIssueUrl": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
     "launchPricing": {
-      "priceUsd": 24.5,
+      "priceUsd": 9.5,
       "standardPriceUsd": 49,
       "promoCodeRequired": false
     },
