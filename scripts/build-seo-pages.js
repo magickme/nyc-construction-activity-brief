@@ -17,6 +17,31 @@ const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
   : publicPreviewCsvPath;
 const manualPages = require('./seo-pages.json').map((page) => ({ ...page, group: 'core' }));
 
+function writeJson(relativePath, data) {
+  fs.writeFileSync(path.join(root, relativePath), `${JSON.stringify(data, null, 2)}\n`);
+}
+
+function updateGeneratedPageMetadata(pages) {
+  const topicUrls = pages.map((page) => `${baseUrl}/topics/${page.slug}.html`);
+  const currentIssuePath = path.join(root, 'current-issue.json');
+  const dataPackagePath = path.join(root, 'data-package.json');
+
+  if (fs.existsSync(currentIssuePath)) {
+    const currentIssue = JSON.parse(fs.readFileSync(currentIssuePath, 'utf8'));
+    currentIssue.generatedPages = currentIssue.generatedPages || {};
+    currentIssue.generatedPages.totalTopicPages = pages.length;
+    currentIssue.generatedPages.urls = topicUrls;
+    writeJson('current-issue.json', currentIssue);
+  }
+
+  if (fs.existsSync(dataPackagePath)) {
+    const dataPackage = JSON.parse(fs.readFileSync(dataPackagePath, 'utf8'));
+    dataPackage.generated_topic_pages = dataPackage.generated_topic_pages || {};
+    dataPackage.generated_topic_pages.count = pages.length;
+    writeJson('data-package.json', dataPackage);
+  }
+}
+
 const workTypeCopy = {
   'Construction Fence': {
     slug: 'construction-fence',
@@ -9028,6 +9053,7 @@ fs.writeFileSync(
     slugs: pages.map((page) => page.slug),
   }, null, 2)}\n`,
 );
+updateGeneratedPageMetadata(pages);
 updateIndex(manualPages, generatedPages);
 applyCoreConversionBars();
 applyCoreTopCtas();

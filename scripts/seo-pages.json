@@ -517,6 +517,17 @@
     "sampleLine": "Facade restoration screen | work type | ZIP | issued date | status | DOB NOW source link"
   },
   {
+    "slug": "nyc-masonry-contractor-permit-research",
+    "title": "NYC Masonry Contractor Permit Research | Weekly DOB Brief",
+    "description": "A weekly NYC masonry contractor permit research page for selected exterior-access, structural, shed, scaffold, and fence rows with source links.",
+    "h1": "NYC masonry contractor permit research from selected DOB rows.",
+    "lede": "The current issue helps masonry contractors and exterior-repair suppliers screen selected structural, sidewalk shed, supported scaffold, and construction fence activity.",
+    "audience": "Masonry contractors, restoration firms, scaffold vendors, material suppliers, waterproofing teams, and exterior-repair service providers checking public permit activity.",
+    "currentSample": "The current issue includes selected exterior-access and structural rows from the 2026-06-09 to 2026-06-15 pull.",
+    "useCase": "Use this page to decide whether the current masonry-adjacent permit mix is worth deeper source-record review. It does not include private contacts, bid timing, contractor names, or guaranteed jobs.",
+    "sampleLine": "Masonry contractor screen | work type | ZIP | issued date | status | DOB NOW source link"
+  },
+  {
     "slug": "nyc-construction-risk-permit-research",
     "title": "NYC Construction Risk Permit Research | Weekly DOB Brief",
     "description": "A weekly NYC construction risk permit research page for insurance, lending, and compliance teams reviewing selected DOB rows.",
