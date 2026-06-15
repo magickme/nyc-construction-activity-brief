@@ -7999,7 +7999,7 @@ ${socialImageMeta()}
         </div>
         <div class="card">
           <h2>Current ZIP</h2>
-          <p>${escapeHtml(rows.length)} source-linked rows for ${escapeHtml(range.firstIssuedDate)} through ${escapeHtml(range.latestIssuedDate)}. If that fits, buy the instant ZIP.</p>
+          <p>${escapeHtml(rows.length)} source-linked rows for the ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(rows[0]?.source_fetch_date || range.latestIssuedDate)} source window. Latest issued row in the file: ${escapeHtml(range.latestIssuedDate)}. If that fits, buy the instant ZIP.</p>
         </div>
       </section>
 

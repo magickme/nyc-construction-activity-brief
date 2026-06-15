@@ -2594,6 +2594,8 @@ assert.match(sampleRequest, /Request a future sample cut/, 'sample request page 
 assert.match(sampleRequest, /Product-specific request only/, 'sample request page needs product-specific meta copy');
 assert.match(sampleRequest, /work type, territory, or buyer view/, 'sample request page explains request scope');
 assert.match(sampleRequest, /Requests are used only for this product's buyer segment/, 'sample request page states product-only routing');
+assert.match(sampleRequest, /142 source-linked rows for the 2026-06-09 to 2026-06-15 source window\. Latest issued row in the file: 2026-06-12\./, 'sample request page states source window and latest issued row consistently');
+assert.doesNotMatch(sampleRequest, /142 source-linked rows for 2026-06-09 through 2026-06-12/, 'sample request page must not confuse source window with latest issued row');
 assert.match(sampleRequest, /Do not send private account details/, 'sample request page warns against sensitive data');
 assert.match(sampleRequest, /href="\/preview\.html"/, 'sample request page links preview');
 assert.match(sampleRequest, /href="\/sample-segments\.html"/, 'sample request page links segment hub');
