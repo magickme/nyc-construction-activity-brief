@@ -17,8 +17,60 @@
       <g:product_type>Digital data download</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:custom_label_0>public-record-permit-data</g:custom_label_0>
-      <g:custom_label_1>142-row-paid-zip</g:custom_label_1>
-      <g:custom_label_2>25-row-free-preview</g:custom_label_2>
+      <g:custom_label_1>current-issue</g:custom_label_1>
+      <g:custom_label_2>142-row-paid-zip</g:custom_label_2>
+      <g:custom_label_3>25-row-free-preview</g:custom_label_3>
+    </item>
+    <item>
+      <g:id>nyc-construction-activity-brief-sidewalk-shed</g:id>
+      <title>NYC sidewalk shed permit activity ZIP</title>
+      <description>One-time $9.50 digital ZIP download for buyers screening 40 selected NYC sidewalk shed permit rows inside the current 142-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed-sidewalk-shed</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>9.50 USD</g:price>
+      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
+      <g:product_type>Digital data download &gt; NYC permit activity &gt; Sidewalk shed</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
+      <g:custom_label_1>sidewalk-shed-permit-activity-40-rows</g:custom_label_1>
+      <g:custom_label_2>142-row-paid-zip</g:custom_label_2>
+      <g:custom_label_3>25-row-free-preview</g:custom_label_3>
+    </item>
+    <item>
+      <g:id>nyc-construction-activity-brief-plumbing</g:id>
+      <title>NYC plumbing permit activity ZIP</title>
+      <description>One-time $9.50 digital ZIP download for buyers screening 29 selected NYC plumbing permit rows inside the current 142-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed-plumbing</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>9.50 USD</g:price>
+      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
+      <g:product_type>Digital data download &gt; NYC permit activity &gt; Plumbing</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
+      <g:custom_label_1>plumbing-permit-activity-29-rows</g:custom_label_1>
+      <g:custom_label_2>142-row-paid-zip</g:custom_label_2>
+      <g:custom_label_3>25-row-free-preview</g:custom_label_3>
+    </item>
+    <item>
+      <g:id>nyc-construction-activity-brief-exterior-access</g:id>
+      <title>NYC exterior-access permit activity ZIP</title>
+      <description>One-time $9.50 digital ZIP download for buyers screening 74 selected NYC exterior-access permit rows, including sidewalk shed, supported scaffold, construction fence, and structural activity inside the current 142-row public-record permit package.</description>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed-exterior-access</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>9.50 USD</g:price>
+      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
+      <g:product_type>Digital data download &gt; NYC permit activity &gt; Exterior access</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
+      <g:custom_label_1>exterior-access-permit-activity-74-rows</g:custom_label_1>
+      <g:custom_label_2>142-row-paid-zip</g:custom_label_2>
+      <g:custom_label_3>25-row-free-preview</g:custom_label_3>
     </item>
   </channel>
 </rss>

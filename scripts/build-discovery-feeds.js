@@ -27,6 +27,35 @@ const highIntentTopicPages = [
   ['nyc-dob-permit-alerts-for-subcontractors', 'NYC DOB permit alerts for subcontractors'],
   ['nyc-building-permit-export-csv', 'NYC building permit export CSV'],
 ];
+const productFeedSegments = [
+  {
+    id: 'nyc-construction-activity-brief-sidewalk-shed',
+    title: 'NYC sidewalk shed permit activity ZIP',
+    workTypes: ['Sidewalk Shed'],
+    url: `${baseUrl}/buy.html?source=product-feed-sidewalk-shed`,
+    productType: 'Digital data download > NYC permit activity > Sidewalk shed',
+    customLabel: 'sidewalk-shed-permit-activity',
+    description: (count, rowCount) => `One-time $${launchPriceUsd.toFixed(2)} digital ZIP download for buyers screening ${count} selected NYC sidewalk shed permit rows inside the current ${rowCount}-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.`,
+  },
+  {
+    id: 'nyc-construction-activity-brief-plumbing',
+    title: 'NYC plumbing permit activity ZIP',
+    workTypes: ['Plumbing'],
+    url: `${baseUrl}/buy.html?source=product-feed-plumbing`,
+    productType: 'Digital data download > NYC permit activity > Plumbing',
+    customLabel: 'plumbing-permit-activity',
+    description: (count, rowCount) => `One-time $${launchPriceUsd.toFixed(2)} digital ZIP download for buyers screening ${count} selected NYC plumbing permit rows inside the current ${rowCount}-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.`,
+  },
+  {
+    id: 'nyc-construction-activity-brief-exterior-access',
+    title: 'NYC exterior-access permit activity ZIP',
+    workTypes: ['Sidewalk Shed', 'Supported Scaffold', 'Construction Fence', 'Structural'],
+    url: `${baseUrl}/buy.html?source=product-feed-exterior-access`,
+    productType: 'Digital data download > NYC permit activity > Exterior access',
+    customLabel: 'exterior-access-permit-activity',
+    description: (count, rowCount) => `One-time $${launchPriceUsd.toFixed(2)} digital ZIP download for buyers screening ${count} selected NYC exterior-access permit rows, including sidewalk shed, supported scaffold, construction fence, and structural activity inside the current ${rowCount}-row public-record permit package.`,
+  },
+];
 const fullIssueCsvPath = path.join(root, '..', 'package', 'nyc-construction-activity-preview.csv');
 const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');
 const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
@@ -771,28 +800,51 @@ function buildProductFeedXml(rows) {
   const stats = issueStats(rows);
   const previewRows = publicPreviewRowCount() ?? stats.rowCount;
   const description = `One-time $${launchPriceUsd.toFixed(2)} digital ZIP download with the current ${stats.rowCount}-row NYC DOB permit CSV, buyer workbook, priority-slices CSV, source registry, QA report, and public-record boundary notes. The free preview has ${previewRows} rows.`;
+  const itemXml = (item) => `    <item>
+      <g:id>${escapeHtml(item.id)}</g:id>
+      <title>${escapeHtml(item.title)}</title>
+      <description>${escapeHtml(item.description)}</description>
+      <link>${escapeHtml(item.url)}</link>
+      <g:image_link>${socialImageUrl}</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>${launchPriceUsd.toFixed(2)} USD</g:price>
+      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
+      <g:product_type>${escapeHtml(item.productType)}</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
+      <g:custom_label_1>${escapeHtml(item.customLabel)}</g:custom_label_1>
+      <g:custom_label_2>${stats.rowCount}-row-paid-zip</g:custom_label_2>
+      <g:custom_label_3>${previewRows}-row-free-preview</g:custom_label_3>
+    </item>`;
+  const items = [
+    {
+      id: 'nyc-construction-activity-brief-current',
+      title: 'NYC Weekly Construction Activity Brief current ZIP',
+      description,
+      url: `${baseUrl}/buy.html?source=product-feed`,
+      productType: 'Digital data download',
+      customLabel: 'current-issue',
+    },
+    ...productFeedSegments.map((segment) => {
+      const count = rows.filter((row) => segment.workTypes.includes(row.work_type)).length;
+      return {
+        id: segment.id,
+        title: segment.title,
+        description: segment.description(count, stats.rowCount),
+        url: segment.url,
+        productType: segment.productType,
+        customLabel: `${segment.customLabel}-${count}-rows`,
+      };
+    }),
+  ];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
     <title>NYC Weekly Construction Activity Brief product feed</title>
     <link>${baseUrl}/</link>
     <description>Product feed for the current NYC Weekly Construction Activity Brief ZIP.</description>
-    <item>
-      <g:id>nyc-construction-activity-brief-current</g:id>
-      <title>NYC Weekly Construction Activity Brief current ZIP</title>
-      <description>${escapeHtml(description)}</description>
-      <link>${baseUrl}/buy.html?source=product-feed</link>
-      <g:image_link>${socialImageUrl}</g:image_link>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:price>${launchPriceUsd.toFixed(2)} USD</g:price>
-      <g:brand>NYC Weekly Construction Activity Brief</g:brand>
-      <g:product_type>Digital data download</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:custom_label_0>public-record-permit-data</g:custom_label_0>
-      <g:custom_label_1>${stats.rowCount}-row-paid-zip</g:custom_label_1>
-      <g:custom_label_2>${previewRows}-row-free-preview</g:custom_label_2>
-    </item>
+${items.map(itemXml).join('\n')}
   </channel>
 </rss>
 `;
