@@ -493,5 +493,16 @@
     "currentSample": "The current issue includes selected sidewalk shed, supported scaffold, construction fence, and structural rows from the 2026-06-09 to 2026-06-15 pull.",
     "useCase": "Use this page to decide whether the current exterior-work mix is worth deeper source-record review. It does not include private contacts, bid timing, or guaranteed jobs.",
     "sampleLine": "Exterior work screen | work type | ZIP | issued date | status | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-construction-risk-permit-research",
+    "title": "NYC Construction Risk Permit Research | Weekly DOB Brief",
+    "description": "A weekly NYC construction risk permit research page for insurance, lending, and compliance teams reviewing selected DOB rows.",
+    "h1": "NYC construction risk permit research from selected public DOB rows.",
+    "lede": "The current issue helps risk researchers screen selected construction permit activity before opening individual DOB NOW source records.",
+    "audience": "Insurance teams, lenders, compliance researchers, due-diligence analysts, and consultants checking public construction activity.",
+    "currentSample": "The paid ZIP includes 142 selected rows with work type, ZIP, borough, issued date, status, cost bucket, and DOB NOW source links.",
+    "useCase": "Use this page to prepare a manual risk research pass by work type, territory, issued date, and source link. It does not provide insurance, legal, compliance, or underwriting advice.",
+    "sampleLine": "Risk research screen | work type | ZIP | issued date | status | cost bucket | source link"
   }
 ]
