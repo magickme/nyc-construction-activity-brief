@@ -133,6 +133,16 @@ li {
   overflow-x: auto;
 }
 
+.preview-filter {
+  margin: 0 0 18px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -282,6 +292,10 @@ button.button:disabled {
   }
 
   .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-grid {
     grid-template-columns: 1fr;
   }
 

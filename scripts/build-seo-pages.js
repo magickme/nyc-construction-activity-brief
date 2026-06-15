@@ -6775,6 +6775,8 @@ function previewHtml(fullRows) {
   const rows = previewRows(publicRows);
   const range = sampleRange(fullRows);
   const fetchDate = fullRows[0] && fullRows[0].source_fetch_date;
+  const workTypeOptions = [...new Set(rows.map((row) => row.workType))].sort();
+  const zipOptions = [...new Set(rows.map((row) => row.zipCode))].sort();
   const description = `Browse the ${rows.length}-row public preview for the current NYC construction activity brief before buying the full ${fullRows.length}-row ZIP.`;
   const product = productJsonLd(description, checkoutHref('preview'));
   const dataset = {
@@ -6845,6 +6847,29 @@ ${socialImageMeta()}
 
       <section class="section card">
         <h2>Sample rows</h2>
+        <div class="preview-filter" data-preview-filter>
+          <div class="filter-grid">
+            <label>
+              Work type
+              <select data-preview-work-type>
+                <option value="">All work types</option>
+${workTypeOptions.map((workType) => `                <option value="${escapeHtml(workType)}">${escapeHtml(workType)}</option>`).join('\n')}
+              </select>
+            </label>
+            <label>
+              ZIP
+              <select data-preview-zip>
+                <option value="">All ZIPs</option>
+${zipOptions.map((zipCode) => `                <option value="${escapeHtml(zipCode)}">${escapeHtml(zipCode)}</option>`).join('\n')}
+              </select>
+            </label>
+            <label>
+              Keyword
+              <input data-preview-query type="search" inputmode="search" placeholder="Search work type, ZIP, status, cost bucket">
+            </label>
+          </div>
+          <p class="fine" data-preview-count>${rows.length} preview rows shown.</p>
+        </div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -6858,7 +6883,7 @@ ${socialImageMeta()}
               </tr>
             </thead>
             <tbody>
-${rows.map((row) => `              <tr>
+${rows.map((row) => `              <tr data-preview-row data-work-type="${escapeHtml(row.workType)}" data-zip="${escapeHtml(row.zipCode)}" data-search="${escapeHtml(`${row.workType} ${row.borough} ${row.zipCode} ${row.issuedDate} ${row.status} ${row.costBucket}`.toLowerCase())}">
                 <td>${escapeHtml(row.workType)}</td>
                 <td>${escapeHtml(`${row.borough} ${row.zipCode}`)}</td>
                 <td>${escapeHtml(row.issuedDate)}</td>
@@ -6897,6 +6922,48 @@ ${sampleRequestSection()}      <section class="section card">
       </section>
     </main>
     ${sampleRequestScript()}
+    <script>
+      (() => {
+        const rows = Array.from(document.querySelectorAll('[data-preview-row]'));
+        const workType = document.querySelector('[data-preview-work-type]');
+        const zip = document.querySelector('[data-preview-zip]');
+        const query = document.querySelector('[data-preview-query]');
+        const count = document.querySelector('[data-preview-count]');
+        if (!rows.length || !workType || !zip || !query || !count) return;
+        const track = (data) => {
+          try {
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+            window.va('event', { name: 'preview_filter_changed', data });
+          } catch (error) {}
+        };
+        let trackTimer;
+        function applyFilters() {
+          const selectedWorkType = workType.value;
+          const selectedZip = zip.value;
+          const term = query.value.trim().toLowerCase();
+          let visible = 0;
+          for (const row of rows) {
+            const matchesWorkType = !selectedWorkType || row.dataset.workType === selectedWorkType;
+            const matchesZip = !selectedZip || row.dataset.zip === selectedZip;
+            const matchesTerm = !term || row.dataset.search.includes(term);
+            const show = matchesWorkType && matchesZip && matchesTerm;
+            row.hidden = !show;
+            if (show) visible += 1;
+          }
+          count.textContent = visible + ' of ' + rows.length + ' preview rows shown.';
+          window.clearTimeout(trackTimer);
+          trackTimer = window.setTimeout(() => track({
+            work_type: selectedWorkType || 'all',
+            zip: selectedZip || 'all',
+            has_query: Boolean(term),
+            visible_rows: visible,
+          }), 350);
+        }
+        workType.addEventListener('change', applyFilters);
+        zip.addEventListener('change', applyFilters);
+        query.addEventListener('input', applyFilters);
+      })();
+    </script>
   </body>
 </html>
 `;

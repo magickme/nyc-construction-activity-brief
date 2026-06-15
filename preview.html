@@ -53,6 +53,37 @@
 
       <section class="section card">
         <h2>Sample rows</h2>
+        <div class="preview-filter" data-preview-filter>
+          <div class="filter-grid">
+            <label>
+              Work type
+              <select data-preview-work-type>
+                <option value="">All work types</option>
+                <option value="Construction Fence">Construction Fence</option>
+                <option value="Mechanical Systems">Mechanical Systems</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Sidewalk Shed">Sidewalk Shed</option>
+                <option value="Sprinklers">Sprinklers</option>
+                <option value="Supported Scaffold">Supported Scaffold</option>
+              </select>
+            </label>
+            <label>
+              ZIP
+              <select data-preview-zip>
+                <option value="">All ZIPs</option>
+                <option value="10003">10003</option>
+                <option value="10011">10011</option>
+                <option value="11201">11201</option>
+                <option value="11206">11206</option>
+              </select>
+            </label>
+            <label>
+              Keyword
+              <input data-preview-query type="search" inputmode="search" placeholder="Search work type, ZIP, status, cost bucket">
+            </label>
+          </div>
+          <p class="fine" data-preview-count>25 preview rows shown.</p>
+        </div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -66,7 +97,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr data-preview-row data-work-type="Construction Fence" data-zip="11206" data-search="construction fence brooklyn 11206 2026-06-12 permit issued under $10k">
                 <td>Construction Fence</td>
                 <td>Brooklyn 11206</td>
                 <td>2026-06-12</td>
@@ -74,7 +105,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-7f7x_dqrd~dctj">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Mechanical Systems" data-zip="10003" data-search="mechanical systems manhattan 10003 2026-06-12 permit issued $50k to $100k">
                 <td>Mechanical Systems</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -82,7 +113,7 @@
                 <td>$50k to $100k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-y4pj-r7ps_78ep">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Mechanical Systems" data-zip="10003" data-search="mechanical systems manhattan 10003 2026-06-12 permit issued $50k to $100k">
                 <td>Mechanical Systems</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -90,7 +121,7 @@
                 <td>$50k to $100k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-ky8k.nrru~8spf">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Mechanical Systems" data-zip="10011" data-search="mechanical systems manhattan 10011 2026-06-12 permit issued $50k to $100k">
                 <td>Mechanical Systems</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -98,7 +129,7 @@
                 <td>$50k to $100k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-6w4j-t8nt_cpbw">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Mechanical Systems" data-zip="11201" data-search="mechanical systems brooklyn 11201 2026-06-12 permit issued $10k to $50k">
                 <td>Mechanical Systems</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -106,7 +137,7 @@
                 <td>$10k to $50k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-5vxr.jdda~yq5v">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Plumbing" data-zip="11201" data-search="plumbing brooklyn 11201 2026-06-12 permit issued $50k to $100k">
                 <td>Plumbing</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -114,7 +145,7 @@
                 <td>$50k to $100k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-uzb7-7ttv-cxgt">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Plumbing" data-zip="11201" data-search="plumbing brooklyn 11201 2026-06-12 permit issued $10k to $50k">
                 <td>Plumbing</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -122,7 +153,7 @@
                 <td>$10k to $50k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-kngv~n5mj.xdw5">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Plumbing" data-zip="11201" data-search="plumbing brooklyn 11201 2026-06-12 permit issued $50k to $100k">
                 <td>Plumbing</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -130,7 +161,7 @@
                 <td>$50k to $100k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-7bmg_75qx-hnh4">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10003" data-search="sidewalk shed manhattan 10003 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -138,7 +169,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-mshu~v8sw_r8ux">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10003" data-search="sidewalk shed manhattan 10003 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -146,7 +177,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-xt2j.b8bn_5f86">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10003" data-search="sidewalk shed manhattan 10003 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -154,7 +185,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-eecm_xa3g.3vjn">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10003" data-search="sidewalk shed manhattan 10003 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -162,7 +193,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-gfji_gjpu.w4bv">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10003" data-search="sidewalk shed manhattan 10003 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -170,7 +201,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-2j3i_njfb-x5fy">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10003" data-search="sidewalk shed manhattan 10003 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10003</td>
                 <td>2026-06-12</td>
@@ -178,7 +209,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-88ef-ikww-bsad">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10011" data-search="sidewalk shed manhattan 10011 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -186,7 +217,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-in25_ymt8-ncez">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10011" data-search="sidewalk shed manhattan 10011 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -194,7 +225,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-g5ba.6cmg-5sif">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10011" data-search="sidewalk shed manhattan 10011 2026-06-12 permit issued $10k to $50k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -202,7 +233,7 @@
                 <td>$10k to $50k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-7zgj~vagq_9efi">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10011" data-search="sidewalk shed manhattan 10011 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -210,7 +241,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-vdgt_y565.59t8">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sidewalk Shed" data-zip="10011" data-search="sidewalk shed manhattan 10011 2026-06-12 permit issued under $10k">
                 <td>Sidewalk Shed</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -218,7 +249,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-hkf6_39zg.55bs">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sprinklers" data-zip="11201" data-search="sprinklers brooklyn 11201 2026-06-12 permit issued $250k to $1m">
                 <td>Sprinklers</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -226,7 +257,7 @@
                 <td>$250k to $1m</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-dqtz_82wu~yjgx">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sprinklers" data-zip="11201" data-search="sprinklers brooklyn 11201 2026-06-12 permit issued $100k to $250k">
                 <td>Sprinklers</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -234,7 +265,7 @@
                 <td>$100k to $250k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-mmsc-zzjf.qaeq">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sprinklers" data-zip="11201" data-search="sprinklers brooklyn 11201 2026-06-12 permit issued $50k to $100k">
                 <td>Sprinklers</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -242,7 +273,7 @@
                 <td>$50k to $100k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-a4s9.8a4g.xddh">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Sprinklers" data-zip="11201" data-search="sprinklers brooklyn 11201 2026-06-12 permit issued $100k to $250k">
                 <td>Sprinklers</td>
                 <td>Brooklyn 11201</td>
                 <td>2026-06-12</td>
@@ -250,7 +281,7 @@
                 <td>$100k to $250k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-q294~d2e4~ny5a">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Supported Scaffold" data-zip="10011" data-search="supported scaffold manhattan 10011 2026-06-12 permit issued under $10k">
                 <td>Supported Scaffold</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -258,7 +289,7 @@
                 <td>under $10k</td>
                 <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-kpt4-yc2c~mksp">DOB NOW row</a></td>
               </tr>
-              <tr>
+              <tr data-preview-row data-work-type="Supported Scaffold" data-zip="10011" data-search="supported scaffold manhattan 10011 2026-06-12 permit issued under $10k">
                 <td>Supported Scaffold</td>
                 <td>Manhattan 10011</td>
                 <td>2026-06-12</td>
@@ -384,6 +415,48 @@
           if (button) button.disabled = false;
         }
       });
+    </script>
+    <script>
+      (() => {
+        const rows = Array.from(document.querySelectorAll('[data-preview-row]'));
+        const workType = document.querySelector('[data-preview-work-type]');
+        const zip = document.querySelector('[data-preview-zip]');
+        const query = document.querySelector('[data-preview-query]');
+        const count = document.querySelector('[data-preview-count]');
+        if (!rows.length || !workType || !zip || !query || !count) return;
+        const track = (data) => {
+          try {
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+            window.va('event', { name: 'preview_filter_changed', data });
+          } catch (error) {}
+        };
+        let trackTimer;
+        function applyFilters() {
+          const selectedWorkType = workType.value;
+          const selectedZip = zip.value;
+          const term = query.value.trim().toLowerCase();
+          let visible = 0;
+          for (const row of rows) {
+            const matchesWorkType = !selectedWorkType || row.dataset.workType === selectedWorkType;
+            const matchesZip = !selectedZip || row.dataset.zip === selectedZip;
+            const matchesTerm = !term || row.dataset.search.includes(term);
+            const show = matchesWorkType && matchesZip && matchesTerm;
+            row.hidden = !show;
+            if (show) visible += 1;
+          }
+          count.textContent = visible + ' of ' + rows.length + ' preview rows shown.';
+          window.clearTimeout(trackTimer);
+          trackTimer = window.setTimeout(() => track({
+            work_type: selectedWorkType || 'all',
+            zip: selectedZip || 'all',
+            has_query: Boolean(term),
+            visible_rows: visible,
+          }), 350);
+        }
+        workType.addEventListener('change', applyFilters);
+        zip.addEventListener('change', applyFilters);
+        query.addEventListener('input', applyFilters);
+      })();
     </script>
     <aside class="conversion-bar" data-conversion-bar>
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>

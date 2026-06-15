@@ -433,6 +433,16 @@ assert.match(preview, /\/_vercel\/insights\/script\.js/, 'preview page needs Web
 assert.match(preview, /25-row browser preview/, 'preview page needs public preview count');
 assert.match(preview, /full 142-row ZIP/, 'preview page needs paid row count');
 assert.match(preview, /<h2>Sample rows<\/h2>/, 'preview page needs sample rows section');
+assert.match(preview, /data-preview-filter/, 'preview page needs filter UI');
+assert.match(preview, /data-preview-work-type/, 'preview page needs work type filter');
+assert.match(preview, /data-preview-zip/, 'preview page needs ZIP filter');
+assert.match(preview, /data-preview-query/, 'preview page needs keyword filter');
+assert.match(preview, /data-preview-count/, 'preview page needs visible row count');
+assert.equal((preview.match(/<tr data-preview-row/g) || []).length, 25, 'preview page should mark 25 filterable rows');
+assert.match(preview, /data-work-type="Sidewalk Shed"/, 'preview page marks work type row data');
+assert.match(preview, /data-zip="10003"/, 'preview page marks ZIP row data');
+assert.match(preview, /preview_filter_changed/, 'preview page tracks filter changes without row data');
+assert.match(preview, /visible_rows/, 'preview filter tracking sends aggregate row count');
 assert.equal((preview.match(/DOB NOW row/g) || []).length, 25, 'preview page should list 25 source-linked rows');
 assert.match(preview, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'preview page links sample CSV');
 assert.match(preview, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'preview page links sample JSON');
