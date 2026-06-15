@@ -339,5 +339,16 @@
     "currentSample": "The current issue sample includes seven selected work types across five ZIP codes.",
     "useCase": "Use this page if weekly review is enough for your workflow. The brief does not send instant notifications or rank opportunities.",
     "sampleLine": "Subcontractor alert screen | work type | ZIP | issued date | source link"
+  },
+  {
+    "slug": "weekly-nyc-construction-permit-report",
+    "title": "Weekly NYC Construction Permit Report | DOB Activity CSV",
+    "description": "A weekly NYC construction permit report for selected DOB activity with source links, ZIP, borough, work type, issued date, and status fields.",
+    "h1": "Weekly NYC construction permit report for source-linked review.",
+    "lede": "The current issue packages selected NYC DOB NOW permit activity into a CSV and short brief for buyers who want a repeatable weekly screening file.",
+    "audience": "Permit researchers, brokers, construction vendors, expediters, and small operators who review public NYC construction activity on a weekly cadence.",
+    "currentSample": "The paid ZIP includes 142 selected rows from the 2026-06-09 to 2026-06-15 pull. The free CSV preview is limited to 25 rows.",
+    "useCase": "Use the report to start a weekly research session with source links, work types, ZIPs, issue dates, and status fields already organized. It is not a full DOB database, live alert feed, or contact list.",
+    "sampleLine": "Weekly report row | work type | ZIP | borough | issued date | status | DOB NOW source link"
   }
 ]
