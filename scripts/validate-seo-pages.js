@@ -412,6 +412,7 @@ assert.match(whoShouldBuy, /href="\/buyer-guide\.html"/, 'who should buy page li
 assert.match(whoShouldBuy, /href="\/delivery\.html"/, 'who should buy page links delivery page');
 assert.match(whoShouldBuy, /href="\/support\.html"/, 'who should buy page links support page');
 assert.match(whoShouldBuy, new RegExp(`href="${checkoutUrl}"`), 'who should buy page links tracked checkout');
+assertSampleRequestForm(whoShouldBuy, 'who should buy page');
 assert.match(whoShouldBuy, /No guaranteed leads\./, 'who should buy page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(whoShouldBuy, pattern, `who-should-buy.html contains banned copy pattern ${pattern}`);
