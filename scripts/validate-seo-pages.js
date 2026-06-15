@@ -174,6 +174,7 @@ assert.match(index, /href="\/who-should-buy\.html"/, 'index links who should buy
 assert.match(index, /href="\/free-vs-paid\.html"/, 'index links free vs paid page');
 assert.match(index, /href="\/permit-research-workflow\.html"/, 'index links research workflow page');
 assert.match(index, /href="\/contractor-supplier-permit-research\.html"/, 'index links contractor and supplier guide');
+assert.match(index, /href="\/broker-developer-permit-research\.html"/, 'index links broker and developer guide');
 assert.match(index, /href="\/inside-the-zip\.html"/, 'index links inside the ZIP page');
 assert.match(index, /href="\/csv-field-guide\.html"/, 'index links CSV field guide');
 assert.match(index, /href="\/support\.html"/, 'index links support page');
@@ -565,6 +566,52 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(contractorSupplier, pattern, `contractor-supplier-permit-research.html contains private data pattern ${pattern}`);
 }
 
+const brokerDeveloper = read('broker-developer-permit-research.html');
+assert.match(brokerDeveloper, /<title>Broker and Developer Permit Research \| NYC Construction Brief<\/title>/, 'broker and developer guide needs title');
+assert.match(brokerDeveloper, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/broker-developer-permit-research\.html">/, 'broker and developer guide needs canonical');
+assert.match(brokerDeveloper, /<meta property="og:title" content="Broker and Developer Permit Research \| NYC Construction Brief">/, 'broker and developer guide needs OG title');
+assert.match(brokerDeveloper, /src="\/assets\/current-issue-snapshot\.png"/, 'broker and developer guide needs current issue snapshot image');
+assert.match(brokerDeveloper, /"@type":"Product"/, 'broker and developer guide needs Product structured data');
+assert.match(brokerDeveloper, /"@type":"Dataset"/, 'broker and developer guide needs Dataset structured data');
+assert.match(brokerDeveloper, /"@type":"FAQPage"/, 'broker and developer guide needs FAQ structured data');
+assert.match(brokerDeveloper, /"price":"24.50"/, 'broker and developer guide needs current price structured data');
+assert.match(brokerDeveloper, /\/_vercel\/insights\/script\.js/, 'broker and developer guide needs Web Analytics script');
+assert.match(brokerDeveloper, /NYC permit research for brokers and small developers/, 'broker and developer guide needs headline');
+assert.match(brokerDeveloper, /Research pass/, 'broker and developer guide needs research path');
+assert.match(brokerDeveloper, /Useful research pages/, 'broker and developer guide needs research page links');
+assert.match(brokerDeveloper, /buyer-workbook\.md/, 'broker and developer guide mentions buyer workbook');
+assert.match(brokerDeveloper, /buyer-priority-slices\.csv/, 'broker and developer guide mentions priority slices');
+assert.match(brokerDeveloper, /source_url/, 'broker and developer guide mentions source_url');
+assert.match(brokerDeveloper, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'broker and developer guide needs row counts');
+assert.match(brokerDeveloper, /Top work types: Sidewalk Shed 40/, 'broker and developer guide needs work type mix');
+assert.match(brokerDeveloper, /href="\/topics\/nyc-commercial-renovation-permits\.html"/, 'broker and developer guide links commercial renovation topic');
+assert.match(brokerDeveloper, /href="\/topics\/nyc-contractor-market-research\.html"/, 'broker and developer guide links contractor market research topic');
+assert.match(brokerDeveloper, /href="\/topics\/nyc-dob-permit-monitoring\.html"/, 'broker and developer guide links DOB monitoring topic');
+assert.match(brokerDeveloper, /href="\/topics\/nyc-permit-activity-by-zip\.html"/, 'broker and developer guide links ZIP activity topic');
+assert.match(brokerDeveloper, /href="\/topics\/nyc-renovation-permit-leads\.html"/, 'broker and developer guide links renovation research topic');
+assert.match(brokerDeveloper, /href="\/preview\.html"/, 'broker and developer guide links preview');
+assert.match(brokerDeveloper, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'broker and developer guide links sample CSV');
+assert.match(brokerDeveloper, /href="\/current-issue\.html"/, 'broker and developer guide links current issue page');
+assert.match(brokerDeveloper, /href="\/sample-segments\.html"/, 'broker and developer guide links segment hub');
+assert.match(brokerDeveloper, /href="\/who-should-buy\.html"/, 'broker and developer guide links who should buy page');
+assert.match(brokerDeveloper, /href="\/free-vs-paid\.html"/, 'broker and developer guide links free vs paid page');
+assert.match(brokerDeveloper, /href="\/permit-research-workflow\.html"/, 'broker and developer guide links research workflow page');
+assert.match(brokerDeveloper, /href="\/contractor-supplier-permit-research\.html"/, 'broker and developer guide links contractor and supplier guide');
+assert.doesNotMatch(brokerDeveloper, /href="\/broker-developer-permit-research\.html"/, 'broker and developer guide must not self-link');
+assert.match(brokerDeveloper, /href="\/inside-the-zip\.html"/, 'broker and developer guide links inside ZIP');
+assert.match(brokerDeveloper, /href="\/csv-field-guide\.html"/, 'broker and developer guide links CSV field guide');
+assert.match(brokerDeveloper, /href="\/time-saved-calculator\.html"/, 'broker and developer guide links time saved calculator');
+assert.match(brokerDeveloper, /href="\/pricing\.html"/, 'broker and developer guide links pricing');
+assert.match(brokerDeveloper, /href="\/support\.html"/, 'broker and developer guide links support');
+assert.match(brokerDeveloper, new RegExp(`href="${checkoutUrl}"`), 'broker and developer guide links tracked checkout');
+assert.match(brokerDeveloper, /No guaranteed leads\./, 'broker and developer guide keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(brokerDeveloper, pattern, `broker-developer-permit-research.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(brokerDeveloper, pattern, `broker-developer-permit-research.html contains private data pattern ${pattern}`);
+}
+
 const buyerGuide = read('buyer-guide.html');
 assert.match(buyerGuide, /<title>Buyer Guide \| NYC Construction Activity ZIP<\/title>/, 'buyer guide needs title');
 assert.match(buyerGuide, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html">/, 'buyer guide needs canonical');
@@ -713,7 +760,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
+for (const page of ['', 'checkout.html', 'current-issue.html', 'preview.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-supplier-permit-research.html', 'broker-developer-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-segments.html', 'methodology.html', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -721,7 +768,7 @@ for (const page of ['feed.xml', 'current-issue.json', 'llms.txt']) {
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 20, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 21, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -744,6 +791,7 @@ assert.equal(currentIssue.publicPreview.whoShouldBuyUrl, 'https://nyc-constructi
 assert.equal(currentIssue.publicPreview.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON public preview links free vs paid page');
 assert.equal(currentIssue.publicPreview.researchWorkflowUrl, 'https://nyc-construction-activity-brief.vercel.app/permit-research-workflow.html', 'current issue JSON public preview links research workflow page');
 assert.equal(currentIssue.publicPreview.contractorSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html', 'current issue JSON public preview links contractor and supplier guide');
+assert.equal(currentIssue.publicPreview.brokerDeveloperGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/broker-developer-permit-research.html', 'current issue JSON public preview links broker and developer guide');
 assert.equal(currentIssue.publicPreview.insideZipUrl, 'https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html', 'current issue JSON public preview links inside ZIP page');
 assert.equal(currentIssue.publicPreview.checkoutUrl, 'https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue', 'current issue JSON links tracked checkout');
 assert.equal(currentIssue.publicPreview.stripeCheckoutUrl, 'https://buy.stripe.com/7sY7sLaHv9TI2Yn5f9cAo0P', 'current issue JSON keeps Stripe checkout URL');
@@ -764,6 +812,7 @@ assert.equal(currentIssue.paidZip.whoShouldBuyUrl, 'https://nyc-construction-act
 assert.equal(currentIssue.paidZip.freeVsPaidUrl, 'https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html', 'current issue JSON paid ZIP links free vs paid page');
 assert.equal(currentIssue.paidZip.researchWorkflowUrl, 'https://nyc-construction-activity-brief.vercel.app/permit-research-workflow.html', 'current issue JSON paid ZIP links research workflow page');
 assert.equal(currentIssue.paidZip.contractorSupplierGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html', 'current issue JSON paid ZIP links contractor and supplier guide');
+assert.equal(currentIssue.paidZip.brokerDeveloperGuideUrl, 'https://nyc-construction-activity-brief.vercel.app/broker-developer-permit-research.html', 'current issue JSON paid ZIP links broker and developer guide');
 assert.equal(currentIssue.paidZip.insideZipUrl, 'https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html', 'current issue JSON paid ZIP links inside ZIP page');
 assert.equal(currentIssue.paidZip.files.length, 11, 'current issue JSON lists all package files');
 assert.equal(currentIssue.paidZip.rowCount, manifest.sourceRows, 'current issue JSON paid ZIP row count matches manifest');
@@ -791,6 +840,7 @@ assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/who-
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html/, 'RSS feed links free vs paid page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/permit-research-workflow\.html/, 'RSS feed links research workflow page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/contractor-supplier-permit-research\.html/, 'RSS feed links contractor and supplier guide');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/broker-developer-permit-research\.html/, 'RSS feed links broker and developer guide');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/inside-the-zip\.html/, 'RSS feed links inside the ZIP page');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/sample-segments\.html/, 'RSS feed links segment hub');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buyer-guide\.html/, 'RSS feed links buyer guide');
@@ -808,6 +858,7 @@ assert.match(llms, /Who should buy: https:\/\/nyc-construction-activity-brief\.v
 assert.match(llms, /Free preview vs paid ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/free-vs-paid\.html/, 'llms.txt links free vs paid page');
 assert.match(llms, /Research workflow: https:\/\/nyc-construction-activity-brief\.vercel\.app\/permit-research-workflow\.html/, 'llms.txt links research workflow page');
 assert.match(llms, /Contractor and supplier guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/contractor-supplier-permit-research\.html/, 'llms.txt links contractor and supplier guide');
+assert.match(llms, /Broker and developer guide: https:\/\/nyc-construction-activity-brief\.vercel\.app\/broker-developer-permit-research\.html/, 'llms.txt links broker and developer guide');
 assert.match(llms, /Inside the ZIP: https:\/\/nyc-construction-activity-brief\.vercel\.app\/inside-the-zip\.html/, 'llms.txt links inside the ZIP page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
