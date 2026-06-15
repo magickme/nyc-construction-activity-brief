@@ -551,9 +551,13 @@ assert.match(buy, /It does not add private contacts or lead scoring\./, 'buy pag
 assert.match(buy, /data-buy-link="after-sample"/, 'buy page keeps a post-sample purchase CTA');
 assert.match(buy, /data-checkout-cancelled hidden/, 'buy page has a hidden checkout-cancel recovery panel');
 assert.match(buy, /Checkout was not completed/, 'buy page names the cancelled-checkout recovery state');
+assert.match(buy, /If the current work type or ZIP mix was the blocker, request a future sample cut\./, 'buy page cancelled panel captures sample-fit blockers');
 assert.match(buy, /data-buy-link="cancelled-retry"/, 'buy page has a retry CTA for cancelled Stripe sessions');
+assert.match(buy, /data-buy-link="cancelled-sidewalk-shed" class="button" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-cancelled-sidewalk-shed">Buy sidewalk shed ZIP<\/a>/, 'buy page cancelled panel has sidewalk shed retry CTA');
+assert.match(buy, /data-buy-link="cancelled-plumbing" class="button" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=buy-page-cancelled-plumbing">Buy plumbing ZIP<\/a>/, 'buy page cancelled panel has plumbing retry CTA');
 assert.match(buy, /Request invoice help/, 'buy page routes procurement-blocked buyers to invoice help after cancelled checkout');
-assert.equal((buy.match(/data-buy-link="/g) || []).length, 6, 'buy page has top, segment-fit, post-sample, and cancelled-checkout purchase CTAs');
+assert.match(buy, /href="\/sample-request\.html\?source=buy-page-cancelled-sample">Request a different sample<\/a>/, 'buy page cancelled panel routes sample-fit blockers to sample request');
+assert.equal((buy.match(/data-buy-link="/g) || []).length, 8, 'buy page has top, segment-fit, post-sample, and cancelled-checkout purchase CTAs');
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
 assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
