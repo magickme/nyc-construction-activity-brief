@@ -191,6 +191,7 @@ const coreConversionPages = [
   ['nyc-dob-permit-data-download.html', 'nyc-dob-permit-data-download-sticky'],
   ['nyc-building-permit-data.html', 'building-permit-data-sticky'],
   ['nyc-dob-permit-csv.html', 'nyc-dob-permit-csv-sticky'],
+  ['nyc-dob-permit-lookup.html', 'nyc-dob-permit-lookup-sticky'],
   ['nyc-permit-data-api-alternative.html', 'nyc-permit-data-api-alternative-sticky'],
   ['weekly-nyc-construction-permit-report.html', 'weekly-nyc-construction-report-sticky'],
   ['dob-now-permit-search-alternative.html', 'dob-now-alternative-sticky'],
@@ -1015,6 +1016,46 @@ for (const pattern of bannedCopyPatterns) {
 }
 for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(dobPermitSearch, pattern, `nyc-dob-permit-search.html contains private data pattern ${pattern}`);
+}
+
+const dobPermitLookup = read('nyc-dob-permit-lookup.html');
+assert.match(dobPermitLookup, /<title>NYC DOB Permit Lookup \| Weekly CSV Companion<\/title>/, 'DOB permit lookup page needs title');
+assert.match(dobPermitLookup, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-dob-permit-lookup\.html">/, 'DOB permit lookup page needs canonical');
+assert.match(dobPermitLookup, /<meta property="og:title" content="NYC DOB Permit Lookup \| Weekly CSV Companion">/, 'DOB permit lookup page needs OG title');
+assert.match(dobPermitLookup, /src="\/assets\/current-issue-snapshot\.png"/, 'DOB permit lookup page needs current issue snapshot image');
+assert.match(dobPermitLookup, /"@type":"Product"/, 'DOB permit lookup page needs Product structured data');
+assert.match(dobPermitLookup, /"@type":"Dataset"/, 'DOB permit lookup page needs Dataset structured data');
+assert.match(dobPermitLookup, /"@type":"FAQPage"/, 'DOB permit lookup page needs FAQ structured data');
+assert.match(dobPermitLookup, /"price":"9.50"/, 'DOB permit lookup page needs current price structured data');
+assert.match(dobPermitLookup, /\/_vercel\/insights\/script\.js/, 'DOB permit lookup page needs Web Analytics script');
+assert.match(dobPermitLookup, /NYC DOB permit lookup companion for weekly CSV screening/, 'DOB permit lookup page needs headline');
+assert.match(dobPermitLookup, /Free preview rows: 25/, 'DOB permit lookup page needs free preview count');
+assert.match(dobPermitLookup, /Paid ZIP rows: 142/, 'DOB permit lookup page needs paid row count');
+assert.match(dobPermitLookup, /Top work types: Sidewalk Shed 40/, 'DOB permit lookup page needs work type mix');
+assert.match(dobPermitLookup, /Top ZIPs: 10003 37/, 'DOB permit lookup page needs ZIP mix');
+assert.match(dobPermitLookup, /Status mix: Permit Issued 141/, 'DOB permit lookup page needs status mix');
+assert.match(dobPermitLookup, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'DOB permit lookup page needs private-data boundary');
+assert.match(dobPermitLookup, /href="\/current-issue\.html"/, 'DOB permit lookup page links current issue');
+assert.match(dobPermitLookup, /href="\/dob-now-permit-search-alternative\.html"/, 'DOB permit lookup page links DOB NOW alternative');
+assert.match(dobPermitLookup, /href="\/nyc-dob-permit-data-download\.html"/, 'DOB permit lookup page links data download page');
+assert.match(dobPermitLookup, /href="\/nyc-dob-permit-csv\.html"/, 'DOB permit lookup page links permit CSV page');
+assert.match(dobPermitLookup, /href="\/weekly-nyc-construction-permit-report\.html"/, 'DOB permit lookup page links weekly report page');
+assert.match(dobPermitLookup, /href="\/sample-segments\.html"/, 'DOB permit lookup page links segment hub');
+assert.match(dobPermitLookup, /href="\/permit-research-workflow\.html"/, 'DOB permit lookup page links research workflow');
+assert.match(dobPermitLookup, /href="\/pricing\.html"/, 'DOB permit lookup page links pricing');
+assert.match(dobPermitLookup, /href="\/support\.html"/, 'DOB permit lookup page links support');
+assert.match(dobPermitLookup, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'DOB permit lookup page links sample CSV');
+assert.match(dobPermitLookup, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'DOB permit lookup page links sample JSON');
+assert.match(dobPermitLookup, /href="\/sample\/nyc-construction-activity-preview\.jsonl"/, 'DOB permit lookup page links sample JSONL');
+assert.match(dobPermitLookup, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'DOB permit lookup page links sample brief');
+assert.match(dobPermitLookup, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html\?source=nyc-dob-permit-lookup"/, 'DOB permit lookup page links tracked buy page');
+assertSampleRequestForm(dobPermitLookup, 'DOB permit lookup page');
+assert.match(dobPermitLookup, /No guaranteed leads\./, 'DOB permit lookup page keeps claims boundary visible');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(dobPermitLookup, pattern, `nyc-dob-permit-lookup.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(dobPermitLookup, pattern, `nyc-dob-permit-lookup.html contains private data pattern ${pattern}`);
 }
 
 const dobApprovedPermits = read('nyc-dob-approved-permits.html');
@@ -2226,7 +2267,7 @@ assert.match(methodology, /"@type":"FAQPage"/, 'methodology needs FAQ structured
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
-for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-permit-search.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
+for (const page of ['', 'current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permit-data.html', 'nyc-building-permits.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.json', ...pages]) {
   const url = page ? `${baseUrl}/${page}` : `${baseUrl}/`;
   assert.match(sitemap, new RegExp(`<loc>${url}</loc>`), `sitemap includes ${url}`);
 }
@@ -2235,7 +2276,7 @@ for (const page of ['feed.xml', 'feed.json', 'current-issue.json', 'data-package
   assert.match(sitemap, new RegExp(`<loc>${baseUrl}/${page}</loc>`), `sitemap includes ${page}`);
 }
 const sitemapUrlCount = (sitemap.match(/<loc>/g) || []).length;
-assert.equal(sitemapUrlCount, pages.length + 59, 'sitemap URL count must match generated surface and discovery files');
+assert.equal(sitemapUrlCount, pages.length + 60, 'sitemap URL count must match generated surface and discovery files');
 const sitemapLastmodCount = (sitemap.match(new RegExp(`<lastmod>${manifest.sourceFetchDate}</lastmod>`, 'g')) || []).length;
 assert.equal(sitemapLastmodCount, sitemapUrlCount, 'sitemap needs accurate lastmod for every URL');
 
@@ -2282,6 +2323,7 @@ assert.equal(currentIssue.publicPreview.insideZipUrl, 'https://nyc-construction-
 assert.equal(currentIssue.publicPreview.buildingPermitDataUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-building-permit-data.html', 'current issue JSON public preview links building permit data page');
 assert.equal(currentIssue.publicPreview.buildingPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html', 'current issue JSON public preview links building permits page');
 assert.equal(currentIssue.publicPreview.permitDataDownloadUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html', 'current issue JSON public preview links permit data download page');
+assert.equal(currentIssue.publicPreview.dobPermitLookupUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html', 'current issue JSON public preview links DOB permit lookup page');
 assert.equal(currentIssue.publicPreview.permitCsvUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-csv.html', 'current issue JSON public preview links permit CSV page');
 assert.equal(currentIssue.publicPreview.permitDataApiAlternativeUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-permit-data-api-alternative.html', 'current issue JSON public preview links permit data API alternative page');
 assert.equal(currentIssue.publicPreview.weeklyPermitReportUrl, 'https://nyc-construction-activity-brief.vercel.app/weekly-nyc-construction-permit-report.html', 'current issue JSON public preview links weekly report page');
@@ -2322,6 +2364,7 @@ assert.equal(currentIssue.paidZip.pricingUrl, 'https://nyc-construction-activity
 assert.equal(currentIssue.paidZip.dataPackageUrl, 'https://nyc-construction-activity-brief.vercel.app/data-package.json', 'current issue JSON paid ZIP links data package JSON');
 assert.equal(currentIssue.paidZip.productFeedUrl, 'https://nyc-construction-activity-brief.vercel.app/product-feed.xml', 'current issue JSON paid ZIP links product feed XML');
 assert.equal(currentIssue.paidZip.buildingPermitsUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html', 'current issue JSON paid ZIP links building permits page');
+assert.equal(currentIssue.paidZip.dobPermitLookupUrl, 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html', 'current issue JSON paid ZIP links DOB permit lookup page');
 assert.equal(currentIssue.paidZip.timeSavedCalculatorUrl, 'https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html', 'current issue JSON paid ZIP links time saved calculator');
 assert.equal(currentIssue.paidZip.whoShouldBuyUrl, 'https://nyc-construction-activity-brief.vercel.app/who-should-buy.html', 'current issue JSON paid ZIP links who should buy page');
 assert.equal(currentIssue.paidZip.faqUrl, 'https://nyc-construction-activity-brief.vercel.app/faq.html', 'current issue JSON paid ZIP links FAQ page');
@@ -2440,10 +2483,11 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nyc-construction-activity-brief.vercel.app/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 20, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 21, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html'), 'JSON Feed links DOB approved permits page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html'), 'JSON Feed links DOB permit search page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html'), 'JSON Feed links DOB permit lookup page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html'), 'JSON Feed links building permits page');
 assert.ok(jsonFeed.items.some((item) => /142 source-linked rows|142 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
 assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
@@ -2459,6 +2503,7 @@ assert.match(llms, /Product feed XML: https:\/\/nyc-construction-activity-brief\
 assert.match(llms, /JSON Feed: https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.json/, 'llms.txt links JSON Feed');
 assert.match(llms, /NYC DOB approved permits: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-dob-approved-permits\.html/, 'llms.txt links DOB approved permits page');
 assert.match(llms, /NYC DOB permit search companion: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-dob-permit-search\.html/, 'llms.txt links DOB permit search page');
+assert.match(llms, /NYC DOB permit lookup companion: https:\/\/nyc-construction-activity-brief\.vercel\.app\/nyc-dob-permit-lookup\.html/, 'llms.txt links DOB permit lookup page');
 assert.match(llms, /Buy page: https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'llms.txt links buy page');
 assert.match(llms, /Public preview: https:\/\/nyc-construction-activity-brief\.vercel\.app\/preview\.html/, 'llms.txt links public preview page');
 assert.match(llms, /Pricing: https:\/\/nyc-construction-activity-brief\.vercel\.app\/pricing\.html/, 'llms.txt links pricing page');
@@ -2532,6 +2577,7 @@ assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-br
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html'), 'data package JSON links permit data download page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html'), 'data package JSON links DOB approved permits page');
 assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html'), 'data package JSON links DOB permit search page');
+assert.ok(dataPackage.buyer_pages.includes('https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html'), 'data package JSON links DOB permit lookup page');
 assert.ok(dataPackage.paid_zip.files.includes('buyer-workbook.md'), 'data package JSON lists buyer workbook');
 assert.ok(dataPackage.paid_zip.files.includes('buyer-priority-slices.csv'), 'data package JSON lists priority slices');
 assert.equal(dataPackage.boundaries.includes_private_contact_data, false, 'data package JSON keeps private-contact boundary');
