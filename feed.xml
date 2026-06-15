@@ -230,6 +230,13 @@
       <description>Tracker-style buyer page for using the current 142-row ZIP as a weekly source-linked spreadsheet without live monitoring or private contact data.</description>
     </item>
     <item>
+      <title>NYC DOB permit monitoring alternative</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-monitoring.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-monitoring.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Monitoring-style buyer page for using the current 142-row ZIP as a weekly source-linked review file without live monitoring, alerts, or private contact data.</description>
+    </item>
+    <item>
       <title>NYC DOB permit search companion</title>
       <link>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html</guid>
