@@ -535,6 +535,45 @@ function sampleRows(rows) {
     }));
 }
 
+function buySampleRows(rows, limit = 3) {
+  const selected = [];
+  const usedRows = new Set();
+  const workTypes = new Set();
+  const areas = new Set();
+  const orderedRows = sortRows(rows);
+  const push = (row) => {
+    const index = orderedRows.indexOf(row);
+    if (usedRows.has(index)) return;
+    usedRows.add(index);
+    selected.push(row);
+    workTypes.add(row.work_type);
+    areas.add(`${row.borough}|${row.zip_code}`);
+  };
+
+  for (const row of orderedRows) {
+    if (selected.length >= limit) break;
+    if (!workTypes.has(row.work_type)) push(row);
+  }
+  for (const row of orderedRows) {
+    if (selected.length >= limit) break;
+    if (!areas.has(`${row.borough}|${row.zip_code}`)) push(row);
+  }
+  for (const row of orderedRows) {
+    if (selected.length >= limit) break;
+    push(row);
+  }
+
+  return selected.map((row) => ({
+    workType: row.work_type,
+    borough: titleCase(row.borough),
+    zipCode: row.zip_code,
+    issuedDate: row.issued_date.slice(0, 10),
+    status: row.permit_status,
+    costBucket: costBucketLabel(row.estimated_job_cost_bucket),
+    sourceUrl: row.source_url,
+  }));
+}
+
 function previewRows(rows) {
   return sortRows(rows).map((row) => ({
     workType: row.work_type,
@@ -687,6 +726,19 @@ function buyHtml(rows) {
   const checkout = checkoutBridgeHref(source);
   const description = 'Buy the current NYC Weekly Construction Activity Brief ZIP with source-linked DOB NOW rows, buyer workbook, priority slices, and instant browser download.';
   const product = productJsonLd(description, `${baseUrl}/buy.html`);
+  const buySamples = buySampleRows(rows, 3);
+  const sampleTableRows = buySamples
+    .map(
+      (row) => `<tr data-buy-sample-row data-buy-sample-work-type="${escapeHtml(row.workType)}">
+                <td>${escapeHtml(row.workType)}</td>
+                <td>${escapeHtml(row.borough)} ${escapeHtml(row.zipCode)}</td>
+                <td>${escapeHtml(row.issuedDate)}</td>
+                <td>${escapeHtml(row.status)}</td>
+                <td>${escapeHtml(row.costBucket)}</td>
+                <td><a href="${escapeHtml(row.sourceUrl)}">DOB NOW row</a></td>
+              </tr>`,
+    )
+    .join('\n');
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -725,6 +777,27 @@ ${socialImageMeta()}
             <p>No private contacts, owner names, applicant names, full street addresses, agency endorsement, guaranteed leads, or revenue estimate.</p>
           </div>
         </div>
+        <section class="section">
+          <h2>Sample rows before checkout</h2>
+          <p>These are examples from the free public preview. The paid ZIP keeps the same buyer-safe field shape across ${escapeHtml(rows.length)} rows.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Work type</th>
+                  <th>Area</th>
+                  <th>Issued</th>
+                  <th>Status</th>
+                  <th>Cost bucket</th>
+                  <th>Source</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${sampleTableRows}
+              </tbody>
+            </table>
+          </div>
+        </section>
         <a id="buy-link" class="button" href="${stripeCheckoutUrl}?utm_source=nyc_construction_activity_brief&amp;utm_medium=owned_site&amp;utm_campaign=current_issue_launch&amp;utm_content=buy_page_static&amp;client_reference_id=ncab_buy_page_static">Buy $9.50 ZIP on Stripe</a>
         <p class="fine">Stripe creates the paid session, then the success page unlocks the ZIP in your browser.</p>
         <section class="section">

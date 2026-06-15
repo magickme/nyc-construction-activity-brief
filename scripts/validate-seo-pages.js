@@ -373,6 +373,14 @@ assert.match(buy, /Buy \$9\.50 ZIP on Stripe/, 'buy page CTA states concrete pur
 assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
 assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
+assert.match(buy, /<h2>Sample rows before checkout<\/h2>/, 'buy page shows sample rows before Stripe');
+assert.match(buy, /These are examples from the free public preview/, 'buy page explains sample row source');
+assert.match(buy, /data-buy-sample-row/, 'buy page marks inline sample rows');
+assert.match(buy, /DOB NOW row/, 'buy page links sample rows to public source rows');
+assert.doesNotMatch(buy, rawCostBucketPattern, 'buy page contains raw cost bucket labels');
+const buySampleWorkTypes = [...buy.matchAll(/data-buy-sample-work-type="([^"]+)"/g)].map((match) => match[1]);
+assert.equal(buySampleWorkTypes.length, 3, 'buy page shows three inline sample rows');
+assert.ok(new Set(buySampleWorkTypes).size >= 2, 'buy page inline sample rows should show varied work types');
 assert.match(buy, /Stripe creates the paid session, then the success page unlocks the ZIP in your browser\./, 'buy page explains post-checkout delivery path');
 assert.match(buy, /<h2>Inspect before checkout<\/h2>/, 'buy page has inspect-before-checkout section');
 assert.match(buy, /href="\/data-package\.json"/, 'buy page links data package manifest');
