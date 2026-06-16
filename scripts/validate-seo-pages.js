@@ -405,6 +405,9 @@ assert.match(index, /eventPrefix \+ '_submitted'/, 'index tracks sample request 
 assert.match(index, /eventPrefix \+ '_saved'/, 'index tracks saved sample requests');
 assert.match(index, /eventPrefix \+ '_failed'/, 'index tracks failed sample requests');
 assert.match(index, /eventPrefix \+ '_cta_clicked'/, 'index tracks sample request CTA clicks');
+assert.match(index, /home_buyer_path_clicked/, 'index tracks homepage buyer-path clicks');
+assert.match(index, /a\[href\*="source=home-buyer-paths"\]/, 'index tracks only the homepage buyer-path links');
+assert.match(index, /destination: url\.pathname\.replace/, 'index tracks buyer-path destination');
 assert.match(index, /sampleRequestFallbackHref/, 'index builds email fallback for failed sample requests');
 assert.match(index, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, 'index email fallback uses support address without exposing it directly');
 assert.match(index, /'mailto:' \+ supportAddress/, 'index email fallback builds mailto link');

@@ -528,6 +528,16 @@
           path: window.location.pathname,
         });
       });
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href*="source=home-buyer-paths"]');
+        if (!link) return;
+        const url = new URL(link.href, window.location.href);
+        trackSampleRequestEvent('home_buyer_path_clicked', {
+          path: window.location.pathname,
+          destination: url.pathname.replace(/^\//, '').replace(/\.html$/, ''),
+          text: (link.textContent || '').trim().slice(0, 80),
+        });
+      });
     </script>
     <aside class="conversion-bar" data-conversion-bar>
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
