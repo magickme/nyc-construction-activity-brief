@@ -559,6 +559,21 @@
     "sampleLine": "Risk research screen | work type | ZIP | issued date | status | cost bucket | source link"
   },
   {
+    "slug": "nyc-construction-permit-data-for-insurance",
+    "title": "NYC Construction Permit Data for Insurance | DOB Brief",
+    "description": "A weekly NYC construction permit data page for insurance and loss-control teams reviewing selected DOB rows by ZIP, work type, issued date, status, and source link.",
+    "h1": "NYC construction permit data for insurance research.",
+    "lede": "The current issue helps insurance and loss-control teams screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Insurance underwriters, loss-control teams, risk consultants, brokers, and analysts checking public construction activity by territory and work type.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and DOB NOW source links.",
+    "useCase": "Use this page to prepare a manual insurance research pass by ZIP, work type, issued date, status, and source link. It does not provide underwriting advice, loss-control advice, legal advice, owner contacts, applicant contacts, or a complete DOB database.",
+    "sampleLine": "Insurance research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Insurance permit research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "consultant-analyst",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for insurance, risk, and loss-control research."
+  },
+  {
     "slug": "nyc-construction-permit-json-sample",
     "title": "NYC Construction Permit JSON Sample | Weekly DOB Brief",
     "description": "Download a public NYC construction permit JSON sample with selected DOB NOW rows, source links, ZIP, work type, issued date, and buyer-safe fields.",

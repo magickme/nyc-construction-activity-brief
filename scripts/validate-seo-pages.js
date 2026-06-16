@@ -3078,6 +3078,20 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(journalistPermitData, pattern, `topics/nyc-construction-permit-data-for-journalists.html contains private data pattern ${pattern}`);
 }
 
+const insurancePermitData = read('topics/nyc-construction-permit-data-for-insurance.html');
+assert.match(insurancePermitData, /<title>NYC Construction Permit Data for Insurance \| DOB Brief<\/title>/, 'insurance topic page needs title');
+assert.match(insurancePermitData, /<link rel="canonical" href="https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-permit-data-for-insurance\.html">/, 'insurance topic page needs canonical');
+assert.match(insurancePermitData, /Insurance underwriters, loss-control teams, risk consultants/, 'insurance topic page names audience');
+assert.match(insurancePermitData, /It does not provide underwriting advice, loss-control advice, legal advice, owner contacts, applicant contacts, or a complete DOB database\./, 'insurance topic page keeps boundary clear');
+assert.match(insurancePermitData, /value="Insurance permit research"/, 'insurance topic page seeds sample request work type');
+assertSampleRequestForm(insurancePermitData, 'insurance topic page');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(insurancePermitData, pattern, `topics/nyc-construction-permit-data-for-insurance.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(insurancePermitData, pattern, `topics/nyc-construction-permit-data-for-insurance.html contains private data pattern ${pattern}`);
+}
+
 const datasetCatalog = read('dataset-catalog.html');
 assert.match(datasetCatalog, /<title>NYC Construction Permit Dataset Catalog \| DOB Brief<\/title>/, 'dataset catalog needs title');
 assert.match(datasetCatalog, /<link rel="canonical" href="https:\/\/nycpermitbrief\.com\/dataset-catalog\.html">/, 'dataset catalog needs canonical');
@@ -3521,7 +3535,7 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nycpermitbrief.com/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nycpermitbrief.com/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, socialImageUrl, 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 59, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 60, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/dataset-catalog.html'), 'JSON Feed links dataset catalog');
 assert.ok(jsonFeed.items.some((item) => /source dataset id rbx6-tga4/.test(item.content_text)), 'JSON Feed describes catalog source dataset id');
@@ -3555,6 +3569,7 @@ assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-market-research-csv.html'), 'JSON Feed links market research CSV topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-suppliers.html'), 'JSON Feed links supplier permit data topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-journalists.html'), 'JSON Feed links journalist permit data topic page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-insurance.html'), 'JSON Feed links insurance permit data topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-real-estate-investor-permit-research.html'), 'JSON Feed links real estate investor topic page');
 assert.ok(jsonFeed.items.some((item) => /142 source-linked rows|142 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
 assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
@@ -3703,6 +3718,7 @@ assert.equal(dataPackage.generated_topic_pages.segment_hub_url, 'https://nycperm
 assert.equal(dataPackage.generated_topic_pages.all_urls.length, pages.length, 'data package JSON lists all topic URLs');
 assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nycpermitbrief.com/topics/nyc-permit-data-for-architects.html'), 'data package JSON lists curated topic URLs');
 assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-journalists.html'), 'data package JSON lists journalist topic URL');
+assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-insurance.html'), 'data package JSON lists insurance topic URL');
 assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nycpermitbrief.com/topics/nyc-dob-permits-zip-10003.html'), 'data package JSON lists generated segment URLs');
 
 const publicCsv = read('sample/nyc-construction-activity-preview.csv').trim().split(/\r?\n/);

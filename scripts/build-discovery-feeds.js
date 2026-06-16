@@ -29,6 +29,7 @@ const highIntentTopicPages = [
   ['nyc-construction-permit-data-for-suppliers', 'NYC construction permit data for suppliers'],
   ['nyc-dob-permit-alerts-for-subcontractors', 'NYC DOB permit alerts for subcontractors'],
   ['nyc-construction-permit-data-for-journalists', 'NYC construction permit data for journalists'],
+  ['nyc-construction-permit-data-for-insurance', 'NYC construction permit data for insurance'],
   ['nyc-real-estate-investor-permit-research', 'NYC real estate investor permit research'],
   ['nyc-building-permit-export-csv', 'NYC building permit export CSV'],
 ];
