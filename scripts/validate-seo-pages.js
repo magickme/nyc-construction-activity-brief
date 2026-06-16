@@ -2680,6 +2680,7 @@ assert.match(permitExpediter, /href="\/topics\/nyc-dob-permit-monitoring\.html"/
 assert.match(permitExpediter, /href="\/topics\/nyc-dob-approved-permits-open-data\.html"/, 'permit expediter guide links approved permits open data topic');
 assert.match(permitExpediter, /href="\/topics\/nyc-dob-permit-csv\.html"/, 'permit expediter guide links DOB CSV topic');
 assert.match(permitExpediter, /href="\/topics\/nyc-permit-activity-by-zip\.html"/, 'permit expediter guide links ZIP activity topic');
+assert.match(permitExpediter, /href="\/topics\/nyc-permit-expediter-research\.html"/, 'permit expediter guide links permit expediter topic');
 assert.match(permitExpediter, /href="\/preview\.html"/, 'permit expediter guide links preview');
 assert.match(permitExpediter, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'permit expediter guide links sample CSV');
 assert.match(permitExpediter, /href="\/current-issue\.html"/, 'permit expediter guide links current issue page');
@@ -3049,6 +3050,7 @@ assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-insurance\.h
 assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-suppliers\.html\?source=segment-hub-buyer-paths"/, 'hub links supplier permit data topic with buyer-path source');
 assert.match(hub, /href="\/broker-developer-permit-research\.html\?source=segment-hub-buyer-paths"/, 'hub links broker and developer guide with buyer-path source');
 assert.match(hub, /href="\/permit-expediter-research\.html\?source=segment-hub-buyer-paths"/, 'hub links permit expediter guide with buyer-path source');
+assert.match(hub, /href="\/topics\/nyc-permit-expediter-research\.html\?source=segment-hub-buyer-paths"/, 'hub links permit expediter topic with buyer-path source');
 assert.match(hub, /href="\/construction-consultant-permit-research\.html\?source=segment-hub-buyer-paths"/, 'hub links construction consultant guide with buyer-path source');
 assert.match(hub, /href="\/topics\/nyc-permit-research-for-project-managers\.html\?source=segment-hub-buyer-paths"/, 'hub links project manager topic with buyer-path source');
 assert.match(hub, /<h2>Request paths<\/h2>/, 'hub exposes buyer request paths');

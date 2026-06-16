@@ -1778,6 +1778,7 @@ function hubHtml(pages, curatedPages = []) {
     ['topics/nyc-construction-permit-data-for-suppliers.html', 'Supplier permit data topic'],
     ['broker-developer-permit-research.html', 'Broker and developer guide'],
     ['permit-expediter-research.html', 'Permit expediter guide'],
+    ['topics/nyc-permit-expediter-research.html', 'Permit expediter topic'],
     ['construction-consultant-permit-research.html', 'Construction consultant guide'],
     ['topics/nyc-permit-research-for-project-managers.html', 'Project manager permit research topic'],
   ];
@@ -7691,6 +7692,7 @@ ${socialImageMeta()}
           <li><a href="/topics/nyc-dob-approved-permits-open-data.html">NYC DOB approved permits open data</a></li>
           <li><a href="/topics/nyc-dob-permit-csv.html">NYC DOB permit CSV</a></li>
           <li><a href="/topics/nyc-permit-activity-by-zip.html">NYC permit activity by ZIP</a></li>
+          <li><a href="/topics/nyc-permit-expediter-research.html">NYC permit expediter research</a></li>
         </ul>
       </section>
 
