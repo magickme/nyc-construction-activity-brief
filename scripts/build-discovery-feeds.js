@@ -1273,6 +1273,7 @@ ${stats.workTypes.map((item) => `- ${item.name}: ${item.count}`).join('\n')}
 
 High-intent topic pages:
 ${highIntentTopics}
+- NYC construction due diligence permit research: ${baseUrl}/topics/nyc-construction-due-diligence-permit-research.html
 
 Boundaries:
 - No owner names, applicant names, phone numbers, emails, full street addresses, or enriched contact data.

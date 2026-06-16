@@ -128,6 +128,7 @@ High-intent topic pages:
 - NYC construction permit data for insurance: https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-insurance.html
 - NYC real estate investor permit research: https://nycpermitbrief.com/topics/nyc-real-estate-investor-permit-research.html
 - NYC building permit export CSV: https://nycpermitbrief.com/topics/nyc-building-permit-export-csv.html
+- NYC construction due diligence permit research: https://nycpermitbrief.com/topics/nyc-construction-due-diligence-permit-research.html
 
 Boundaries:
 - No owner names, applicant names, phone numbers, emails, full street addresses, or enriched contact data.
@@ -135,4 +136,4 @@ Boundaries:
 - Not affiliated with or endorsed by NYC, DOB, or any agency.
 - Source records can be incomplete, delayed, revised, duplicated, or mislabeled.
 
-Generated topic page count: 127
+Generated topic page count: 129

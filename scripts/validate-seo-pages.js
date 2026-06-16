@@ -3682,6 +3682,7 @@ assert.match(llms, /NYC permit data for engineers: https:\/\/nycpermitbrief\.com
 assert.match(llms, /NYC permit research for project managers: https:\/\/nycpermitbrief\.com\/topics\/nyc-permit-research-for-project-managers\.html/, 'llms.txt links project manager topic page');
 assert.match(llms, /NYC construction permit data for proptech: https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-permit-data-for-proptech\.html/, 'llms.txt links proptech topic page');
 assert.match(llms, /NYC construction market research CSV: https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-market-research-csv\.html/, 'llms.txt links market research CSV topic page');
+assert.match(llms, /NYC construction due diligence permit research: https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-due-diligence-permit-research\.html/, 'llms.txt links due diligence topic page');
 assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
 assert.match(llms, /Stripe fallback link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt labels Stripe URL as fallback');
