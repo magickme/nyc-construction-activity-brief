@@ -411,12 +411,12 @@ assert.match(index, /class="product-mockup"/, 'index needs skeuomorphic product 
 assert.match(index, /Mockup of the paid ZIP containing the weekly brief, CSV, workbook, and source notes/, 'index product mockup needs accessible label');
 assert.match(index, /CSV \+ workbook \+ source notes/, 'index product mockup needs tangible ZIP contents');
 assert.match(index, /People using construction permit research/, 'index needs people-photo section');
-assert.match(index, /src="\/assets\/person-reviewing-plans\.jpg" alt="Construction professional reviewing a printed plan on site" loading="lazy"/, 'index needs plan-review people photo');
-assert.match(index, /src="\/assets\/site-team-reviewing-plans\.jpg" alt="Two construction professionals comparing jobsite information" loading="lazy"/, 'index needs team-review people photo');
-assert.match(index, /src="\/assets\/workers-discussing-containers\.jpg" alt="Two hard-hat workers discussing a tablet near shipping containers" loading="lazy"/, 'index needs territory-review people photo');
-assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@wpacifico">Wesley Pacifico<\/a>/, 'index credits plan-review photo');
-assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@ront73">RONNAKORN TRIRAGANON<\/a>/, 'index credits team-review photo');
-assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@harisillahi">Haris Illahi<\/a>/, 'index credits territory-review photo');
+assert.match(index, /src="\/assets\/smiling-red-hardhat-portrait\.jpg" alt="Smiling construction professional in a red hard hat looking at the camera" loading="lazy"/, 'index needs smiling red hardhat portrait');
+assert.match(index, /src="\/assets\/smiling-hardhat-goggles-portrait\.jpg" alt="Smiling worker in a white hard hat and safety goggles looking at the camera" loading="lazy"/, 'index needs smiling safety-goggles portrait');
+assert.match(index, /src="\/assets\/smiling-female-engineer-portrait\.jpg" alt="Smiling female engineer in a yellow hard hat looking at the camera" loading="lazy"/, 'index needs smiling female engineer portrait');
+assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@miinrad">Mina Rad<\/a>/, 'index credits red hardhat portrait');
+assert.match(index, /Photo: <a href="https:\/\/www\.pexels\.com\/@ai25-studio-334874531\/">AI25\.Studio<\/a>/, 'index credits hardhat goggles portrait');
+assert.match(index, /Photo: <a href="https:\/\/www\.pexels\.com\/@kindelmedia\/">Kindel Media<\/a>/, 'index credits female engineer portrait');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
 assert.match(index, /src="\/assets\/current-issue-snapshot\.png"/, 'index needs current issue snapshot image');
