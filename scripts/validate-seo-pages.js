@@ -2624,6 +2624,7 @@ assert.match(constructionRisk, /Top ZIPs: 10003 37/, 'construction risk guide ne
 assert.match(constructionRisk, /Status mix:/, 'construction risk guide needs status mix');
 assert.match(constructionRisk, /Cost buckets:/, 'construction risk guide needs cost bucket mix');
 assert.match(constructionRisk, /href="\/topics\/nyc-construction-risk-permit-research\.html"/, 'construction risk guide links risk topic');
+assert.match(constructionRisk, /href="\/topics\/nyc-construction-due-diligence-permit-research\.html"/, 'construction risk guide links due diligence topic');
 assert.match(constructionRisk, /href="\/topics\/nyc-construction-permit-data-for-insurance\.html"/, 'construction risk guide links insurance topic');
 assert.match(constructionRisk, /href="\/topics\/nyc-dob-permit-monitoring\.html"/, 'construction risk guide links DOB monitoring topic');
 assert.match(constructionRisk, /href="\/topics\/nyc-construction-market-research-csv\.html"/, 'construction risk guide links market research CSV topic');
@@ -3046,6 +3047,7 @@ assert.match(hub, /<h2>Commercial buyer paths<\/h2>/, 'hub exposes commercial bu
 assert.match(hub, /data-segment-hub-buyer-path/, 'hub tags commercial buyer path links');
 assert.match(hub, /segment_hub_buyer_path_clicked/, 'hub tracks commercial buyer path clicks');
 assert.match(hub, /href="\/construction-risk-permit-research\.html\?source=segment-hub-buyer-paths"/, 'hub links risk and insurance guide with buyer-path source');
+assert.match(hub, /href="\/topics\/nyc-construction-due-diligence-permit-research\.html\?source=segment-hub-buyer-paths"/, 'hub links due diligence topic with buyer-path source');
 assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-insurance\.html\?source=segment-hub-buyer-paths"/, 'hub links insurance permit data topic with buyer-path source');
 assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-suppliers\.html\?source=segment-hub-buyer-paths"/, 'hub links supplier permit data topic with buyer-path source');
 assert.match(hub, /href="\/broker-developer-permit-research\.html\?source=segment-hub-buyer-paths"/, 'hub links broker and developer guide with buyer-path source');

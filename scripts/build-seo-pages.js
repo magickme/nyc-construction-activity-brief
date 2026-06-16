@@ -1773,6 +1773,7 @@ function hubHtml(pages, curatedPages = []) {
   ];
   const commercialBuyerPaths = [
     ['construction-risk-permit-research.html', 'Risk and insurance research guide'],
+    ['topics/nyc-construction-due-diligence-permit-research.html', 'Due diligence permit research topic'],
     ['topics/nyc-construction-permit-data-for-insurance.html', 'Insurance permit data topic'],
     ['contractor-supplier-permit-research.html', 'Contractor and supplier guide'],
     ['topics/nyc-construction-permit-data-for-suppliers.html', 'Supplier permit data topic'],
@@ -7538,6 +7539,7 @@ ${socialImageMeta()}
         <h2>Useful risk research pages</h2>
         <ul>
           <li><a href="/topics/nyc-construction-risk-permit-research.html">NYC construction risk permit research</a></li>
+          <li><a href="/topics/nyc-construction-due-diligence-permit-research.html">NYC construction due diligence permit research</a></li>
           <li><a href="/topics/nyc-construction-permit-data-for-insurance.html">NYC construction permit data for insurance</a></li>
           <li><a href="/topics/nyc-dob-permit-monitoring.html">NYC DOB permit monitoring</a></li>
           <li><a href="/topics/nyc-construction-market-research-csv.html">NYC construction market research CSV</a></li>
