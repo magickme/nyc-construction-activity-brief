@@ -8,6 +8,7 @@ const publicPreviewCsvPath = path.join(root, 'sample', 'nyc-construction-activit
 const sourceCsvPath = fs.existsSync(fullIssueCsvPath) ? fullIssueCsvPath : publicPreviewCsvPath;
 const outputDir = path.join(root, 'assets');
 const outputPng = path.join(outputDir, 'current-issue-snapshot.png');
+const socialSharePng = path.join(outputDir, 'social-share-card.png');
 const convertBin = process.env.IMAGEMAGICK_CONVERT_BIN || '/opt/homebrew/bin/convert';
 const fontRegular = process.env.SOCIAL_IMAGE_FONT_REGULAR || '/System/Library/Fonts/Supplemental/Arial.ttf';
 const fontBold = process.env.SOCIAL_IMAGE_FONT_BOLD || '/System/Library/Fonts/Supplemental/Arial Bold.ttf';
@@ -87,6 +88,55 @@ function addBarRows(args, counts, maxCount) {
   }
 }
 
+function buildShareCard(rows, range, workTypeCounts) {
+  const heroPhoto = path.join(outputDir, 'site-team-reviewing-plans.jpg');
+  const args = [
+    '-size', '1200x630',
+    'xc:#0f2018',
+    '(',
+    heroPhoto,
+    '-resize', '650x630^',
+    '-gravity', 'center',
+    '-extent', '650x630',
+    ')',
+    '-geometry', '+550+0',
+    '-composite',
+    '+repage',
+    '-gravity', 'northwest',
+    '-fill', 'rgba(15,32,24,0.30)',
+    '-draw', 'rectangle 550,0 1200,630',
+    '-fill', '#f7f2e8',
+    '-draw', 'roundrectangle 52,52 610,578 24,24',
+    '-fill', '#214d35',
+    '-draw', 'roundrectangle 84,82 238,116 10,10',
+  ];
+
+  addText(args, { x: 101, y: 106, text: 'CURRENT ISSUE', size: 17, color: '#fffaf1', font: fontBold });
+  addText(args, { x: 84, y: 184, text: 'NYC Construction', size: 54, font: fontBold });
+  addText(args, { x: 84, y: 244, text: 'Activity Brief', size: 54, font: fontBold });
+  addText(args, {
+    x: 84,
+    y: 302,
+    text: `${rows.length} source-linked DOB rows`,
+    size: 30,
+    color: '#214d35',
+    font: fontBold,
+  });
+  addText(args, { x: 84, y: 350, text: 'CSV, workbook, source notes, and priority slices', size: 24, color: '#536056' });
+  addText(args, { x: 84, y: 398, text: `${range.first} to ${range.fetchDate || range.latest}`, size: 24, color: '#536056' });
+  addText(args, { x: 84, y: 490, text: '$9.50', size: 58, color: '#214d35', font: fontBold });
+  addText(args, { x: 268, y: 490, text: 'instant ZIP download', size: 30, color: '#17211b', font: fontBold });
+  addText(args, { x: 84, y: 548, text: 'nycpermitbrief.com', size: 26, color: '#536056', font: fontBold });
+  args.push('-strip', '-depth', '8');
+  args.push(socialSharePng);
+
+  try {
+    execFileSync(convertBin, args, { stdio: 'pipe' });
+  } catch (error) {
+    throw new Error(`Social share card generation failed: ${error.message}`);
+  }
+}
+
 fs.mkdirSync(outputDir, { recursive: true });
 const rows = parseCsv(fs.readFileSync(sourceCsvPath, 'utf8'));
 const range = dateRange(rows);
@@ -123,4 +173,7 @@ try {
   throw new Error(`ImageMagick convert failed: ${error.message}`);
 }
 
+buildShareCard(rows, range, workTypeCounts);
+
 console.log(`generated ${path.relative(root, outputPng)}`);
+console.log(`generated ${path.relative(root, socialSharePng)}`);

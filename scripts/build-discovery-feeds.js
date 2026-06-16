@@ -5,7 +5,7 @@ const { siteBaseUrl } = require('../site-config');
 
 const root = path.resolve(__dirname, '..');
 const baseUrl = siteBaseUrl();
-const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
+const socialImageUrl = `${baseUrl}/assets/social-share-card.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
 const buyUrl = `${baseUrl}/buy.html`;

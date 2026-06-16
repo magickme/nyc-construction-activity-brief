@@ -12,7 +12,7 @@ Current issue:
 - Buy page: https://nycpermitbrief.com/buy.html
 - Checkout bridge: https://nycpermitbrief.com/checkout.html?source=current-issue
 - Stripe fallback link: https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q
-- Social image: https://nycpermitbrief.com/assets/current-issue-snapshot.png
+- Social image: https://nycpermitbrief.com/assets/social-share-card.png
 - Price: $9.50 one-time ZIP download
 - Standard price: $49
 - Promo code required: no

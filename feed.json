@@ -4,8 +4,8 @@
   "home_page_url": "https://nycpermitbrief.com/",
   "feed_url": "https://nycpermitbrief.com/feed.json",
   "description": "Current source-linked NYC construction permit activity pages, buyer-intent topic hub, sample CSV, and paid ZIP checkout.",
-  "icon": "https://nycpermitbrief.com/assets/current-issue-snapshot.png",
-  "favicon": "https://nycpermitbrief.com/assets/current-issue-snapshot.png",
+  "icon": "https://nycpermitbrief.com/assets/social-share-card.png",
+  "favicon": "https://nycpermitbrief.com/assets/social-share-card.png",
   "authors": [
     {
       "name": "NYC Weekly Construction Activity Brief",
