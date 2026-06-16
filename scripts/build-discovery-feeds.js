@@ -490,6 +490,11 @@ function buildFeedXml(rows, manifest) {
       description: `ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages for the current ${stats.rowCount}-row paid issue.`,
     },
     {
+      title: 'Dataset catalog for current NYC permit data',
+      url: `${baseUrl}/dataset-catalog.html`,
+      description: `Catalog page for the current ${stats.rowCount}-row paid ZIP, ${previewRows}-row public preview, source dataset id rbx6-tga4, fields, formats, and claims boundary.`,
+    },
+    {
       title: 'Browser preview for the current issue',
       url: `${baseUrl}/preview.html`,
       description: `Browse the free ${previewRows}-row public preview in the browser before buying the full ${stats.rowCount}-row ZIP.`,
@@ -925,6 +930,13 @@ function buildJsonFeed(rows, manifest) {
       url: `${baseUrl}/sample-segments.html`,
       title: 'Browse current permit activity and buyer-intent pages',
       content_text: `Segment hub for ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages tied to the current ${stats.rowCount}-row paid issue.`,
+      date_published: generatedAt,
+    },
+    {
+      id: `${baseUrl}/dataset-catalog.html`,
+      url: `${baseUrl}/dataset-catalog.html`,
+      title: 'Dataset catalog for current NYC permit data',
+      content_text: `Catalog page for the current ${stats.rowCount}-row paid ZIP, ${previewRows}-row public preview, source dataset id rbx6-tga4, fields, formats, and claims boundary.`,
       date_published: generatedAt,
     },
     {

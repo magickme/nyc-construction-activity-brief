@@ -36,6 +36,13 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html",
+      "title": "Dataset catalog for current NYC permit data",
+      "content_text": "Catalog page for the current 142-row paid ZIP, 25-row public preview, source dataset id rbx6-tga4, fields, formats, and claims boundary.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nyc-construction-activity-brief.vercel.app/preview.html",
       "url": "https://nyc-construction-activity-brief.vercel.app/preview.html",
       "title": "Free 25-row preview",

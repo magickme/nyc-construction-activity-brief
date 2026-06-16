@@ -3237,6 +3237,9 @@ assert.match(feed, /Current NYC construction activity brief: 142 paid issue rows
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/current-issue\.html/, 'RSS feed links current issue page');
 assert.match(feed, /The free CSV preview has 25 rows/, 'RSS feed describes free preview size');
 assert.match(feed, /Launch price is \$9\.50/, 'RSS feed describes launch price');
+assert.match(feed, /Dataset catalog for current NYC permit data/, 'RSS feed includes dataset catalog item');
+assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/dataset-catalog\.html/, 'RSS feed links dataset catalog');
+assert.match(feed, /source dataset id rbx6-tga4/, 'RSS feed describes catalog source dataset id');
 assert.match(feed, /Buy the current issue ZIP/, 'RSS feed includes buy page item');
 assert.match(feed, /https:\/\/nyc-construction-activity-brief\.vercel\.app\/buy\.html/, 'RSS feed links buy page');
 assert.match(feed, /instant browser download after paid Stripe checkout/, 'RSS feed describes paid delivery path');
@@ -3331,8 +3334,10 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nyc-construction-activity-brief.vercel.app/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nyc-construction-activity-brief.vercel.app/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, 'https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png', 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 50, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 51, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html'), 'JSON Feed links dataset catalog');
+assert.ok(jsonFeed.items.some((item) => /source dataset id rbx6-tga4/.test(item.content_text)), 'JSON Feed describes catalog source dataset id');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/sample-segments.html' && /buyer-intent pages/.test(item.content_text)), 'JSON Feed links segment hub');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html' && /does not include Queens rows/.test(item.content_text)), 'JSON Feed links Queens demand capture page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html' && /does not include Bronx rows/.test(item.content_text)), 'JSON Feed links Bronx demand capture page');

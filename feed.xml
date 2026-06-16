@@ -27,6 +27,13 @@
       <description>ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages for the current 142-row paid issue.</description>
     </item>
     <item>
+      <title>Dataset catalog for current NYC permit data</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Catalog page for the current 142-row paid ZIP, 25-row public preview, source dataset id rbx6-tga4, fields, formats, and claims boundary.</description>
+    </item>
+    <item>
       <title>Browser preview for the current issue</title>
       <link>https://nyc-construction-activity-brief.vercel.app/preview.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/preview.html</guid>
