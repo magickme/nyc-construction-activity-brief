@@ -9438,6 +9438,12 @@ ${socialImageMeta()}
         <p>For anyone tracking NYC construction or permit activity: this source-linked brief turns selected NYC DOB NOW approved permit records into a small weekly CSV preview and paid ZIP. Use it as a screening file for manual review; it does not include private contact data. Public preview: ${baseUrl}/preview.html. Paid ZIP: ${productUrl}.</p>
       </section>
 
+      <section class="section card">
+        <h2>Resource submission note</h2>
+        <p>NYC Weekly Construction Activity Brief packages selected public DOB NOW approved permit records into a small weekly screening file. The public preview shows ${escapeHtml(previewRowCount)} rows, and the paid ZIP adds the full ${escapeHtml(rows.length)}-row CSV, buyer workbook, priority slices, QA report, source registry, README, and claims boundary. It is built for manual review by contractors, suppliers, consultants, investors, and real estate teams. It does not include private contact data, owner names, applicant names, or lead guarantees. Preview: ${baseUrl}/preview.html?source=share-kit-resource-submission.</p>
+        <p><a class="button secondary" data-share-kit-path="resource-submission-copy" href="${baseUrl}/preview.html?source=share-kit-resource-submission">Resource note tracked link</a></p>
+      </section>
+
       <section class="section">
         <h2>Best-fit channels</h2>
         <div class="grid">
