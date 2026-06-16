@@ -1039,19 +1039,19 @@
         <div class="fit-grid">
           <div>
             <h3>How is the current issue delivered?</h3>
-            <p>After a completed Stripe checkout, the success page verifies the paid Checkout Session and serves the current ZIP as a browser download.</p>
+            <p>After a completed Stripe checkout, the success page verifies the paid Checkout Session and serves the current ZIP as a browser download. <a href="/delivery.html?source=home-faq-paths">Read the delivery steps</a>.</p>
           </div>
           <div>
             <h3>What files are in the paid ZIP?</h3>
-            <p>The ZIP includes a 142-row source-linked CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, QA report, version file, buyer README, and privacy and claims boundary.</p>
+            <p>The ZIP includes a 142-row source-linked CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, QA report, version file, buyer README, and privacy and claims boundary. <a href="/inside-the-zip.html?source=home-faq-paths">See inside the ZIP</a>.</p>
           </div>
           <div>
             <h3>Does it include private contacts or lead scores?</h3>
-            <p>No. The package excludes owner names, applicant names, phone numbers, emails, full street addresses, enriched contact data, lead scores, and guaranteed buying-intent claims.</p>
+            <p>No. The package excludes owner names, applicant names, phone numbers, emails, full street addresses, enriched contact data, lead scores, and guaranteed buying-intent claims. <a href="/methodology.html?source=home-faq-paths">Read the source boundary</a>.</p>
           </div>
           <div>
             <h3>Can I inspect the format first?</h3>
-            <p>Yes. Use the public preview, CSV field guide, and free-vs-paid page before buying.</p>
+            <p>Yes. Use the <a href="/preview.html?source=home-faq-paths">public preview</a>, <a href="/csv-field-guide.html?source=home-faq-paths">CSV field guide</a>, and <a href="/free-vs-paid.html?source=home-faq-paths">free-vs-paid page</a> before buying.</p>
           </div>
         </div>
       </section>
@@ -1151,6 +1151,16 @@
         if (!link) return;
         const url = new URL(link.href, window.location.href);
         trackSampleRequestEvent('home_buyer_path_clicked', {
+          path: window.location.pathname,
+          destination: url.pathname.replace(/^\//, '').replace(/\.html$/, ''),
+          text: (link.textContent || '').trim().slice(0, 80),
+        });
+      });
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href*="source=home-faq-paths"]');
+        if (!link) return;
+        const url = new URL(link.href, window.location.href);
+        trackSampleRequestEvent('home_faq_path_clicked', {
           path: window.location.pathname,
           destination: url.pathname.replace(/^\//, '').replace(/\.html$/, ''),
           text: (link.textContent || '').trim().slice(0, 80),

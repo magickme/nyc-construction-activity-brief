@@ -426,6 +426,8 @@ assert.match(index, /eventPrefix \+ '_failed'/, 'index tracks failed sample requ
 assert.match(index, /eventPrefix \+ '_cta_clicked'/, 'index tracks sample request CTA clicks');
 assert.match(index, /home_buyer_path_clicked/, 'index tracks homepage buyer-path clicks');
 assert.match(index, /a\[href\*="source=home-buyer-paths"\]/, 'index tracks only the homepage buyer-path links');
+assert.match(index, /home_faq_path_clicked/, 'index tracks homepage FAQ path clicks');
+assert.match(index, /a\[href\*="source=home-faq-paths"\]/, 'index tracks only the homepage FAQ links');
 assert.match(index, /destination: url\.pathname\.replace/, 'index tracks buyer-path destination');
 assert.match(index, /sampleRequestFallbackHref/, 'index builds email fallback for failed sample requests');
 assert.match(index, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, 'index email fallback uses support address without exposing it directly');
@@ -464,12 +466,13 @@ assert.match(index, /Quick answers before checkout/, 'index needs buyer FAQ sect
 assert.match(index, /After a completed Stripe checkout, the success page verifies the paid Checkout Session/, 'index FAQ explains automated delivery');
 assert.match(index, /The ZIP includes a 142-row source-linked CSV/, 'index FAQ explains paid ZIP contents');
 assert.match(index, /The package excludes owner names, applicant names, phone numbers, emails/, 'index FAQ sets contact-data boundary');
-assert.match(index, /Use the public preview, CSV field guide, and free-vs-paid page before buying\./, 'index FAQ routes format inspection');
-assert.match(index, /href="\/preview\.html"/, 'index links public preview page');
-assert.match(index, /href="\/free-vs-paid\.html"/, 'index links free vs paid page');
-assert.match(index, /href="\/inside-the-zip\.html"/, 'index links inside the ZIP page');
-assert.match(index, /href="\/csv-field-guide\.html"/, 'index links CSV field guide');
-assert.match(index, /href="\/methodology\.html"/, 'index links methodology and source boundary');
+assert.match(index, /Use the <a href="\/preview\.html\?source=home-faq-paths">public preview<\/a>, <a href="\/csv-field-guide\.html\?source=home-faq-paths">CSV field guide<\/a>, and <a href="\/free-vs-paid\.html\?source=home-faq-paths">free-vs-paid page<\/a> before buying\./, 'index FAQ routes format inspection');
+assert.match(index, /href="\/delivery\.html\?source=home-faq-paths"/, 'index links delivery page from FAQ');
+assert.match(index, /href="\/preview\.html\?source=home-faq-paths"/, 'index links public preview page from FAQ');
+assert.match(index, /href="\/free-vs-paid\.html\?source=home-faq-paths"/, 'index links free vs paid page from FAQ');
+assert.match(index, /href="\/inside-the-zip\.html\?source=home-faq-paths"/, 'index links inside the ZIP page from FAQ');
+assert.match(index, /href="\/csv-field-guide\.html\?source=home-faq-paths"/, 'index links CSV field guide from FAQ');
+assert.match(index, /href="\/methodology\.html\?source=home-faq-paths"/, 'index links methodology and source boundary from FAQ');
 assert.match(index, /href="\/topics\/nyc-sidewalk-shed-permits\.html"/, 'index links high-signal sidewalk shed topic');
 assert.match(index, /href="\/topics\/nyc-plumbing-permit-activity\.html"/, 'index links high-signal plumbing topic');
 assert.match(index, /href="\/topics\/nyc-sprinkler-permit-activity\.html"/, 'index links high-signal sprinkler topic');
