@@ -207,6 +207,12 @@
     </aside>
 
     <script>
+      function trackSampleRequestEvent(name, data) {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name, data });
+        } catch (error) {}
+      }
       function sampleRequestFallbackHref(data, source, form) {
         const subject = form && form.dataset.fallbackSubject
           ? form.dataset.fallbackSubject
@@ -236,6 +242,11 @@
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
         const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
+        trackSampleRequestEvent('sample_request_submitted', {
+          source: requestSource,
+          request_only: form.dataset.currentIssueCta === 'false',
+          entry_source: data.entry_source || '',
+        });
         if (status) status.textContent = 'Saving request...';
         if (button) button.disabled = true;
         try {
@@ -246,10 +257,7 @@
           });
           if (!response.ok) throw new Error('request failed');
           form.reset();
-          try {
-            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-            window.va('event', { name: 'sample_request_saved', data: { source: requestSource } });
-          } catch (error) {}
+          trackSampleRequestEvent('sample_request_saved', { source: requestSource });
           if (status) {
             const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
             if (form.dataset.currentIssueCta === 'false') {
@@ -259,10 +267,7 @@
             }
           }
         } catch (error) {
-          try {
-            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-            window.va('event', { name: 'sample_request_failed', data: { source: requestSource } });
-          } catch (trackingError) {}
+          trackSampleRequestEvent('sample_request_failed', { source: requestSource });
           if (status) {
             const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
             const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
@@ -275,6 +280,16 @@
         } finally {
           if (button) button.disabled = false;
         }
+      });
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href="#sample-request"]');
+        if (!link) return;
+        const source = ['sample-request-cta', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
+        trackSampleRequestEvent('sample_request_cta_clicked', {
+          source,
+          text: (link.textContent || '').trim().slice(0, 80),
+          path: window.location.pathname,
+        });
       });
     </script>
   </body>
