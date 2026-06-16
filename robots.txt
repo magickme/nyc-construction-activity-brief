@@ -7,3 +7,4 @@ JSON-Feed: https://nyc-construction-activity-brief.vercel.app/feed.json
 Current-Issue: https://nyc-construction-activity-brief.vercel.app/current-issue.json
 Data-Package: https://nyc-construction-activity-brief.vercel.app/data-package.json
 Product-Feed: https://nyc-construction-activity-brief.vercel.app/product-feed.xml
+Dataset-Catalog: https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html

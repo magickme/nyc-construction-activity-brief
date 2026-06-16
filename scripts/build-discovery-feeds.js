@@ -1107,6 +1107,7 @@ Current issue:
 Primary pages:
 - Home: ${baseUrl}/
 - Current issue page: ${baseUrl}/current-issue.html
+- Dataset catalog: ${baseUrl}/dataset-catalog.html
 - Current issue JSON: ${baseUrl}/current-issue.json
 - Data package JSON: ${dataPackageUrl}
 - Product feed XML: ${productFeedUrl}
@@ -1195,6 +1196,200 @@ Generated topic page count: ${manifest.totalTopicPages}
 `;
 }
 
+function buildDatasetCatalogHtml(rows) {
+  const stats = issueStats(rows);
+  const previewRows = publicPreviewRowCount() ?? stats.rowCount;
+  const temporalCoverage = `${stats.firstIssuedDate}/${stats.latestIssuedDate}`;
+  const workTypes = stats.workTypes.map((item) => item.name).join(', ');
+  const zips = stats.zipCodes.map((item) => item.zipCode).join(', ');
+  const description = 'Dataset catalog for the NYC Weekly Construction Activity Brief public preview, current paid ZIP, source window, fields, formats, and claims boundary.';
+  const datasetJson = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'NYC Weekly Construction Activity Brief dataset catalog',
+    description,
+    url: `${baseUrl}/dataset-catalog.html`,
+    isBasedOn: {
+      '@type': 'Dataset',
+      name: 'NYC DOB NOW: Build - Approved Permits',
+      url: 'https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4',
+      identifier: 'rbx6-tga4',
+    },
+    creator: {
+      '@type': 'Organization',
+      name: 'NYC Weekly Construction Activity Brief',
+      url: baseUrl,
+    },
+    spatialCoverage: {
+      '@type': 'Place',
+      name: 'New York City',
+    },
+    temporalCoverage,
+    dateModified: stats.sourceFetchDate,
+    keywords: [
+      'NYC DOB permits',
+      'NYC building permit data',
+      'construction permit CSV',
+      'DOB NOW approved permits',
+      ...stats.workTypes.map((item) => item.name),
+      ...stats.zipCodes.map((item) => `ZIP ${item.zipCode}`),
+    ],
+    variableMeasured: [
+      'source_url',
+      'source_fetch_date',
+      'borough',
+      'zip_code',
+      'work_type',
+      'issued_date',
+      'permit_status',
+      'estimated_job_cost_bucket',
+      'permit_id',
+      'work_permit',
+      'job_filing_number',
+      'job_description_short',
+      'source_caveat',
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        name: 'Public CSV preview',
+        encodingFormat: 'text/csv',
+        contentUrl: `${baseUrl}/sample/nyc-construction-activity-preview.csv`,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Public JSON preview',
+        encodingFormat: 'application/json',
+        contentUrl: `${baseUrl}/sample/nyc-construction-activity-preview.json`,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Public JSONL preview',
+        encodingFormat: 'application/x-ndjson',
+        contentUrl: `${baseUrl}/sample/nyc-construction-activity-preview.jsonl`,
+      },
+      {
+        '@type': 'DataDownload',
+        name: 'Data package metadata',
+        encodingFormat: 'application/json',
+        contentUrl: dataPackageUrl,
+      },
+    ],
+    offers: {
+      '@type': 'Offer',
+      url: `${baseUrl}/buy.html?source=dataset-catalog`,
+      priceCurrency: 'USD',
+      price: launchPriceUsd.toFixed(2),
+      availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+    },
+  };
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NYC Construction Permit Dataset Catalog | DOB Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${baseUrl}/dataset-catalog.html">
+    <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="${baseUrl}/feed.xml">
+    <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="${jsonFeedUrl}">
+    <link rel="alternate" type="application/json" title="NYC Weekly Construction Activity Brief current issue" href="${baseUrl}/current-issue.json">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NYC Construction Permit Dataset Catalog | DOB Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${baseUrl}/dataset-catalog.html">
+    <meta property="og:image" content="${socialImageUrl}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="${socialImageUrl}">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${JSON.stringify(datasetJson)}</script>
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body class="has-conversion-bar">
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>NYC construction permit dataset catalog.</h1>
+      <p class="lede">A current catalog for the public preview, paid ZIP, source dataset, formats, fields, and use limits.</p>
+      <p>
+        <a class="button" href="${baseUrl}/buy.html?source=dataset-catalog">Buy $${launchPriceUsd.toFixed(2)} ZIP</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download free CSV preview</a>
+      </p>
+      <p class="fine">Use this page to inspect the row shape and source boundary before buying.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current source window</h2>
+          <p>${stats.firstIssuedDate} to ${stats.latestIssuedDate}. Source fetch date: ${stats.sourceFetchDate}.</p>
+        </div>
+        <div class="card">
+          <h2>Rows</h2>
+          <p>${previewRows} free preview rows. ${stats.rowCount} rows in the paid ZIP.</p>
+        </div>
+        <div class="card">
+          <h2>Formats</h2>
+          <p>CSV, JSON, JSONL, Markdown sample brief, data package JSON, product feed XML, and current issue JSON.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Source and coverage</h2>
+        <p>Source: NYC DOB NOW: Build - Approved Permits, dataset id rbx6-tga4.</p>
+        <p>Current work types: ${escapeHtml(workTypes)}.</p>
+        <p>Current ZIP codes: ${escapeHtml(zips)}.</p>
+        <p><a class="button secondary" href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4">Open source dataset</a></p>
+      </section>
+
+      <section class="section card">
+        <h2>Fields</h2>
+        <ul>
+          <li>source_url, source_fetch_date, borough, zip_code, work_type, issued_date, permit_status.</li>
+          <li>estimated_job_cost_bucket, permit_id, work_permit, job_filing_number, job_description_short.</li>
+          <li>source_caveat for row-level notes about public-record limits.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>Downloads and feeds</h2>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">CSV preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.json">JSON preview</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.jsonl">JSONL preview</a>
+        <a class="button secondary" href="/data-package.json">Data package JSON</a>
+        <a class="button secondary" href="/current-issue.json">Current issue JSON</a>
+        <a class="button secondary" href="/product-feed.xml">Product feed XML</a>
+        <a class="button secondary" href="/feed.json">JSON Feed</a>
+      </section>
+
+      <section class="section card">
+        <h2>Paid ZIP</h2>
+        <p>The paid ZIP includes the full ${stats.rowCount}-row source-linked CSV, Markdown brief, buyer workbook, priority-slices CSV, source registry, QA report, version file, buyer README, and claims boundary.</p>
+        <a class="button" href="${baseUrl}/buy.html?source=dataset-catalog-paid-zip">Buy instant ZIP</a>
+        <a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a>
+        <a class="button secondary" href="/sample-request.html?source=dataset-catalog">Request a future sample cut</a>
+      </section>
+
+      <section class="section card">
+        <h2>Boundary</h2>
+        <p>No owner names, applicant names, phone numbers, email addresses, full street addresses, or enriched contact data are included. No guaranteed leads. Source records can be incomplete, delayed, revised, duplicated, or mislabeled.</p>
+      </section>
+    </main>
+    <aside class="conversion-bar" data-conversion-bar>
+      <p><strong>$${launchPriceUsd.toFixed(2)}</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>
+      <div class="conversion-actions">
+        <a class="button secondary" href="/sample-request.html?source=dataset-catalog-bar">Sample request</a>
+        <a class="button" href="${baseUrl}/checkout.html?source=dataset-catalog">Buy ZIP</a>
+      </div>
+    </aside>
+  </body>
+</html>
+`;
+}
+
 function insertHeadLinks(html) {
   const links = `    <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="${baseUrl}/feed.xml">
     <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="${jsonFeedUrl}">
@@ -1234,6 +1429,7 @@ JSON-Feed: ${jsonFeedUrl}
 Current-Issue: ${baseUrl}/current-issue.json
 Data-Package: ${dataPackageUrl}
 Product-Feed: ${productFeedUrl}
+Dataset-Catalog: ${baseUrl}/dataset-catalog.html
 `;
   fs.writeFileSync(robotsPath, text);
 }
@@ -1241,7 +1437,7 @@ Product-Feed: ${productFeedUrl}
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'dataset-catalog.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>
@@ -1265,6 +1461,7 @@ fs.writeFileSync(path.join(root, 'feed.xml'), buildFeedXml(rows, manifest));
 fs.writeFileSync(path.join(root, 'feed.json'), buildJsonFeed(rows, manifest));
 fs.writeFileSync(path.join(root, 'product-feed.xml'), buildProductFeedXml(rows));
 fs.writeFileSync(path.join(root, 'llms.txt'), buildLlmsTxt(rows, manifest));
+fs.writeFileSync(path.join(root, 'dataset-catalog.html'), buildDatasetCatalogHtml(rows));
 updateHtmlAlternates();
 updateRobots();
 updateSitemap(stats.sourceFetchDate || new Date().toISOString().slice(0, 10));
