@@ -639,5 +639,20 @@
     "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
     "useCase": "Use this page to prepare a manual market research pass by ZIP, work type, issued date, and source link. It does not provide property valuations, owner contacts, investment advice, or complete parcel history.",
     "sampleLine": "Investor research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link"
+  },
+  {
+    "slug": "nyc-construction-permit-data-for-suppliers",
+    "title": "NYC Construction Permit Data for Suppliers | DOB Brief",
+    "description": "A weekly NYC construction permit data page for suppliers reviewing selected DOB rows by trade, ZIP, issued date, status, and source link.",
+    "h1": "NYC construction permit data for suppliers reviewing public DOB rows.",
+    "lede": "The current issue helps suppliers screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Material suppliers, supply houses, equipment vendors, building-service firms, and local B2B teams checking public construction activity by trade and territory.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual supplier research pass by work type, ZIP, issued date, and source link. It does not provide buyer contacts, purchase intent, bid timing, account enrichment, or a complete DOB database.",
+    "sampleLine": "Supplier research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Supplier permit research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "supplier",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for supplier territory and trade research."
   }
 ]
