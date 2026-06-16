@@ -8,9 +8,9 @@ Rows in paid ZIP: 142
 
 This is a public-record permit signal preview, not a lead list. It excludes owner names, applicant names, phone numbers, email addresses, and full street addresses.
 
-Buy the current issue ZIP: https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-md
-Pricing: https://nyc-construction-activity-brief.vercel.app/pricing.html
-Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
+Buy the current issue ZIP: https://nycpermitbrief.com/buy.html?source=sample-md
+Pricing: https://nycpermitbrief.com/pricing.html
+Support and refunds: https://nycpermitbrief.com/support.html
 Current launch price: $9.50. The paid ZIP includes 142 rows, buyer workbook, priority-slices CSV, source registry, QA report, buyer README, and version file.
 
 ## Included Work Types
