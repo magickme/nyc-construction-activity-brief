@@ -530,6 +530,55 @@
       .fit-card ul {
         margin-bottom: 0;
       }
+      .people-section {
+        border-top: 1px solid var(--line);
+        padding-top: 40px;
+      }
+      .people-header {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(240px, 0.55fr);
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 18px;
+      }
+      .people-header p:last-child {
+        margin-bottom: 0;
+      }
+      .people-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .people-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--card);
+        overflow: hidden;
+      }
+      .people-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+      }
+      .people-card-content {
+        padding: 16px;
+      }
+      .people-card h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+      .people-card p {
+        margin: 0;
+      }
+      .photo-caption {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+      .photo-caption a {
+        color: inherit;
+      }
       .sample-showcase {
         display: grid;
         grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
@@ -675,7 +724,7 @@
         main > section:not(.hero) {
           width: calc(100% - 32px);
         }
-        .grid, .fit-grid, .issue-card, .stat-grid, .sample-showcase, .package-grid, .request-section, .segment-callout, .link-matrix { grid-template-columns: 1fr; }
+        .grid, .fit-grid, .issue-card, .stat-grid, .people-header, .people-grid, .sample-showcase, .package-grid, .request-section, .segment-callout, .link-matrix { grid-template-columns: 1fr; }
         .issue-price-panel {
           border-left: 0;
           border-top: 1px solid var(--line);
@@ -806,6 +855,42 @@
           <span class="stat-value">5</span>
           <h2>ZIPs</h2>
           <p>Current sample covers 11211, 11206, 10011, 10003, and 11201.</p>
+        </div>
+      </section>
+
+      <section class="section people-section" aria-label="People using construction permit research">
+        <div class="people-header">
+          <div>
+            <p class="eyebrow">Who uses it</p>
+            <h2>For people who turn public records into next steps.</h2>
+          </div>
+          <p class="fine">The brief is built for vendor research, estimating, territory review, and field conversations where the first question is which records are worth opening.</p>
+        </div>
+        <div class="people-grid">
+          <article class="people-card">
+            <img src="/assets/person-reviewing-plans.jpg" alt="Construction professional reviewing a printed plan on site" loading="lazy">
+            <div class="people-card-content">
+              <h3>Review the week by work type</h3>
+              <p class="fine">Use the CSV to narrow the current issue before opening individual DOB records.</p>
+              <p class="photo-caption">Photo: <a href="https://unsplash.com/@wpacifico">Wesley Pacifico</a> / <a href="https://unsplash.com/photos/a-woman-wearing-a-hard-hat-holding-a-piece-of-paper-MThcHX1xBAs">Unsplash</a></p>
+            </div>
+          </article>
+          <article class="people-card">
+            <img src="/assets/site-team-reviewing-plans.jpg" alt="Two construction professionals comparing jobsite information" loading="lazy">
+            <div class="people-card-content">
+              <h3>Bring a cleaner list to the field</h3>
+              <p class="fine">Sort by ZIP, status, issued date, cost bucket, and source URL before a team discussion.</p>
+              <p class="photo-caption">Photo: <a href="https://unsplash.com/@ront73">RONNAKORN TRIRAGANON</a> / <a href="https://unsplash.com/photos/construction-workers-examine-plans-on-site-ep99OyLRUd4">Unsplash</a></p>
+            </div>
+          </article>
+          <article class="people-card">
+            <img src="/assets/workers-discussing-containers.jpg" alt="Two hard-hat workers discussing a tablet near shipping containers" loading="lazy">
+            <div class="people-card-content">
+              <h3>Spot territory patterns faster</h3>
+              <p class="fine">Use the packaged issue to decide whether a ZIP, borough, or trade slice deserves a closer look.</p>
+              <p class="photo-caption">Photo: <a href="https://unsplash.com/@harisillahi">Haris Illahi</a> / <a href="https://unsplash.com/photos/two-workers-in-hard-hats-discuss-plans-near-shipping-containers-V89PqZteK-k">Unsplash</a></p>
+            </div>
+          </article>
         </div>
       </section>
 

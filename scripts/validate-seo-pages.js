@@ -410,6 +410,13 @@ assert.match(index, /Launch price is \$9\.50 for the current issue/, 'index need
 assert.match(index, /class="product-mockup"/, 'index needs skeuomorphic product mockup');
 assert.match(index, /Mockup of the paid ZIP containing the weekly brief, CSV, workbook, and source notes/, 'index product mockup needs accessible label');
 assert.match(index, /CSV \+ workbook \+ source notes/, 'index product mockup needs tangible ZIP contents');
+assert.match(index, /People using construction permit research/, 'index needs people-photo section');
+assert.match(index, /src="\/assets\/person-reviewing-plans\.jpg" alt="Construction professional reviewing a printed plan on site" loading="lazy"/, 'index needs plan-review people photo');
+assert.match(index, /src="\/assets\/site-team-reviewing-plans\.jpg" alt="Two construction professionals comparing jobsite information" loading="lazy"/, 'index needs team-review people photo');
+assert.match(index, /src="\/assets\/workers-discussing-containers\.jpg" alt="Two hard-hat workers discussing a tablet near shipping containers" loading="lazy"/, 'index needs territory-review people photo');
+assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@wpacifico">Wesley Pacifico<\/a>/, 'index credits plan-review photo');
+assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@ront73">RONNAKORN TRIRAGANON<\/a>/, 'index credits team-review photo');
+assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@harisillahi">Haris Illahi<\/a>/, 'index credits territory-review photo');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
 assert.match(index, /src="\/assets\/current-issue-snapshot\.png"/, 'index needs current issue snapshot image');
