@@ -379,6 +379,13 @@ assert.match(index, /<meta name="twitter:card" content="summary_large_image">/, 
 assert.match(index, new RegExp(`<meta name="twitter:image" content="${socialImageUrl}">`), 'index needs Twitter image');
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
 assert.match(index, /https:\/\/nycpermitbrief\.com\/buy\.html\?source=home-schema/, 'index Product schema points to buy page');
+assert.match(index, /"@type":"Dataset","name":"NYC Weekly Construction Activity Brief public preview"/, 'index needs public preview Dataset structured data');
+assert.match(index, /"temporalCoverage":"2026-06-09\/2026-06-12"/, 'index Dataset schema needs current source date coverage');
+assert.match(index, /"includedInDataCatalog":{"@type":"DataCatalog","name":"NYC Construction Activity Brief dataset catalog"/, 'index Dataset schema links data catalog');
+assert.match(index, /"identifier":"rbx6-tga4"/, 'index Dataset schema identifies source dataset');
+assert.match(index, /"@type":"DataDownload","encodingFormat":"text\/csv","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.csv"/, 'index Dataset schema links CSV preview');
+assert.match(index, /"@type":"DataDownload","encodingFormat":"application\/json","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.json"/, 'index Dataset schema links JSON preview');
+assert.match(index, /"@type":"DataDownload","encodingFormat":"application\/x-ndjson","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.jsonl"/, 'index Dataset schema links JSONL preview');
 assert.match(index, /"@type":"Organization"/, 'index needs Organization structured data');
 assert.match(index, /"@type":"WebSite"/, 'index needs WebSite structured data');
 assert.match(index, /"publisher":{"@type":"Organization","name":"NYC Weekly Construction Activity Brief"/, 'index WebSite schema names publisher');
