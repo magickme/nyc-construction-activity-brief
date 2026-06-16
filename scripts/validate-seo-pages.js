@@ -3043,6 +3043,7 @@ assert.match(hub, /href="\/contractor-supplier-permit-research\.html"/, 'hub lin
 assert.match(hub, /href="\/buyer-guide\.html"/, 'hub links buyer guide search path');
 assert.match(hub, /<h2>Commercial buyer paths<\/h2>/, 'hub exposes commercial buyer paths');
 assert.match(hub, /data-segment-hub-buyer-path/, 'hub tags commercial buyer path links');
+assert.match(hub, /segment_hub_buyer_path_clicked/, 'hub tracks commercial buyer path clicks');
 assert.match(hub, /href="\/construction-risk-permit-research\.html"/, 'hub links risk and insurance guide');
 assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-insurance\.html"/, 'hub links insurance permit data topic');
 assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-suppliers\.html"/, 'hub links supplier permit data topic');

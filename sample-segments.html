@@ -439,6 +439,14 @@
             source: 'segment-hub-search-paths',
             destination: segmentHubDestination(searchPath),
           });
+          return;
+        }
+        const buyerPath = event.target.closest('[data-segment-hub-buyer-path]');
+        if (buyerPath) {
+          trackSegmentHubEvent('segment_hub_buyer_path_clicked', {
+            source: 'segment-hub-buyer-paths',
+            destination: segmentHubDestination(buyerPath),
+          });
         }
       });
     </script>
