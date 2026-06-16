@@ -1171,6 +1171,16 @@ ${socialImageMeta()}
             <a class="button secondary" href="/support.html">Check support boundary</a>
           </p>
         </section>
+        <section class="section" data-buy-request-paths>
+          <h2>Need a different buying path?</h2>
+          <p>Use these request paths if the current ZIP is close but the blocker is team access, custom research scope, or a partner conversation.</p>
+          <p>
+            <a class="button secondary" href="/team-license.html?source=buy-page-request-paths">Team or multi-issue access</a>
+            <a class="button secondary" href="/custom-research.html?source=buy-page-request-paths">Custom research request</a>
+            <a class="button secondary" href="/partner-inquiry.html?source=buy-page-request-paths">Partner inquiry</a>
+          </p>
+          <p class="fine">These request paths do not approve payment terms, recurring delivery, custom work, outreach, sponsorship, or fulfillment changes.</p>
+        </section>
 ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' })}
         <noscript>
           <p class="fine">JavaScript is off, so automatic redirect is disabled. The button above opens the same Stripe checkout. You can also use the <a href="${topCheckout}">checkout bridge</a>.</p>

@@ -695,6 +695,12 @@ assert.match(buy, /Card blocked by procurement\?/, 'buy page names procurement c
 assert.match(buy, /href="\/invoice-request\.html"/, 'buy page routes invoice requests to dedicated request page');
 assert.match(buy, /paid ZIP delivery still requires a completed Stripe Checkout Session/, 'buy page keeps fulfillment gate clear on procurement copy');
 assert.match(buy, /Request invoice help/, 'buy page has invoice-help link');
+assert.match(buy, /data-buy-request-paths/, 'buy page exposes alternate request paths near checkout');
+assert.match(buy, /Need a different buying path\?/, 'buy page names alternate buying path section');
+assert.match(buy, /href="\/team-license\.html\?source=buy-page-request-paths"/, 'buy page links team license request path');
+assert.match(buy, /href="\/custom-research\.html\?source=buy-page-request-paths"/, 'buy page links custom research request path');
+assert.match(buy, /href="\/partner-inquiry\.html\?source=buy-page-request-paths"/, 'buy page links partner inquiry request path');
+assert.match(buy, /These request paths do not approve payment terms, recurring delivery, custom work, outreach, sponsorship, or fulfillment changes\./, 'buy page keeps alternate request paths approval-gated');
 assertSampleRequestForm(buy, 'buy page');
 assert.match(buy, /value="Selected DOB work types"/, 'buy page sample request seeds work type field');
 assert.match(buy, /value="NYC"/, 'buy page sample request seeds territory field');
