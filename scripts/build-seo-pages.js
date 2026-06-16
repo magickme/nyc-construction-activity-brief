@@ -1846,7 +1846,7 @@ ${socialImageMeta()}
         <h2>Popular search paths</h2>
         <p>Start here if you arrived from search and need the shortest route to a relevant page.</p>
         <ul>
-${popularSearchPaths.map(([href, text]) => `          <li><a data-segment-hub-search-path href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
+${popularSearchPaths.map(([href, text]) => `          <li><a data-segment-hub-search-path href="/${escapeHtml(href)}?source=segment-hub-search-paths">${escapeHtml(text)}</a></li>`).join('\n')}
         </ul>
         <p class="fine">These links point to existing pages. They do not create a new feed, alert service, contact list, or API.</p>
       </section>
