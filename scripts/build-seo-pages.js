@@ -10557,6 +10557,7 @@ function updateIndex(_manualPagesForLinks, _generatedPagesForLinks) {
         <p><a class="button secondary" href="/sample-request.html">Request a future sample cut</a></p>
         <h3>Other buyer paths</h3>
         <p><a class="button secondary" href="/invoice-request.html?source=home-buyer-paths">Invoice request</a></p>
+        <p><a class="button secondary" href="/topics/nyc-construction-due-diligence-permit-research.html?source=home-buyer-paths">Due diligence permit research</a></p>
         <p><a class="button secondary" href="/partner-inquiry.html?source=home-buyer-paths">Partner inquiry</a></p>
         <p><a class="button secondary" href="/team-license.html?source=home-buyer-paths">Team license</a></p>
         <p><a class="button secondary" href="/custom-research.html?source=home-buyer-paths">Custom research</a></p>
@@ -10565,6 +10566,12 @@ function updateIndex(_manualPagesForLinks, _generatedPagesForLinks) {
     /      <section class="section card">\n        <h2>(?:Permit topics|Explore the permit data)<\/h2>[\s\S]*?\n      <\/section>\n\n      <section class="section card">\n        <h2>What is not included<\/h2>/,
     `${replacement}\n\n      <section class="section card">\n        <h2>What is not included</h2>`,
   );
+  if (!index.includes('/topics/nyc-construction-due-diligence-permit-research.html?source=home-buyer-paths')) {
+    index = index.replace(
+      /(<a[^>]+href="\/invoice-request\.html\?source=home-buyer-paths"[^>]*>Invoice request<\/a>(?:<\/p>)?)/,
+      `$1\n            <a href="/topics/nyc-construction-due-diligence-permit-research.html?source=home-buyer-paths">Due diligence permit research</a>`,
+    );
+  }
   fs.writeFileSync(indexPath, index);
 }
 

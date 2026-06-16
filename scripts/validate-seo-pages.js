@@ -492,13 +492,14 @@ assert.match(index, /href="\/sitemap\.xml"/, 'index links XML sitemap');
 assert.match(index, /href="\/buyer-guide\.html"/, 'index links buyer guide');
 assert.match(index, /Other buyer paths/, 'index exposes buyer-intent routes after the compact exploration section');
 assert.match(index, /href="\/invoice-request\.html\?source=home-buyer-paths"/, 'index links invoice request route');
+assert.match(index, /href="\/topics\/nyc-construction-due-diligence-permit-research\.html\?source=home-buyer-paths"/, 'index links due diligence buyer route');
 assert.match(index, /href="\/partner-inquiry\.html\?source=home-buyer-paths"/, 'index links partner inquiry route');
 assert.match(index, /href="\/team-license\.html\?source=home-buyer-paths"/, 'index links team license route');
 assert.match(index, /href="\/custom-research\.html\?source=home-buyer-paths"/, 'index links custom research route');
 assert.doesNotMatch(index, /<h2>Permit topics<\/h2>/, 'index must not expose the old link-dump heading');
 assert.doesNotMatch(index, /Generated data-backed pages/, 'index must not expose a generated-page dump');
 assert.doesNotMatch(index, /href="\/topics\/nyc-dob-permits-zip-10003\.html"/, 'index must not link every generated ZIP page directly');
-assert.ok((index.match(/href="\/topics\//g) || []).length <= 8, 'index should keep topic links curated');
+assert.ok((index.match(/href="\/topics\//g) || []).length <= 9, 'index should keep topic links curated');
 
 for (const boroughPage of [
   ['queens-construction-permit-activity.html', 'Queens', 'queens-permit-activity-request'],
