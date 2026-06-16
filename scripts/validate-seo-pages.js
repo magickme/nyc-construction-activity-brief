@@ -396,6 +396,9 @@ assert.match(index, /window\.scrollY > 720/, 'index sticky bar should wait until
 assert.match(index, /conversion-bar-visible/, 'index sticky bar should be scroll-revealed');
 assert.match(index, /href="\/buy\.html\?source=' \+ encodeURIComponent\(requestSource\)/, 'index sample request fallback links tracked buy page');
 assert.match(index, /Launch price is \$9\.50 for the current issue/, 'index needs launch price copy');
+assert.match(index, /class="product-mockup"/, 'index needs skeuomorphic product mockup');
+assert.match(index, /Mockup of the paid ZIP containing the weekly brief, CSV, workbook, and source notes/, 'index product mockup needs accessible label');
+assert.match(index, /CSV \+ workbook \+ source notes/, 'index product mockup needs tangible ZIP contents');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
 assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
 assert.match(index, /src="\/assets\/current-issue-snapshot\.png"/, 'index needs current issue snapshot image');

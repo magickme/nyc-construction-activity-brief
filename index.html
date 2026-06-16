@@ -350,6 +350,144 @@
         border-left: 1px solid var(--line);
         padding-left: 24px;
       }
+      .product-mockup {
+        max-width: 300px;
+        margin: 0 auto 20px;
+        color: var(--ink);
+      }
+      .mockup-stack {
+        position: relative;
+        min-height: 230px;
+      }
+      .mockup-cover,
+      .mockup-sheet,
+      .mockup-zip {
+        position: absolute;
+        border: 1px solid rgba(37, 50, 44, 0.18);
+        border-radius: 8px;
+        box-shadow: 0 18px 36px rgba(20, 30, 26, 0.18);
+      }
+      .mockup-cover {
+        top: 0;
+        left: 18px;
+        z-index: 3;
+        width: 220px;
+        min-height: 178px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72)),
+          linear-gradient(135deg, #f8f2e8, #eef4f0);
+        padding: 16px;
+        transform: rotate(-2deg);
+      }
+      .mockup-cover::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 10px;
+        border-radius: 8px 8px 0 0;
+        background: var(--green);
+      }
+      .mockup-cover-meta,
+      .mockup-cover-subtitle,
+      .mockup-cell-label {
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .mockup-cover-title {
+        margin: 18px 0 8px;
+        color: var(--ink);
+        font-size: 1.38rem;
+        font-weight: 900;
+        line-height: 0.95;
+      }
+      .mockup-cover-subtitle {
+        letter-spacing: 0;
+        text-transform: none;
+      }
+      .mockup-bars {
+        display: grid;
+        gap: 6px;
+        margin-top: 18px;
+      }
+      .mockup-bars span {
+        display: block;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--blue);
+      }
+      .mockup-bars span:nth-child(1) { width: 92%; background: var(--green); }
+      .mockup-bars span:nth-child(2) { width: 68%; background: var(--gold); }
+      .mockup-bars span:nth-child(3) { width: 78%; background: #806335; }
+      .mockup-bars span:nth-child(4) { width: 54%; background: var(--blue); }
+      .mockup-sheet {
+        top: 42px;
+        right: 0;
+        z-index: 2;
+        width: 206px;
+        background:
+          repeating-linear-gradient(0deg, #ffffff 0 25px, #eef2ee 25px 26px),
+          #ffffff;
+        overflow: hidden;
+        transform: rotate(3deg);
+      }
+      .mockup-row {
+        display: grid;
+        grid-template-columns: 1.15fr 0.55fr 0.6fr;
+        min-height: 26px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.56rem;
+      }
+      .mockup-row span {
+        border-right: 1px solid #e3e9e4;
+        padding: 7px 6px;
+        white-space: nowrap;
+      }
+      .mockup-row span:last-child {
+        border-right: 0;
+      }
+      .mockup-head {
+        background: #1f5f43;
+        color: #f8fbf9;
+        font-weight: 800;
+      }
+      .mockup-zip {
+        right: 20px;
+        bottom: 4px;
+        z-index: 4;
+        width: 174px;
+        background: #f0d9a3;
+        padding: 20px 14px 14px;
+        transform: rotate(1deg);
+      }
+      .mockup-folder-tab {
+        position: absolute;
+        top: -10px;
+        left: 14px;
+        width: 70px;
+        height: 20px;
+        border: 1px solid rgba(37, 50, 44, 0.16);
+        border-bottom: 0;
+        border-radius: 6px 6px 0 0;
+        background: #f0d9a3;
+      }
+      .mockup-zip strong,
+      .mockup-zip span {
+        display: block;
+      }
+      .mockup-zip strong {
+        font-size: 0.92rem;
+        line-height: 1.05;
+      }
+      .mockup-zip span {
+        margin-top: 5px;
+        color: #65512d;
+        font-size: 0.74rem;
+        font-weight: 700;
+        line-height: 1.25;
+      }
       .issue-note {
         display: grid;
         gap: 8px;
@@ -542,6 +680,9 @@
           padding-top: 18px;
           padding-left: 0;
         }
+        .product-mockup {
+          max-width: 280px;
+        }
         .request-copy {
           position: static;
         }
@@ -607,6 +748,33 @@
           </div>
         </div>
         <div class="issue-price-panel">
+          <div class="product-mockup" role="img" aria-label="Mockup of the paid ZIP containing the weekly brief, CSV, workbook, and source notes">
+            <div class="mockup-stack">
+              <div class="mockup-cover">
+                <div class="mockup-cover-meta">NYC DOB</div>
+                <div class="mockup-cover-title">Weekly Construction Activity Brief</div>
+                <div class="mockup-cover-subtitle">2026-06-09 to 2026-06-15</div>
+                <div class="mockup-bars" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <div class="mockup-sheet" aria-hidden="true">
+                <div class="mockup-row mockup-head"><span>work_type</span><span>zip</span><span>issued</span></div>
+                <div class="mockup-row"><span>Sidewalk Shed</span><span>10003</span><span>06-12</span></div>
+                <div class="mockup-row"><span>Plumbing</span><span>11211</span><span>06-12</span></div>
+                <div class="mockup-row"><span>Sprinklers</span><span>11206</span><span>06-11</span></div>
+                <div class="mockup-row"><span>Mechanical</span><span>10011</span><span>06-10</span></div>
+              </div>
+              <div class="mockup-zip">
+                <div class="mockup-folder-tab" aria-hidden="true"></div>
+                <strong>Current issue ZIP</strong>
+                <span>CSV + workbook + source notes</span>
+              </div>
+            </div>
+          </div>
           <div class="price">$9.50</div>
           <p class="fine">Launch price is $9.50 for the current issue. Standard price is $49.</p>
           <div class="issue-cta-row">
