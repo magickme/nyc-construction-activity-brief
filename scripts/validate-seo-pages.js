@@ -3108,6 +3108,21 @@ for (const pattern of privateDataPatterns) {
   assert.doesNotMatch(insurancePermitData, pattern, `topics/nyc-construction-permit-data-for-insurance.html contains private data pattern ${pattern}`);
 }
 
+const dueDiligencePermitResearch = read('topics/nyc-construction-due-diligence-permit-research.html');
+assert.match(dueDiligencePermitResearch, /<h2>Need a different buying path\?<\/h2>/, 'due diligence topic page exposes request paths');
+assert.match(dueDiligencePermitResearch, /href="\/invoice-request\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links invoice request path');
+assert.match(dueDiligencePermitResearch, /href="\/team-license\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links team request path');
+assert.match(dueDiligencePermitResearch, /href="\/custom-research\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links custom research request path');
+assert.match(dueDiligencePermitResearch, /href="\/partner-inquiry\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links partner request path');
+assert.match(dueDiligencePermitResearch, /href="\/sample-request\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links sample request path');
+assert.match(dueDiligencePermitResearch, /These requests record product interest only\./, 'due diligence topic page keeps request boundary clear');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(dueDiligencePermitResearch, pattern, `topics/nyc-construction-due-diligence-permit-research.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(dueDiligencePermitResearch, pattern, `topics/nyc-construction-due-diligence-permit-research.html contains private data pattern ${pattern}`);
+}
+
 const datasetCatalog = read('dataset-catalog.html');
 assert.match(datasetCatalog, /<title>NYC Construction Permit Dataset Catalog \| DOB Brief<\/title>/, 'dataset catalog needs title');
 assert.match(datasetCatalog, /<link rel="canonical" href="https:\/\/nycpermitbrief\.com\/dataset-catalog\.html">/, 'dataset catalog needs canonical');

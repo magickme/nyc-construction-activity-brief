@@ -1670,6 +1670,7 @@ function pageHtml(page) {
   const escapedTitle = escapeHtml(page.title);
   const escapedDescription = escapeHtml(page.description);
   const trackedCheckoutUrl = checkoutHref(topicCheckoutSource(page));
+  const requestPathSource = `topic-request-${page.slug}`.slice(0, 80);
   const product = productJsonLd(page.description, trackedCheckoutUrl);
   const dataset = topicDatasetJsonLd(page);
   const breadcrumb = breadcrumbJsonLd(page);
@@ -1736,7 +1737,20 @@ ${faq ? `    <script type="application/ld+json">${jsonScript(faq)}</script>\n` :
         <a class="button" href="${trackedCheckoutUrl}">Buy instant ZIP</a>
       </section>
 
-${sampleStats(page)}${sampleTable(page)}${sampleRequestSection({
+${sampleStats(page)}${sampleTable(page)}      <section class="section card">
+        <h2>Need a different buying path?</h2>
+        <p>If the current CSV is close but the blocker is approval, team access, custom scope, or partner review, use one request path instead of forcing a checkout.</p>
+        <p>
+          <a class="button secondary" href="/invoice-request.html?source=${requestPathSource}">Invoice or procurement request</a>
+          <a class="button secondary" href="/team-license.html?source=${requestPathSource}">Team or multi-issue access</a>
+          <a class="button secondary" href="/custom-research.html?source=${requestPathSource}">Custom research request</a>
+          <a class="button secondary" href="/partner-inquiry.html?source=${requestPathSource}">Partner inquiry</a>
+          <a class="button secondary" href="/sample-request.html?source=${requestPathSource}">Different sample cut</a>
+        </p>
+        <p class="fine">These requests record product interest only. They do not approve payment terms, custom work, outreach, sponsorship, or fulfillment changes.</p>
+      </section>
+
+${sampleRequestSection({
     workType: page.workTypeRequest,
     territory: page.territoryRequest,
     buyerType: page.buyerTypeRequest,
