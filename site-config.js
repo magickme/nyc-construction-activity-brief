@@ -1,4 +1,4 @@
-const DEFAULT_SITE_BASE_URL = 'https://nyc-construction-activity-brief.vercel.app';
+const DEFAULT_SITE_BASE_URL = 'https://nycpermitbrief.com';
 
 function siteBaseUrl(env = process.env) {
   const configured = (env.SITE_BASE_URL || DEFAULT_SITE_BASE_URL).trim().replace(/\/+$/, '');

@@ -26,7 +26,10 @@ const highIntentTopicPages = [
   ['nyc-construction-market-research-csv', 'NYC construction market research CSV'],
   ['nyc-commercial-renovation-permits', 'NYC commercial renovation permits'],
   ['nyc-construction-permit-monitoring-for-suppliers', 'NYC construction permit monitoring for suppliers'],
+  ['nyc-construction-permit-data-for-suppliers', 'NYC construction permit data for suppliers'],
   ['nyc-dob-permit-alerts-for-subcontractors', 'NYC DOB permit alerts for subcontractors'],
+  ['nyc-construction-permit-data-for-journalists', 'NYC construction permit data for journalists'],
+  ['nyc-real-estate-investor-permit-research', 'NYC real estate investor permit research'],
   ['nyc-building-permit-export-csv', 'NYC building permit export CSV'],
 ];
 const boroughDemandPages = [
