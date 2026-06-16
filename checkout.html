@@ -232,6 +232,9 @@
       if (invoiceHelpLink) {
         const invoiceSource = [source, 'invoice'].join('-').slice(0, 80);
         invoiceHelpLink.href = '/invoice-request.html?source=' + encodeURIComponent(invoiceSource);
+        invoiceHelpLink.addEventListener('click', () => {
+          trackEvent('checkout_invoice_help_clicked', { source });
+        });
       }
       if (sampleHelpLink) {
         const sampleSource = [source, 'sample'].join('-').slice(0, 80);

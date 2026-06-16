@@ -515,6 +515,7 @@ assert.match(checkout, /const invoiceHelpLink = document\.getElementById\('invoi
 assert.match(checkout, /const sampleHelpLink = document\.getElementById\('sample-help-link'\);/, 'checkout page finds sample request link');
 assert.match(checkout, /const invoiceSource = \[source, 'invoice'\]\.join\('-'\)\.slice\(0, 80\);/, 'checkout page builds source-specific invoice attribution');
 assert.match(checkout, /invoiceHelpLink\.href = '\/invoice-request\.html\?source=' \+ encodeURIComponent\(invoiceSource\);/, 'checkout page preserves source on invoice help link');
+assert.match(checkout, /checkout_invoice_help_clicked/, 'checkout page tracks invoice fallback clicks');
 assert.match(checkout, /const sampleSource = \[source, 'sample'\]\.join\('-'\)\.slice\(0, 80\);/, 'checkout page builds source-specific sample request attribution');
 assert.match(checkout, /sampleHelpLink\.href = '\/sample-request\.html\?source=' \+ encodeURIComponent\(sampleSource\);/, 'checkout page preserves source on sample request link');
 assert.match(checkout, /checkout_sample_help_clicked/, 'checkout page tracks sample request fallback clicks');
@@ -663,6 +664,8 @@ assert.match(buy, /method: 'POST'/, 'buy page posts checkout session request');
 assert.match(buy, /body: JSON\.stringify\(\{ source \}\)/, 'buy page sends source to checkout session API');
 assert.match(buy, /buy_page_checkout_session_created/, 'buy page tracks first-party checkout session creation');
 assert.match(buy, /buy_page_checkout_session_fallback/, 'buy page tracks Payment Link fallback');
+assert.match(buy, /buy_page_invoice_help_clicked/, 'buy page tracks invoice-help clicks before checkout');
+assert.match(buy, /buy_page_sample_help_clicked/, 'buy page tracks sample-fit help clicks before checkout');
 assert.match(buy, /document\.querySelectorAll\('\[data-buy-link\]'\)/, 'buy page wires all purchase CTAs');
 assert.doesNotMatch(buy, /links\.forEach\(\(link\) => \{\s*link\.href = fallbackUrl;\s*\}\);/, 'buy page must not rewrite visible CTAs to Payment Link fallback before click');
 assert.match(buy, /link\.addEventListener\('click', async \(event\)/, 'buy page creates checkout sessions only after buyer click');

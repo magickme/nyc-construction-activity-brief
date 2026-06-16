@@ -389,6 +389,22 @@
           window.va('event', { name, data });
         } catch (error) {}
       }
+      document.querySelectorAll('a[href^="/invoice-request.html"]').forEach((link) => {
+        link.addEventListener('click', () => {
+          trackEvent('buy_page_invoice_help_clicked', {
+            source: pageSource,
+            text: (link.textContent || '').trim().slice(0, 80),
+          });
+        });
+      });
+      document.querySelectorAll('a[href^="/sample-request.html"]').forEach((link) => {
+        link.addEventListener('click', () => {
+          trackEvent('buy_page_sample_help_clicked', {
+            source: pageSource,
+            text: (link.textContent || '').trim().slice(0, 80),
+          });
+        });
+      });
       async function createCheckoutUrl(source) {
         try {
           const response = await fetch('/api/create-checkout-session', {
