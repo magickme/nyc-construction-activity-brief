@@ -684,5 +684,20 @@
     "territoryRequest": "NYC",
     "buyerTypeRequest": "supplier",
     "monitoringGoalRequest": "Selected NYC DOB permit activity for supplier territory and trade research."
+  },
+  {
+    "slug": "nyc-construction-due-diligence-permit-research",
+    "title": "NYC Construction Due Diligence Permit Research | DOB Brief",
+    "description": "A weekly NYC construction due diligence permit research page for reviewing selected DOB rows by ZIP, work type, issued date, status, and source link.",
+    "h1": "NYC construction due diligence permit research from public DOB rows.",
+    "lede": "The current issue helps diligence teams screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Due-diligence analysts, lenders, asset managers, consultants, and real estate teams checking public construction activity by territory and work type.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual diligence pass by ZIP, work type, issued date, status, and source link. It does not provide underwriting advice, legal advice, valuation advice, owner contacts, applicant contacts, or a complete DOB database.",
+    "sampleLine": "Diligence research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Construction due diligence permit research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "risk-researcher",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for due-diligence and asset-review research."
   }
 ]
