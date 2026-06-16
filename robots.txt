@@ -1,14 +1,14 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nycpermitbrief.com/sitemap.xml
-Feed: https://nycpermitbrief.com/feed.xml
-JSON-Feed: https://nycpermitbrief.com/feed.json
-Current-Issue: https://nycpermitbrief.com/current-issue.json
-Data-Package: https://nycpermitbrief.com/data-package.json
-Product-Feed: https://nycpermitbrief.com/product-feed.xml
-Dataset-Catalog: https://nycpermitbrief.com/dataset-catalog.html
-Share-Kit: https://nycpermitbrief.com/share-kit.html
-Partner-Inquiry: https://nycpermitbrief.com/partner-inquiry.html
-Team-License: https://nycpermitbrief.com/team-license.html
-Custom-Research: https://nycpermitbrief.com/custom-research.html
+Sitemap: https://nyc-construction-activity-brief.vercel.app/sitemap.xml
+Feed: https://nyc-construction-activity-brief.vercel.app/feed.xml
+JSON-Feed: https://nyc-construction-activity-brief.vercel.app/feed.json
+Current-Issue: https://nyc-construction-activity-brief.vercel.app/current-issue.json
+Data-Package: https://nyc-construction-activity-brief.vercel.app/data-package.json
+Product-Feed: https://nyc-construction-activity-brief.vercel.app/product-feed.xml
+Dataset-Catalog: https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html
+Share-Kit: https://nyc-construction-activity-brief.vercel.app/share-kit.html
+Partner-Inquiry: https://nyc-construction-activity-brief.vercel.app/partner-inquiry.html
+Team-License: https://nyc-construction-activity-brief.vercel.app/team-license.html
+Custom-Research: https://nyc-construction-activity-brief.vercel.app/custom-research.html
