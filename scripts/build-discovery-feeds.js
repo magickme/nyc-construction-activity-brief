@@ -452,7 +452,9 @@ function buildDataPackageJson(rows, manifest) {
     },
     generated_topic_pages: {
       count: manifest.totalTopicPages,
+      segment_hub_url: `${baseUrl}/sample-segments.html`,
       sample_urls: manifest.slugs.slice(0, 25).map((slug) => `${baseUrl}/topics/${slug}.html`),
+      all_urls: manifest.slugs.map((slug) => `${baseUrl}/topics/${slug}.html`),
     },
     boundaries: {
       includes_private_contact_data: false,

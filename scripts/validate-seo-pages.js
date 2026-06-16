@@ -3442,6 +3442,10 @@ assert.ok(dataPackage.paid_zip.files.includes('buyer-priority-slices.csv'), 'dat
 assert.equal(dataPackage.boundaries.includes_private_contact_data, false, 'data package JSON keeps private-contact boundary');
 assert.equal(dataPackage.boundaries.lead_guarantee, false, 'data package JSON keeps claims boundary');
 assert.equal(dataPackage.generated_topic_pages.count, pages.length, 'data package JSON topic page count matches manifest');
+assert.equal(dataPackage.generated_topic_pages.segment_hub_url, 'https://nyc-construction-activity-brief.vercel.app/sample-segments.html', 'data package JSON links segment hub');
+assert.equal(dataPackage.generated_topic_pages.all_urls.length, pages.length, 'data package JSON lists all topic URLs');
+assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html'), 'data package JSON lists curated topic URLs');
+assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permits-zip-10003.html'), 'data package JSON lists generated segment URLs');
 
 const publicCsv = read('sample/nyc-construction-activity-preview.csv').trim().split(/\r?\n/);
 assert.equal(publicCsv.length - 1, 25, 'public CSV preview must stay limited to 25 rows');
