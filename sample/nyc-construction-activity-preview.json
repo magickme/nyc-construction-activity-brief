@@ -9,18 +9,18 @@
   "public_preview_rows": 25,
   "paid_zip_rows": 142,
   "purchase": {
-    "buy_url": "https://nycpermitbrief.com/buy.html?source=sample-json",
-    "pricing_url": "https://nycpermitbrief.com/pricing.html",
-    "support_url": "https://nycpermitbrief.com/support.html",
+    "buy_url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=sample-json",
+    "pricing_url": "https://nyc-construction-activity-brief.vercel.app/pricing.html",
+    "support_url": "https://nyc-construction-activity-brief.vercel.app/support.html",
     "price_usd": "9.50",
     "delivery": "Instant browser download after completed Stripe checkout."
   },
   "sample_urls": {
-    "csv": "https://nycpermitbrief.com/sample/nyc-construction-activity-preview.csv",
-    "json": "https://nycpermitbrief.com/sample/nyc-construction-activity-preview.json",
-    "jsonl": "https://nycpermitbrief.com/sample/nyc-construction-activity-preview.jsonl",
-    "markdown_brief": "https://nycpermitbrief.com/sample/nyc-weekly-construction-activity-sample.md",
-    "preview_page": "https://nycpermitbrief.com/preview.html"
+    "csv": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv",
+    "json": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json",
+    "jsonl": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl",
+    "markdown_brief": "https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md",
+    "preview_page": "https://nyc-construction-activity-brief.vercel.app/preview.html"
   },
   "paid_zip": {
     "rows": 142,
