@@ -635,6 +635,38 @@ function sampleRequestScript() {
     </script>`;
 }
 
+function segmentHubTrackingScript() {
+  return `<script>
+      function trackSegmentHubEvent(name, data) {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name, data });
+        } catch (error) {}
+      }
+      function segmentHubDestination(link) {
+        const href = link.getAttribute('href') || '';
+        return href.split('?')[0].replace(/^\\//, '').replace(/\\.html$/, '') || 'home';
+      }
+      document.addEventListener('click', (event) => {
+        const requestPath = event.target.closest('[data-segment-hub-request-path]');
+        if (requestPath) {
+          trackSegmentHubEvent('segment_hub_path_clicked', {
+            source: 'segment-hub-paths',
+            destination: segmentHubDestination(requestPath),
+          });
+          return;
+        }
+        const searchPath = event.target.closest('[data-segment-hub-search-path]');
+        if (searchPath) {
+          trackSegmentHubEvent('segment_hub_search_path_clicked', {
+            source: 'segment-hub-search-paths',
+            destination: segmentHubDestination(searchPath),
+          });
+        }
+      });
+    </script>`;
+}
+
 function titleCase(value) {
   return String(value)
     .toLowerCase()
@@ -1772,7 +1804,7 @@ ${socialImageMeta()}
         <h2>Popular search paths</h2>
         <p>Start here if you arrived from search and need the shortest route to a relevant page.</p>
         <ul>
-${popularSearchPaths.map(([href, text]) => `          <li><a href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
+${popularSearchPaths.map(([href, text]) => `          <li><a data-segment-hub-search-path href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
         </ul>
         <p class="fine">These links point to existing pages. They do not create a new feed, alert service, contact list, or API.</p>
       </section>
@@ -1780,10 +1812,10 @@ ${popularSearchPaths.map(([href, text]) => `          <li><a href="/${escapeHtml
       <section class="section card">
         <h2>Request paths</h2>
         <p>Use these when card checkout is not the right buying path.</p>
-        <a class="button secondary" href="/${buyerPaths[0][0]}">${buyerPaths[0][1]}</a>
-        <a class="button secondary" href="/${buyerPaths[1][0]}">${buyerPaths[1][1]}</a>
-        <a class="button secondary" href="/${buyerPaths[2][0]}">${buyerPaths[2][1]}</a>
-        <a class="button secondary" href="/${buyerPaths[3][0]}">${buyerPaths[3][1]}</a>
+        <a class="button secondary" data-segment-hub-request-path href="/${buyerPaths[0][0]}">${buyerPaths[0][1]}</a>
+        <a class="button secondary" data-segment-hub-request-path href="/${buyerPaths[1][0]}">${buyerPaths[1][1]}</a>
+        <a class="button secondary" data-segment-hub-request-path href="/${buyerPaths[2][0]}">${buyerPaths[2][1]}</a>
+        <a class="button secondary" data-segment-hub-request-path href="/${buyerPaths[3][0]}">${buyerPaths[3][1]}</a>
       </section>
 
 ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
@@ -1798,6 +1830,7 @@ ${curatedSection('Curated buyer-intent pages', curatedPages.filter((page) => pag
 ${sampleRequestSection()}
     </main>
     ${sampleRequestScript()}
+    ${segmentHubTrackingScript()}
   </body>
 </html>
 `;

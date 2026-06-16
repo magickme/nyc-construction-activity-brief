@@ -63,12 +63,12 @@
         <h2>Popular search paths</h2>
         <p>Start here if you arrived from search and need the shortest route to a relevant page.</p>
         <ul>
-          <li><a href="/nyc-permit-activity-by-zip.html">Permit activity by ZIP</a></li>
-          <li><a href="/nyc-dob-permit-csv.html">DOB permit CSV</a></li>
-          <li><a href="/nyc-construction-permit-leads.html">Construction permit leads</a></li>
-          <li><a href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a></li>
-          <li><a href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a></li>
-          <li><a href="/buyer-guide.html">Buyer guide</a></li>
+          <li><a data-segment-hub-search-path href="/nyc-permit-activity-by-zip.html">Permit activity by ZIP</a></li>
+          <li><a data-segment-hub-search-path href="/nyc-dob-permit-csv.html">DOB permit CSV</a></li>
+          <li><a data-segment-hub-search-path href="/nyc-construction-permit-leads.html">Construction permit leads</a></li>
+          <li><a data-segment-hub-search-path href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a></li>
+          <li><a data-segment-hub-search-path href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a></li>
+          <li><a data-segment-hub-search-path href="/buyer-guide.html">Buyer guide</a></li>
         </ul>
         <p class="fine">These links point to existing pages. They do not create a new feed, alert service, contact list, or API.</p>
       </section>
@@ -76,10 +76,10 @@
       <section class="section card">
         <h2>Request paths</h2>
         <p>Use these when card checkout is not the right buying path.</p>
-        <a class="button secondary" href="/invoice-request.html?source=segment-hub-paths">Invoice or procurement help</a>
-        <a class="button secondary" href="/team-license.html?source=segment-hub-paths">Team or multi-issue access</a>
-        <a class="button secondary" href="/custom-research.html?source=segment-hub-paths">Custom research request</a>
-        <a class="button secondary" href="/partner-inquiry.html?source=segment-hub-paths">Partner inquiry</a>
+        <a class="button secondary" data-segment-hub-request-path href="/invoice-request.html?source=segment-hub-paths">Invoice or procurement help</a>
+        <a class="button secondary" data-segment-hub-request-path href="/team-license.html?source=segment-hub-paths">Team or multi-issue access</a>
+        <a class="button secondary" data-segment-hub-request-path href="/custom-research.html?source=segment-hub-paths">Custom research request</a>
+        <a class="button secondary" data-segment-hub-request-path href="/partner-inquiry.html?source=segment-hub-paths">Partner inquiry</a>
       </section>
 
       <section class="section card">
@@ -394,6 +394,35 @@
           text: (link.textContent || '').trim().slice(0, 80),
           path: window.location.pathname,
         });
+      });
+    </script>
+    <script>
+      function trackSegmentHubEvent(name, data) {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name, data });
+        } catch (error) {}
+      }
+      function segmentHubDestination(link) {
+        const href = link.getAttribute('href') || '';
+        return href.split('?')[0].replace(/^\//, '').replace(/\.html$/, '') || 'home';
+      }
+      document.addEventListener('click', (event) => {
+        const requestPath = event.target.closest('[data-segment-hub-request-path]');
+        if (requestPath) {
+          trackSegmentHubEvent('segment_hub_path_clicked', {
+            source: 'segment-hub-paths',
+            destination: segmentHubDestination(requestPath),
+          });
+          return;
+        }
+        const searchPath = event.target.closest('[data-segment-hub-search-path]');
+        if (searchPath) {
+          trackSegmentHubEvent('segment_hub_search_path_clicked', {
+            source: 'segment-hub-search-paths',
+            destination: segmentHubDestination(searchPath),
+          });
+        }
       });
     </script>
     <aside class="conversion-bar" data-conversion-bar>
