@@ -229,11 +229,21 @@
       body.conversion-bar-visible {
         padding-bottom: 86px;
       }
+      main {
+        max-width: none;
+        padding: 40px 0 72px;
+      }
+      main > section:not(.hero) {
+        width: calc(100% - 48px);
+        max-width: 1040px;
+        margin-right: auto;
+        margin-left: auto;
+      }
       .hero {
         position: relative;
         display: flex;
         min-height: 640px;
-        margin: -40px calc(50% - 50vw) 0;
+        margin: -40px 0 0;
         padding: 92px max(24px, calc((100vw - 1040px) / 2 + 24px));
         align-items: center;
         overflow: hidden;
@@ -364,7 +374,10 @@
         white-space: nowrap;
       }
       @media (max-width: 760px) {
-        main { padding: 36px 16px 56px; }
+        main { padding: 36px 0 56px; }
+        main > section:not(.hero) {
+          width: calc(100% - 32px);
+        }
         .grid, .fit-grid, .issue-card { grid-template-columns: 1fr; }
         .hero {
           min-height: 620px;
