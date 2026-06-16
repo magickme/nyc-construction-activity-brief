@@ -10297,7 +10297,7 @@ function generatedPageLinks(pages) {
     .join('\n');
 }
 
-function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
+function updateIndex(_manualPagesForLinks, _generatedPagesForLinks) {
   const indexPath = path.join(root, 'index.html');
   let index = fs.readFileSync(indexPath, 'utf8');
   index = index.replace(knownSiteBaseUrlPattern, baseUrl);
@@ -10315,82 +10315,34 @@ function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
       </section>
 
       <section class="section card">
-        <h2>Permit topics</h2>
-        <p class="fine">These pages explain the current sample by buyer search intent and link back to the same source-linked files.</p>
-        <ul>
-${manualPageLinks(manualPagesForLinks)}
-        </ul>
-        <p><a class="button secondary" href="/preview.html">View public preview</a></p>
-        <p><a class="button secondary" href="/current-issue.html">Current issue highlights</a></p>
-        <p><a class="button secondary" href="/dataset-catalog.html">Dataset catalog</a></p>
-        <p><a class="button secondary" href="/share-kit.html">Share kit</a></p>
-        <p><a class="button secondary" href="/partner-inquiry.html">Partner inquiry</a></p>
-        <p><a class="button secondary" href="/team-license.html">Team license</a></p>
-        <p><a class="button secondary" href="/custom-research.html">Custom research</a></p>
-        <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
-        <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
-        <p><a class="button secondary" href="/faq.html">Buyer FAQ</a></p>
-        <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
-        <p><a class="button secondary" href="/permit-research-workflow.html">Research workflow</a></p>
-        <p><a class="button secondary" href="/contractor-permit-research.html">Contractor permit research</a></p>
-        <p><a class="button secondary" href="/contractor-supplier-permit-research.html">Contractor and supplier guide</a></p>
-        <p><a class="button secondary" href="/material-supplier-permit-research.html">Material supplier permit research</a></p>
-        <p><a class="button secondary" href="/building-service-vendor-permit-research.html">Building-service vendor permit research</a></p>
-        <p><a class="button secondary" href="/subcontractor-permit-research.html">Subcontractor permit research</a></p>
-        <p><a class="button secondary" href="/broker-developer-permit-research.html">Broker and developer guide</a></p>
-        <p><a class="button secondary" href="/real-estate-investor-permit-research.html">Real estate investor permit research</a></p>
-        <p><a class="button secondary" href="/construction-consultant-permit-research.html">Construction consultant permit research</a></p>
-        <p><a class="button secondary" href="/construction-risk-permit-research.html">Construction risk permit research</a></p>
-        <p><a class="button secondary" href="/permit-expediter-research.html">Permit expediter guide</a></p>
-        <p><a class="button secondary" href="/pricing.html">Check pricing and break-even</a></p>
-        <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
-        <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
-        <p><a class="button secondary" href="/nyc-building-permits.html">NYC building permits</a></p>
-        <p><a class="button secondary" href="/nyc-dob-now-approved-permits.html">DOB NOW approved permits</a></p>
-        <p><a class="button secondary" href="/dob-now-build-approved-permits.html">DOB NOW Build approved permits</a></p>
-        <p><a class="button secondary" href="/nyc-building-permit-data.html">NYC building permit data</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-data-download.html">NYC DOB permit data download</a></p>
-        <p><a class="button secondary" href="/nyc-dob-approved-permits.html">NYC DOB approved permits</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-search.html">NYC DOB permit search companion</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-alerts.html">NYC DOB permit alerts alternative</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-tracker.html">NYC DOB permit tracker alternative</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-monitoring.html">NYC DOB permit monitoring alternative</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-watchlist.html">NYC DOB permit watchlist alternative</a></p>
-        <p><a class="button secondary" href="/nyc-construction-permit-search.html">NYC construction permit search companion</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-lookup.html">NYC DOB permit lookup companion</a></p>
-        <p><a class="button secondary" href="/nyc-dob-permit-csv.html">NYC DOB permit CSV</a></p>
-        <p><a class="button secondary" href="/nyc-permit-data-api-alternative.html">NYC permit data API alternative</a></p>
-        <p><a class="button secondary" href="/weekly-nyc-construction-permit-report.html">Weekly permit report</a></p>
-        <p><a class="button secondary" href="/dob-now-permit-search-alternative.html">DOB NOW permit search alternative</a></p>
-        <p><a class="button secondary" href="/nyc-construction-permit-leads.html">NYC construction permit leads alternative</a></p>
-        <p><a class="button secondary" href="/nyc-permit-activity-by-zip.html">NYC permit activity by ZIP</a></p>
-        <p><a class="button secondary" href="/manhattan-construction-permit-activity.html">Manhattan construction permit activity</a></p>
-        <p><a class="button secondary" href="/brooklyn-construction-permit-activity.html">Brooklyn construction permit activity</a></p>
-        <p><a class="button secondary" href="/queens-construction-permit-activity.html">Queens construction permit activity request</a></p>
-        <p><a class="button secondary" href="/bronx-construction-permit-activity.html">Bronx construction permit activity request</a></p>
-        <p><a class="button secondary" href="/staten-island-construction-permit-activity.html">Staten Island construction permit activity request</a></p>
-        <p><a class="button secondary" href="/nyc-sidewalk-shed-permits.html">NYC sidewalk shed permits</a></p>
-        <p><a class="button secondary" href="/nyc-plumbing-permits.html">NYC plumbing permits</a></p>
-        <p><a class="button secondary" href="/nyc-sprinkler-permits.html">NYC sprinkler permits</a></p>
-        <p><a class="button secondary" href="/nyc-mechanical-systems-permits.html">NYC mechanical systems permits</a></p>
-        <p><a class="button secondary" href="/nyc-supported-scaffold-permits.html">NYC supported scaffold permits</a></p>
-        <p><a class="button secondary" href="/nyc-structural-permits.html">NYC structural permits</a></p>
-        <p><a class="button secondary" href="/nyc-construction-fence-permits.html">NYC construction fence permits</a></p>
+        <h2>Explore the permit data</h2>
+        <p class="fine">Start with the free sample or the file guide. The full topic archive stays available through the segment hub and XML sitemap.</p>
+        <div class="fit-grid">
+          <div>
+            <h3>Before buying</h3>
+            <p><a class="button secondary" href="/preview.html">View public preview</a></p>
+            <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
+            <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
+            <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
+            <p><a class="button secondary" href="/methodology.html">Methodology and source boundary</a></p>
+          </div>
+          <div>
+            <h3>High-signal topic pages</h3>
+            <p><a class="button secondary" href="/topics/nyc-sidewalk-shed-permits.html">Sidewalk shed permit activity</a></p>
+            <p><a class="button secondary" href="/topics/nyc-plumbing-permit-activity.html">Plumbing permit activity</a></p>
+            <p><a class="button secondary" href="/topics/nyc-sprinkler-permit-activity.html">Sprinkler permit activity</a></p>
+            <p><a class="button secondary" href="/topics/nyc-mechanical-permit-activity.html">Mechanical permit activity</a></p>
+            <p><a class="button secondary" href="/topics/nyc-construction-fence-permits.html">Construction fence permits</a></p>
+          </div>
+        </div>
+        <p><a class="button secondary" href="/sample-segments.html">Browse all segment pages</a></p>
+        <p><a class="button secondary" href="/sitemap.xml">XML sitemap</a></p>
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
-        <p><a class="button secondary" href="/delivery.html">Read delivery steps</a></p>
         <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
         <p><a class="button secondary" href="/sample-request.html">Request a future sample cut</a></p>
-        <p><a class="button secondary" href="/sample-segments.html">Browse segment and buyer-intent pages</a></p>
-        <p><a class="button secondary" href="/methodology.html">Read methodology and source boundary</a></p>
-        <details>
-          <summary>Generated data-backed pages</summary>
-          <ul>
-${generatedPageLinks(generatedPagesForLinks)}
-          </ul>
-        </details>
       </section>`;
   index = index.replace(
-    /      <section class="section card">\n        <h2>Permit topics<\/h2>[\s\S]*?\n      <\/section>\n\n      <section class="section card">\n        <h2>What is not included<\/h2>/,
+    /      <section class="section card">\n        <h2>(?:Permit topics|Explore the permit data)<\/h2>[\s\S]*?\n      <\/section>\n\n      <section class="section card">\n        <h2>What is not included<\/h2>/,
     `${replacement}\n\n      <section class="section card">\n        <h2>What is not included</h2>`,
   );
   fs.writeFileSync(indexPath, index);
