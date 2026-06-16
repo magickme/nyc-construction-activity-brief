@@ -72,6 +72,10 @@ li {
   padding: 24px;
 }
 
+.card p {
+  overflow-wrap: anywhere;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

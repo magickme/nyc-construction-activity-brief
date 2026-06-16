@@ -9407,6 +9407,32 @@ ${socialImageMeta()}
         <p>For anyone tracking NYC construction or permit activity: this source-linked brief turns selected NYC DOB NOW approved permit records into a small weekly CSV preview and paid ZIP. Use it as a screening file for manual review; it does not include private contact data. Public preview: ${baseUrl}/preview.html. Paid ZIP: ${productUrl}.</p>
       </section>
 
+      <section class="section">
+        <h2>Channel-ready copy</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>LinkedIn post</h3>
+            <p>New NYC permit screening file: ${escapeHtml(rows.length)} selected DOB NOW approved permit rows, source links, buyer workbook, and a ${escapeHtml(previewRowCount)}-row public preview. Built for manual review by contractors, suppliers, consultants, and real estate teams. Preview: ${baseUrl}/preview.html. Current ZIP: ${baseUrl}/buy.html?source=share-kit-linkedin.</p>
+            <p><a class="button secondary" data-share-kit-path="linkedin-buy" href="${baseUrl}/buy.html?source=share-kit-linkedin">LinkedIn tracked link</a></p>
+          </div>
+          <div class="card">
+            <h3>Local newsletter note</h3>
+            <p>NYC Weekly Construction Activity Brief has a new current issue for readers who track selected DOB permit activity. The public preview has ${escapeHtml(previewRowCount)} rows, and the paid ZIP adds the full ${escapeHtml(rows.length)}-row CSV, workbook, priority slices, QA report, and source registry. More: ${baseUrl}/current-issue.html?source=share-kit-newsletter.</p>
+            <p><a class="button secondary" data-share-kit-path="newsletter-current-issue" href="${baseUrl}/current-issue.html?source=share-kit-newsletter">Newsletter tracked link</a></p>
+          </div>
+          <div class="card">
+            <h3>Community forum reply</h3>
+            <p>If you need a small weekly file for checking selected NYC DOB NOW approved permits, this public preview shows the format before purchase. It excludes private contacts, full street addresses, and guaranteed outcomes. Preview: ${baseUrl}/preview.html?source=share-kit-community.</p>
+            <p><a class="button secondary" data-share-kit-path="community-preview" href="${baseUrl}/preview.html?source=share-kit-community">Community tracked link</a></p>
+          </div>
+          <div class="card">
+            <h3>Social image</h3>
+            <p>Use the current share card when a channel accepts an image upload. Keep the post text tied to the public preview, current issue page, or paid ZIP link above.</p>
+            <p><a class="button secondary" data-share-kit-path="social-image" href="/assets/social-share-card.png">Open share image</a></p>
+          </div>
+        </div>
+      </section>
+
       <section class="section card">
         <h2>What to mention</h2>
         <ul>
