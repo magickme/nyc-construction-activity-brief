@@ -237,6 +237,17 @@
           path: window.location.pathname,
         });
       });
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('[data-topic-request-path]');
+        if (!link) return;
+        const url = new URL(link.href, window.location.href);
+        trackSampleRequestEvent('topic_request_path_clicked', {
+          source: new URLSearchParams(url.search).get('source') || '',
+          path: window.location.pathname.replace(/^\//, '').replace(/\.html$/, ''),
+          destination: url.pathname.replace(/^\//, '').replace(/\.html$/, ''),
+          text: (link.textContent || '').trim().slice(0, 80),
+        });
+      });
     </script>
     <aside class="conversion-bar" data-conversion-bar>
       <p><strong>$9.50</strong> current issue ZIP. Instant Stripe checkout and browser download.</p>

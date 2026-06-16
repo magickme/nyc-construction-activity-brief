@@ -140,11 +140,11 @@
         <h2>Need a different buying path?</h2>
         <p>If the current CSV is close but the blocker is approval, team access, custom scope, or partner review, use one request path instead of forcing a checkout.</p>
         <p>
-          <a class="button secondary" href="/invoice-request.html?source=topic-request-nyc-dob-permits-zip-11211">Invoice or procurement request</a>
-          <a class="button secondary" href="/team-license.html?source=topic-request-nyc-dob-permits-zip-11211">Team or multi-issue access</a>
-          <a class="button secondary" href="/custom-research.html?source=topic-request-nyc-dob-permits-zip-11211">Custom research request</a>
-          <a class="button secondary" href="/partner-inquiry.html?source=topic-request-nyc-dob-permits-zip-11211">Partner inquiry</a>
-          <a class="button secondary" href="/sample-request.html?source=topic-request-nyc-dob-permits-zip-11211">Different sample cut</a>
+          <a data-topic-request-path class="button secondary" href="/invoice-request.html?source=topic-request-nyc-dob-permits-zip-11211">Invoice or procurement request</a>
+          <a data-topic-request-path class="button secondary" href="/team-license.html?source=topic-request-nyc-dob-permits-zip-11211">Team or multi-issue access</a>
+          <a data-topic-request-path class="button secondary" href="/custom-research.html?source=topic-request-nyc-dob-permits-zip-11211">Custom research request</a>
+          <a data-topic-request-path class="button secondary" href="/partner-inquiry.html?source=topic-request-nyc-dob-permits-zip-11211">Partner inquiry</a>
+          <a data-topic-request-path class="button secondary" href="/sample-request.html?source=topic-request-nyc-dob-permits-zip-11211">Different sample cut</a>
         </p>
         <p class="fine">These requests record product interest only. They do not approve payment terms, custom work, outreach, sponsorship, or fulfillment changes.</p>
       </section>
@@ -308,6 +308,17 @@
           source,
           text: (link.textContent || '').trim().slice(0, 80),
           path: window.location.pathname,
+        });
+      });
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('[data-topic-request-path]');
+        if (!link) return;
+        const url = new URL(link.href, window.location.href);
+        trackSampleRequestEvent('topic_request_path_clicked', {
+          source: new URLSearchParams(url.search).get('source') || '',
+          path: window.location.pathname.replace(/^\//, '').replace(/\.html$/, ''),
+          destination: url.pathname.replace(/^\//, '').replace(/\.html$/, ''),
+          text: (link.textContent || '').trim().slice(0, 80),
         });
       });
     </script>

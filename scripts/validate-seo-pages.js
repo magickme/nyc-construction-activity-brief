@@ -3110,6 +3110,8 @@ for (const pattern of privateDataPatterns) {
 
 const dueDiligencePermitResearch = read('topics/nyc-construction-due-diligence-permit-research.html');
 assert.match(dueDiligencePermitResearch, /<h2>Need a different buying path\?<\/h2>/, 'due diligence topic page exposes request paths');
+assert.match(dueDiligencePermitResearch, /data-topic-request-path/, 'due diligence topic page tags topic request path links');
+assert.match(dueDiligencePermitResearch, /topic_request_path_clicked/, 'due diligence topic page tracks topic request path clicks');
 assert.match(dueDiligencePermitResearch, /href="\/invoice-request\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links invoice request path');
 assert.match(dueDiligencePermitResearch, /href="\/team-license\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links team request path');
 assert.match(dueDiligencePermitResearch, /href="\/custom-research\.html\?source=topic-request-nyc-construction-due-diligence-permit-research"/, 'due diligence topic page links custom research request path');
