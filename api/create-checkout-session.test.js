@@ -19,8 +19,8 @@ assert.equal(isSyntheticCheckoutSource('buy-page'), false);
 
 const params = checkoutParams('topic-nyc-plumbing');
 assert.equal(params.get('mode'), 'payment');
-assert.equal(params.get('success_url'), 'https://nyc-construction-activity-brief.vercel.app/success.html?session_id={CHECKOUT_SESSION_ID}');
-assert.equal(params.get('cancel_url'), 'https://nyc-construction-activity-brief.vercel.app/buy.html?source=topic-nyc-plumbing&checkout=cancelled');
+assert.equal(params.get('success_url'), 'https://nycpermitbrief.com/success.html?session_id={CHECKOUT_SESSION_ID}');
+assert.equal(params.get('cancel_url'), 'https://nycpermitbrief.com/buy.html?source=topic-nyc-plumbing&checkout=cancelled');
 assert.match(params.get('client_reference_id'), /^ncab_topic-nyc-plumbing_[a-z0-9]+$/);
 assert.equal(params.get('line_items[0][quantity]'), '1');
 assert.equal(params.get('line_items[0][price_data][currency]'), 'usd');
