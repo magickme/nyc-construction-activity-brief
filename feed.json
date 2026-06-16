@@ -1,421 +1,421 @@
 {
   "version": "https://jsonfeed.org/version/1.1",
   "title": "NYC Weekly Construction Activity Brief",
-  "home_page_url": "https://nyc-construction-activity-brief.vercel.app/",
-  "feed_url": "https://nyc-construction-activity-brief.vercel.app/feed.json",
+  "home_page_url": "https://nycpermitbrief.com/",
+  "feed_url": "https://nycpermitbrief.com/feed.json",
   "description": "Current source-linked NYC construction permit activity pages, buyer-intent topic hub, sample CSV, and paid ZIP checkout.",
-  "icon": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
-  "favicon": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
+  "icon": "https://nycpermitbrief.com/assets/current-issue-snapshot.png",
+  "favicon": "https://nycpermitbrief.com/assets/current-issue-snapshot.png",
   "authors": [
     {
       "name": "NYC Weekly Construction Activity Brief",
-      "url": "https://nyc-construction-activity-brief.vercel.app"
+      "url": "https://nycpermitbrief.com"
     }
   ],
   "language": "en",
   "items": [
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/current-issue.html",
+      "id": "https://nycpermitbrief.com/current-issue.html",
+      "url": "https://nycpermitbrief.com/current-issue.html",
       "title": "Current NYC construction activity brief: 142 paid issue rows",
       "content_text": "Current paid issue has 142 source-linked rows. The free CSV preview has 25 rows. Launch price is $9.50. Standard price is $49. Issued dates run 2026-06-09 through 2026-06-12. Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed",
-      "url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed",
+      "id": "https://nycpermitbrief.com/buy.html?source=json-feed",
+      "url": "https://nycpermitbrief.com/buy.html?source=json-feed",
       "title": "Buy the current NYC construction activity ZIP",
       "content_text": "One-time $9.50 Stripe checkout for the current 142-row ZIP. Automated browser download follows a paid Checkout Session.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
+      "id": "https://nycpermitbrief.com/sample-segments.html",
+      "url": "https://nycpermitbrief.com/sample-segments.html",
       "title": "Browse current permit activity and buyer-intent pages",
       "content_text": "Segment hub for ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages tied to the current 142-row paid issue.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html",
+      "id": "https://nycpermitbrief.com/dataset-catalog.html",
+      "url": "https://nycpermitbrief.com/dataset-catalog.html",
       "title": "Dataset catalog for current NYC permit data",
       "content_text": "Catalog page for the current 142-row paid ZIP, 25-row public preview, source dataset id rbx6-tga4, fields, formats, and claims boundary.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/share-kit.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/share-kit.html",
+      "id": "https://nycpermitbrief.com/share-kit.html",
+      "url": "https://nycpermitbrief.com/share-kit.html",
       "title": "Share kit for newsletters and community posts",
       "content_text": "Copy-safe newsletter and community-post notes for linking to the current 142-row NYC construction activity brief without overstating coverage, results, or lead guarantees.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/partner-inquiry.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/partner-inquiry.html",
+      "id": "https://nycpermitbrief.com/partner-inquiry.html",
+      "url": "https://nycpermitbrief.com/partner-inquiry.html",
       "title": "Partner inquiry for newsletter and bundle ideas",
       "content_text": "Request-only partner inquiry page for newsletters, communities, sponsorship discussions, and product-bundle ideas tied to the current NYC construction activity brief.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/team-license.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/team-license.html",
+      "id": "https://nycpermitbrief.com/team-license.html",
+      "url": "https://nycpermitbrief.com/team-license.html",
       "title": "Team license request for multi-issue access",
       "content_text": "Request-only team license page for multi-user, multi-issue, recurring-access, and procurement-review interest tied to the current NYC construction activity brief.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/custom-research.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/custom-research.html",
+      "id": "https://nycpermitbrief.com/custom-research.html",
+      "url": "https://nycpermitbrief.com/custom-research.html",
       "title": "Custom research request for filtered permit briefs",
       "content_text": "Request-only custom research page for filtered briefs, priority-row reviews, client notes, and source-review interest tied to the current NYC construction activity brief.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/preview.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/preview.html",
+      "id": "https://nycpermitbrief.com/preview.html",
+      "url": "https://nycpermitbrief.com/preview.html",
       "title": "Free 25-row preview",
       "content_text": "Free public preview with source-linked sample rows, CSV, JSON, JSONL, and a Markdown sample brief.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/data-package.json",
-      "url": "https://nyc-construction-activity-brief.vercel.app/data-package.json",
+      "id": "https://nycpermitbrief.com/data-package.json",
+      "url": "https://nycpermitbrief.com/data-package.json",
       "title": "Data package manifest",
       "content_text": "Machine-readable manifest with source, row counts, sample URLs, buyer pages, paid ZIP contents, price, delivery path, and claims boundary.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/sample-request.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/sample-request.html",
+      "id": "https://nycpermitbrief.com/sample-request.html",
+      "url": "https://nycpermitbrief.com/sample-request.html",
       "title": "Request a future sample cut",
       "content_text": "Product-specific sample request form for work types, ZIPs, boroughs, and buyer views not covered by the current preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html",
+      "id": "https://nycpermitbrief.com/queens-construction-permit-activity.html",
+      "url": "https://nycpermitbrief.com/queens-construction-permit-activity.html",
       "title": "Queens construction permit activity request",
       "content_text": "Queens sample request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Queens rows.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html",
+      "id": "https://nycpermitbrief.com/bronx-construction-permit-activity.html",
+      "url": "https://nycpermitbrief.com/bronx-construction-permit-activity.html",
       "title": "Bronx construction permit activity request",
       "content_text": "Bronx sample request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Bronx rows.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html",
+      "id": "https://nycpermitbrief.com/staten-island-construction-permit-activity.html",
+      "url": "https://nycpermitbrief.com/staten-island-construction-permit-activity.html",
       "title": "Staten Island construction permit activity request",
       "content_text": "Staten Island sample request page for buyers who need future NYC DOB permit samples by borough, ZIP, work type, and issued date. The current paid issue does not include Staten Island rows.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html",
+      "id": "https://nycpermitbrief.com/nyc-building-permits.html",
+      "url": "https://nycpermitbrief.com/nyc-building-permits.html",
       "title": "NYC building permits",
       "content_text": "Search-focused buyer page for reviewing selected NYC building permit rows from the current 142-row weekly CSV ZIP.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-approved-permits.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-approved-permits.html",
       "title": "NYC DOB approved permits",
       "content_text": "Source-focused buyer page for reviewing selected DOB approved permit rows from the current 142-row weekly CSV ZIP.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-now-approved-permits.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-now-approved-permits.html",
       "title": "NYC DOB NOW approved permits",
       "content_text": "Exact-source buyer page for reviewing selected DOB NOW approved permit rows from the current 142-row weekly CSV ZIP.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html",
+      "id": "https://nycpermitbrief.com/dob-now-build-approved-permits.html",
+      "url": "https://nycpermitbrief.com/dob-now-build-approved-permits.html",
       "title": "DOB NOW Build approved permits",
       "content_text": "Dataset-name buyer page for reviewing selected DOB NOW: Build approved permit rows from the current 142-row weekly CSV ZIP.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-permit-alerts.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-permit-alerts.html",
       "title": "NYC DOB permit alerts alternative",
       "content_text": "Alert-style buyer page for using the current 142-row ZIP as a weekly screening file without real-time alerts or private contact data.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-tracker.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-tracker.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-permit-tracker.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-permit-tracker.html",
       "title": "NYC DOB permit tracker alternative",
       "content_text": "Tracker-style buyer page for using the current 142-row ZIP as a weekly source-linked spreadsheet without live monitoring or private contact data.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-monitoring.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-monitoring.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-permit-monitoring.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-permit-monitoring.html",
       "title": "NYC DOB permit monitoring alternative",
       "content_text": "Monitoring-style buyer page for using the current 142-row ZIP as a weekly source-linked review file without live monitoring, alerts, or private contact data.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-watchlist.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-watchlist.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-permit-watchlist.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-permit-watchlist.html",
       "title": "NYC DOB permit watchlist alternative",
       "content_text": "Watchlist-style buyer page for using the current 142-row ZIP as a weekly source-linked review file without live alerts, private contact data, or lead guarantees.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-permit-search.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-permit-search.html",
       "title": "NYC DOB permit search companion",
       "content_text": "Search-focused buyer page for using the current 142-row ZIP as a weekly companion to manual NYC DOB permit source checks.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html",
+      "id": "https://nycpermitbrief.com/nyc-construction-permit-search.html",
+      "url": "https://nycpermitbrief.com/nyc-construction-permit-search.html",
       "title": "NYC construction permit search companion",
       "content_text": "Search-focused buyer page for using the current 142-row ZIP as a weekly companion to manual NYC construction permit source checks.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html",
+      "id": "https://nycpermitbrief.com/nyc-dob-permit-lookup.html",
+      "url": "https://nycpermitbrief.com/nyc-dob-permit-lookup.html",
       "title": "NYC DOB permit lookup companion",
       "content_text": "Lookup-focused buyer page for using the current 142-row ZIP as a weekly companion to manual NYC DOB permit lookup checks.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permit-leads.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permit-leads.html",
+      "id": "https://nycpermitbrief.com/nyc-plumbing-permit-leads.html",
+      "url": "https://nycpermitbrief.com/nyc-plumbing-permit-leads.html",
       "title": "NYC plumbing permit leads",
       "content_text": "Current plumbing permit lead-research page for buyers screening 29 selected public DOB rows without private contacts or guaranteed sales.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permit-leads.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permit-leads.html",
+      "id": "https://nycpermitbrief.com/nyc-sprinkler-permit-leads.html",
+      "url": "https://nycpermitbrief.com/nyc-sprinkler-permit-leads.html",
       "title": "NYC sprinkler permit leads",
       "content_text": "Current sprinkler permit lead-research page for buyers screening 21 selected public DOB rows without private contacts or guaranteed sales.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permit-leads.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permit-leads.html",
+      "id": "https://nycpermitbrief.com/nyc-mechanical-systems-permit-leads.html",
+      "url": "https://nycpermitbrief.com/nyc-mechanical-systems-permit-leads.html",
       "title": "NYC mechanical systems permit leads",
       "content_text": "Current mechanical systems permit lead-research page for buyers screening 18 selected public DOB rows without private contacts or guaranteed sales.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html",
+      "id": "https://nycpermitbrief.com/nyc-structural-permit-leads.html",
+      "url": "https://nycpermitbrief.com/nyc-structural-permit-leads.html",
       "title": "NYC structural permit leads",
       "content_text": "Current structural permit lead-research page for buyers screening 12 selected public DOB rows without private contacts or guaranteed sales.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html",
+      "id": "https://nycpermitbrief.com/nyc-construction-fence-permit-leads.html",
+      "url": "https://nycpermitbrief.com/nyc-construction-fence-permit-leads.html",
       "title": "NYC construction fence permit leads",
       "content_text": "Current construction fence permit lead-research page for buyers screening 9 selected public DOB rows without private contacts or guaranteed sales.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-permit-data-for-architects.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-permit-data-for-architects.html",
       "title": "NYC permit data for architects",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-engineers.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-engineers.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-permit-data-for-engineers.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-permit-data-for-engineers.html",
       "title": "NYC permit data for engineers",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-research-for-project-managers.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-research-for-project-managers.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-permit-research-for-project-managers.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-permit-research-for-project-managers.html",
       "title": "NYC permit research for project managers",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-proptech.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-proptech.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-proptech.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-proptech.html",
       "title": "NYC construction permit data for proptech",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-data-for-vendors.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-data-for-vendors.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-building-permit-data-for-vendors.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-building-permit-data-for-vendors.html",
       "title": "NYC building permit data for vendors",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-data-for-contractors.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-data-for-contractors.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-dob-permit-data-for-contractors.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-dob-permit-data-for-contractors.html",
       "title": "NYC DOB permit data for contractors",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-subcontractor-prospecting-permit-data.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-subcontractor-prospecting-permit-data.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-subcontractor-prospecting-permit-data.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-subcontractor-prospecting-permit-data.html",
       "title": "NYC subcontractor prospecting permit data",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-sales-prospecting.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-sales-prospecting.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-sales-prospecting.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-sales-prospecting.html",
       "title": "NYC construction sales prospecting",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-market-research-csv.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-market-research-csv.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-market-research-csv.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-market-research-csv.html",
       "title": "NYC construction market research CSV",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-commercial-renovation-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-commercial-renovation-permits.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-commercial-renovation-permits.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-commercial-renovation-permits.html",
       "title": "NYC commercial renovation permits",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-monitoring-for-suppliers.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-monitoring-for-suppliers.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-permit-monitoring-for-suppliers.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-permit-monitoring-for-suppliers.html",
       "title": "NYC construction permit monitoring for suppliers",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-suppliers.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-suppliers.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-suppliers.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-suppliers.html",
       "title": "NYC construction permit data for suppliers",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-alerts-for-subcontractors.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-alerts-for-subcontractors.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-dob-permit-alerts-for-subcontractors.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-dob-permit-alerts-for-subcontractors.html",
       "title": "NYC DOB permit alerts for subcontractors",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-journalists.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-journalists.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-journalists.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-journalists.html",
       "title": "NYC construction permit data for journalists",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-real-estate-investor-permit-research.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-real-estate-investor-permit-research.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-real-estate-investor-permit-research.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-real-estate-investor-permit-research.html",
       "title": "NYC real estate investor permit research",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-export-csv.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-export-csv.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-building-permit-export-csv.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-building-permit-export-csv.html",
       "title": "NYC building permit export CSV",
       "content_text": "High-intent topic page for buyers comparing the current 142-row NYC DOB permit ZIP, source-linked preview files, and sample-request path.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sidewalk-shed-permits.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-sidewalk-shed-permits.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-sidewalk-shed-permits.html",
       "title": "nyc sidewalk shed permits",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-supported-scaffold-permits.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-supported-scaffold-permits.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-supported-scaffold-permits.html",
       "title": "nyc supported scaffold permits",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-fence-permits.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-construction-fence-permits.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-construction-fence-permits.html",
       "title": "nyc construction fence permits",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-plumbing-permit-activity.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-plumbing-permit-activity.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-plumbing-permit-activity.html",
       "title": "nyc plumbing permit activity",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-mechanical-permit-activity.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-mechanical-permit-activity.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-mechanical-permit-activity.html",
       "title": "nyc mechanical permit activity",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-sprinkler-permit-activity.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-sprinkler-permit-activity.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-sprinkler-permit-activity.html",
       "title": "nyc sprinkler permit activity",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-structural-permit-activity.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-structural-permit-activity.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-structural-permit-activity.html",
       "title": "nyc structural permit activity",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-monitoring.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-dob-permit-monitoring.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-dob-permit-monitoring.html",
       "title": "nyc dob permit monitoring",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-csv.html",
+      "id": "https://nycpermitbrief.com/topics/nyc-dob-permit-csv.html",
+      "url": "https://nycpermitbrief.com/topics/nyc-dob-permit-csv.html",
       "title": "nyc dob permit csv",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/brooklyn-construction-permit-activity.html",
+      "id": "https://nycpermitbrief.com/topics/brooklyn-construction-permit-activity.html",
+      "url": "https://nycpermitbrief.com/topics/brooklyn-construction-permit-activity.html",
       "title": "brooklyn construction permit activity",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/manhattan-construction-permit-activity.html",
+      "id": "https://nycpermitbrief.com/topics/manhattan-construction-permit-activity.html",
+      "url": "https://nycpermitbrief.com/topics/manhattan-construction-permit-activity.html",
       "title": "manhattan construction permit activity",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
-      "id": "https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html",
-      "url": "https://nyc-construction-activity-brief.vercel.app/topics/construction-lead-research-nyc.html",
+      "id": "https://nycpermitbrief.com/topics/construction-lead-research-nyc.html",
+      "url": "https://nycpermitbrief.com/topics/construction-lead-research-nyc.html",
       "title": "construction lead research nyc",
       "content_text": "Current source-linked NYC construction permit activity page from the public preview.",
       "date_published": "2026-06-15T12:00:00Z"
