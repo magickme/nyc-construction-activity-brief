@@ -386,6 +386,10 @@ assert.match(index, /"identifier":"rbx6-tga4"/, 'index Dataset schema identifies
 assert.match(index, /"@type":"DataDownload","encodingFormat":"text\/csv","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.csv"/, 'index Dataset schema links CSV preview');
 assert.match(index, /"@type":"DataDownload","encodingFormat":"application\/json","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.json"/, 'index Dataset schema links JSON preview');
 assert.match(index, /"@type":"DataDownload","encodingFormat":"application\/x-ndjson","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.jsonl"/, 'index Dataset schema links JSONL preview');
+assert.match(index, /"@type":"FAQPage"/, 'index needs FAQPage structured data');
+assert.match(index, /"name":"How is the current issue delivered\?"/, 'index FAQ schema answers delivery');
+assert.match(index, /"name":"What files are in the paid ZIP\?"/, 'index FAQ schema answers ZIP contents');
+assert.match(index, /"name":"Does the brief include owner names, emails, phone numbers, or lead scores\?"/, 'index FAQ schema answers contact-data boundary');
 assert.match(index, /"@type":"Organization"/, 'index needs Organization structured data');
 assert.match(index, /"@type":"WebSite"/, 'index needs WebSite structured data');
 assert.match(index, /"publisher":{"@type":"Organization","name":"NYC Weekly Construction Activity Brief"/, 'index WebSite schema names publisher');
@@ -456,6 +460,11 @@ assert.match(index, /row-y4pj-r7ps_78ep/, 'index sample table includes a source-
 assert.match(index, /row-uzb7-7ttv-cxgt/, 'index sample table includes a source-linked plumbing row');
 assert.match(index, /Explore the permit data/, 'index needs compact exploration section');
 assert.match(index, /The full topic archive stays available through the segment hub and XML sitemap\./, 'index should route the archive through hub and sitemap');
+assert.match(index, /Quick answers before checkout/, 'index needs buyer FAQ section');
+assert.match(index, /After a completed Stripe checkout, the success page verifies the paid Checkout Session/, 'index FAQ explains automated delivery');
+assert.match(index, /The ZIP includes a 142-row source-linked CSV/, 'index FAQ explains paid ZIP contents');
+assert.match(index, /The package excludes owner names, applicant names, phone numbers, emails/, 'index FAQ sets contact-data boundary');
+assert.match(index, /Use the public preview, CSV field guide, and free-vs-paid page before buying\./, 'index FAQ routes format inspection');
 assert.match(index, /href="\/preview\.html"/, 'index links public preview page');
 assert.match(index, /href="\/free-vs-paid\.html"/, 'index links free vs paid page');
 assert.match(index, /href="\/inside-the-zip\.html"/, 'index links inside the ZIP page');
