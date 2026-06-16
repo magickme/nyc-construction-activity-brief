@@ -333,6 +333,163 @@
         color: var(--blue);
         font-weight: 800;
       }
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .issue-card {
+        background:
+          linear-gradient(135deg, rgba(31, 95, 67, 0.08), rgba(40, 92, 134, 0.08)),
+          var(--card);
+      }
+      .issue-price-panel {
+        border-left: 1px solid var(--line);
+        padding-left: 24px;
+      }
+      .issue-note {
+        display: grid;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .issue-note span {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .stat-card,
+      .fit-card,
+      .package-item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--card);
+        padding: 18px;
+      }
+      .stat-card {
+        min-height: 136px;
+      }
+      .stat-value {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--green);
+        font-size: 1.9rem;
+        font-weight: 900;
+        line-height: 1;
+      }
+      .fit-card {
+        padding: 22px;
+      }
+      .fit-card ul {
+        margin-bottom: 0;
+      }
+      .sample-showcase {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+        gap: 26px;
+        align-items: start;
+        border-top: 1px solid var(--line);
+        padding-top: 40px;
+      }
+      .sample-visual {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #eef4f0;
+        padding: 14px;
+      }
+      .sample-visual .issue-snapshot {
+        margin: 0;
+      }
+      .sample-list {
+        display: grid;
+        gap: 10px;
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .sample-list li {
+        border-left: 3px solid var(--green);
+        padding-left: 12px;
+      }
+      .package-section {
+        border-top: 1px solid var(--line);
+        padding-top: 40px;
+      }
+      .package-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+      .package-item h3 {
+        margin-top: 0;
+      }
+      .request-section {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1.2fr);
+        gap: 28px;
+        align-items: start;
+      }
+      .request-copy {
+        position: sticky;
+        top: 24px;
+      }
+      .segment-callout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(240px, 0.75fr);
+        gap: 24px;
+        align-items: center;
+        border-color: rgba(31, 95, 67, 0.35);
+        background: linear-gradient(135deg, #17392b, #203b4e);
+        color: #ffffff;
+      }
+      .segment-callout .fine,
+      .segment-callout .text-link {
+        color: #e5f0ea;
+      }
+      .segment-callout .secondary {
+        border-color: rgba(255, 255, 255, 0.45);
+        color: #e5f0ea;
+      }
+      .segment-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .segment-actions .button {
+        margin-top: 0;
+      }
+      .link-matrix {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+      .link-group {
+        border-top: 3px solid var(--line);
+        padding-top: 14px;
+      }
+      .link-group h3 {
+        margin: 0 0 10px;
+      }
+      .link-group a {
+        display: block;
+        margin: 10px 0;
+        color: var(--blue);
+        font-weight: 750;
+      }
+      .boundary-section {
+        border-color: rgba(155, 106, 29, 0.45);
+        background: #fff8eb;
+      }
       .conversion-bar {
         position: fixed;
         right: 18px;
@@ -378,7 +535,16 @@
         main > section:not(.hero) {
           width: calc(100% - 32px);
         }
-        .grid, .fit-grid, .issue-card { grid-template-columns: 1fr; }
+        .grid, .fit-grid, .issue-card, .stat-grid, .sample-showcase, .package-grid, .request-section, .segment-callout, .link-matrix { grid-template-columns: 1fr; }
+        .issue-price-panel {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+          padding-top: 18px;
+          padding-left: 0;
+        }
+        .request-copy {
+          position: static;
+        }
         .hero {
           min-height: 100svh;
           margin-top: -36px;
@@ -432,12 +598,17 @@
 
       <section class="section card issue-card">
         <div>
+          <p class="eyebrow">Current issue</p>
           <h2>Current issue ZIP</h2>
           <p>Get the 2026-06-09 to 2026-06-15 source-window issue as one ZIP: CSV, Markdown brief, buyer workbook, priority-slice CSV, source registry, buyer README, QA report, version file, and claims boundary. The source returned rows through 2026-06-12 at generation time.</p>
-          <p class="fine">Instant download after completed Stripe checkout. One-time purchase. No subscription. Launch price is $9.50 for the current issue. Standard price is $49. No guaranteed leads.</p>
+          <div class="issue-note">
+            <span>Instant download after completed Stripe checkout.</span>
+            <span>One-time purchase. No subscription. No guaranteed leads.</span>
+          </div>
         </div>
-        <div>
+        <div class="issue-price-panel">
           <div class="price">$9.50</div>
+          <p class="fine">Launch price is $9.50 for the current issue. Standard price is $49.</p>
           <div class="issue-cta-row">
             <a id="buy-link" class="button" href="/buy.html?source=home-card">Buy instant ZIP</a>
             <a class="text-link" href="/delivery.html">Read delivery steps</a>
@@ -445,51 +616,80 @@
         </div>
       </section>
 
-      <section class="grid">
-        <div class="card">
-          <h2>Best fit</h2>
-          <p>Exterior access, plumbing, sprinkler, mechanical, structural, and construction-support teams that already know how they will use DOB public records.</p>
+      <section class="section stat-grid" aria-label="Current issue summary">
+        <div class="stat-card">
+          <span class="stat-value">142</span>
+          <h2>Paid rows</h2>
+          <p>Spreadsheet-ready permit rows with DOB NOW source URLs.</p>
         </div>
-        <div class="card">
+        <div class="stat-card">
+          <span class="stat-value">25</span>
+          <h2>Preview rows</h2>
+          <p>Open the public sample before deciding whether the ZIP fits.</p>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">7</span>
           <h2>Work types</h2>
-          <p>Sidewalk shed, supported scaffold, construction fence, plumbing, mechanical systems, sprinklers, and structural.</p>
+          <p>Sidewalk shed, supported scaffold, construction fence, plumbing, mechanical, sprinkler, and structural.</p>
         </div>
-        <div class="card">
-          <h2>Territories</h2>
+        <div class="stat-card">
+          <span class="stat-value">5</span>
+          <h2>ZIPs</h2>
           <p>Current sample covers 11211, 11206, 10011, 10003, and 11201.</p>
-        </div>
-        <div class="card">
-          <h2>Fields</h2>
-          <p>Work type, ZIP, borough, issued date, status, cost bucket, source link, permit ID, filing number, and short description.</p>
         </div>
       </section>
 
-      <section class="section card">
-        <h2>Should you buy this issue?</h2>
-        <div class="fit-grid">
-          <div>
+      <section class="section fit-grid" aria-label="Buyer fit">
+        <div class="fit-card">
+          <p class="eyebrow">Best fit</p>
+          <h2>Best fit</h2>
+          <p>Exterior access, plumbing, sprinkler, mechanical, structural, and construction-support teams that already know how they will use DOB public records.</p>
+          <p class="fine">Fields include work type, ZIP, borough, issued date, status, cost bucket, source link, permit ID, filing number, and short description.</p>
+        </div>
+        <div class="fit-card">
+          <p class="eyebrow">Decision check</p>
+          <h2>Should you buy this issue?</h2>
+          <div class="fit-grid">
+            <div>
             <h3>Buy it if</h3>
             <ul>
               <li>You want the current 142 rows in a spreadsheet-ready package.</li>
               <li>Your review starts with work type, ZIP, issued date, status, cost bucket, and source URL.</li>
               <li>You would spend more than a few minutes sorting the DOB NOW source yourself.</li>
             </ul>
-          </div>
-          <div>
+            </div>
+            <div>
             <h3>Skip it if</h3>
             <ul>
               <li>You need owner names, applicant names, emails, phone numbers, or full street addresses.</li>
               <li>You need all NYC permits, every ZIP, or live alerts.</li>
               <li>You need guaranteed leads, lead scoring, outreach automation, or agency-endorsed data.</li>
             </ul>
+            </div>
           </div>
         </div>
       </section>
 
+      <section class="section sample-showcase">
+        <div>
+          <p class="eyebrow">Public sample</p>
+          <h2>Current public sample</h2>
+          <p>Source window: 2026-06-09 to 2026-06-15. Free preview rows: 25. Paid ZIP rows: 142. The paid ZIP packages the issue files, buyer workbook, priority-slice CSV, source notes, QA report, and buyer README in one download.</p>
+          <ul class="sample-list">
+            <li>Top work types: Sidewalk Shed 40, Plumbing 29, Sprinklers 21.</li>
+            <li>Source returned rows through 2026-06-12 at generation time.</li>
+            <li>Use the preview to check row shape before buying.</li>
+          </ul>
+          <p><a class="button secondary" href="/preview.html">Review all 25 free preview rows</a></p>
+        </div>
+        <div class="sample-visual">
+          <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        </div>
+      </section>
+
       <section class="section card">
-        <h2>Current public sample</h2>
-        <p>Source window: 2026-06-09 to 2026-06-15. Free preview rows: 25. Paid ZIP rows: 142. The paid ZIP packages the issue files, buyer workbook, priority-slice CSV, source notes, QA report, and buyer README in one download.</p>
-        <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
+        <p class="eyebrow">Sample rows</p>
+        <h2>Three rows from the public preview</h2>
         <div class="sample">Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13 | Structural 12 | Construction Fence 9</div>
         <div class="table-wrap">
           <table>
@@ -531,106 +731,140 @@
             </tbody>
           </table>
         </div>
-        <p><a class="button secondary" href="/preview.html">Review all 25 free preview rows</a></p>
       </section>
 
-      <section class="section card">
+      <section class="section package-section">
+        <p class="eyebrow">Paid package</p>
         <h2>What is in the paid ZIP</h2>
-        <ul>
-          <li>142-row source-linked CSV for spreadsheet review.</li>
-          <li>Buyer workbook with a fast review path, top work types, top ZIPs, and review questions.</li>
-          <li>Priority-slices CSV grouped by work type, borough, ZIP, row count, latest issued date, cost-bucket mix, status mix, and source URL.</li>
-          <li>Markdown brief and row-preview notes for fast screening.</li>
-          <li>Source registry, QA report, version file, buyer README, and privacy/claims boundary.</li>
-        </ul>
+        <div class="package-grid">
+          <div class="package-item">
+            <h3>CSV</h3>
+            <p>142-row source-linked CSV for spreadsheet review.</p>
+          </div>
+          <div class="package-item">
+            <h3>Workbook</h3>
+            <p>Buyer workbook with a fast review path, top work types, top ZIPs, and review questions.</p>
+          </div>
+          <div class="package-item">
+            <h3>Priority slices</h3>
+            <p>Priority-slices CSV grouped by work type, borough, ZIP, row count, latest issued date, cost-bucket mix, status mix, and source URL.</p>
+          </div>
+          <div class="package-item">
+            <h3>Brief</h3>
+            <p>Markdown brief and row-preview notes for fast screening.</p>
+          </div>
+          <div class="package-item">
+            <h3>Source files</h3>
+            <p>Source registry, QA report, and version file.</p>
+          </div>
+          <div class="package-item">
+            <h3>Buyer notes</h3>
+            <p>Buyer README and privacy/claims boundary.</p>
+          </div>
+        </div>
         <p class="fine">Buy this if you want the issue packaged for reuse. Use the free preview first if you only need to inspect the sample.</p>
       </section>
 
-      <section id="sample-request" class="section card sample-request">
-        <h2>Request a future sample cut</h2>
-        <p>If the current issue is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
-        <form data-sample-request-form>
-          <label>
-            Email
-            <input name="email" type="email" autocomplete="email" required>
-          </label>
-          <label>
-            Work type requested
-            <input name="work_type_requested" placeholder="Plumbing, sidewalk shed, structural..." required>
-          </label>
-          <label>
-            ZIP codes or borough
-            <input name="territory_requested" placeholder="11201, Brooklyn, Manhattan..." required>
-          </label>
-          <label>
-            Buyer type
-            <select name="buyer_type" required>
-              <option value="">Choose one</option>
-              <option value="construction-support-vendor">Construction-support vendor</option>
-              <option value="specialty-subcontractor">Specialty subcontractor</option>
-              <option value="supplier">Supplier</option>
-              <option value="local-b2b-service-provider">Local B2B service provider</option>
-              <option value="data-buyer">Data buyer</option>
-              <option value="other">Other</option>
-            </select>
-          </label>
-          <label>
-            What do you want to monitor?
-            <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required></textarea>
-          </label>
-          <label class="checkbox">
-            <input name="consent" type="checkbox" required>
-            You may reply about this public-record sample request.
-          </label>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off">
-          <button class="button" type="submit">Send sample request</button>
-          <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
-        </form>
+      <section id="sample-request" class="section card sample-request request-section">
+        <div class="request-copy">
+          <p class="eyebrow">Future coverage</p>
+          <h2>Request a future sample cut</h2>
+          <p>If the current issue is close but not the exact territory or work type you need, send one request. I will use these requests to choose future public previews.</p>
+          <p class="fine">This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+        </div>
+        <div>
+          <form data-sample-request-form>
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" required>
+            </label>
+            <label>
+              Work type requested
+              <input name="work_type_requested" placeholder="Plumbing, sidewalk shed, structural..." required>
+            </label>
+            <label>
+              ZIP codes or borough
+              <input name="territory_requested" placeholder="11201, Brooklyn, Manhattan..." required>
+            </label>
+            <label>
+              Buyer type
+              <select name="buyer_type" required>
+                <option value="">Choose one</option>
+                <option value="construction-support-vendor">Construction-support vendor</option>
+                <option value="specialty-subcontractor">Specialty subcontractor</option>
+                <option value="supplier">Supplier</option>
+                <option value="local-b2b-service-provider">Local B2B service provider</option>
+                <option value="data-buyer">Data buyer</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <label>
+              What do you want to monitor?
+              <textarea name="monitoring_goal" rows="3" placeholder="Example: sprinkler permits in Brooklyn each week" required></textarea>
+            </label>
+            <label class="checkbox">
+              <input name="consent" type="checkbox" required>
+              You may reply about this public-record sample request.
+            </label>
+            <input class="hp" name="website" tabindex="-1" autocomplete="off">
+            <button class="button" type="submit">Send sample request</button>
+            <p class="fine" data-sample-request-status>This does not join the MagickMe newsletter. No guaranteed leads, owner contact data, or agency-endorsed information.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section card segment-callout">
+        <div>
+          <p class="eyebrow">Segment slice</p>
+          <h2>Exterior access buyers</h2>
+          <p>The current paid issue includes 40 selected sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows for facade, masonry, restoration, and exterior-access screening.</p>
+        </div>
+        <div class="segment-actions">
+          <a class="button secondary" href="/topics/nyc-facade-restoration-permit-research.html">Facade restoration</a>
+          <a class="button secondary" href="/topics/nyc-masonry-contractor-permit-research.html">Masonry research</a>
+          <a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Exterior work</a>
+          <a class="button" href="https://nycpermitbrief.com/buy.html?source=home-exterior-access">Buy exterior-access ZIP</a>
+        </div>
       </section>
 
       <section class="section card">
-        <h2>Exterior access buyers</h2>
-        <p>The current paid issue includes 40 selected sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows for facade, masonry, restoration, and exterior-access screening.</p>
-        <p><a class="button secondary" href="/topics/nyc-facade-restoration-permit-research.html">Facade restoration permit research</a></p>
-        <p><a class="button secondary" href="/topics/nyc-masonry-contractor-permit-research.html">Masonry contractor permit research</a></p>
-        <p><a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Exterior work permit research</a></p>
-        <p><a class="button" href="https://nycpermitbrief.com/buy.html?source=home-exterior-access">Buy exterior-access ZIP</a></p>
-      </section>
-
-      <section class="section card">
+        <p class="eyebrow">Research paths</p>
         <h2>Explore the permit data</h2>
         <p class="fine">Start with the free sample or the file guide. The full topic archive stays available through the segment hub and XML sitemap.</p>
-        <div class="fit-grid">
-          <div>
+        <div class="link-matrix">
+          <div class="link-group">
             <h3>Before buying</h3>
-            <p><a class="button secondary" href="/preview.html">View public preview</a></p>
-            <p><a class="button secondary" href="/inside-the-zip.html">See ZIP contents</a></p>
-            <p><a class="button secondary" href="/csv-field-guide.html">CSV field guide</a></p>
-            <p><a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
-            <p><a class="button secondary" href="/methodology.html">Methodology and source boundary</a></p>
+            <a href="/preview.html">View public preview</a>
+            <a href="/inside-the-zip.html">See ZIP contents</a>
+            <a href="/csv-field-guide.html">CSV field guide</a>
+            <a href="/free-vs-paid.html">Free vs paid</a>
+            <a href="/methodology.html">Methodology and source boundary</a>
           </div>
-          <div>
+          <div class="link-group">
             <h3>High-signal topic pages</h3>
-            <p><a class="button secondary" href="/topics/nyc-sidewalk-shed-permits.html">Sidewalk shed permit activity</a></p>
-            <p><a class="button secondary" href="/topics/nyc-plumbing-permit-activity.html">Plumbing permit activity</a></p>
-            <p><a class="button secondary" href="/topics/nyc-sprinkler-permit-activity.html">Sprinkler permit activity</a></p>
-            <p><a class="button secondary" href="/topics/nyc-mechanical-permit-activity.html">Mechanical permit activity</a></p>
-            <p><a class="button secondary" href="/topics/nyc-construction-fence-permits.html">Construction fence permits</a></p>
+            <a href="/topics/nyc-sidewalk-shed-permits.html">Sidewalk shed permit activity</a>
+            <a href="/topics/nyc-plumbing-permit-activity.html">Plumbing permit activity</a>
+            <a href="/topics/nyc-sprinkler-permit-activity.html">Sprinkler permit activity</a>
+            <a href="/topics/nyc-mechanical-permit-activity.html">Mechanical permit activity</a>
+            <a href="/topics/nyc-construction-fence-permits.html">Construction fence permits</a>
+          </div>
+          <div class="link-group">
+            <h3>Other buyer paths</h3>
+            <a href="/sample-segments.html">Browse all segment pages</a>
+            <a href="/sitemap.xml">XML sitemap</a>
+            <a href="/buyer-guide.html">Read buyer guide</a>
+            <a href="/support.html">Support and refunds</a>
+            <a href="/sample-request.html">Request a future sample cut</a>
+            <a href="/invoice-request.html?source=home-buyer-paths">Invoice request</a>
+            <a href="/partner-inquiry.html?source=home-buyer-paths">Partner inquiry</a>
+            <a href="/team-license.html?source=home-buyer-paths">Team license</a>
+            <a href="/custom-research.html?source=home-buyer-paths">Custom research</a>
           </div>
         </div>
-        <p><a class="button secondary" href="/sample-segments.html">Browse all segment pages</a></p>
-        <p><a class="button secondary" href="/sitemap.xml">XML sitemap</a></p>
-        <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
-        <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
-        <p><a class="button secondary" href="/sample-request.html">Request a future sample cut</a></p>
-        <h3>Other buyer paths</h3>
-        <p><a class="button secondary" href="/invoice-request.html?source=home-buyer-paths">Invoice request</a></p>
-        <p><a class="button secondary" href="/partner-inquiry.html?source=home-buyer-paths">Partner inquiry</a></p>
-        <p><a class="button secondary" href="/team-license.html?source=home-buyer-paths">Team license</a></p>
-        <p><a class="button secondary" href="/custom-research.html?source=home-buyer-paths">Custom research</a></p>
       </section>
 
-      <section class="section card">
+      <section class="section card boundary-section">
+        <p class="eyebrow">Claims boundary</p>
         <h2>What is not included</h2>
         <ul>
           <li>No owner names, applicant names, phone numbers, email addresses, or full street addresses.</li>
