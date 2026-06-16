@@ -10,17 +10,6 @@
       ],
       "destination": "https://nycpermitbrief.com/:path*",
       "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "nyc-construction-activity-brief.vercel.app"
-        }
-      ],
-      "destination": "https://nycpermitbrief.com/:path*",
-      "permanent": true
     }
   ]
 }

@@ -17,6 +17,7 @@ const sampleCsvPath = fs.existsSync(fullIssueCsvPath)
   ? fullIssueCsvPath
   : publicPreviewCsvPath;
 const manualPages = require('./seo-pages.json').map((page) => ({ ...page, group: 'core' }));
+const knownSiteBaseUrlPattern = /https:\/\/(?:nycpermitbrief\.com|nyc-construction-activity-brief\.vercel\.app)/g;
 const boroughExpansionPages = [
   {
     boroughName: 'Queens',
@@ -10299,6 +10300,7 @@ function generatedPageLinks(pages) {
 function updateIndex(manualPagesForLinks, generatedPagesForLinks) {
   const indexPath = path.join(root, 'index.html');
   let index = fs.readFileSync(indexPath, 'utf8');
+  index = index.replace(knownSiteBaseUrlPattern, baseUrl);
   index = index.replace(
     /      <section class="section card">\n        <h2>Exterior access buyers<\/h2>\n[\s\S]*?      <\/section>\n\n/g,
     '',
@@ -10800,6 +10802,7 @@ fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows)
 fs.writeFileSync(path.join(root, 'invoice-request.html'), invoiceRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'share-kit.html'), shareKitHtml(rows));
 fs.writeFileSync(path.join(root, 'partner-inquiry.html'), partnerInquiryHtml(rows));
+fs.writeFileSync(path.join(root, 'team-license.html'), teamLicenseHtml(rows));
 fs.writeFileSync(path.join(root, 'custom-research.html'), customResearchHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml(rows));

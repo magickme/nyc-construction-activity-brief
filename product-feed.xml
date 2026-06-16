@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
     <title>NYC Weekly Construction Activity Brief product feed</title>
-    <link>https://nycpermitbrief.com/</link>
+    <link>https://nyc-construction-activity-brief.vercel.app/</link>
     <description>Product feed for the current NYC Weekly Construction Activity Brief ZIP.</description>
     <item>
       <g:id>nyc-construction-activity-brief-current</g:id>
       <title>NYC Weekly Construction Activity Brief current ZIP</title>
       <description>One-time $9.50 digital ZIP download with the current 142-row NYC DOB permit CSV, buyer workbook, priority-slices CSV, source registry, QA report, and public-record boundary notes. The free preview has 25 rows.</description>
-      <link>https://nycpermitbrief.com/buy.html?source=product-feed</link>
-      <g:image_link>https://nycpermitbrief.com/assets/current-issue-snapshot.png</g:image_link>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>9.50 USD</g:price>
@@ -25,8 +25,8 @@
       <g:id>nyc-construction-activity-brief-sidewalk-shed</g:id>
       <title>NYC sidewalk shed permit activity ZIP</title>
       <description>One-time $9.50 digital ZIP download for buyers screening 40 selected NYC sidewalk shed permit rows inside the current 142-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
-      <link>https://nycpermitbrief.com/buy.html?source=product-feed-sidewalk-shed</link>
-      <g:image_link>https://nycpermitbrief.com/assets/current-issue-snapshot.png</g:image_link>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed-sidewalk-shed</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>9.50 USD</g:price>
@@ -42,8 +42,8 @@
       <g:id>nyc-construction-activity-brief-plumbing</g:id>
       <title>NYC plumbing permit activity ZIP</title>
       <description>One-time $9.50 digital ZIP download for buyers screening 29 selected NYC plumbing permit rows inside the current 142-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
-      <link>https://nycpermitbrief.com/buy.html?source=product-feed-plumbing</link>
-      <g:image_link>https://nycpermitbrief.com/assets/current-issue-snapshot.png</g:image_link>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed-plumbing</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>9.50 USD</g:price>
@@ -59,8 +59,8 @@
       <g:id>nyc-construction-activity-brief-exterior-access</g:id>
       <title>NYC exterior-access permit activity ZIP</title>
       <description>One-time $9.50 digital ZIP download for buyers screening 74 selected NYC exterior-access permit rows, including sidewalk shed, supported scaffold, construction fence, and structural activity inside the current 142-row public-record permit package.</description>
-      <link>https://nycpermitbrief.com/buy.html?source=product-feed-exterior-access</link>
-      <g:image_link>https://nycpermitbrief.com/assets/current-issue-snapshot.png</g:image_link>
+      <link>https://nyc-construction-activity-brief.vercel.app/buy.html?source=product-feed-exterior-access</link>
+      <g:image_link>https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>9.50 USD</g:price>
