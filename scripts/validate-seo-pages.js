@@ -3131,6 +3131,7 @@ assert.match(shareKit, /<title>NYC Construction Brief Share Kit \| DOB Permit Da
 assert.match(shareKit, /<link rel="canonical" href="https:\/\/nycpermitbrief\.com\/share-kit\.html">/, 'share kit needs canonical');
 assert.match(shareKit, /Short newsletter blurb/, 'share kit includes newsletter blurb');
 assert.match(shareKit, /Community post draft/, 'share kit includes community post draft');
+assert.match(shareKit, /Best-fit channels/, 'share kit includes partner-fit channel guidance');
 assert.match(shareKit, /Channel-ready copy/, 'share kit includes channel-ready copy');
 assert.match(shareKit, /LinkedIn post/, 'share kit includes LinkedIn copy');
 assert.match(shareKit, /Local newsletter note/, 'share kit includes newsletter copy');
@@ -3146,6 +3147,14 @@ assert.match(shareKit, /data-share-kit-path="sample-request"/, 'share kit tags s
 assert.match(shareKit, /data-share-kit-path="linkedin-buy"/, 'share kit tags LinkedIn buy path');
 assert.match(shareKit, /data-share-kit-path="newsletter-current-issue"/, 'share kit tags newsletter current issue path');
 assert.match(shareKit, /data-share-kit-path="community-preview"/, 'share kit tags community preview path');
+assert.match(shareKit, /data-share-kit-path="pipeline-newsletter"/, 'share kit tags pipeline newsletter path');
+assert.match(shareKit, /source=share-kit-pipeline-newsletter/, 'share kit links pipeline newsletter source');
+assert.match(shareKit, /data-share-kit-path="contractor-association"/, 'share kit tags contractor association path');
+assert.match(shareKit, /source=share-kit-contractor-association/, 'share kit links contractor association source');
+assert.match(shareKit, /data-share-kit-path="supplier-groups"/, 'share kit tags supplier groups path');
+assert.match(shareKit, /source=share-kit-supplier-groups/, 'share kit links supplier groups source');
+assert.match(shareKit, /data-share-kit-path="real-estate-community"/, 'share kit tags real estate community path');
+assert.match(shareKit, /source=share-kit-real-estate-community/, 'share kit links real estate community source');
 assert.match(shareKit, /data-share-kit-path="social-image"/, 'share kit tags social image path');
 assert.match(shareKit, /data-share-kit-path="sticky-checkout"/, 'share kit tags sticky checkout path');
 assert.match(shareKit, /share_kit_path_clicked/, 'share kit tracks path clicks');
