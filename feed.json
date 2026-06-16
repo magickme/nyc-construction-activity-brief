@@ -3,7 +3,7 @@
   "title": "NYC Weekly Construction Activity Brief",
   "home_page_url": "https://nyc-construction-activity-brief.vercel.app/",
   "feed_url": "https://nyc-construction-activity-brief.vercel.app/feed.json",
-  "description": "Current source-linked NYC construction permit activity pages, sample CSV, and paid ZIP checkout.",
+  "description": "Current source-linked NYC construction permit activity pages, buyer-intent topic hub, sample CSV, and paid ZIP checkout.",
   "icon": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
   "favicon": "https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png",
   "authors": [
@@ -26,6 +26,13 @@
       "url": "https://nyc-construction-activity-brief.vercel.app/buy.html?source=json-feed",
       "title": "Buy the current NYC construction activity ZIP",
       "content_text": "One-time $9.50 Stripe checkout for the current 142-row ZIP. Automated browser download follows a paid Checkout Session.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
+      "id": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/sample-segments.html",
+      "title": "Browse current permit activity and buyer-intent pages",
+      "content_text": "Segment hub for ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages tied to the current 142-row paid issue.",
       "date_published": "2026-06-15T12:00:00Z"
     },
     {

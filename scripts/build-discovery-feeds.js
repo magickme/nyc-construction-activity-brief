@@ -485,7 +485,7 @@ function buildFeedXml(rows, manifest) {
     {
       title: 'Browse current permit activity segments',
       url: `${baseUrl}/sample-segments.html`,
-      description: `ZIP, borough, work type, issued-date, cost-bucket, and buyer research pages generated from the current ${stats.rowCount}-row paid issue.`,
+      description: `ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages for the current ${stats.rowCount}-row paid issue.`,
     },
     {
       title: 'Browser preview for the current issue',
@@ -919,6 +919,13 @@ function buildJsonFeed(rows, manifest) {
       date_published: generatedAt,
     },
     {
+      id: `${baseUrl}/sample-segments.html`,
+      url: `${baseUrl}/sample-segments.html`,
+      title: 'Browse current permit activity and buyer-intent pages',
+      content_text: `Segment hub for ZIP, borough, work type, issued-date, cost-bucket, and curated buyer-intent pages tied to the current ${stats.rowCount}-row paid issue.`,
+      date_published: generatedAt,
+    },
+    {
       id: `${baseUrl}/preview.html`,
       url: `${baseUrl}/preview.html`,
       title: `Free ${previewRows}-row preview`,
@@ -1060,7 +1067,7 @@ function buildJsonFeed(rows, manifest) {
     title: 'NYC Weekly Construction Activity Brief',
     home_page_url: `${baseUrl}/`,
     feed_url: jsonFeedUrl,
-    description: 'Current source-linked NYC construction permit activity pages, sample CSV, and paid ZIP checkout.',
+    description: 'Current source-linked NYC construction permit activity pages, buyer-intent topic hub, sample CSV, and paid ZIP checkout.',
     icon: socialImageUrl,
     favicon: socialImageUrl,
     authors: [{ name: 'NYC Weekly Construction Activity Brief', url: baseUrl }],
