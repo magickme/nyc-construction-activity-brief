@@ -2027,6 +2027,15 @@ ${socialImageMeta()}
         <a class="button" href="${checkoutHref('buyer-guide')}">Buy instant ZIP</a>
       </section>
 
+      <section class="section card">
+        <h2>Buying paths</h2>
+        <p>Use the card checkout when the current issue fits. Use a request path when the blocker is procurement, team access, custom research, or a partner conversation.</p>
+        <a class="button secondary" href="/invoice-request.html?source=buyer-guide-paths">Invoice or procurement help</a>
+        <a class="button secondary" href="/team-license.html?source=buyer-guide-paths">Team or multi-issue access</a>
+        <a class="button secondary" href="/custom-research.html?source=buyer-guide-paths">Custom research request</a>
+        <a class="button secondary" href="/partner-inquiry.html?source=buyer-guide-paths">Partner inquiry</a>
+      </section>
+
 ${sampleRequestSection({
         workType: 'Selected DOB work types',
         territory: 'NYC',

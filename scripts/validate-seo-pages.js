@@ -2848,6 +2848,11 @@ assert.match(buyerGuide, /href="\/csv-field-guide\.html"/, 'buyer guide links CS
 assert.match(buyerGuide, /href="\/delivery\.html"/, 'buyer guide links delivery page');
 assert.match(buyerGuide, /href="\/support\.html"/, 'buyer guide links support page');
 assert.match(buyerGuide, /href="\/methodology\.html"/, 'buyer guide links methodology');
+assert.match(buyerGuide, /<h2>Buying paths<\/h2>/, 'buyer guide exposes alternate buying paths');
+assert.match(buyerGuide, /href="\/invoice-request\.html\?source=buyer-guide-paths"/, 'buyer guide links invoice request path');
+assert.match(buyerGuide, /href="\/team-license\.html\?source=buyer-guide-paths"/, 'buyer guide links team license path');
+assert.match(buyerGuide, /href="\/custom-research\.html\?source=buyer-guide-paths"/, 'buyer guide links custom research path');
+assert.match(buyerGuide, /href="\/partner-inquiry\.html\?source=buyer-guide-paths"/, 'buyer guide links partner inquiry path');
 assert.match(buyerGuide, new RegExp(`href="${purchaseUrl}"`), 'buyer guide links tracked buy page');
 assertSampleRequestForm(buyerGuide, 'buyer guide');
 assert.match(buyerGuide, /No guaranteed leads\./, 'buyer guide keeps claims boundary visible');
