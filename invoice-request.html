@@ -62,7 +62,7 @@
       <section id="sample-request" class="section card sample-request">
         <h2>Send invoice or procurement request</h2>
         <p>Use this form when card checkout is blocked by invoice, purchase order, or procurement approval. The request is tagged for this product and does not deliver the paid ZIP.</p>
-        <form data-sample-request-form data-fallback-subject="NYC Construction Brief invoice request" data-fallback-source-label="Invoice request source" data-success-copy="Invoice request saved. I will use this to follow up on procurement-blocked buyer interest." data-failed-copy="Invoice request was not saved." data-email-fallback-label="Email this invoice request">
+        <form data-sample-request-form data-fallback-subject="NYC Construction Brief invoice request" data-fallback-source-label="Invoice request source" data-success-copy="Invoice request saved. I will use this to follow up on procurement-blocked buyer interest." data-failed-copy="Invoice request was not saved." data-email-fallback-label="Email this invoice request" data-event-prefix="invoice_request">
           <label>
             Email
             <input name="email" type="email" autocomplete="email" required>
@@ -128,6 +128,10 @@
           window.va('event', { name, data });
         } catch (error) {}
       }
+      function sampleRequestEventPrefix(form) {
+        const prefix = form && form.dataset.eventPrefix ? form.dataset.eventPrefix : '';
+        return /^[a-z0-9_]{1,40}$/i.test(prefix) ? prefix : 'sample_request';
+      }
       function sampleRequestFallbackHref(data, source, form) {
         const subject = form && form.dataset.fallbackSubject
           ? form.dataset.fallbackSubject
@@ -157,7 +161,8 @@
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
         const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
-        trackSampleRequestEvent('sample_request_submitted', {
+        const eventPrefix = sampleRequestEventPrefix(form);
+        trackSampleRequestEvent(eventPrefix + '_submitted', {
           source: requestSource,
           request_only: form.dataset.currentIssueCta === 'false',
           entry_source: data.entry_source || '',
@@ -172,7 +177,7 @@
           });
           if (!response.ok) throw new Error('request failed');
           form.reset();
-          trackSampleRequestEvent('sample_request_saved', { source: requestSource });
+          trackSampleRequestEvent(eventPrefix + '_saved', { source: requestSource });
           if (status) {
             const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
             if (form.dataset.currentIssueCta === 'false') {
@@ -182,7 +187,7 @@
             }
           }
         } catch (error) {
-          trackSampleRequestEvent('sample_request_failed', { source: requestSource });
+          trackSampleRequestEvent(eventPrefix + '_failed', { source: requestSource });
           if (status) {
             const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
             const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
@@ -200,7 +205,9 @@
         const link = event.target.closest('a[href="#sample-request"]');
         if (!link) return;
         const source = ['sample-request-cta', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
-        trackSampleRequestEvent('sample_request_cta_clicked', {
+        const form = document.querySelector('[data-sample-request-form]');
+        const eventPrefix = sampleRequestEventPrefix(form);
+        trackSampleRequestEvent(eventPrefix + '_cta_clicked', {
           source,
           text: (link.textContent || '').trim().slice(0, 80),
           path: window.location.pathname,

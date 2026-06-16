@@ -136,10 +136,11 @@ function assertHtmlPage(relativePath) {
   assert.match(html, /data\.source_path = window\.location\.pathname;/, `${relativePath} sends source path with sample request`);
   assert.match(html, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, `${relativePath} sends safe entry source with sample request`);
   assert.match(html, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, `${relativePath} builds page-specific sample request checkout source`);
-  assert.match(html, /sample_request_submitted/, `${relativePath} tracks sample request submit attempts`);
-  assert.match(html, /sample_request_saved/, `${relativePath} tracks saved sample requests`);
-  assert.match(html, /sample_request_failed/, `${relativePath} tracks failed sample requests`);
-  assert.match(html, /sample_request_cta_clicked/, `${relativePath} tracks sample request CTA clicks`);
+  assert.match(html, /function sampleRequestEventPrefix\(form\)/, `${relativePath} resolves request analytics event prefix`);
+  assert.match(html, /eventPrefix \+ '_submitted'/, `${relativePath} tracks sample request submit attempts`);
+  assert.match(html, /eventPrefix \+ '_saved'/, `${relativePath} tracks saved sample requests`);
+  assert.match(html, /eventPrefix \+ '_failed'/, `${relativePath} tracks failed sample requests`);
+  assert.match(html, /eventPrefix \+ '_cta_clicked'/, `${relativePath} tracks sample request CTA clicks`);
   assert.match(html, /sampleRequestFallbackHref/, `${relativePath} builds email fallback for failed sample requests`);
   assert.match(html, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, `${relativePath} email fallback uses support address without exposing it directly`);
   assert.match(html, /'mailto:' \+ supportAddress/, `${relativePath} email fallback builds mailto link`);
@@ -177,16 +178,22 @@ function assertSampleRequestForm(html, label, options = {}) {
   const subject = options.subject || 'NYC Construction Brief sample request';
   const failedLinkCopy = options.failedLinkCopy || 'Email this request';
   const statusCopy = options.statusCopy || 'This does not join the MagickMe newsletter.';
+  const eventPrefix = options.eventPrefix || 'sample_request';
   assert.match(html, /href="#sample-request"/, `${label} links sample request form`);
   assert.match(html, /id="sample-request"/, `${label} has sample request form anchor`);
   assert.match(html, /data-sample-request-form/, `${label} needs sample request form`);
   assert.match(html, /\/api\/sample-request/, `${label} posts sample requests to API`);
   assert.match(html, /data\.source_path = window\.location\.pathname;/, `${label} sends source path with sample request`);
   assert.match(html, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, `${label} sends safe entry source with sample request`);
-  assert.match(html, /sample_request_submitted/, `${label} tracks sample request submit attempts`);
-  assert.match(html, /sample_request_saved/, `${label} tracks saved sample requests`);
-  assert.match(html, /sample_request_failed/, `${label} tracks failed sample requests`);
-  assert.match(html, /sample_request_cta_clicked/, `${label} tracks sample request CTA clicks`);
+  assert.match(html, /function sampleRequestEventPrefix\(form\)/, `${label} resolves request analytics event prefix`);
+  assert.match(html, /return \/\^\[a-z0-9_\]\{1,40\}\$\/i\.test\(prefix\) \? prefix : 'sample_request';/, `${label} falls back to sample request analytics events`);
+  assert.match(html, /eventPrefix \+ '_submitted'/, `${label} tracks request submit attempts`);
+  assert.match(html, /eventPrefix \+ '_saved'/, `${label} tracks saved requests`);
+  assert.match(html, /eventPrefix \+ '_failed'/, `${label} tracks failed requests`);
+  assert.match(html, /eventPrefix \+ '_cta_clicked'/, `${label} tracks request CTA clicks`);
+  if (eventPrefix !== 'sample_request') {
+    assert.match(html, new RegExp(`data-event-prefix="${eventPrefix}"`), `${label} tags custom analytics events`);
+  }
   assert.match(html, /sampleRequestFallbackHref/, `${label} builds email fallback for failed sample requests`);
   assert.match(html, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, `${label} email fallback uses support address without exposing it directly`);
   assert.match(html, /'mailto:' \+ supportAddress/, `${label} email fallback builds mailto link`);
@@ -394,10 +401,10 @@ assert.match(index, /\/api\/sample-request/, 'index posts sample requests to API
 assert.match(index, /data\.source_path = window\.location\.pathname;/, 'index sends source path with sample request');
 assert.match(index, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, 'index sends safe entry source with sample request');
 assert.match(index, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'index builds page-specific sample request checkout source');
-assert.match(index, /sample_request_submitted/, 'index tracks sample request submit attempts');
-assert.match(index, /sample_request_saved/, 'index tracks saved sample requests');
-assert.match(index, /sample_request_failed/, 'index tracks failed sample requests');
-assert.match(index, /sample_request_cta_clicked/, 'index tracks sample request CTA clicks');
+assert.match(index, /eventPrefix \+ '_submitted'/, 'index tracks sample request submit attempts');
+assert.match(index, /eventPrefix \+ '_saved'/, 'index tracks saved sample requests');
+assert.match(index, /eventPrefix \+ '_failed'/, 'index tracks failed sample requests');
+assert.match(index, /eventPrefix \+ '_cta_clicked'/, 'index tracks sample request CTA clicks');
 assert.match(index, /sampleRequestFallbackHref/, 'index builds email fallback for failed sample requests');
 assert.match(index, /const supportAddress = \['support', 'magick\.me'\]\.join\('@'\);/, 'index email fallback uses support address without exposing it directly');
 assert.match(index, /'mailto:' \+ supportAddress/, 'index email fallback builds mailto link');
@@ -482,9 +489,9 @@ for (const boroughPage of [
   assert.match(html, new RegExp(`value="${boroughName} construction permit activity"`), `${fileName} must seed borough work type request`);
   assert.match(html, new RegExp(`value="${boroughName}"`), `${fileName} must seed borough territory request`);
   assert.match(html, /\/api\/sample-request/, `${fileName} must post to sample request API`);
-  assert.match(html, /sample_request_submitted/, `${fileName} must track sample request submit attempts`);
+  assert.match(html, /eventPrefix \+ '_submitted'/, `${fileName} must track sample request submit attempts`);
   assert.match(html, /This does not join the MagickMe newsletter\./, `${fileName} must keep list separation clear`);
-  assert.match(html, /sample_request_cta_clicked/, `${fileName} must track sample request CTA clicks`);
+  assert.match(html, /eventPrefix \+ '_cta_clicked'/, `${fileName} must track sample request CTA clicks`);
   assert.match(html, /"@type":"FAQPage"/, `${fileName} needs FAQ structured data`);
 }
 
@@ -693,8 +700,10 @@ assertSampleRequestForm(invoiceRequest, 'invoice request page', {
   subject: 'NYC Construction Brief invoice request',
   failedLinkCopy: 'Email this invoice request',
   statusCopy: 'Paid ZIP delivery still requires completed Stripe checkout.',
+  eventPrefix: 'invoice_request',
 });
 assert.match(invoiceRequest, /Send invoice or procurement request/, 'invoice request page labels invoice form');
+assert.match(invoiceRequest, /data-event-prefix="invoice_request"/, 'invoice request page tags invoice analytics events');
 assert.match(invoiceRequest, /Invoice request saved\. I will use this to follow up on procurement-blocked buyer interest\./, 'invoice request page has invoice-specific success copy');
 assert.match(invoiceRequest, /Invoice request source/, 'invoice request fallback labels invoice source');
 assert.match(invoiceRequest, /<option value="data-buyer" selected>Data buyer<\/option>/, 'invoice request page preselects data buyer type');
@@ -763,10 +772,10 @@ assert.match(preview, /\/api\/sample-request/, 'preview page posts sample reques
 assert.match(preview, /data\.source_path = window\.location\.pathname;/, 'preview page sends source path with sample request');
 assert.match(preview, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, 'preview page sends safe entry source with sample request');
 assert.match(preview, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'preview page builds page-specific sample request checkout source');
-assert.match(preview, /sample_request_submitted/, 'preview page tracks sample request submit attempts');
-assert.match(preview, /sample_request_saved/, 'preview page tracks saved sample requests');
-assert.match(preview, /sample_request_failed/, 'preview page tracks failed sample requests');
-assert.match(preview, /sample_request_cta_clicked/, 'preview page tracks sample request CTA clicks');
+assert.match(preview, /eventPrefix \+ '_submitted'/, 'preview page tracks sample request submit attempts');
+assert.match(preview, /eventPrefix \+ '_saved'/, 'preview page tracks saved sample requests');
+assert.match(preview, /eventPrefix \+ '_failed'/, 'preview page tracks failed sample requests');
+assert.match(preview, /eventPrefix \+ '_cta_clicked'/, 'preview page tracks sample request CTA clicks');
 assert.match(preview, /encodeURIComponent\(requestSource\)/, 'preview page links buy page with page-specific sample request source');
 assert.match(preview, /No guaranteed leads\./, 'preview page keeps claims boundary visible');
 for (const pattern of bannedCopyPatterns) {
@@ -2957,10 +2966,10 @@ assert.match(hub, /\/api\/sample-request/, 'hub posts sample requests to API');
 assert.match(hub, /data\.source_path = window\.location\.pathname;/, 'hub sends source path with sample request');
 assert.match(hub, /data\.entry_source = \/\^\[a-z0-9\._-\]\{1,80\}\$\/i\.test\(rawEntrySource\) \? rawEntrySource : '';/, 'hub sends safe entry source with sample request');
 assert.match(hub, /const requestSource = \['sample-request', window\.location\.pathname\.replace/, 'hub builds page-specific sample request checkout source');
-assert.match(hub, /sample_request_submitted/, 'hub tracks sample request submit attempts');
-assert.match(hub, /sample_request_saved/, 'hub tracks saved sample requests');
-assert.match(hub, /sample_request_failed/, 'hub tracks failed sample requests');
-assert.match(hub, /sample_request_cta_clicked/, 'hub tracks sample request CTA clicks');
+assert.match(hub, /eventPrefix \+ '_submitted'/, 'hub tracks sample request submit attempts');
+assert.match(hub, /eventPrefix \+ '_saved'/, 'hub tracks saved sample requests');
+assert.match(hub, /eventPrefix \+ '_failed'/, 'hub tracks failed sample requests');
+assert.match(hub, /eventPrefix \+ '_cta_clicked'/, 'hub tracks sample request CTA clicks');
 assert.match(hub, /encodeURIComponent\(requestSource\)/, 'hub links buy page with page-specific sample request source');
 assert.match(hub, /href="\/preview\.html"/, 'hub links public preview page');
 assert.match(hub, /href="\/pricing\.html"/, 'hub links pricing page');

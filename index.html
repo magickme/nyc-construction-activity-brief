@@ -522,6 +522,10 @@
           window.va('event', { name, data });
         } catch (error) {}
       }
+      function sampleRequestEventPrefix(form) {
+        const prefix = form && form.dataset.eventPrefix ? form.dataset.eventPrefix : '';
+        return /^[a-z0-9_]{1,40}$/i.test(prefix) ? prefix : 'sample_request';
+      }
       function sampleRequestFallbackHref(data, source) {
         const subject = 'NYC Construction Brief sample request';
         const lines = [
@@ -549,7 +553,8 @@
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
         const fallbackHref = sampleRequestFallbackHref(data, requestSource);
-        trackSampleRequestEvent('sample_request_submitted', {
+        const eventPrefix = sampleRequestEventPrefix(form);
+        trackSampleRequestEvent(eventPrefix + '_submitted', {
           source: requestSource,
           request_only: false,
           entry_source: data.entry_source || '',
@@ -564,12 +569,12 @@
           });
           if (!response.ok) throw new Error('request failed');
           form.reset();
-          trackSampleRequestEvent('sample_request_saved', { source: requestSource });
+          trackSampleRequestEvent(eventPrefix + '_saved', { source: requestSource });
           if (status) {
             status.innerHTML = 'Request saved. I will use this to choose future sample cuts. If the current ZIP fits, <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the instant ZIP</a>.';
           }
         } catch (error) {
-          trackSampleRequestEvent('sample_request_failed', { source: requestSource });
+          trackSampleRequestEvent(eventPrefix + '_failed', { source: requestSource });
           if (status) {
             status.innerHTML = 'Request was not saved. <a href="' + fallbackHref + '">Email this request</a>, or <a href="/buy.html?source=' + encodeURIComponent(requestSource) + '">buy the current ZIP</a> if it already fits.';
           }
@@ -581,7 +586,9 @@
         const link = event.target.closest('a[href="#sample-request"]');
         if (!link) return;
         const source = ['sample-request-cta', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
-        trackSampleRequestEvent('sample_request_cta_clicked', {
+        const form = document.querySelector('[data-sample-request-form]');
+        const eventPrefix = sampleRequestEventPrefix(form);
+        trackSampleRequestEvent(eventPrefix + '_cta_clicked', {
           source,
           text: (link.textContent || '').trim().slice(0, 80),
           path: window.location.pathname,

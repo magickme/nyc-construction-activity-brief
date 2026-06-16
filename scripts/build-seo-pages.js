@@ -543,6 +543,10 @@ function sampleRequestScript() {
           window.va('event', { name, data });
         } catch (error) {}
       }
+      function sampleRequestEventPrefix(form) {
+        const prefix = form && form.dataset.eventPrefix ? form.dataset.eventPrefix : '';
+        return /^[a-z0-9_]{1,40}$/i.test(prefix) ? prefix : 'sample_request';
+      }
       function sampleRequestFallbackHref(data, source, form) {
         const subject = form && form.dataset.fallbackSubject
           ? form.dataset.fallbackSubject
@@ -572,7 +576,8 @@ function sampleRequestScript() {
         data.entry_source = /^[a-z0-9._-]{1,80}$/i.test(rawEntrySource) ? rawEntrySource : '';
         const requestSource = ['sample-request', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
         const fallbackHref = sampleRequestFallbackHref(data, requestSource, form);
-        trackSampleRequestEvent('sample_request_submitted', {
+        const eventPrefix = sampleRequestEventPrefix(form);
+        trackSampleRequestEvent(eventPrefix + '_submitted', {
           source: requestSource,
           request_only: form.dataset.currentIssueCta === 'false',
           entry_source: data.entry_source || '',
@@ -587,7 +592,7 @@ function sampleRequestScript() {
           });
           if (!response.ok) throw new Error('request failed');
           form.reset();
-          trackSampleRequestEvent('sample_request_saved', { source: requestSource });
+          trackSampleRequestEvent(eventPrefix + '_saved', { source: requestSource });
           if (status) {
             const successCopy = form.dataset.successCopy || 'Request saved. I will use this to choose future sample cuts.';
             if (form.dataset.currentIssueCta === 'false') {
@@ -597,7 +602,7 @@ function sampleRequestScript() {
             }
           }
         } catch (error) {
-          trackSampleRequestEvent('sample_request_failed', { source: requestSource });
+          trackSampleRequestEvent(eventPrefix + '_failed', { source: requestSource });
           if (status) {
             const failedCopy = form.dataset.failedCopy || 'Request was not saved.';
             const emailLabel = form.dataset.emailFallbackLabel || 'Email this request';
@@ -615,7 +620,9 @@ function sampleRequestScript() {
         const link = event.target.closest('a[href="#sample-request"]');
         if (!link) return;
         const source = ['sample-request-cta', window.location.pathname.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'].join('-').slice(0, 80);
-        trackSampleRequestEvent('sample_request_cta_clicked', {
+        const form = document.querySelector('[data-sample-request-form]');
+        const eventPrefix = sampleRequestEventPrefix(form);
+        trackSampleRequestEvent(eventPrefix + '_cta_clicked', {
           source,
           text: (link.textContent || '').trim().slice(0, 80),
           path: window.location.pathname,
@@ -1464,6 +1471,7 @@ function sampleRequestSection(context = {}) {
     context.successCopy ? `data-success-copy="${escapeHtml(context.successCopy)}"` : '',
     context.failedCopy ? `data-failed-copy="${escapeHtml(context.failedCopy)}"` : '',
     context.emailFallbackLabel ? `data-email-fallback-label="${escapeHtml(context.emailFallbackLabel)}"` : '',
+    context.eventPrefix ? `data-event-prefix="${escapeHtml(context.eventPrefix)}"` : '',
     context.currentIssueCta === false ? 'data-current-issue-cta="false"' : '',
   ].filter(Boolean).join(' ');
   const buyerOption = (value, label) => {
@@ -9157,6 +9165,7 @@ ${sampleRequestSection({
         successCopy: 'Invoice request saved. I will use this to follow up on procurement-blocked buyer interest.',
         failedCopy: 'Invoice request was not saved.',
         emailFallbackLabel: 'Email this invoice request',
+        eventPrefix: 'invoice_request',
       })}
 
       <section class="section card">
