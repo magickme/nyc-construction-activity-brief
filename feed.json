@@ -64,6 +64,13 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nyc-construction-activity-brief.vercel.app/custom-research.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/custom-research.html",
+      "title": "Custom research request for filtered permit briefs",
+      "content_text": "Request-only custom research page for filtered briefs, priority-row reviews, client notes, and source-review interest tied to the current NYC construction activity brief.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nyc-construction-activity-brief.vercel.app/preview.html",
       "url": "https://nyc-construction-activity-brief.vercel.app/preview.html",
       "title": "Free 25-row preview",

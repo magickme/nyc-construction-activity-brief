@@ -27,6 +27,7 @@ assert.deepEqual(intentTags({ monitoringGoal: 'Send invoice after procurement ap
 ]);
 assert.deepEqual(intentTags({ monitoringGoal: 'Team license request for multiple users and recurring multi-issue access.' }), ['wealth:ncab:intent:team-license']);
 assert.deepEqual(intentTags({ monitoringGoal: 'Newsletter sponsorship and community bundle inquiry.' }), ['wealth:ncab:intent:partner']);
+assert.deepEqual(intentTags({ monitoringGoal: 'Custom research analysis brief with filtered priority rows.' }), ['wealth:ncab:intent:custom-research']);
 assert.deepEqual(intentTags({
   workType: 'Facade restoration and exterior access',
   monitoringGoal: 'Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC.',
@@ -179,6 +180,33 @@ assert.deepEqual(buildMauticContactPayload(teamLicense.value), {
     'wealth:ncab:source-page:team-license-html',
     'wealth:ncab:entry-source:team-license-top',
     'wealth:ncab:intent:team-license',
+  ],
+});
+
+const customResearch = validateSampleRequest({
+  email: 'research@example.com',
+  work_type_requested: 'Custom research brief',
+  territory_requested: 'NYC',
+  buyer_type: 'consultant-analyst',
+  monitoring_goal: 'Custom research analysis brief with filtered priority rows for a client review.',
+  source_path: '/custom-research.html',
+  entry_source: 'custom-research-top',
+  consent: true,
+  website: '',
+});
+assert.equal(customResearch.ok, true);
+assert.deepEqual(buildMauticContactPayload(customResearch.value), {
+  email: 'research@example.com',
+  tags: [
+    'wealth:nyc-construction-activity-brief',
+    'wealth:nyc-construction-activity-brief:sample-request',
+    'source:nyc-construction-activity-brief-site',
+    'wealth:ncab:buyer:consultant-analyst',
+    'wealth:ncab:work-type:custom-research-brief',
+    'wealth:ncab:territory:nyc',
+    'wealth:ncab:source-page:custom-research-html',
+    'wealth:ncab:entry-source:custom-research-top',
+    'wealth:ncab:intent:custom-research',
   ],
 });
 

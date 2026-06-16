@@ -9614,6 +9614,151 @@ ${sampleRequestSection({
 `;
 }
 
+function customResearchHtml(rows) {
+  const range = sampleRange(rows);
+  const description = 'Request a custom NYC construction permit research brief or filtered review based on the public-record NYC Weekly Construction Activity Brief.';
+  const pageUrl = `${baseUrl}/custom-research.html`;
+  const webPage = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'NYC Construction Brief custom research request',
+    description,
+    url: pageUrl,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'NYC Weekly Construction Activity Brief',
+      url: baseUrl,
+    },
+  };
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Can I request a custom filtered brief?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Use the request form to describe the territory, work types, date range, filters, and decision context you want reviewed.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this buy consulting work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The form records interest only. Any custom research scope, fee, delivery date, or payment term needs separate approval before work starts.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What data can a custom brief use?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The starting point is the public-record current issue, source links, public preview, dataset catalog, and visible claims boundary.',
+        },
+      },
+    ],
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'NYC Construction Activity Brief', item: `${baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Custom research request', item: pageUrl },
+    ],
+  };
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Research Request | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${pageUrl}">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Custom Research Request | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${pageUrl}">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(webPage)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    <script type="application/ld+json">${jsonScript(breadcrumb)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Request a custom permit research brief.</h1>
+      <p class="lede">Use this page when the current ZIP is close, but you need a filtered public-record review for a client, territory, trade, or buying decision.</p>
+      <p>
+        <a class="button" href="#sample-request">Send custom research request</a>
+        <a class="button secondary" href="${checkoutHref('custom-research')}">Buy current ZIP</a>
+        <a class="button secondary" href="/dataset-catalog.html">Dataset catalog</a>
+        <a class="button secondary" href="/preview.html">Public preview</a>
+      </p>
+      <p class="fine">This request does not approve consulting work, custom fees, delivery dates, payment terms, or manual fulfillment.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current source base</h2>
+          <p>${escapeHtml(rows.length)} paid issue rows, 25 free preview rows, issued dates ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(range.latestIssuedDate)}, source dataset rbx6-tga4.</p>
+        </div>
+        <div class="card">
+          <h2>Use this if</h2>
+          <p>You need a custom filter, priority review, client-ready note, ZIP or borough slice, trade slice, or comparison against the public preview.</p>
+        </div>
+        <div class="card">
+          <h2>Boundary</h2>
+          <p>No private contacts, guaranteed leads, legal advice, valuation advice, agency endorsement, buyer outcomes, or approved consulting scope.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Useful request details</h2>
+        <ul>
+          <li>Client or internal decision context.</li>
+          <li>Territory, work types, cost buckets, and issued-date window.</li>
+          <li>Output needed: filtered CSV, short written brief, priority row list, or source-review notes.</li>
+          <li>Deadline, approval process, and whether the current ZIP already fits part of the need.</li>
+        </ul>
+      </section>
+
+${sampleRequestSection({
+        heading: 'Send custom research request',
+        intro: 'Use this form for custom filtered brief, priority-row review, client-ready note, or source-review interest. Include scope, filters, output format, and timing.',
+        workType: 'Custom research brief',
+        territory: 'NYC',
+        buyerType: 'consultant-analyst',
+        monitoringGoal: 'Custom research analysis brief with filtered priority rows for a client review.',
+        consentCopy: 'You may reply about this custom research request.',
+        buttonCopy: 'Send custom research request',
+        statusCopy: 'This does not join the MagickMe newsletter. No consulting work, custom fee, delivery date, or payment term is approved from this form alone.',
+        fallbackSubject: 'NYC Construction Brief custom research request',
+        fallbackSourceLabel: 'Custom research request source',
+        successCopy: 'Custom research request saved. I will use this to evaluate paid research demand.',
+        failedCopy: 'Custom research request was not saved.',
+        emailFallbackLabel: 'Email this custom research request',
+        eventPrefix: 'custom_research_request',
+        currentIssueCta: false,
+      })}
+
+      <section class="section card">
+        <h2>Review before requesting</h2>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+        <a class="button secondary" href="/dataset-catalog.html">Dataset catalog</a>
+        <a class="button secondary" href="/inside-the-zip.html">Inside the ZIP</a>
+        <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Open free CSV preview</a>
+      </section>
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function faqHtml(rows) {
   const description = 'Plain answers about the current NYC construction activity ZIP, including price, files, delivery, source limits, privacy boundary, and support.';
   const range = sampleRange(rows);
@@ -10126,7 +10271,7 @@ ${boroughRequestConversionBar(config)}
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'dataset-catalog.html', 'share-kit.html', 'partner-inquiry.html', 'team-license.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'dataset-catalog.html', 'share-kit.html', 'partner-inquiry.html', 'team-license.html', 'custom-research.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -10179,6 +10324,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/share-kit.html">Share kit</a></p>
         <p><a class="button secondary" href="/partner-inquiry.html">Partner inquiry</a></p>
         <p><a class="button secondary" href="/team-license.html">Team license</a></p>
+        <p><a class="button secondary" href="/custom-research.html">Custom research</a></p>
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
         <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
         <p><a class="button secondary" href="/faq.html">Buyer FAQ</a></p>
@@ -10654,7 +10800,7 @@ fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows)
 fs.writeFileSync(path.join(root, 'invoice-request.html'), invoiceRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'share-kit.html'), shareKitHtml(rows));
 fs.writeFileSync(path.join(root, 'partner-inquiry.html'), partnerInquiryHtml(rows));
-fs.writeFileSync(path.join(root, 'team-license.html'), teamLicenseHtml(rows));
+fs.writeFileSync(path.join(root, 'custom-research.html'), customResearchHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml(rows));
 fs.writeFileSync(path.join(root, 'buy.html'), buyHtml(rows));

@@ -55,6 +55,13 @@
       <description>Request-only team license page for multi-user, multi-issue, recurring-access, and procurement-review interest tied to the current NYC construction activity brief.</description>
     </item>
     <item>
+      <title>Custom research request for filtered permit briefs</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/custom-research.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/custom-research.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Request-only custom research page for filtered briefs, priority-row reviews, client notes, and source-review interest tied to the current NYC construction activity brief.</description>
+    </item>
+    <item>
       <title>Browser preview for the current issue</title>
       <link>https://nyc-construction-activity-brief.vercel.app/preview.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/preview.html</guid>

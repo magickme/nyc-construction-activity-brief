@@ -61,6 +61,9 @@ function intentTags(request) {
   if (/\bpartner\b|\bsponsor\b|\bsponsorship\b|\bnewsletter\b|\bcommunity\b|\bbundle\b/.test(text)) {
     tags.push('wealth:ncab:intent:partner');
   }
+  if (/\bcustom\b|\banalysis\b|\bbrief\b|\bfilter\b|\bfiltered\b|\bpriority\b|\bconsulting\b/.test(text)) {
+    tags.push('wealth:ncab:intent:custom-research');
+  }
   if (/\bfacade\b/.test(text)) tags.push('wealth:ncab:intent:facade');
   if (/\bmasonry\b/.test(text)) tags.push('wealth:ncab:intent:masonry');
   if (/\brestoration\b|\bexterior-repair\b/.test(text)) tags.push('wealth:ncab:intent:restoration');
