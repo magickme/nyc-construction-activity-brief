@@ -3079,6 +3079,12 @@ assert.match(shareKit, /No private contacts, owner names, applicant names, phone
 assert.match(shareKit, /Do not claim sales volume, buyer outcomes, proprietary coverage, live freshness, or guaranteed project opportunities\./, 'share kit blocks risky claims');
 assert.match(shareKit, /href="https:\/\/nycpermitbrief\.com\/buy\.html\?source=share-kit"/, 'share kit links tracked buy page');
 assert.match(shareKit, /href="https:\/\/nycpermitbrief\.com\/checkout\.html\?source=share-kit"/, 'share kit conversion bar links tracked checkout');
+assert.match(shareKit, /data-share-kit-path="buy"/, 'share kit tags buy path');
+assert.match(shareKit, /data-share-kit-path="preview"/, 'share kit tags preview path');
+assert.match(shareKit, /data-share-kit-path="sample-request"/, 'share kit tags sample request path');
+assert.match(shareKit, /data-share-kit-path="sticky-checkout"/, 'share kit tags sticky checkout path');
+assert.match(shareKit, /share_kit_path_clicked/, 'share kit tracks path clicks');
+assert.match(shareKit, /path_type: link\.dataset\.shareKitPath/, 'share kit sends path type');
 for (const pattern of bannedCopyPatterns) {
   assert.doesNotMatch(shareKit, pattern, `share-kit.html contains banned copy pattern ${pattern}`);
 }

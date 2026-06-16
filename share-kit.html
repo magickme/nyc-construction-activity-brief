@@ -32,10 +32,10 @@
       <h1>NYC Construction Brief share kit.</h1>
       <p class="lede">Copy-safe notes for newsletters, community moderators, and local real estate groups that want to link to the current public preview or paid ZIP.</p>
       <p>
-        <a class="button" href="https://nycpermitbrief.com/buy.html?source=share-kit">Buy current ZIP</a>
-        <a class="button secondary" href="/preview.html">Open public preview</a>
-        <a class="button secondary" href="/dataset-catalog.html">Dataset catalog</a>
-        <a class="button secondary" href="/sample-request.html?source=share-kit">Request a sample cut</a>
+        <a class="button" data-share-kit-path="buy" href="https://nycpermitbrief.com/buy.html?source=share-kit">Buy current ZIP</a>
+        <a class="button secondary" data-share-kit-path="preview" href="/preview.html">Open public preview</a>
+        <a class="button secondary" data-share-kit-path="dataset" href="/dataset-catalog.html">Dataset catalog</a>
+        <a class="button secondary" data-share-kit-path="sample-request" href="/sample-request.html?source=share-kit">Request a sample cut</a>
       </p>
 
       <section class="grid">
@@ -56,7 +56,7 @@
       <section class="section card">
         <h2>Short newsletter blurb</h2>
         <p>NYC Weekly Construction Activity Brief packages selected DOB NOW approved permit rows into a source-linked CSV preview and paid ZIP. The current public preview has 25 rows; the paid ZIP has 142 rows, a buyer workbook, priority slices, source registry, QA report, README, and claims boundary.</p>
-        <p><a class="button secondary" href="/current-issue.html">Current issue page</a> <a class="button secondary" href="/free-vs-paid.html">Free vs paid</a></p>
+        <p><a class="button secondary" data-share-kit-path="current-issue" href="/current-issue.html">Current issue page</a> <a class="button secondary" data-share-kit-path="comparison" href="/free-vs-paid.html">Free vs paid</a></p>
       </section>
 
       <section class="section card">
@@ -87,9 +87,30 @@
     <aside class="conversion-bar" data-conversion-bar>
       <p><strong>$9.50</strong> current issue ZIP. Source-linked rows, buyer workbook, and instant browser download.</p>
       <div class="conversion-actions">
-        <a class="button secondary" href="/preview.html">Preview</a>
-        <a class="button" href="https://nycpermitbrief.com/checkout.html?source=share-kit">Buy ZIP</a>
+        <a class="button secondary" data-share-kit-path="sticky-preview" href="/preview.html">Preview</a>
+        <a class="button" data-share-kit-path="sticky-checkout" href="https://nycpermitbrief.com/checkout.html?source=share-kit">Buy ZIP</a>
       </div>
     </aside>
+    <script>
+      function trackShareKitEvent(name, data) {
+        try {
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          window.va('event', { name, data });
+        } catch (error) {}
+      }
+      function shareKitDestination(link) {
+        const href = link.getAttribute('href') || '';
+        return href.split('?')[0].replace(/^https:\/\/nycpermitbrief\.com\//, '').replace(/^\//, '').replace(/\.html$/, '') || 'home';
+      }
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('[data-share-kit-path]');
+        if (!link) return;
+        trackShareKitEvent('share_kit_path_clicked', {
+          source: 'share-kit',
+          destination: shareKitDestination(link),
+          path_type: link.dataset.shareKitPath || 'unknown',
+        });
+      });
+    </script>
   </body>
 </html>
