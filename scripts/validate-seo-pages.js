@@ -440,6 +440,11 @@ assert.match(index, /href="\/sample-request\.html"/, 'index links sample request
 assert.match(index, /href="\/sample-segments\.html"/, 'index links segment hub');
 assert.match(index, /href="\/sitemap\.xml"/, 'index links XML sitemap');
 assert.match(index, /href="\/buyer-guide\.html"/, 'index links buyer guide');
+assert.match(index, /Other buyer paths/, 'index exposes buyer-intent routes after the compact exploration section');
+assert.match(index, /href="\/invoice-request\.html\?source=home-buyer-paths"/, 'index links invoice request route');
+assert.match(index, /href="\/partner-inquiry\.html\?source=home-buyer-paths"/, 'index links partner inquiry route');
+assert.match(index, /href="\/team-license\.html\?source=home-buyer-paths"/, 'index links team license route');
+assert.match(index, /href="\/custom-research\.html\?source=home-buyer-paths"/, 'index links custom research route');
 assert.doesNotMatch(index, /<h2>Permit topics<\/h2>/, 'index must not expose the old link-dump heading');
 assert.doesNotMatch(index, /Generated data-backed pages/, 'index must not expose a generated-page dump');
 assert.doesNotMatch(index, /href="\/topics\/nyc-dob-permits-zip-10003\.html"/, 'index must not link every generated ZIP page directly');

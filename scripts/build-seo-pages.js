@@ -10340,6 +10340,11 @@ function updateIndex(_manualPagesForLinks, _generatedPagesForLinks) {
         <p><a class="button secondary" href="/buyer-guide.html">Read buyer guide</a></p>
         <p><a class="button secondary" href="/support.html">Support and refunds</a></p>
         <p><a class="button secondary" href="/sample-request.html">Request a future sample cut</a></p>
+        <h3>Other buyer paths</h3>
+        <p><a class="button secondary" href="/invoice-request.html?source=home-buyer-paths">Invoice request</a></p>
+        <p><a class="button secondary" href="/partner-inquiry.html?source=home-buyer-paths">Partner inquiry</a></p>
+        <p><a class="button secondary" href="/team-license.html?source=home-buyer-paths">Team license</a></p>
+        <p><a class="button secondary" href="/custom-research.html?source=home-buyer-paths">Custom research</a></p>
       </section>`;
   index = index.replace(
     /      <section class="section card">\n        <h2>(?:Permit topics|Explore the permit data)<\/h2>[\s\S]*?\n      <\/section>\n\n      <section class="section card">\n        <h2>What is not included<\/h2>/,
