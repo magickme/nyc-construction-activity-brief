@@ -615,6 +615,21 @@
     "monitoringGoalRequest": "Selected NYC DOB permit activity for project-management and owner-rep research."
   },
   {
+    "slug": "nyc-construction-permit-data-for-journalists",
+    "title": "NYC Construction Permit Data for Journalists | DOB Brief",
+    "description": "A weekly NYC construction permit data page for journalists and newsroom researchers reviewing selected DOB rows by ZIP, work type, date, status, and source link.",
+    "h1": "NYC construction permit data for journalists and newsroom researchers.",
+    "lede": "The current issue helps reporters and researchers screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Journalists, newsroom researchers, civic-data writers, local editors, and analysts checking public construction activity by territory and work type.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual reporting research pass by ZIP, work type, issued date, status, and source link. It does not provide private contacts, full street addresses, legal advice, or a complete DOB database.",
+    "sampleLine": "Reporter research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Journalist permit research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "consultant-analyst",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for reporting and newsroom research."
+  },
+  {
     "slug": "nyc-real-estate-investor-permit-research",
     "title": "NYC Real Estate Investor Permit Research | DOB Brief",
     "description": "A weekly NYC real estate investor permit research page for reviewing selected DOB activity by ZIP, work type, date, and source link.",

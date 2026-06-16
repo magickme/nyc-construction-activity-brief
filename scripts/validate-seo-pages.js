@@ -2986,12 +2986,27 @@ assert.match(hub, /"@type":"ItemList"/, 'hub needs ItemList structured data');
 assert.match(hub, new RegExp(`"numberOfItems":${pages.length}`), 'hub ItemList count matches all topic pages');
 assert.match(hub, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-dob-permits-zip-10003\.html"/, 'hub ItemList includes generated segment URLs');
 assert.match(hub, /<h2>Curated buyer-intent pages<\/h2>/, 'hub lists curated buyer-intent pages');
+assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-journalists\.html"/, 'hub links journalist permit data topic page');
 assert.match(hub, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub post-review CTA links checkout bridge');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
 }
 for (const page of pageData) {
   assert.match(hub, new RegExp(`href="/topics/${page.slug}\\.html"`), `hub links curated ${page.slug}`);
+}
+
+const journalistPermitData = read('topics/nyc-construction-permit-data-for-journalists.html');
+assert.match(journalistPermitData, /<title>NYC Construction Permit Data for Journalists \| DOB Brief<\/title>/, 'journalist topic page needs title');
+assert.match(journalistPermitData, /<link rel="canonical" href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-construction-permit-data-for-journalists\.html">/, 'journalist topic page needs canonical');
+assert.match(journalistPermitData, /Journalists, newsroom researchers, civic-data writers/, 'journalist topic page names audience');
+assert.match(journalistPermitData, /It does not provide private contacts, full street addresses, legal advice, or a complete DOB database\./, 'journalist topic page keeps boundary clear');
+assert.match(journalistPermitData, /value="Journalist permit research"/, 'journalist topic page seeds sample request work type');
+assertSampleRequestForm(journalistPermitData, 'journalist topic page');
+for (const pattern of bannedCopyPatterns) {
+  assert.doesNotMatch(journalistPermitData, pattern, `topics/nyc-construction-permit-data-for-journalists.html contains banned copy pattern ${pattern}`);
+}
+for (const pattern of privateDataPatterns) {
+  assert.doesNotMatch(journalistPermitData, pattern, `topics/nyc-construction-permit-data-for-journalists.html contains private data pattern ${pattern}`);
 }
 
 const methodology = read('methodology.html');
@@ -3454,6 +3469,7 @@ assert.equal(dataPackage.generated_topic_pages.count, pages.length, 'data packag
 assert.equal(dataPackage.generated_topic_pages.segment_hub_url, 'https://nyc-construction-activity-brief.vercel.app/sample-segments.html', 'data package JSON links segment hub');
 assert.equal(dataPackage.generated_topic_pages.all_urls.length, pages.length, 'data package JSON lists all topic URLs');
 assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html'), 'data package JSON lists curated topic URLs');
+assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-journalists.html'), 'data package JSON lists journalist topic URL');
 assert.ok(dataPackage.generated_topic_pages.all_urls.includes('https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permits-zip-10003.html'), 'data package JSON lists generated segment URLs');
 
 const publicCsv = read('sample/nyc-construction-activity-preview.csv').trim().split(/\r?\n/);

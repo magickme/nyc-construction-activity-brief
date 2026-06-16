@@ -58,6 +58,8 @@ function updateGeneratedPageMetadata(pages) {
     const dataPackage = JSON.parse(fs.readFileSync(dataPackagePath, 'utf8'));
     dataPackage.generated_topic_pages = dataPackage.generated_topic_pages || {};
     dataPackage.generated_topic_pages.count = pages.length;
+    dataPackage.generated_topic_pages.segment_hub_url = `${baseUrl}/sample-segments.html`;
+    dataPackage.generated_topic_pages.all_urls = topicUrls;
     writeJson('data-package.json', dataPackage);
   }
 }
