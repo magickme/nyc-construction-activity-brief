@@ -3041,6 +3041,15 @@ assert.match(hub, /href="\/nyc-construction-permit-leads\.html"/, 'hub links per
 assert.match(hub, /href="\/weekly-nyc-construction-permit-report\.html"/, 'hub links weekly report search path');
 assert.match(hub, /href="\/contractor-supplier-permit-research\.html"/, 'hub links contractor supplier search path');
 assert.match(hub, /href="\/buyer-guide\.html"/, 'hub links buyer guide search path');
+assert.match(hub, /<h2>Commercial buyer paths<\/h2>/, 'hub exposes commercial buyer paths');
+assert.match(hub, /data-segment-hub-buyer-path/, 'hub tags commercial buyer path links');
+assert.match(hub, /href="\/construction-risk-permit-research\.html"/, 'hub links risk and insurance guide');
+assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-insurance\.html"/, 'hub links insurance permit data topic');
+assert.match(hub, /href="\/topics\/nyc-construction-permit-data-for-suppliers\.html"/, 'hub links supplier permit data topic');
+assert.match(hub, /href="\/broker-developer-permit-research\.html"/, 'hub links broker and developer guide');
+assert.match(hub, /href="\/permit-expediter-research\.html"/, 'hub links permit expediter guide');
+assert.match(hub, /href="\/construction-consultant-permit-research\.html"/, 'hub links construction consultant guide');
+assert.match(hub, /href="\/topics\/nyc-permit-research-for-project-managers\.html"/, 'hub links project manager topic');
 assert.match(hub, /<h2>Request paths<\/h2>/, 'hub exposes buyer request paths');
 assert.match(hub, /data-segment-hub-request-path/, 'hub tags buyer request path links');
 assert.match(hub, /segment_hub_path_clicked/, 'hub tracks buyer request path clicks');

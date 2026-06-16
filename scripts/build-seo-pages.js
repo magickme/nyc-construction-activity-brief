@@ -1763,6 +1763,16 @@ function hubHtml(pages, curatedPages = []) {
     ['custom-research.html?source=segment-hub-paths', 'Custom research request'],
     ['partner-inquiry.html?source=segment-hub-paths', 'Partner inquiry'],
   ];
+  const commercialBuyerPaths = [
+    ['construction-risk-permit-research.html', 'Risk and insurance research guide'],
+    ['topics/nyc-construction-permit-data-for-insurance.html', 'Insurance permit data topic'],
+    ['contractor-supplier-permit-research.html', 'Contractor and supplier guide'],
+    ['topics/nyc-construction-permit-data-for-suppliers.html', 'Supplier permit data topic'],
+    ['broker-developer-permit-research.html', 'Broker and developer guide'],
+    ['permit-expediter-research.html', 'Permit expediter guide'],
+    ['construction-consultant-permit-research.html', 'Construction consultant guide'],
+    ['topics/nyc-permit-research-for-project-managers.html', 'Project manager permit research topic'],
+  ];
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
@@ -1831,6 +1841,15 @@ ${socialImageMeta()}
 ${popularSearchPaths.map(([href, text]) => `          <li><a data-segment-hub-search-path href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
         </ul>
         <p class="fine">These links point to existing pages. They do not create a new feed, alert service, contact list, or API.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Commercial buyer paths</h2>
+        <p>Use these paths when the buyer is researching a specific job function or decision, not only a ZIP or work type.</p>
+        <ul>
+${commercialBuyerPaths.map(([href, text]) => `          <li><a data-segment-hub-buyer-path href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
+        </ul>
+        <p class="fine">Each path still uses selected public DOB rows. No page includes private contact data or guaranteed lead claims.</p>
       </section>
 
       <section class="section card">
