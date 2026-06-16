@@ -34,6 +34,13 @@
       <description>Catalog page for the current 142-row paid ZIP, 25-row public preview, source dataset id rbx6-tga4, fields, formats, and claims boundary.</description>
     </item>
     <item>
+      <title>Share kit for newsletters and community posts</title>
+      <link>https://nyc-construction-activity-brief.vercel.app/share-kit.html</link>
+      <guid>https://nyc-construction-activity-brief.vercel.app/share-kit.html</guid>
+      <pubDate>Mon, 15 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Copy-safe newsletter and community-post notes for linking to the current 142-row NYC construction activity brief without overstating coverage, results, or lead guarantees.</description>
+    </item>
+    <item>
       <title>Browser preview for the current issue</title>
       <link>https://nyc-construction-activity-brief.vercel.app/preview.html</link>
       <guid>https://nyc-construction-activity-brief.vercel.app/preview.html</guid>

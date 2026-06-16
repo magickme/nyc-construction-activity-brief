@@ -43,6 +43,13 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nyc-construction-activity-brief.vercel.app/share-kit.html",
+      "url": "https://nyc-construction-activity-brief.vercel.app/share-kit.html",
+      "title": "Share kit for newsletters and community posts",
+      "content_text": "Copy-safe newsletter and community-post notes for linking to the current 142-row NYC construction activity brief without overstating coverage, results, or lead guarantees.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nyc-construction-activity-brief.vercel.app/preview.html",
       "url": "https://nyc-construction-activity-brief.vercel.app/preview.html",
       "title": "Free 25-row preview",

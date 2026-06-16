@@ -22,6 +22,7 @@ Primary pages:
 - Home: https://nyc-construction-activity-brief.vercel.app/
 - Current issue page: https://nyc-construction-activity-brief.vercel.app/current-issue.html
 - Dataset catalog: https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html
+- Share kit: https://nyc-construction-activity-brief.vercel.app/share-kit.html
 - Current issue JSON: https://nyc-construction-activity-brief.vercel.app/current-issue.json
 - Data package JSON: https://nyc-construction-activity-brief.vercel.app/data-package.json
 - Product feed XML: https://nyc-construction-activity-brief.vercel.app/product-feed.xml
