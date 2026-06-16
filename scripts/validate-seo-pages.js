@@ -672,6 +672,9 @@ assert.match(buy, /buy_page_checkout_session_created/, 'buy page tracks first-pa
 assert.match(buy, /buy_page_checkout_session_fallback/, 'buy page tracks Payment Link fallback');
 assert.match(buy, /buy_page_invoice_help_clicked/, 'buy page tracks invoice-help clicks before checkout');
 assert.match(buy, /buy_page_sample_help_clicked/, 'buy page tracks sample-fit help clicks before checkout');
+assert.match(buy, /const requestPathLinks = \[\.\.\.document\.querySelectorAll\('a\[href\*="source=buy-page-request-paths"\]'\)\];/, 'buy page selects alternate request-path links');
+assert.match(buy, /buy_page_request_path_clicked/, 'buy page tracks alternate request-path clicks');
+assert.match(buy, /destination: url\.pathname\.replace/, 'buy page tracks request-path destination without PII');
 assert.match(buy, /document\.querySelectorAll\('\[data-buy-link\]'\)/, 'buy page wires all purchase CTAs');
 assert.doesNotMatch(buy, /links\.forEach\(\(link\) => \{\s*link\.href = fallbackUrl;\s*\}\);/, 'buy page must not rewrite visible CTAs to Payment Link fallback before click');
 assert.match(buy, /link\.addEventListener\('click', async \(event\)/, 'buy page creates checkout sessions only after buyer click');

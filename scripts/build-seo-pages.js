@@ -1195,6 +1195,7 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
       const links = [...document.querySelectorAll('[data-buy-link]')];
       const invoiceHelpLinks = [...document.querySelectorAll('a[href^="/invoice-request.html"]')];
       const sampleHelpLinks = [...document.querySelectorAll('a[href="#sample-request"], a[href^="/sample-request.html"]')];
+      const requestPathLinks = [...document.querySelectorAll('a[href*="source=buy-page-request-paths"]')];
       const cancelledPanel = document.querySelector('[data-checkout-cancelled]');
       const sourceFitPanel = document.querySelector('[data-source-fit="' + pageSource + '"]');
       if (sourceFitPanel) {
@@ -1262,6 +1263,15 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
       sampleHelpLinks.forEach((link) => {
         link.addEventListener('click', () => {
           trackEvent('buy_page_sample_help_clicked', { source: linkSource(link) });
+        });
+      });
+      requestPathLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          const url = new URL(link.href, window.location.href);
+          trackEvent('buy_page_request_path_clicked', {
+            source: linkSource(link),
+            destination: url.pathname.replace(/^\\//, '').replace(/\\.html$/, ''),
+          });
         });
       });
       trackEvent('buy_page_viewed', { source: pageSource });
