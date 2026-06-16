@@ -8,97 +8,97 @@ Current issue:
 - Free CSV preview rows: 25
 - Source fetch date: 2026-06-15
 - Issued dates in preview: 2026-06-09 to 2026-06-12
-- Primary purchase page: https://nycpermitbrief.com/buy.html
-- Buy page: https://nycpermitbrief.com/buy.html
-- Checkout bridge: https://nycpermitbrief.com/checkout.html?source=current-issue
+- Primary purchase page: https://nyc-construction-activity-brief.vercel.app/buy.html
+- Buy page: https://nyc-construction-activity-brief.vercel.app/buy.html
+- Checkout bridge: https://nyc-construction-activity-brief.vercel.app/checkout.html?source=current-issue
 - Stripe fallback link: https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q
-- Social image: https://nycpermitbrief.com/assets/current-issue-snapshot.png
+- Social image: https://nyc-construction-activity-brief.vercel.app/assets/current-issue-snapshot.png
 - Price: $9.50 one-time ZIP download
 - Standard price: $49
 - Promo code required: no
 - Buyer-only files: buyer-workbook.md, buyer-priority-slices.csv
 
 Primary pages:
-- Home: https://nycpermitbrief.com/
-- Current issue page: https://nycpermitbrief.com/current-issue.html
-- Dataset catalog: https://nycpermitbrief.com/dataset-catalog.html
-- Share kit: https://nycpermitbrief.com/share-kit.html
-- Partner inquiry: https://nycpermitbrief.com/partner-inquiry.html
-- Team license request: https://nycpermitbrief.com/team-license.html
-- Custom research request: https://nycpermitbrief.com/custom-research.html
-- Current issue JSON: https://nycpermitbrief.com/current-issue.json
-- Data package JSON: https://nycpermitbrief.com/data-package.json
-- Product feed XML: https://nycpermitbrief.com/product-feed.xml
-- RSS feed: https://nycpermitbrief.com/feed.xml
-- JSON Feed: https://nycpermitbrief.com/feed.json
-- Public preview: https://nycpermitbrief.com/preview.html
-- Pricing: https://nycpermitbrief.com/pricing.html
-- Time saved calculator: https://nycpermitbrief.com/time-saved-calculator.html
-- Who should buy: https://nycpermitbrief.com/who-should-buy.html
-- Buyer FAQ: https://nycpermitbrief.com/faq.html
-- Free preview vs paid ZIP: https://nycpermitbrief.com/free-vs-paid.html
-- Research workflow: https://nycpermitbrief.com/permit-research-workflow.html
-- Contractor guide: https://nycpermitbrief.com/contractor-permit-research.html
-- Contractor and supplier guide: https://nycpermitbrief.com/contractor-supplier-permit-research.html
-- Material supplier guide: https://nycpermitbrief.com/material-supplier-permit-research.html
-- Building-service vendor guide: https://nycpermitbrief.com/building-service-vendor-permit-research.html
-- Subcontractor guide: https://nycpermitbrief.com/subcontractor-permit-research.html
-- Broker and developer guide: https://nycpermitbrief.com/broker-developer-permit-research.html
-- Real estate investor guide: https://nycpermitbrief.com/real-estate-investor-permit-research.html
-- Construction consultant guide: https://nycpermitbrief.com/construction-consultant-permit-research.html
-- Construction risk guide: https://nycpermitbrief.com/construction-risk-permit-research.html
-- Permit expediter guide: https://nycpermitbrief.com/permit-expediter-research.html
-- Property manager guide: https://nycpermitbrief.com/property-manager-permit-research.html
-- Inside the ZIP: https://nycpermitbrief.com/inside-the-zip.html
-- CSV field guide: https://nycpermitbrief.com/csv-field-guide.html
-- NYC building permits: https://nycpermitbrief.com/nyc-building-permits.html
-- NYC building permit data: https://nycpermitbrief.com/nyc-building-permit-data.html
-- NYC DOB permit data download: https://nycpermitbrief.com/nyc-dob-permit-data-download.html
-- NYC DOB approved permits: https://nycpermitbrief.com/nyc-dob-approved-permits.html
-- NYC DOB NOW approved permits: https://nycpermitbrief.com/nyc-dob-now-approved-permits.html
-- DOB NOW Build approved permits: https://nycpermitbrief.com/dob-now-build-approved-permits.html
-- NYC DOB permit alerts alternative: https://nycpermitbrief.com/nyc-dob-permit-alerts.html
-- NYC DOB permit tracker alternative: https://nycpermitbrief.com/nyc-dob-permit-tracker.html
-- NYC DOB permit monitoring alternative: https://nycpermitbrief.com/nyc-dob-permit-monitoring.html
-- NYC DOB permit watchlist alternative: https://nycpermitbrief.com/nyc-dob-permit-watchlist.html
-- NYC DOB permit search companion: https://nycpermitbrief.com/nyc-dob-permit-search.html
-- NYC construction permit search companion: https://nycpermitbrief.com/nyc-construction-permit-search.html
-- NYC DOB permit lookup companion: https://nycpermitbrief.com/nyc-dob-permit-lookup.html
-- NYC DOB permit CSV: https://nycpermitbrief.com/nyc-dob-permit-csv.html
-- NYC permit data API alternative: https://nycpermitbrief.com/nyc-permit-data-api-alternative.html
-- Weekly NYC construction permit report: https://nycpermitbrief.com/weekly-nyc-construction-permit-report.html
-- DOB NOW permit search alternative: https://nycpermitbrief.com/dob-now-permit-search-alternative.html
-- NYC construction permit leads alternative: https://nycpermitbrief.com/nyc-construction-permit-leads.html
-- NYC permit activity by ZIP: https://nycpermitbrief.com/nyc-permit-activity-by-zip.html
-- Manhattan construction permit activity: https://nycpermitbrief.com/manhattan-construction-permit-activity.html
-- Brooklyn construction permit activity: https://nycpermitbrief.com/brooklyn-construction-permit-activity.html
-- Queens construction permit activity request: https://nycpermitbrief.com/queens-construction-permit-activity.html
-- Bronx construction permit activity request: https://nycpermitbrief.com/bronx-construction-permit-activity.html
-- Staten Island construction permit activity request: https://nycpermitbrief.com/staten-island-construction-permit-activity.html
-- NYC sidewalk shed permits: https://nycpermitbrief.com/nyc-sidewalk-shed-permits.html
-- NYC sidewalk shed permit leads: https://nycpermitbrief.com/nyc-sidewalk-shed-permit-leads.html
-- NYC plumbing permit leads: https://nycpermitbrief.com/nyc-plumbing-permit-leads.html
-- NYC plumbing permits: https://nycpermitbrief.com/nyc-plumbing-permits.html
-- NYC sprinkler permit leads: https://nycpermitbrief.com/nyc-sprinkler-permit-leads.html
-- NYC sprinkler permits: https://nycpermitbrief.com/nyc-sprinkler-permits.html
-- NYC mechanical systems permit leads: https://nycpermitbrief.com/nyc-mechanical-systems-permit-leads.html
-- NYC mechanical systems permits: https://nycpermitbrief.com/nyc-mechanical-systems-permits.html
-- NYC supported scaffold permits: https://nycpermitbrief.com/nyc-supported-scaffold-permits.html
-- NYC supported scaffold permit leads: https://nycpermitbrief.com/nyc-supported-scaffold-permit-leads.html
-- NYC structural permit leads: https://nycpermitbrief.com/nyc-structural-permit-leads.html
-- NYC structural permits: https://nycpermitbrief.com/nyc-structural-permits.html
-- NYC construction fence permit leads: https://nycpermitbrief.com/nyc-construction-fence-permit-leads.html
-- NYC construction fence permits: https://nycpermitbrief.com/nyc-construction-fence-permits.html
-- Buyer guide: https://nycpermitbrief.com/buyer-guide.html
-- Delivery steps: https://nycpermitbrief.com/delivery.html
-- Support and refunds: https://nycpermitbrief.com/support.html
-- Sample request: https://nycpermitbrief.com/sample-request.html
-- Sample CSV: https://nycpermitbrief.com/sample/nyc-construction-activity-preview.csv
-- Sample JSON: https://nycpermitbrief.com/sample/nyc-construction-activity-preview.json
-- Sample JSONL: https://nycpermitbrief.com/sample/nyc-construction-activity-preview.jsonl
-- Sample brief: https://nycpermitbrief.com/sample/nyc-weekly-construction-activity-sample.md
-- Segment hub: https://nycpermitbrief.com/sample-segments.html
-- Methodology: https://nycpermitbrief.com/methodology.html
+- Home: https://nyc-construction-activity-brief.vercel.app/
+- Current issue page: https://nyc-construction-activity-brief.vercel.app/current-issue.html
+- Dataset catalog: https://nyc-construction-activity-brief.vercel.app/dataset-catalog.html
+- Share kit: https://nyc-construction-activity-brief.vercel.app/share-kit.html
+- Partner inquiry: https://nyc-construction-activity-brief.vercel.app/partner-inquiry.html
+- Team license request: https://nyc-construction-activity-brief.vercel.app/team-license.html
+- Custom research request: https://nyc-construction-activity-brief.vercel.app/custom-research.html
+- Current issue JSON: https://nyc-construction-activity-brief.vercel.app/current-issue.json
+- Data package JSON: https://nyc-construction-activity-brief.vercel.app/data-package.json
+- Product feed XML: https://nyc-construction-activity-brief.vercel.app/product-feed.xml
+- RSS feed: https://nyc-construction-activity-brief.vercel.app/feed.xml
+- JSON Feed: https://nyc-construction-activity-brief.vercel.app/feed.json
+- Public preview: https://nyc-construction-activity-brief.vercel.app/preview.html
+- Pricing: https://nyc-construction-activity-brief.vercel.app/pricing.html
+- Time saved calculator: https://nyc-construction-activity-brief.vercel.app/time-saved-calculator.html
+- Who should buy: https://nyc-construction-activity-brief.vercel.app/who-should-buy.html
+- Buyer FAQ: https://nyc-construction-activity-brief.vercel.app/faq.html
+- Free preview vs paid ZIP: https://nyc-construction-activity-brief.vercel.app/free-vs-paid.html
+- Research workflow: https://nyc-construction-activity-brief.vercel.app/permit-research-workflow.html
+- Contractor guide: https://nyc-construction-activity-brief.vercel.app/contractor-permit-research.html
+- Contractor and supplier guide: https://nyc-construction-activity-brief.vercel.app/contractor-supplier-permit-research.html
+- Material supplier guide: https://nyc-construction-activity-brief.vercel.app/material-supplier-permit-research.html
+- Building-service vendor guide: https://nyc-construction-activity-brief.vercel.app/building-service-vendor-permit-research.html
+- Subcontractor guide: https://nyc-construction-activity-brief.vercel.app/subcontractor-permit-research.html
+- Broker and developer guide: https://nyc-construction-activity-brief.vercel.app/broker-developer-permit-research.html
+- Real estate investor guide: https://nyc-construction-activity-brief.vercel.app/real-estate-investor-permit-research.html
+- Construction consultant guide: https://nyc-construction-activity-brief.vercel.app/construction-consultant-permit-research.html
+- Construction risk guide: https://nyc-construction-activity-brief.vercel.app/construction-risk-permit-research.html
+- Permit expediter guide: https://nyc-construction-activity-brief.vercel.app/permit-expediter-research.html
+- Property manager guide: https://nyc-construction-activity-brief.vercel.app/property-manager-permit-research.html
+- Inside the ZIP: https://nyc-construction-activity-brief.vercel.app/inside-the-zip.html
+- CSV field guide: https://nyc-construction-activity-brief.vercel.app/csv-field-guide.html
+- NYC building permits: https://nyc-construction-activity-brief.vercel.app/nyc-building-permits.html
+- NYC building permit data: https://nyc-construction-activity-brief.vercel.app/nyc-building-permit-data.html
+- NYC DOB permit data download: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-data-download.html
+- NYC DOB approved permits: https://nyc-construction-activity-brief.vercel.app/nyc-dob-approved-permits.html
+- NYC DOB NOW approved permits: https://nyc-construction-activity-brief.vercel.app/nyc-dob-now-approved-permits.html
+- DOB NOW Build approved permits: https://nyc-construction-activity-brief.vercel.app/dob-now-build-approved-permits.html
+- NYC DOB permit alerts alternative: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-alerts.html
+- NYC DOB permit tracker alternative: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-tracker.html
+- NYC DOB permit monitoring alternative: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-monitoring.html
+- NYC DOB permit watchlist alternative: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-watchlist.html
+- NYC DOB permit search companion: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-search.html
+- NYC construction permit search companion: https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-search.html
+- NYC DOB permit lookup companion: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-lookup.html
+- NYC DOB permit CSV: https://nyc-construction-activity-brief.vercel.app/nyc-dob-permit-csv.html
+- NYC permit data API alternative: https://nyc-construction-activity-brief.vercel.app/nyc-permit-data-api-alternative.html
+- Weekly NYC construction permit report: https://nyc-construction-activity-brief.vercel.app/weekly-nyc-construction-permit-report.html
+- DOB NOW permit search alternative: https://nyc-construction-activity-brief.vercel.app/dob-now-permit-search-alternative.html
+- NYC construction permit leads alternative: https://nyc-construction-activity-brief.vercel.app/nyc-construction-permit-leads.html
+- NYC permit activity by ZIP: https://nyc-construction-activity-brief.vercel.app/nyc-permit-activity-by-zip.html
+- Manhattan construction permit activity: https://nyc-construction-activity-brief.vercel.app/manhattan-construction-permit-activity.html
+- Brooklyn construction permit activity: https://nyc-construction-activity-brief.vercel.app/brooklyn-construction-permit-activity.html
+- Queens construction permit activity request: https://nyc-construction-activity-brief.vercel.app/queens-construction-permit-activity.html
+- Bronx construction permit activity request: https://nyc-construction-activity-brief.vercel.app/bronx-construction-permit-activity.html
+- Staten Island construction permit activity request: https://nyc-construction-activity-brief.vercel.app/staten-island-construction-permit-activity.html
+- NYC sidewalk shed permits: https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permits.html
+- NYC sidewalk shed permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-sidewalk-shed-permit-leads.html
+- NYC plumbing permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permit-leads.html
+- NYC plumbing permits: https://nyc-construction-activity-brief.vercel.app/nyc-plumbing-permits.html
+- NYC sprinkler permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permit-leads.html
+- NYC sprinkler permits: https://nyc-construction-activity-brief.vercel.app/nyc-sprinkler-permits.html
+- NYC mechanical systems permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permit-leads.html
+- NYC mechanical systems permits: https://nyc-construction-activity-brief.vercel.app/nyc-mechanical-systems-permits.html
+- NYC supported scaffold permits: https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permits.html
+- NYC supported scaffold permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-supported-scaffold-permit-leads.html
+- NYC structural permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-structural-permit-leads.html
+- NYC structural permits: https://nyc-construction-activity-brief.vercel.app/nyc-structural-permits.html
+- NYC construction fence permit leads: https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permit-leads.html
+- NYC construction fence permits: https://nyc-construction-activity-brief.vercel.app/nyc-construction-fence-permits.html
+- Buyer guide: https://nyc-construction-activity-brief.vercel.app/buyer-guide.html
+- Delivery steps: https://nyc-construction-activity-brief.vercel.app/delivery.html
+- Support and refunds: https://nyc-construction-activity-brief.vercel.app/support.html
+- Sample request: https://nyc-construction-activity-brief.vercel.app/sample-request.html
+- Sample CSV: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.csv
+- Sample JSON: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.json
+- Sample JSONL: https://nyc-construction-activity-brief.vercel.app/sample/nyc-construction-activity-preview.jsonl
+- Sample brief: https://nyc-construction-activity-brief.vercel.app/sample/nyc-weekly-construction-activity-sample.md
+- Segment hub: https://nyc-construction-activity-brief.vercel.app/sample-segments.html
+- Methodology: https://nyc-construction-activity-brief.vercel.app/methodology.html
 
 Current counts:
 - Sidewalk Shed: 40
@@ -110,19 +110,19 @@ Current counts:
 - Construction Fence: 9
 
 High-intent topic pages:
-- NYC permit data for architects: https://nycpermitbrief.com/topics/nyc-permit-data-for-architects.html
-- NYC permit data for engineers: https://nycpermitbrief.com/topics/nyc-permit-data-for-engineers.html
-- NYC permit research for project managers: https://nycpermitbrief.com/topics/nyc-permit-research-for-project-managers.html
-- NYC construction permit data for proptech: https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-proptech.html
-- NYC building permit data for vendors: https://nycpermitbrief.com/topics/nyc-building-permit-data-for-vendors.html
-- NYC DOB permit data for contractors: https://nycpermitbrief.com/topics/nyc-dob-permit-data-for-contractors.html
-- NYC subcontractor prospecting permit data: https://nycpermitbrief.com/topics/nyc-subcontractor-prospecting-permit-data.html
-- NYC construction sales prospecting: https://nycpermitbrief.com/topics/nyc-construction-sales-prospecting.html
-- NYC construction market research CSV: https://nycpermitbrief.com/topics/nyc-construction-market-research-csv.html
-- NYC commercial renovation permits: https://nycpermitbrief.com/topics/nyc-commercial-renovation-permits.html
-- NYC construction permit monitoring for suppliers: https://nycpermitbrief.com/topics/nyc-construction-permit-monitoring-for-suppliers.html
-- NYC DOB permit alerts for subcontractors: https://nycpermitbrief.com/topics/nyc-dob-permit-alerts-for-subcontractors.html
-- NYC building permit export CSV: https://nycpermitbrief.com/topics/nyc-building-permit-export-csv.html
+- NYC permit data for architects: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-architects.html
+- NYC permit data for engineers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-data-for-engineers.html
+- NYC permit research for project managers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-permit-research-for-project-managers.html
+- NYC construction permit data for proptech: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-data-for-proptech.html
+- NYC building permit data for vendors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-data-for-vendors.html
+- NYC DOB permit data for contractors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-data-for-contractors.html
+- NYC subcontractor prospecting permit data: https://nyc-construction-activity-brief.vercel.app/topics/nyc-subcontractor-prospecting-permit-data.html
+- NYC construction sales prospecting: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-sales-prospecting.html
+- NYC construction market research CSV: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-market-research-csv.html
+- NYC commercial renovation permits: https://nyc-construction-activity-brief.vercel.app/topics/nyc-commercial-renovation-permits.html
+- NYC construction permit monitoring for suppliers: https://nyc-construction-activity-brief.vercel.app/topics/nyc-construction-permit-monitoring-for-suppliers.html
+- NYC DOB permit alerts for subcontractors: https://nyc-construction-activity-brief.vercel.app/topics/nyc-dob-permit-alerts-for-subcontractors.html
+- NYC building permit export CSV: https://nyc-construction-activity-brief.vercel.app/topics/nyc-building-permit-export-csv.html
 
 Boundaries:
 - No owner names, applicant names, phone numbers, emails, full street addresses, or enriched contact data.
