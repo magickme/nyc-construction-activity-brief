@@ -419,6 +419,7 @@ function buildDataPackageJson(rows, manifest) {
       `${baseUrl}/faq.html`,
       `${baseUrl}/share-kit.html`,
       `${baseUrl}/partner-inquiry.html`,
+      `${baseUrl}/team-license.html`,
       `${baseUrl}/free-vs-paid.html`,
       `${baseUrl}/permit-research-workflow.html`,
       `${baseUrl}/inside-the-zip.html`,
@@ -507,6 +508,11 @@ function buildFeedXml(rows, manifest) {
       title: 'Partner inquiry for newsletter and bundle ideas',
       url: `${baseUrl}/partner-inquiry.html`,
       description: 'Request-only partner inquiry page for newsletters, communities, sponsorship discussions, and product-bundle ideas tied to the current NYC construction activity brief.',
+    },
+    {
+      title: 'Team license request for multi-issue access',
+      url: `${baseUrl}/team-license.html`,
+      description: 'Request-only team license page for multi-user, multi-issue, recurring-access, and procurement-review interest tied to the current NYC construction activity brief.',
     },
     {
       title: 'Browser preview for the current issue',
@@ -968,6 +974,13 @@ function buildJsonFeed(rows, manifest) {
       date_published: generatedAt,
     },
     {
+      id: `${baseUrl}/team-license.html`,
+      url: `${baseUrl}/team-license.html`,
+      title: 'Team license request for multi-issue access',
+      content_text: 'Request-only team license page for multi-user, multi-issue, recurring-access, and procurement-review interest tied to the current NYC construction activity brief.',
+      date_published: generatedAt,
+    },
+    {
       id: `${baseUrl}/preview.html`,
       url: `${baseUrl}/preview.html`,
       title: `Free ${previewRows}-row preview`,
@@ -1150,6 +1163,7 @@ Primary pages:
 - Dataset catalog: ${baseUrl}/dataset-catalog.html
 - Share kit: ${baseUrl}/share-kit.html
 - Partner inquiry: ${baseUrl}/partner-inquiry.html
+- Team license request: ${baseUrl}/team-license.html
 - Current issue JSON: ${baseUrl}/current-issue.json
 - Data package JSON: ${dataPackageUrl}
 - Product feed XML: ${productFeedUrl}
@@ -1471,6 +1485,7 @@ Product-Feed: ${productFeedUrl}
 Dataset-Catalog: ${baseUrl}/dataset-catalog.html
 Share-Kit: ${baseUrl}/share-kit.html
 Partner-Inquiry: ${baseUrl}/partner-inquiry.html
+Team-License: ${baseUrl}/team-license.html
 `;
   fs.writeFileSync(robotsPath, text);
 }
@@ -1478,7 +1493,7 @@ Partner-Inquiry: ${baseUrl}/partner-inquiry.html
 function updateSitemap(lastmod) {
   const sitemapPath = path.join(root, 'sitemap.xml');
   let sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const extraUrls = ['current-issue.html', 'dataset-catalog.html', 'share-kit.html', 'partner-inquiry.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
+  const extraUrls = ['current-issue.html', 'dataset-catalog.html', 'share-kit.html', 'partner-inquiry.html', 'team-license.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-permit-data-download.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt'];
   const insert = extraUrls
     .filter((url) => !sitemap.includes(`<loc>${baseUrl}/${url}</loc>`))
     .map((url) => `  <url>

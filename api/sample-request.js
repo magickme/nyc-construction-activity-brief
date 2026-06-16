@@ -55,6 +55,12 @@ function intentTags(request) {
   if (/\bprocurement\b|\bpurchase order\b|\bpo\b|\bapproval\b/.test(text)) {
     tags.push('wealth:ncab:intent:procurement');
   }
+  if (/\bteam\b|\bmultiple users\b|\bseat\b|\blicense\b|\bmulti-issue\b|\brecurring\b|\bsubscription\b/.test(text)) {
+    tags.push('wealth:ncab:intent:team-license');
+  }
+  if (/\bpartner\b|\bsponsor\b|\bsponsorship\b|\bnewsletter\b|\bcommunity\b|\bbundle\b/.test(text)) {
+    tags.push('wealth:ncab:intent:partner');
+  }
   if (/\bfacade\b/.test(text)) tags.push('wealth:ncab:intent:facade');
   if (/\bmasonry\b/.test(text)) tags.push('wealth:ncab:intent:masonry');
   if (/\brestoration\b|\bexterior-repair\b/.test(text)) tags.push('wealth:ncab:intent:restoration');

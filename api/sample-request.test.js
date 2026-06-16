@@ -25,6 +25,8 @@ assert.deepEqual(intentTags({ monitoringGoal: 'Send invoice after procurement ap
   'wealth:ncab:intent:invoice',
   'wealth:ncab:intent:procurement',
 ]);
+assert.deepEqual(intentTags({ monitoringGoal: 'Team license request for multiple users and recurring multi-issue access.' }), ['wealth:ncab:intent:team-license']);
+assert.deepEqual(intentTags({ monitoringGoal: 'Newsletter sponsorship and community bundle inquiry.' }), ['wealth:ncab:intent:partner']);
 assert.deepEqual(intentTags({
   workType: 'Facade restoration and exterior access',
   monitoringGoal: 'Facade restoration, sidewalk shed, scaffold, fence, and structural permit activity in NYC.',
@@ -150,6 +152,33 @@ assert.deepEqual(buildMauticContactPayload(procurement.value), {
     'wealth:ncab:entry-source:checkout-bridge',
     'wealth:ncab:intent:invoice',
     'wealth:ncab:intent:procurement',
+  ],
+});
+
+const teamLicense = validateSampleRequest({
+  email: 'team@example.com',
+  work_type_requested: 'Team license or multi-issue access',
+  territory_requested: 'NYC',
+  buyer_type: 'data-buyer',
+  monitoring_goal: 'Team license request for multiple users and recurring multi-issue access.',
+  source_path: '/team-license.html',
+  entry_source: 'team-license-top',
+  consent: true,
+  website: '',
+});
+assert.equal(teamLicense.ok, true);
+assert.deepEqual(buildMauticContactPayload(teamLicense.value), {
+  email: 'team@example.com',
+  tags: [
+    'wealth:nyc-construction-activity-brief',
+    'wealth:nyc-construction-activity-brief:sample-request',
+    'source:nyc-construction-activity-brief-site',
+    'wealth:ncab:buyer:data-buyer',
+    'wealth:ncab:work-type:team-license-or-multi-issue-access',
+    'wealth:ncab:territory:nyc',
+    'wealth:ncab:source-page:team-license-html',
+    'wealth:ncab:entry-source:team-license-top',
+    'wealth:ncab:intent:team-license',
   ],
 });
 

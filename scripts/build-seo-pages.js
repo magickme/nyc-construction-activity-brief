@@ -9469,6 +9469,151 @@ ${sampleRequestSection({
 `;
 }
 
+function teamLicenseHtml(rows) {
+  const range = sampleRange(rows);
+  const description = 'Request team, multi-issue, or recurring access for the NYC Weekly Construction Activity Brief without changing the current one-time checkout path.';
+  const pageUrl = `${baseUrl}/team-license.html`;
+  const webPage = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'NYC Construction Brief team license request',
+    description,
+    url: pageUrl,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'NYC Weekly Construction Activity Brief',
+      url: baseUrl,
+    },
+  };
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Can a team request multi-issue access?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Use the request form to describe the team size, issue cadence, territory, and procurement needs. The current public checkout remains a one-time current-issue ZIP purchase.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Does this create a subscription?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The form records interest only. Any subscription, recurring delivery, custom license, or payment term still needs separate approval and setup.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should a team review first?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Review the current issue page, public CSV preview, inside-the-ZIP page, pricing page, and support boundary before requesting team access.',
+        },
+      },
+    ],
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'NYC Construction Activity Brief', item: `${baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Team license request', item: pageUrl },
+    ],
+  };
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team License Request | NYC Construction Activity Brief</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${pageUrl}">
+${alternateDiscoveryLinks()}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Team License Request | NYC Construction Activity Brief">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${pageUrl}">
+${socialImageMeta()}
+    <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">${jsonScript(webPage)}</script>
+    <script type="application/ld+json">${jsonScript(faq)}</script>
+    <script type="application/ld+json">${jsonScript(breadcrumb)}</script>
+    ${analyticsSnippet()}
+  </head>
+  <body>
+    <main>
+      <nav><a href="/">NYC Construction Activity Brief</a></nav>
+      <h1>Request team or multi-issue access.</h1>
+      <p class="lede">Use this page when one current ZIP is useful, but your team needs repeated issues, shared access, procurement review, or a custom purchase path.</p>
+      <p>
+        <a class="button" href="#sample-request">Send team request</a>
+        <a class="button secondary" href="${checkoutHref('team-license')}">Buy current ZIP</a>
+        <a class="button secondary" href="/inside-the-zip.html">Inside the ZIP</a>
+        <a class="button secondary" href="/pricing.html">Pricing</a>
+      </p>
+      <p class="fine">This request does not create a subscription, recurring delivery, custom license, payment term, or manual fulfillment commitment.</p>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Current issue proof</h2>
+          <p>${escapeHtml(rows.length)} paid issue rows, 25 free preview rows, issued dates ${escapeHtml(range.firstIssuedDate)} to ${escapeHtml(range.latestIssuedDate)}, source dataset rbx6-tga4.</p>
+        </div>
+        <div class="card">
+          <h2>Use this if</h2>
+          <p>Your team wants repeated weekly review, several users, procurement approval, or a custom bundle of future public-record issues.</p>
+        </div>
+        <div class="card">
+          <h2>Boundary</h2>
+          <p>No private contacts, guaranteed leads, audience guarantees, buyer outcomes, automatic renewal, or approved payment terms.</p>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Useful request details</h2>
+        <ul>
+          <li>Team size and buyer type.</li>
+          <li>Territory, work types, and issue cadence needed.</li>
+          <li>Whether you need invoice, purchase order, or procurement approval.</li>
+          <li>Whether you need one issue, multiple future issues, or a recurring review packet.</li>
+        </ul>
+      </section>
+
+${sampleRequestSection({
+        heading: 'Send team license request',
+        intro: 'Use this form for team, multi-issue, recurring-access, or procurement-review interest. Include team size, issue cadence, territory, work types, and approval needs.',
+        workType: 'Team license or multi-issue access',
+        territory: 'NYC',
+        buyerType: 'data-buyer',
+        monitoringGoal: 'Team license request for multiple users and recurring multi-issue access.',
+        consentCopy: 'You may reply about this team license request.',
+        buttonCopy: 'Send team request',
+        statusCopy: 'This does not join the MagickMe newsletter. No subscription, recurring delivery, or custom payment term is created from this form alone.',
+        fallbackSubject: 'NYC Construction Brief team license request',
+        fallbackSourceLabel: 'Team license request source',
+        successCopy: 'Team license request saved. I will use this to evaluate higher-value buyer demand.',
+        failedCopy: 'Team license request was not saved.',
+        emailFallbackLabel: 'Email this team request',
+        eventPrefix: 'team_license_request',
+        currentIssueCta: false,
+      })}
+
+      <section class="section card">
+        <h2>Review before requesting</h2>
+        <a class="button secondary" href="/current-issue.html">Current issue</a>
+        <a class="button secondary" href="/preview.html">Public preview</a>
+        <a class="button secondary" href="/inside-the-zip.html">Inside the ZIP</a>
+        <a class="button secondary" href="/support.html">Support and refunds</a>
+      </section>
+    </main>
+    ${sampleRequestScript()}
+  </body>
+</html>
+`;
+}
+
 function faqHtml(rows) {
   const description = 'Plain answers about the current NYC construction activity ZIP, including price, files, delivery, source limits, privacy boundary, and support.';
   const range = sampleRange(rows);
@@ -9981,7 +10126,7 @@ ${boroughRequestConversionBar(config)}
 }
 
 function sitemapXml(pages) {
-  const urls = ['', 'current-issue.html', 'dataset-catalog.html', 'share-kit.html', 'partner-inquiry.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
+  const urls = ['', 'current-issue.html', 'dataset-catalog.html', 'share-kit.html', 'partner-inquiry.html', 'team-license.html', 'preview.html', 'buy.html', 'pricing.html', 'time-saved-calculator.html', 'who-should-buy.html', 'faq.html', 'free-vs-paid.html', 'permit-research-workflow.html', 'contractor-permit-research.html', 'contractor-supplier-permit-research.html', 'material-supplier-permit-research.html', 'building-service-vendor-permit-research.html', 'subcontractor-permit-research.html', 'broker-developer-permit-research.html', 'real-estate-investor-permit-research.html', 'construction-consultant-permit-research.html', 'construction-risk-permit-research.html', 'permit-expediter-research.html', 'property-manager-permit-research.html', 'inside-the-zip.html', 'csv-field-guide.html', 'nyc-dob-permit-data-download.html', 'nyc-building-permits.html', 'nyc-building-permit-data.html', 'nyc-dob-approved-permits.html', 'nyc-dob-now-approved-permits.html', 'dob-now-build-approved-permits.html', 'nyc-dob-permit-alerts.html', 'nyc-dob-permit-tracker.html', 'nyc-dob-permit-monitoring.html', 'nyc-dob-permit-watchlist.html', 'nyc-dob-permit-search.html', 'nyc-construction-permit-search.html', 'nyc-dob-permit-lookup.html', 'nyc-dob-permit-csv.html', 'nyc-permit-data-api-alternative.html', 'weekly-nyc-construction-permit-report.html', 'dob-now-permit-search-alternative.html', 'nyc-construction-permit-leads.html', 'nyc-permit-activity-by-zip.html', 'manhattan-construction-permit-activity.html', 'brooklyn-construction-permit-activity.html', 'queens-construction-permit-activity.html', 'bronx-construction-permit-activity.html', 'staten-island-construction-permit-activity.html', 'nyc-sidewalk-shed-permits.html', 'nyc-sidewalk-shed-permit-leads.html', 'nyc-supported-scaffold-permit-leads.html', 'nyc-plumbing-permit-leads.html', 'nyc-plumbing-permits.html', 'nyc-sprinkler-permit-leads.html', 'nyc-sprinkler-permits.html', 'nyc-mechanical-systems-permit-leads.html', 'nyc-mechanical-systems-permits.html', 'nyc-supported-scaffold-permits.html', 'nyc-structural-permit-leads.html', 'nyc-structural-permits.html', 'nyc-construction-fence-permit-leads.html', 'nyc-construction-fence-permits.html', 'buyer-guide.html', 'delivery.html', 'support.html', 'sample-request.html', 'invoice-request.html', 'sample-segments.html', 'methodology.html', 'sample/nyc-construction-activity-preview.csv', 'sample/nyc-construction-activity-preview.json', 'sample/nyc-construction-activity-preview.jsonl', 'sample/nyc-weekly-construction-activity-sample.md', 'feed.xml', 'feed.json', 'current-issue.json', 'data-package.json', 'product-feed.xml', 'llms.txt', ...pages.map((page) => `topics/${page.slug}.html`)];
   const rows = parseCsv(fs.readFileSync(sampleCsvPath, 'utf8'));
   const lastmod = (rows[0] && rows[0].source_fetch_date) || new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -10033,6 +10178,7 @@ ${manualPageLinks(manualPagesForLinks)}
         <p><a class="button secondary" href="/dataset-catalog.html">Dataset catalog</a></p>
         <p><a class="button secondary" href="/share-kit.html">Share kit</a></p>
         <p><a class="button secondary" href="/partner-inquiry.html">Partner inquiry</a></p>
+        <p><a class="button secondary" href="/team-license.html">Team license</a></p>
         <p><a class="button secondary" href="/who-should-buy.html">Who should buy</a></p>
         <p><a class="button secondary" href="/time-saved-calculator.html">Time saved calculator</a></p>
         <p><a class="button secondary" href="/faq.html">Buyer FAQ</a></p>
@@ -10508,6 +10654,7 @@ fs.writeFileSync(path.join(root, 'sample-request.html'), sampleRequestHtml(rows)
 fs.writeFileSync(path.join(root, 'invoice-request.html'), invoiceRequestHtml(rows));
 fs.writeFileSync(path.join(root, 'share-kit.html'), shareKitHtml(rows));
 fs.writeFileSync(path.join(root, 'partner-inquiry.html'), partnerInquiryHtml(rows));
+fs.writeFileSync(path.join(root, 'team-license.html'), teamLicenseHtml(rows));
 fs.writeFileSync(path.join(root, 'preview.html'), previewHtml(rows));
 fs.writeFileSync(path.join(root, 'checkout.html'), checkoutHtml(rows));
 fs.writeFileSync(path.join(root, 'buy.html'), buyHtml(rows));
