@@ -2624,6 +2624,7 @@ assert.match(constructionRisk, /Top ZIPs: 10003 37/, 'construction risk guide ne
 assert.match(constructionRisk, /Status mix:/, 'construction risk guide needs status mix');
 assert.match(constructionRisk, /Cost buckets:/, 'construction risk guide needs cost bucket mix');
 assert.match(constructionRisk, /href="\/topics\/nyc-construction-risk-permit-research\.html"/, 'construction risk guide links risk topic');
+assert.match(constructionRisk, /href="\/topics\/nyc-construction-permit-data-for-insurance\.html"/, 'construction risk guide links insurance topic');
 assert.match(constructionRisk, /href="\/topics\/nyc-dob-permit-monitoring\.html"/, 'construction risk guide links DOB monitoring topic');
 assert.match(constructionRisk, /href="\/topics\/nyc-construction-market-research-csv\.html"/, 'construction risk guide links market research CSV topic');
 assert.match(constructionRisk, /href="\/topics\/nyc-dob-now-public-records\.html"/, 'construction risk guide links DOB NOW public records topic');
