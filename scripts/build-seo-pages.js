@@ -9447,6 +9447,11 @@ ${socialImageMeta()}
             <p><a class="button secondary" data-share-kit-path="pipeline-newsletter" href="${baseUrl}/current-issue.html?source=share-kit-pipeline-newsletter">Pipeline newsletter link</a></p>
           </div>
           <div class="card">
+            <h3>Resource submission routes</h3>
+            <p>Use the share kit when a publication, association, or community asks for a short resource note instead of a full pitch. Keep the note under the route's stated limit and point readers to the preview first.</p>
+            <p><a class="button secondary" data-share-kit-path="resource-submission" href="${baseUrl}/share-kit.html?source=share-kit-resource-submission">Resource submission link</a></p>
+          </div>
+          <div class="card">
             <h3>Contractor associations</h3>
             <p>Use the preview page when the audience is contractors, subcontractors, safety teams, or trade groups. Position it as a public-record screening file for manual review.</p>
             <p><a class="button secondary" data-share-kit-path="contractor-association" href="${baseUrl}/preview.html?source=share-kit-contractor-association">Contractor association link</a></p>
