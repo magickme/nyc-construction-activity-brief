@@ -1,8 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { siteBaseUrl } = require('../site-config');
 
 const root = path.resolve(__dirname, '..');
-const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
+const baseUrl = siteBaseUrl();
 const packageDir = path.resolve(root, '..', 'package');
 const fullCsvPath = path.join(packageDir, 'nyc-construction-activity-preview.csv');
 const publicCsvPath = path.join(root, 'sample', 'nyc-construction-activity-preview.csv');

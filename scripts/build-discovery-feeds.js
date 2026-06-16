@@ -1,8 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
+const { siteBaseUrl } = require('../site-config');
 
 const root = path.resolve(__dirname, '..');
-const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
+const baseUrl = siteBaseUrl();
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const checkoutUrl = `${baseUrl}/checkout.html?source=current-issue`;
@@ -1406,14 +1408,11 @@ function insertHeadLinks(html) {
   const links = `    <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="${baseUrl}/feed.xml">
     <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="${jsonFeedUrl}">
     <link rel="alternate" type="application/json" title="NYC Weekly Construction Activity Brief current issue" href="${baseUrl}/current-issue.json">`;
-  if (html.includes(`href="${jsonFeedUrl}"`)) return html;
-  if (html.includes('href="https://nyc-construction-activity-brief.vercel.app/feed.xml"')) {
-    return html.replace(
-      /(    <link rel="alternate" type="application\/rss\+xml"[^>]+href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/feed\.xml">\n)/,
-      `$1    <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="${jsonFeedUrl}">\n`,
-    );
-  }
-  return html.replace(/(    <link rel="canonical" href="[^"]+">\n)/, `$1${links}\n`);
+  const withoutDiscoveryLinks = html.replace(
+    /    <link rel="alternate" type="application\/(?:rss\+xml|feed\+json|json)" title="NYC Weekly Construction Activity Brief [^"]+" href="[^"]+">\n/g,
+    '',
+  );
+  return withoutDiscoveryLinks.replace(/(    <link rel="canonical" href="[^"]+">\n)/, `$1${links}\n`);
 }
 
 function updateHtmlAlternates() {
@@ -1477,5 +1476,6 @@ fs.writeFileSync(path.join(root, 'dataset-catalog.html'), buildDatasetCatalogHtm
 updateHtmlAlternates();
 updateRobots();
 updateSitemap(stats.sourceFetchDate || new Date().toISOString().slice(0, 10));
+execFileSync(process.execPath, [path.join(__dirname, 'rewrite-site-base-url.js')], { stdio: 'inherit' });
 
 console.log(`generated discovery feeds for ${rows.length} rows and ${manifest.totalTopicPages} topic pages`);

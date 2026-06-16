@@ -1,19 +1,21 @@
 const fs = require('node:fs');
 const https = require('node:https');
 const path = require('node:path');
+const { siteBaseUrl } = require('../site-config');
 
 const root = path.resolve(__dirname, '..');
-const host = 'nyc-construction-activity-brief.vercel.app';
+const baseUrl = siteBaseUrl();
+const host = new URL(baseUrl).host;
 const key = '320c87511764a53abe2cd8aa0481f1bc';
 const keyFile = `${key}.txt`;
-const keyLocation = `https://${host}/${keyFile}`;
+const keyLocation = `${baseUrl}/${keyFile}`;
 const endpoint = 'https://api.indexnow.org/IndexNow';
 
 function urlsFromSitemap() {
   const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
   return [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map((match) => match[1])
-    .filter((url) => url.startsWith(`https://${host}/`));
+    .filter((url) => url.startsWith(`${baseUrl}/`));
 }
 
 function postJson(url, payload) {

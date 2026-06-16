@@ -1,8 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { siteBaseUrl } = require('../site-config');
 
 const root = path.resolve(__dirname, '..');
-const baseUrl = 'https://nyc-construction-activity-brief.vercel.app';
+const baseUrl = siteBaseUrl();
 const socialImageUrl = `${baseUrl}/assets/current-issue-snapshot.png`;
 const stripeCheckoutUrl = 'https://buy.stripe.com/bJe3cveXL6Hw9mLdLFcAo0Q';
 const checkoutUrl = `${baseUrl}/checkout.html`;
@@ -925,6 +926,9 @@ ${sampleRequestSection({
       if (invoiceHelpLink) {
         const invoiceSource = [source, 'invoice'].join('-').slice(0, 80);
         invoiceHelpLink.href = '/invoice-request.html?source=' + encodeURIComponent(invoiceSource);
+        invoiceHelpLink.addEventListener('click', () => {
+          trackEvent('checkout_invoice_help_clicked', { source });
+        });
       }
       if (sampleHelpLink) {
         const sampleSource = [source, 'sample'].join('-').slice(0, 80);
@@ -1178,6 +1182,8 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
       const rawSource = params.get('source') || '${defaultSource}';
       const pageSource = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : '${defaultSource}';
       const links = [...document.querySelectorAll('[data-buy-link]')];
+      const invoiceHelpLinks = [...document.querySelectorAll('a[href^="/invoice-request.html"]')];
+      const sampleHelpLinks = [...document.querySelectorAll('a[href="#sample-request"], a[href^="/sample-request.html"]')];
       const cancelledPanel = document.querySelector('[data-checkout-cancelled]');
       const sourceFitPanel = document.querySelector('[data-source-fit="' + pageSource + '"]');
       if (sourceFitPanel) {
@@ -1235,6 +1241,16 @@ ${sampleRequestSection({ workType: 'Selected DOB work types', territory: 'NYC' }
           trackEvent('buy_page_continue_clicked', { source, position: link.dataset.buyLink || 'unknown' });
           link.setAttribute('aria-busy', 'true');
           window.location.assign(await createCheckoutUrl(source));
+        });
+      });
+      invoiceHelpLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          trackEvent('buy_page_invoice_help_clicked', { source: linkSource(link) });
+        });
+      });
+      sampleHelpLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          trackEvent('buy_page_sample_help_clicked', { source: linkSource(link) });
         });
       });
       trackEvent('buy_page_viewed', { source: pageSource });

@@ -32,6 +32,12 @@ assert.equal(params.get('payment_intent_data[metadata][product]'), PRODUCT_METAD
 assert.equal(params.get('payment_intent_data[metadata][source]'), 'topic-nyc-plumbing');
 assert.equal(params.get('payment_intent_data[metadata][checkout_path]'), 'first_party_checkout_session');
 
+process.env.SITE_BASE_URL = 'https://nycbrief.example';
+const customHostParams = checkoutParams('custom-domain-test');
+assert.equal(customHostParams.get('success_url'), 'https://nycbrief.example/success.html?session_id={CHECKOUT_SESSION_ID}');
+assert.equal(customHostParams.get('cancel_url'), 'https://nycbrief.example/buy.html?source=custom-domain-test&checkout=cancelled');
+delete process.env.SITE_BASE_URL;
+
 async function main() {
   const calls = [];
   const session = await createCheckoutSession(

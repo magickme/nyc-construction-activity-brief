@@ -358,6 +358,8 @@
       const rawSource = params.get('source') || 'buy-page';
       const pageSource = /^[a-z0-9._-]{1,80}$/i.test(rawSource) ? rawSource : 'buy-page';
       const links = [...document.querySelectorAll('[data-buy-link]')];
+      const invoiceHelpLinks = [...document.querySelectorAll('a[href^="/invoice-request.html"]')];
+      const sampleHelpLinks = [...document.querySelectorAll('a[href="#sample-request"], a[href^="/sample-request.html"]')];
       const cancelledPanel = document.querySelector('[data-checkout-cancelled]');
       const sourceFitPanel = document.querySelector('[data-source-fit="' + pageSource + '"]');
       if (sourceFitPanel) {
@@ -389,22 +391,6 @@
           window.va('event', { name, data });
         } catch (error) {}
       }
-      document.querySelectorAll('a[href^="/invoice-request.html"]').forEach((link) => {
-        link.addEventListener('click', () => {
-          trackEvent('buy_page_invoice_help_clicked', {
-            source: pageSource,
-            text: (link.textContent || '').trim().slice(0, 80),
-          });
-        });
-      });
-      document.querySelectorAll('a[href^="/sample-request.html"]').forEach((link) => {
-        link.addEventListener('click', () => {
-          trackEvent('buy_page_sample_help_clicked', {
-            source: pageSource,
-            text: (link.textContent || '').trim().slice(0, 80),
-          });
-        });
-      });
       async function createCheckoutUrl(source) {
         try {
           const response = await fetch('/api/create-checkout-session', {
@@ -431,6 +417,16 @@
           trackEvent('buy_page_continue_clicked', { source, position: link.dataset.buyLink || 'unknown' });
           link.setAttribute('aria-busy', 'true');
           window.location.assign(await createCheckoutUrl(source));
+        });
+      });
+      invoiceHelpLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          trackEvent('buy_page_invoice_help_clicked', { source: linkSource(link) });
+        });
+      });
+      sampleHelpLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          trackEvent('buy_page_sample_help_clicked', { source: linkSource(link) });
         });
       });
       trackEvent('buy_page_viewed', { source: pageSource });

@@ -1,8 +1,9 @@
+const { siteBaseUrl } = require('../site-config');
+
 const PRODUCT_METADATA_VALUE = 'nyc_construction_activity_brief_current_issue';
 const PRODUCT_NAME = 'NYC Weekly Construction Activity Brief - Current Issue';
 const PRODUCT_DESCRIPTION = 'Current issue ZIP with source-linked NYC DOB NOW rows, buyer workbook, priority slices, source registry, QA report, and buyer README.';
 const LAUNCH_PRICE_CENTS = 950;
-const BASE_URL = 'https://nyc-construction-activity-brief.vercel.app';
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
@@ -39,13 +40,14 @@ async function readJsonBody(req) {
 }
 
 function checkoutParams(source) {
+  const baseUrl = siteBaseUrl();
   const clientReferenceId = ['ncab', source.replace(/[^a-z0-9_-]/gi, '_'), Date.now().toString(36)]
     .join('_')
     .slice(0, 200);
   return new URLSearchParams({
     mode: 'payment',
-    success_url: `${BASE_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/buy.html?source=${encodeURIComponent(source)}&checkout=cancelled`,
+    success_url: `${baseUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${baseUrl}/buy.html?source=${encodeURIComponent(source)}&checkout=cancelled`,
     client_reference_id: clientReferenceId,
     'line_items[0][quantity]': '1',
     'line_items[0][price_data][currency]': 'usd',
