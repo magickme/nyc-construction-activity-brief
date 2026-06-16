@@ -1642,14 +1642,20 @@ ${conversionBar(topicCheckoutSource(page))}
 `;
 }
 
-function hubHtml(pages) {
-  const description = 'Browse data-backed NYC construction permit activity pages generated from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
+function hubHtml(pages, curatedPages = []) {
+  const description = 'Browse data-backed NYC construction permit activity pages and buyer-intent pages from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
   const product = productJsonLd(description, checkoutBridgeHref('segment-hub'));
-  const itemList = itemListJsonLd('NYC permit activity segment pages', `${baseUrl}/sample-segments.html`, pages);
+  const itemList = itemListJsonLd('NYC permit activity and buyer-intent pages', `${baseUrl}/sample-segments.html`, [...pages, ...curatedPages]);
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
 ${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.html">${escapeHtml(page.linkText)}</a> <span class="fine">(${escapeHtml(page.count)} rows)</span></li>`).join('\n')}
+        </ul>
+      </section>` : '';
+  const curatedSection = (heading, rows) => rows.length ? `      <section class="section card">
+        <h2>${escapeHtml(heading)}</h2>
+        <ul>
+${rows.map((page) => `          <li><a href="/topics/${escapeHtml(page.slug)}.html">${escapeHtml(page.h1.replace(/\.$/, ''))}</a></li>`).join('\n')}
         </ul>
       </section>` : '';
 
@@ -1709,6 +1715,7 @@ ${section('Buyer persona pages', pages.filter((page) => page.group === 'buyer-pe
 ${section('Buyer research pages', pages.filter((page) => page.group === 'buyer'))}
 ${section('Cost bucket pages', pages.filter((page) => page.group === 'cost-bucket'))}
 ${section('Issued date pages', pages.filter((page) => page.group === 'issued-date'))}
+${curatedSection('Curated buyer-intent pages', curatedPages.filter((page) => page.group === 'core'))}
 ${sampleRequestSection()}
     </main>
     ${sampleRequestScript()}
@@ -10112,7 +10119,7 @@ const pages = [...manualPages, ...generatedPages];
 for (const page of pages) {
   fs.writeFileSync(path.join(root, 'topics', `${page.slug}.html`), pageHtml(page));
 }
-fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages));
+fs.writeFileSync(path.join(root, 'sample-segments.html'), hubHtml(generatedPages, manualPages));
 fs.writeFileSync(path.join(root, 'methodology.html'), methodologyHtml(rows));
 fs.writeFileSync(path.join(root, 'buyer-guide.html'), buyerGuideHtml(rows));
 fs.writeFileSync(path.join(root, 'csv-field-guide.html'), csvFieldGuideHtml(rows));

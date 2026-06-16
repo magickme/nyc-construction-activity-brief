@@ -2974,11 +2974,15 @@ assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hu
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
 assert.match(hub, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub Product schema links checkout bridge');
 assert.match(hub, /"@type":"ItemList"/, 'hub needs ItemList structured data');
-assert.match(hub, new RegExp(`"numberOfItems":${generatedPages.length}`), 'hub ItemList count matches generated segment pages');
+assert.match(hub, new RegExp(`"numberOfItems":${pages.length}`), 'hub ItemList count matches all topic pages');
 assert.match(hub, /"url":"https:\/\/nyc-construction-activity-brief\.vercel\.app\/topics\/nyc-dob-permits-zip-10003\.html"/, 'hub ItemList includes generated segment URLs');
+assert.match(hub, /<h2>Curated buyer-intent pages<\/h2>/, 'hub lists curated buyer-intent pages');
 assert.match(hub, /href="https:\/\/nyc-construction-activity-brief\.vercel\.app\/checkout\.html\?source=segment-hub"/, 'hub post-review CTA links checkout bridge');
 for (const page of generatedPages) {
   assert.match(hub, new RegExp(`href="/${page}"`), `hub links ${page}`);
+}
+for (const page of pageData) {
+  assert.match(hub, new RegExp(`href="/topics/${page.slug}\\.html"`), `hub links curated ${page.slug}`);
 }
 
 const methodology = read('methodology.html');
