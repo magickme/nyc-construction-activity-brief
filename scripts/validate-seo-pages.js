@@ -3002,6 +3002,18 @@ assert.match(hub, /href="\/permit-research-workflow\.html"/, 'hub links research
 assert.match(hub, /href="\/inside-the-zip\.html"/, 'hub links inside the ZIP page');
 assert.match(hub, /href="\/csv-field-guide\.html"/, 'hub links CSV field guide');
 assert.match(hub, /href="\/support\.html"/, 'hub links support page');
+assert.match(hub, /<h2>Popular search paths<\/h2>/, 'hub exposes popular search paths');
+assert.match(hub, /href="\/nyc-permit-activity-by-zip\.html"/, 'hub links ZIP search path');
+assert.match(hub, /href="\/nyc-dob-permit-csv\.html"/, 'hub links CSV search path');
+assert.match(hub, /href="\/nyc-construction-permit-leads\.html"/, 'hub links permit leads search path');
+assert.match(hub, /href="\/weekly-nyc-construction-permit-report\.html"/, 'hub links weekly report search path');
+assert.match(hub, /href="\/contractor-supplier-permit-research\.html"/, 'hub links contractor supplier search path');
+assert.match(hub, /href="\/buyer-guide\.html"/, 'hub links buyer guide search path');
+assert.match(hub, /<h2>Request paths<\/h2>/, 'hub exposes buyer request paths');
+assert.match(hub, /href="\/invoice-request\.html\?source=segment-hub-paths"/, 'hub links invoice request path');
+assert.match(hub, /href="\/team-license\.html\?source=segment-hub-paths"/, 'hub links team request path');
+assert.match(hub, /href="\/custom-research\.html\?source=segment-hub-paths"/, 'hub links custom research request path');
+assert.match(hub, /href="\/partner-inquiry\.html\?source=segment-hub-paths"/, 'hub links partner request path');
 assert.match(hub, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'hub links sample CSV');
 assert.match(hub, /href="\/sample\/nyc-weekly-construction-activity-sample\.md"/, 'hub links sample brief');
 assert.match(hub, /"url":"https:\/\/nycpermitbrief\.com\/checkout\.html\?source=segment-hub"/, 'hub Product schema links checkout bridge');

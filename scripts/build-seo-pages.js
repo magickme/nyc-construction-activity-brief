@@ -1693,6 +1693,20 @@ function hubHtml(pages, curatedPages = []) {
   const description = 'Browse data-backed NYC construction permit activity pages and buyer-intent pages from the current paid issue by ZIP, borough, work type, date, and cost bucket.';
   const product = productJsonLd(description, checkoutBridgeHref('segment-hub'));
   const itemList = itemListJsonLd('NYC permit activity and buyer-intent pages', `${baseUrl}/sample-segments.html`, [...pages, ...curatedPages]);
+  const popularSearchPaths = [
+    ['nyc-permit-activity-by-zip.html', 'Permit activity by ZIP'],
+    ['nyc-dob-permit-csv.html', 'DOB permit CSV'],
+    ['nyc-construction-permit-leads.html', 'Construction permit leads'],
+    ['weekly-nyc-construction-permit-report.html', 'Weekly permit report'],
+    ['contractor-supplier-permit-research.html', 'Contractor and supplier guide'],
+    ['buyer-guide.html', 'Buyer guide'],
+  ];
+  const buyerPaths = [
+    ['invoice-request.html?source=segment-hub-paths', 'Invoice or procurement help'],
+    ['team-license.html?source=segment-hub-paths', 'Team or multi-issue access'],
+    ['custom-research.html?source=segment-hub-paths', 'Custom research request'],
+    ['partner-inquiry.html?source=segment-hub-paths', 'Partner inquiry'],
+  ];
   const section = (heading, rows) => rows.length ? `      <section class="section card">
         <h2>${escapeHtml(heading)}</h2>
         <ul>
@@ -1752,6 +1766,24 @@ ${socialImageMeta()}
         <a class="button secondary" href="#sample-request">Request sample cut</a>
         <a class="button secondary" href="/support.html">Support and refunds</a>
         <a class="button" href="${checkoutBridgeHref('segment-hub')}">Buy instant ZIP</a>
+      </section>
+
+      <section class="section card">
+        <h2>Popular search paths</h2>
+        <p>Start here if you arrived from search and need the shortest route to a relevant page.</p>
+        <ul>
+${popularSearchPaths.map(([href, text]) => `          <li><a href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
+        </ul>
+        <p class="fine">These links point to existing pages. They do not create a new feed, alert service, contact list, or API.</p>
+      </section>
+
+      <section class="section card">
+        <h2>Request paths</h2>
+        <p>Use these when card checkout is not the right buying path.</p>
+        <a class="button secondary" href="/${buyerPaths[0][0]}">${buyerPaths[0][1]}</a>
+        <a class="button secondary" href="/${buyerPaths[1][0]}">${buyerPaths[1][1]}</a>
+        <a class="button secondary" href="/${buyerPaths[2][0]}">${buyerPaths[2][1]}</a>
+        <a class="button secondary" href="/${buyerPaths[3][0]}">${buyerPaths[3][1]}</a>
       </section>
 
 ${section('ZIP pages', pages.filter((page) => page.group === 'zip'))}
