@@ -1855,7 +1855,7 @@ ${popularSearchPaths.map(([href, text]) => `          <li><a data-segment-hub-se
         <h2>Commercial buyer paths</h2>
         <p>Use these paths when the buyer is researching a specific job function or decision, not only a ZIP or work type.</p>
         <ul>
-${commercialBuyerPaths.map(([href, text]) => `          <li><a data-segment-hub-buyer-path href="/${escapeHtml(href)}">${escapeHtml(text)}</a></li>`).join('\n')}
+${commercialBuyerPaths.map(([href, text]) => `          <li><a data-segment-hub-buyer-path href="/${escapeHtml(href)}?source=segment-hub-buyer-paths">${escapeHtml(text)}</a></li>`).join('\n')}
         </ul>
         <p class="fine">Each path still uses selected public DOB rows. No page includes private contact data or guaranteed lead claims.</p>
       </section>
