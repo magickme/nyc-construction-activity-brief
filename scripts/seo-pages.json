@@ -656,6 +656,21 @@
     "sampleLine": "Investor research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link"
   },
   {
+    "slug": "nyc-permit-expediter-research",
+    "title": "NYC Permit Expediter Research | DOB Brief",
+    "description": "A weekly NYC permit expediter research page for reviewing selected DOB rows by ZIP, work type, issued date, status, cost bucket, and source link.",
+    "h1": "NYC permit expediter research from selected public DOB rows.",
+    "lede": "The current issue helps permit expediters and filing consultants screen selected public DOB NOW permit activity before opening individual source records.",
+    "audience": "Permit expediters, filing consultants, construction coordinators, and small owner-rep teams checking public construction activity by territory and work type.",
+    "currentSample": "The paid ZIP includes 142 selected rows across Manhattan and Brooklyn ZIP codes with work type, issued date, status, cost bucket, and source links.",
+    "useCase": "Use this page to prepare a manual source-record review by ZIP, work type, issued date, and status. It does not provide filing advice, agency endorsement, owner contacts, applicant contacts, or a complete DOB database.",
+    "sampleLine": "Permit expediter research screen | ZIP | work type | issued date | status | cost bucket | DOB NOW source link",
+    "workTypeRequest": "Permit expediter research",
+    "territoryRequest": "NYC",
+    "buyerTypeRequest": "permit-expediter",
+    "monitoringGoalRequest": "Selected NYC DOB permit activity for permit expediter and filing-consultant research."
+  },
+  {
     "slug": "nyc-construction-permit-data-for-suppliers",
     "title": "NYC Construction Permit Data for Suppliers | DOB Brief",
     "description": "A weekly NYC construction permit data page for suppliers reviewing selected DOB rows by trade, ZIP, issued date, status, and source link.",
