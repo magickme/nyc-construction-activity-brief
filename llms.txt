@@ -23,6 +23,7 @@ Primary pages:
 - Current issue page: https://nycpermitbrief.com/current-issue.html
 - Dataset catalog: https://nycpermitbrief.com/dataset-catalog.html
 - Share kit: https://nycpermitbrief.com/share-kit.html
+- Invoice request: https://nycpermitbrief.com/invoice-request.html
 - Partner inquiry: https://nycpermitbrief.com/partner-inquiry.html
 - Team license request: https://nycpermitbrief.com/team-license.html
 - Custom research request: https://nycpermitbrief.com/custom-research.html

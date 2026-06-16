@@ -3170,6 +3170,7 @@ assert.match(robots, new RegExp(`Data-Package: ${baseUrl}/data-package.json`), '
 assert.match(robots, new RegExp(`Product-Feed: ${baseUrl}/product-feed.xml`), 'robots points to product feed XML');
 assert.match(robots, new RegExp(`Dataset-Catalog: ${baseUrl}/dataset-catalog.html`), 'robots points to dataset catalog');
 assert.match(robots, new RegExp(`Share-Kit: ${baseUrl}/share-kit.html`), 'robots points to share kit');
+assert.match(robots, new RegExp(`Invoice-Request: ${baseUrl}/invoice-request.html`), 'robots points to invoice request');
 assert.match(robots, new RegExp(`Partner-Inquiry: ${baseUrl}/partner-inquiry.html`), 'robots points to partner inquiry');
 assert.match(robots, new RegExp(`Team-License: ${baseUrl}/team-license.html`), 'robots points to team license');
 assert.match(robots, new RegExp(`Custom-Research: ${baseUrl}/custom-research.html`), 'robots points to custom research');
@@ -3339,6 +3340,9 @@ assert.match(feed, /source dataset id rbx6-tga4/, 'RSS feed describes catalog so
 assert.match(feed, /Share kit for newsletters and community posts/, 'RSS feed includes share kit item');
 assert.match(feed, /https:\/\/nycpermitbrief\.com\/share-kit\.html/, 'RSS feed links share kit');
 assert.match(feed, /without overstating coverage, results, or lead guarantees/, 'RSS feed keeps share-kit boundary');
+assert.match(feed, /Invoice request for procurement-blocked buyers/, 'RSS feed includes invoice request item');
+assert.match(feed, /https:\/\/nycpermitbrief\.com\/invoice-request\.html/, 'RSS feed links invoice request');
+assert.match(feed, /purchase-order, invoice, or approval workflows/, 'RSS feed describes procurement blocker');
 assert.match(feed, /Partner inquiry for newsletter and bundle ideas/, 'RSS feed includes partner inquiry item');
 assert.match(feed, /https:\/\/nycpermitbrief\.com\/partner-inquiry\.html/, 'RSS feed links partner inquiry');
 assert.match(feed, /Team license request for multi-issue access/, 'RSS feed includes team license item');
@@ -3439,11 +3443,12 @@ assert.equal(jsonFeed.title, 'NYC Weekly Construction Activity Brief', 'JSON Fee
 assert.equal(jsonFeed.home_page_url, 'https://nycpermitbrief.com/', 'JSON Feed links home page');
 assert.equal(jsonFeed.feed_url, 'https://nycpermitbrief.com/feed.json', 'JSON Feed exposes feed URL');
 assert.equal(jsonFeed.icon, 'https://nycpermitbrief.com/assets/current-issue-snapshot.png', 'JSON Feed links social image');
-assert.equal(jsonFeed.items.length, 58, 'JSON Feed item count matches curated items plus topic samples');
+assert.equal(jsonFeed.items.length, 59, 'JSON Feed item count matches curated items plus topic samples');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/buy.html?source=json-feed'), 'JSON Feed links tracked buy page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/dataset-catalog.html'), 'JSON Feed links dataset catalog');
 assert.ok(jsonFeed.items.some((item) => /source dataset id rbx6-tga4/.test(item.content_text)), 'JSON Feed describes catalog source dataset id');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/share-kit.html' && /without overstating coverage, results, or lead guarantees/.test(item.content_text)), 'JSON Feed links share kit');
+assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/invoice-request.html' && /purchase-order, invoice, or approval workflows/.test(item.content_text)), 'JSON Feed links invoice request');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/partner-inquiry.html' && /sponsorship discussions/.test(item.content_text)), 'JSON Feed links partner inquiry');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/team-license.html' && /multi-user, multi-issue/.test(item.content_text)), 'JSON Feed links team license');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/custom-research.html' && /filtered briefs, priority-row reviews/.test(item.content_text)), 'JSON Feed links custom research');
@@ -3484,6 +3489,7 @@ assert.match(llms, /Checkout bridge: https:\/\/nycpermitbrief\.com\/checkout\.ht
 assert.match(llms, /Current issue page: https:\/\/nycpermitbrief\.com\/current-issue\.html/, 'llms.txt links current issue page');
 assert.match(llms, /Dataset catalog: https:\/\/nycpermitbrief\.com\/dataset-catalog\.html/, 'llms.txt links dataset catalog');
 assert.match(llms, /Share kit: https:\/\/nycpermitbrief\.com\/share-kit\.html/, 'llms.txt links share kit');
+assert.match(llms, /Invoice request: https:\/\/nycpermitbrief\.com\/invoice-request\.html/, 'llms.txt links invoice request');
 assert.match(llms, /Partner inquiry: https:\/\/nycpermitbrief\.com\/partner-inquiry\.html/, 'llms.txt links partner inquiry');
 assert.match(llms, /Team license request: https:\/\/nycpermitbrief\.com\/team-license\.html/, 'llms.txt links team license');
 assert.match(llms, /Custom research request: https:\/\/nycpermitbrief\.com\/custom-research\.html/, 'llms.txt links custom research');
@@ -3593,6 +3599,7 @@ assert.match(JSON.stringify(dataPackage), /nyc-structural-permit-leads\.html/, '
 assert.match(JSON.stringify(dataPackage), /nyc-construction-fence-permit-leads\.html/, 'data package JSON links construction fence permit leads page');
 assert.ok(dataPackage.buyer_pages.includes('https://nycpermitbrief.com/faq.html'), 'data package JSON links FAQ page');
 assert.ok(dataPackage.buyer_pages.includes('https://nycpermitbrief.com/share-kit.html'), 'data package JSON links share kit');
+assert.ok(dataPackage.buyer_pages.includes('https://nycpermitbrief.com/invoice-request.html'), 'data package JSON links invoice request');
 assert.ok(dataPackage.buyer_pages.includes('https://nycpermitbrief.com/partner-inquiry.html'), 'data package JSON links partner inquiry');
 assert.ok(dataPackage.buyer_pages.includes('https://nycpermitbrief.com/team-license.html'), 'data package JSON links team license');
 assert.ok(dataPackage.buyer_pages.includes('https://nycpermitbrief.com/custom-research.html'), 'data package JSON links custom research');

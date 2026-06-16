@@ -50,6 +50,13 @@
       "date_published": "2026-06-15T12:00:00Z"
     },
     {
+      "id": "https://nycpermitbrief.com/invoice-request.html",
+      "url": "https://nycpermitbrief.com/invoice-request.html",
+      "title": "Invoice request for procurement-blocked buyers",
+      "content_text": "Request-only invoice and procurement help page for buyers blocked by internal purchase-order, invoice, or approval workflows tied to the current NYC construction activity brief.",
+      "date_published": "2026-06-15T12:00:00Z"
+    },
+    {
       "id": "https://nycpermitbrief.com/partner-inquiry.html",
       "url": "https://nycpermitbrief.com/partner-inquiry.html",
       "title": "Partner inquiry for newsletter and bundle ideas",

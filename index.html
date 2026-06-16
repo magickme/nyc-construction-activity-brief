@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NYC Construction Permit Leads CSV | Weekly DOB Brief</title>
-    <meta name="description" content="Source-linked weekly NYC construction permit activity brief for vendors screening DOB NOW rows by work type, ZIP, issued date, and cost bucket.">
+    <title>NYC DOB Permit Data CSV | Weekly Construction Brief</title>
+    <meta name="description" content="Buy a source-linked NYC DOB permit data CSV and brief for selected construction work types, ZIPs, issued dates, cost buckets, and source URLs.">
     <link rel="canonical" href="https://nycpermitbrief.com/">
     <link rel="alternate" type="application/rss+xml" title="NYC Weekly Construction Activity Brief RSS" href="https://nycpermitbrief.com/feed.xml">
     <link rel="alternate" type="application/feed+json" title="NYC Weekly Construction Activity Brief JSON Feed" href="https://nycpermitbrief.com/feed.json">
     <link rel="alternate" type="application/json" title="NYC Weekly Construction Activity Brief current issue" href="https://nycpermitbrief.com/current-issue.json">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="NYC Construction Permit Leads CSV | Weekly DOB Brief">
-    <meta property="og:description" content="Source-linked weekly NYC construction permit activity brief for vendors screening DOB NOW rows by work type, ZIP, issued date, and cost bucket.">
+    <meta property="og:title" content="NYC DOB Permit Data CSV | Weekly Construction Brief">
+    <meta property="og:description" content="Buy a source-linked NYC DOB permit data CSV and brief for selected construction work types, ZIPs, issued dates, cost buckets, and source URLs.">
     <meta property="og:url" content="https://nycpermitbrief.com/">
     <meta property="og:image" content="https://nycpermitbrief.com/assets/current-issue-snapshot.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://nycpermitbrief.com/assets/current-issue-snapshot.png">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","description":"Source-linked weekly NYC construction permit activity brief for vendors screening DOB NOW rows by work type, ZIP, issued date, and cost bucket.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nycpermitbrief.com/buy.html?source=home-schema","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NYC Weekly Construction Activity Brief - Current Issue","image":"https://nycpermitbrief.com/assets/current-issue-snapshot.png","description":"Source-linked NYC DOB permit data CSV and brief for vendors screening selected construction work types by ZIP, issued date, status, cost bucket, and source URL.","category":"Digital construction permit activity brief","brand":{"@type":"Brand","name":"NYC Weekly Construction Activity Brief"},"offers":{"@type":"Offer","url":"https://nycpermitbrief.com/buy.html?source=home-schema","priceCurrency":"USD","price":"9.50","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"NYC Weekly Construction Activity Brief","url":"https://nycpermitbrief.com","logo":"https://nycpermitbrief.com/assets/current-issue-snapshot.png"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"NYC Weekly Construction Activity Brief","url":"https://nycpermitbrief.com","publisher":{"@type":"Organization","name":"NYC Weekly Construction Activity Brief","url":"https://nycpermitbrief.com"},"inLanguage":"en-US"}</script>
     <script>
@@ -116,8 +116,35 @@
         gap: 18px;
         margin-top: 32px;
       }
+      .fit-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
       .section {
         margin-top: 40px;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin-top: 16px;
+      }
+      table {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 10px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        color: var(--muted);
+        font-size: 0.82rem;
+        text-transform: uppercase;
       }
       .sample {
         overflow-x: auto;
@@ -196,7 +223,7 @@
       }
       @media (max-width: 760px) {
         main { padding: 36px 16px 56px; }
-        .hero, .grid { grid-template-columns: 1fr; }
+        .hero, .grid, .fit-grid { grid-template-columns: 1fr; }
         h1 { font-size: 2.6rem; }
       }
     </style>
@@ -205,8 +232,8 @@
     <main>
       <section class="hero">
         <div>
-          <h1>NYC construction permit activity for vendor research.</h1>
-          <p class="lede">A weekly source-linked brief for construction-support vendors, suppliers, and specialty subcontractors watching selected NYC DOB work types.</p>
+          <h1>NYC DOB permit data packaged for weekly construction research.</h1>
+          <p class="lede">A 142-row source-linked CSV and brief for vendors who need a fast screen of selected DOB NOW construction permit activity before opening records one by one.</p>
           <div class="hero-actions">
             <a class="button" href="/buy.html?source=home-hero">Buy $9.50 ZIP</a>
             <a class="button secondary" href="#sample-request">Request sample cut</a>
@@ -219,7 +246,7 @@
         </div>
         <aside class="card">
           <h2>Current issue ZIP</h2>
-          <p>Get the packaged 2026-06-09 to 2026-06-15 source-window issue as one ZIP: CSV, Markdown brief, buyer workbook, priority-slice CSV, source registry, buyer README, QA report, version file, and claims boundary. The source returned rows through 2026-06-12 at generation time.</p>
+          <p>Get the 2026-06-09 to 2026-06-15 source-window issue as one ZIP: CSV, Markdown brief, buyer workbook, priority-slice CSV, source registry, buyer README, QA report, version file, and claims boundary. The source returned rows through 2026-06-12 at generation time.</p>
           <div class="price">$9.50</div>
           <p class="fine">Instant download after completed Stripe checkout. One-time purchase. No subscription. Launch price is $9.50 for the current issue. Standard price is $49. No guaranteed leads.</p>
           <a id="buy-link" class="button" href="/buy.html?source=home-card">Buy instant ZIP</a>
@@ -229,8 +256,12 @@
 
       <section class="grid">
         <div class="card">
-          <h2>Work types</h2>
+          <h2>Best fit</h2>
+          <p>Exterior access, plumbing, sprinkler, mechanical, structural, and construction-support teams that already know how they will use DOB public records.</p>
+        </div>
+        <div class="card">
           <p>Sidewalk shed, supported scaffold, construction fence, plumbing, mechanical systems, sprinklers, and structural.</p>
+          <h2>Work types</h2>
         </div>
         <div class="card">
           <h2>Territories</h2>
@@ -243,10 +274,73 @@
       </section>
 
       <section class="section card">
+        <h2>Should you buy this issue?</h2>
+        <div class="fit-grid">
+          <div>
+            <h3>Buy it if</h3>
+            <ul>
+              <li>You want the current 142 rows in a spreadsheet-ready package.</li>
+              <li>Your review starts with work type, ZIP, issued date, status, cost bucket, and source URL.</li>
+              <li>You would spend more than a few minutes sorting the DOB NOW source yourself.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Skip it if</h3>
+            <ul>
+              <li>You need owner names, applicant names, emails, phone numbers, or full street addresses.</li>
+              <li>You need all NYC permits, every ZIP, or live alerts.</li>
+              <li>You need guaranteed leads, lead scoring, outreach automation, or agency-endorsed data.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
         <h2>Current public sample</h2>
         <p>Source window: 2026-06-09 to 2026-06-15. Free preview rows: 25. Paid ZIP rows: 142. The paid ZIP packages the issue files, buyer workbook, priority-slice CSV, source notes, QA report, and buyer README in one download.</p>
         <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <div class="sample">Top work types: Sidewalk Shed 40 | Plumbing 29 | Sprinklers 21 | Mechanical Systems 18 | Supported Scaffold 13 | Structural 12 | Construction Fence 9</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Work type</th>
+                <th>Area</th>
+                <th>Issued</th>
+                <th>Status</th>
+                <th>Cost bucket</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sidewalk Shed</td>
+                <td>Manhattan 10003</td>
+                <td>2026-06-12</td>
+                <td>Permit Issued</td>
+                <td>under $10k</td>
+                <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-mshu~v8sw_r8ux">DOB NOW row</a></td>
+              </tr>
+              <tr>
+                <td>Mechanical Systems</td>
+                <td>Manhattan 10003</td>
+                <td>2026-06-12</td>
+                <td>Permit Issued</td>
+                <td>$50k to $100k</td>
+                <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-y4pj-r7ps_78ep">DOB NOW row</a></td>
+              </tr>
+              <tr>
+                <td>Plumbing</td>
+                <td>Brooklyn 11201</td>
+                <td>2026-06-12</td>
+                <td>Permit Issued</td>
+                <td>$50k to $100k</td>
+                <td><a href="https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4?row=row-uzb7-7ttv-cxgt">DOB NOW row</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><a class="button secondary" href="/preview.html">Review all 25 free preview rows</a></p>
       </section>
 
       <section class="section card">

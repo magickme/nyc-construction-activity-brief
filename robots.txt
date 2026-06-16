@@ -9,6 +9,7 @@ Data-Package: https://nycpermitbrief.com/data-package.json
 Product-Feed: https://nycpermitbrief.com/product-feed.xml
 Dataset-Catalog: https://nycpermitbrief.com/dataset-catalog.html
 Share-Kit: https://nycpermitbrief.com/share-kit.html
+Invoice-Request: https://nycpermitbrief.com/invoice-request.html
 Partner-Inquiry: https://nycpermitbrief.com/partner-inquiry.html
 Team-License: https://nycpermitbrief.com/team-license.html
 Custom-Research: https://nycpermitbrief.com/custom-research.html
