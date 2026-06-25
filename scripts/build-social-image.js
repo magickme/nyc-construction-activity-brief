@@ -89,7 +89,14 @@ function addBarRows(args, counts, maxCount) {
 }
 
 function buildShareCard(rows, range, workTypeCounts) {
-  const heroPhoto = path.join(outputDir, 'site-team-reviewing-plans.jpg');
+  const heroPhotoCandidates = [
+    path.join(outputDir, 'site-team-reviewing-plans.jpg'),
+    path.join(outputDir, 'nyc-construction-worker-hero.jpg'),
+  ];
+  const heroPhoto = heroPhotoCandidates.find((candidate) => fs.existsSync(candidate));
+  if (!heroPhoto) {
+    throw new Error('Social share card generation failed: missing hero photo asset');
+  }
   const args = [
     '-size', '1200x630',
     'xc:#0f2018',

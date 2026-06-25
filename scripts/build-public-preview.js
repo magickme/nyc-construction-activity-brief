@@ -185,15 +185,15 @@ Use source links and your own professional judgment before making decisions.
 
 function cleanPublicCopy() {
   const replacements = [
-    [/142-row public CSV preview/g, '142-row paid issue'],
-    [/142-row public preview/g, '142-row paid issue'],
-    [/142 public preview rows/g, '142 paid-issue rows'],
-    [/Public preview rows: 142/g, 'Free preview rows: 25. Paid ZIP rows: 142'],
-    [/public CSV preview includes 142 rows/gi, 'paid ZIP includes 142 rows'],
-    [/public preview includes 142/gi, 'paid issue includes 142'],
-    [/current public preview includes 142/gi, 'current paid issue includes 142'],
+    [/111-row public CSV preview/g, '111-row paid issue'],
+    [/111-row public preview/g, '111-row paid issue'],
+    [/111 public preview rows/g, '111 paid-issue rows'],
+    [/Public preview rows: 111/g, 'Free preview rows: 25. Paid ZIP rows: 111'],
+    [/public CSV preview includes 111 rows/gi, 'paid ZIP includes 111 rows'],
+    [/public preview includes 111/gi, 'paid issue includes 111'],
+    [/current public preview includes 111/gi, 'current paid issue includes 111'],
     [/generated from the current public CSV preview/gi, 'generated from the current paid issue'],
-    [/generated from the 142-row public CSV preview/gi, 'generated from the current 142-row paid issue'],
+    [/generated from the 111-row public CSV preview/gi, 'generated from the current 111-row paid issue'],
   ];
   const files = [
     path.join(root, 'index.html'),

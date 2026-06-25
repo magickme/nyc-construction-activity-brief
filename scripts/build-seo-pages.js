@@ -939,15 +939,15 @@ function checkoutHtml(rows) {
         </ul>
         <section class="section" data-checkout-source-fit="buy-page-source-sidewalk-shed" hidden>
           <h2>Sidewalk shed checkout check</h2>
-          <p>This checkout path is for the 40 selected sidewalk shed rows in the current ZIP. The same download also includes the full 142-row issue and buyer workbook.</p>
+          <p>This checkout path is for the 25 selected sidewalk shed rows in the current ZIP. The same download also includes the full 111-row issue and buyer workbook.</p>
         </section>
         <section class="section" data-checkout-source-fit="buy-page-source-plumbing" hidden>
           <h2>Plumbing checkout check</h2>
-          <p>This checkout path is for the 29 selected plumbing rows in the current ZIP. The same download also includes the full 142-row issue and buyer workbook.</p>
+          <p>This checkout path is for the 27 selected plumbing rows in the current ZIP. The same download also includes the full 111-row issue and buyer workbook.</p>
         </section>
         <section class="section" data-checkout-source-fit="buy-page-source-exterior-access" hidden>
           <h2>Exterior-access checkout check</h2>
-          <p>This checkout path is for the 74 selected exterior-access rows across sidewalk shed, supported scaffold, construction fence, and structural activity. The same download also includes the full 142-row issue.</p>
+          <p>This checkout path is for the 47 selected exterior-access rows across sidewalk shed, supported scaffold, construction fence, and structural activity. The same download also includes the full 111-row issue.</p>
         </section>
         <a id="stripe-link" class="button" href="#stripe-checkout">Continue to Stripe</a>
         <p>
@@ -1103,7 +1103,7 @@ ${socialImageMeta()}
         </p>
         <section class="section" data-source-fit="product-feed-sidewalk-shed" hidden>
           <h2>Sidewalk shed buyer view</h2>
-          <p>You opened the sidewalk shed product-feed link. The current ZIP includes 40 selected sidewalk shed rows, source URLs, ZIPs, boroughs, issued dates, status, cost buckets, and the same buyer workbook.</p>
+          <p>You opened the sidewalk shed product-feed link. The current ZIP includes 25 selected sidewalk shed rows, source URLs, ZIPs, boroughs, issued dates, status, cost buckets, and the same buyer workbook.</p>
           <p>
             <a data-buy-link="source-sidewalk-shed" class="button" href="${checkoutBridgeHref('buy-page-source-sidewalk-shed')}">Buy sidewalk shed ZIP</a>
             <a class="button secondary" href="/nyc-sidewalk-shed-permit-leads.html">Review sidewalk shed page</a>
@@ -1111,7 +1111,7 @@ ${socialImageMeta()}
         </section>
         <section class="section" data-source-fit="product-feed-plumbing" hidden>
           <h2>Plumbing buyer view</h2>
-          <p>You opened the plumbing product-feed link. The current ZIP includes 29 selected plumbing rows, source URLs, ZIPs, boroughs, issued dates, status, cost buckets, and the same buyer workbook.</p>
+          <p>You opened the plumbing product-feed link. The current ZIP includes 27 selected plumbing rows, source URLs, ZIPs, boroughs, issued dates, status, cost buckets, and the same buyer workbook.</p>
           <p>
             <a data-buy-link="source-plumbing" class="button" href="${checkoutBridgeHref('buy-page-source-plumbing')}">Buy plumbing ZIP</a>
             <a class="button secondary" href="/nyc-plumbing-permit-leads.html">Review plumbing page</a>
@@ -1119,7 +1119,7 @@ ${socialImageMeta()}
         </section>
         <section class="section" data-source-fit="product-feed-exterior-access" hidden>
           <h2>Exterior-access buyer view</h2>
-          <p>You opened the exterior-access product-feed link. The current ZIP includes 74 selected exterior-access rows across sidewalk shed, supported scaffold, construction fence, and structural activity.</p>
+          <p>You opened the exterior-access product-feed link. The current ZIP includes 47 selected exterior-access rows across sidewalk shed, supported scaffold, construction fence, and structural activity.</p>
           <p>
             <a data-buy-link="source-exterior-access" class="button" href="${checkoutBridgeHref('buy-page-source-exterior-access')}">Buy exterior-access ZIP</a>
             <a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Review exterior-access page</a>
@@ -1846,11 +1846,11 @@ ${socialImageMeta()}
     <main>
       <nav><a href="/">NYC Construction Activity Brief</a></nav>
       <h1>NYC permit activity segments from the current issue.</h1>
-      <p class="lede">These pages are generated from the 142-row paid issue. The free CSV preview is limited to 25 rows. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
+      <p class="lede">These pages are generated from the 111-row paid issue. The free CSV preview is limited to 25 rows. Each page keeps counts, source links, buyer use cases, and claims boundaries visible.</p>
 
       <section class="section card">
         <h2>Get the current issue</h2>
-        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-09 to 2026-06-15 issue. Current launch price is $9.50.</p>
+        <p>The paid ZIP includes the CSV, Markdown brief, source registry, buyer README, QA report, version file, and claims boundary for the 2026-06-19 to 2026-06-25 issue. Current launch price is $9.50.</p>
         <img class="issue-snapshot" src="/assets/current-issue-snapshot.png" alt="Current issue snapshot chart showing row counts, top work types, top ZIPs, and launch pricing">
         <a class="button secondary" href="/preview.html">View public preview</a>
         <a class="button secondary" href="/sample/nyc-construction-activity-preview.csv">Download public CSV preview</a>
@@ -10547,7 +10547,7 @@ function updateIndex(_manualPagesForLinks, _generatedPagesForLinks) {
   );
   const replacement = `      <section class="section card">
         <h2>Exterior access buyers</h2>
-        <p>The current paid issue includes 40 selected sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows for facade, masonry, restoration, and exterior-access screening.</p>
+        <p>The current paid issue includes 25 selected sidewalk shed rows, 13 supported scaffold rows, 9 construction fence rows, and 12 structural rows for facade, masonry, restoration, and exterior-access screening.</p>
         <p><a class="button secondary" href="/topics/nyc-facade-restoration-permit-research.html">Facade restoration permit research</a></p>
         <p><a class="button secondary" href="/topics/nyc-masonry-contractor-permit-research.html">Masonry contractor permit research</a></p>
         <p><a class="button secondary" href="/topics/nyc-exterior-work-permit-research.html">Exterior work permit research</a></p>
@@ -10615,7 +10615,7 @@ function buildGeneratedPages(rows) {
       h1: `NYC DOB permit activity in ZIP ${zipCode}.`,
       lede: `The current paid issue includes ${count} selected DOB NOW permit rows for ${boroughs} ZIP ${zipCode}.`,
       audience: `Construction-support vendors and subcontractors watching permit activity in ${zipCode}.`,
-      currentSample: `ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 paid issue.`,
+      currentSample: `ZIP ${zipCode} has ${count} rows in the 2026-06-19 to 2026-06-25 paid issue.`,
       useCase: `Use this page to check the ZIP ${zipCode} activity mix before buying the current issue package or reviewing source records manually.`,
       sampleLine: `ZIP ${zipCode} | top work types: ${describeCounts(matchingRows, (row) => row.work_type)}`,
       rows: sampleRows(matchingRows),
@@ -10657,7 +10657,7 @@ function buildGeneratedPages(rows) {
       h1: `${boroughName} ${work.lowerLabel} permit activity.`,
       lede: `The current paid issue includes ${count} selected ${work.lowerLabel} rows in ${boroughName}.`,
       audience: `${sentenceCase(work.buyer)} watching ${boroughName} public permit activity.`,
-      currentSample: `${boroughName} ${work.lowerLabel} has ${count} rows in the 2026-06-09 to 2026-06-15 paid issue.`,
+      currentSample: `${boroughName} ${work.lowerLabel} has ${count} rows in the 2026-06-19 to 2026-06-25 paid issue.`,
       useCase: `Use this page to review the ${boroughName} ${work.lowerLabel} sample before deciding whether the current issue package is worth buying.`,
       sampleLine: `${boroughName} | ${work.label} | ZIP | issued date | status | DOB NOW source link`,
       rows: sampleRows(matchingRows),
@@ -10699,7 +10699,7 @@ function buildGeneratedPages(rows) {
       h1: `${work.label} permit activity in ZIP ${zipCode}.`,
       lede: `The current paid issue includes ${count} selected ${work.lowerLabel} rows for ${boroughName} ZIP ${zipCode}.`,
       audience: `${sentenceCase(work.buyer)} watching ZIP ${zipCode}.`,
-      currentSample: `${work.label} in ZIP ${zipCode} has ${count} rows in the 2026-06-09 to 2026-06-15 paid issue.`,
+      currentSample: `${work.label} in ZIP ${zipCode} has ${count} rows in the 2026-06-19 to 2026-06-25 paid issue.`,
       useCase: `Use this page to scan ${work.lowerLabel} activity in ZIP ${zipCode} before opening the DOB NOW source records one by one.`,
       sampleLine: `${work.label} | ${zipCode} | ${boroughName} | issued date | status | source link`,
       rows: sampleRows(matchingRows),
@@ -10739,7 +10739,7 @@ function buildGeneratedPages(rows) {
       h1: `NYC ${work.lowerLabel} permit CSV sample.`,
       lede: `The current paid issue includes ${count} selected ${work.lowerLabel} rows from ${range}.`,
       audience: `${sentenceCase(work.buyer)} comparing public permit activity across selected NYC ZIP codes.`,
-      currentSample: `${work.label} has ${count} rows in the current 142-row paid issue. The free CSV preview is limited to 25 rows.`,
+      currentSample: `${work.label} has ${count} rows in the current 111-row paid issue. The free CSV preview is limited to 25 rows.`,
       useCase: `Use this page to inspect the ${work.lowerLabel} sample before downloading the public CSV or buying the current issue package.`,
       sampleLine: `${work.label} | top ZIPs: ${describeCounts(matchingRows, (row) => row.zip_code)}`,
       rows: sampleRows(matchingRows),

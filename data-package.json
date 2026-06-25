@@ -1,14 +1,14 @@
 {
   "product": "NYC Weekly Construction Activity Brief",
   "issue": "current",
-  "generated_at_source_fetch_date": "2026-06-15",
+  "generated_at_source_fetch_date": "2026-06-25",
   "url": "https://nycpermitbrief.com/data-package.json",
   "source": {
     "name": "NYC DOB NOW: Build - Approved Permits",
     "dataset_id": "rbx6-tga4",
     "url": "https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Approved-Permits/rbx6-tga4",
-    "first_issued_date": "2026-06-09",
-    "latest_issued_date": "2026-06-12"
+    "first_issued_date": "2026-06-22",
+    "latest_issued_date": "2026-06-24"
   },
   "public_preview": {
     "rows": 25,
@@ -23,7 +23,7 @@
     "field_guide_url": "https://nycpermitbrief.com/csv-field-guide.html"
   },
   "paid_zip": {
-    "rows": 142,
+    "rows": 111,
     "price_usd": "9.50",
     "standard_price_usd": "49.00",
     "buy_url": "https://nycpermitbrief.com/buy.html?source=data-package",
@@ -86,82 +86,82 @@
   "counts": {
     "work_types": [
       {
-        "name": "Sidewalk Shed",
-        "count": 40
-      },
-      {
         "name": "Plumbing",
-        "count": 29
+        "count": 27
       },
       {
-        "name": "Sprinklers",
-        "count": 21
+        "name": "Sidewalk Shed",
+        "count": 25
       },
       {
         "name": "Mechanical Systems",
-        "count": 18
+        "count": 24
       },
       {
-        "name": "Supported Scaffold",
+        "name": "Sprinklers",
         "count": 13
       },
       {
         "name": "Structural",
-        "count": 12
+        "count": 13
       },
       {
         "name": "Construction Fence",
-        "count": 9
+        "count": 6
+      },
+      {
+        "name": "Supported Scaffold",
+        "count": 3
       }
     ],
     "zip_codes": [
       {
         "zipCode": "10003",
-        "count": 37
-      },
-      {
-        "zipCode": "10011",
-        "count": 37
+        "count": 30
       },
       {
         "zipCode": "11201",
-        "count": 26
+        "count": 25
+      },
+      {
+        "zipCode": "10011",
+        "count": 24
       },
       {
         "zipCode": "11206",
-        "count": 22
+        "count": 18
       },
       {
         "zipCode": "11211",
-        "count": 20
+        "count": 14
       }
     ],
     "boroughs": [
       {
-        "name": "MANHATTAN",
-        "count": 74
+        "name": "BROOKLYN",
+        "count": 57
       },
       {
-        "name": "BROOKLYN",
-        "count": 68
+        "name": "MANHATTAN",
+        "count": 54
       }
     ],
     "cost_buckets": [
       {
         "name": "under_10k",
-        "count": 64
-      },
-      {
-        "name": "10k_to_50k",
-        "count": 32
+        "count": 41
       },
       {
         "name": "50k_to_100k",
-        "count": 19
+        "count": 21
+      },
+      {
+        "name": "10k_to_50k",
+        "count": 20
       },
       {
         "name": "100k_to_250k",
-        "count": 17
+        "count": 16
       },
       {
         "name": "250k_to_1m",
@@ -169,12 +169,12 @@
       },
       {
         "name": "1m_plus",
-        "count": 3
+        "count": 6
       }
     ]
   },
   "generated_topic_pages": {
-    "count": 129,
+    "count": 122,
     "segment_hub_url": "https://nycpermitbrief.com/sample-segments.html",
     "sample_urls": [
       "https://nycpermitbrief.com/topics/nyc-sidewalk-shed-permits.html",
@@ -264,75 +264,68 @@
       "https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-suppliers.html",
       "https://nycpermitbrief.com/topics/nyc-construction-due-diligence-permit-research.html",
       "https://nycpermitbrief.com/topics/nyc-dob-permits-zip-10003.html",
-      "https://nycpermitbrief.com/topics/nyc-dob-permits-zip-10011.html",
       "https://nycpermitbrief.com/topics/nyc-dob-permits-zip-11201.html",
+      "https://nycpermitbrief.com/topics/nyc-dob-permits-zip-10011.html",
       "https://nycpermitbrief.com/topics/nyc-dob-permits-zip-11206.html",
       "https://nycpermitbrief.com/topics/nyc-dob-permits-zip-11211.html",
-      "https://nycpermitbrief.com/topics/manhattan-sidewalk-shed-permit-activity.html",
       "https://nycpermitbrief.com/topics/brooklyn-sidewalk-shed-permit-activity.html",
       "https://nycpermitbrief.com/topics/manhattan-plumbing-permit-activity.html",
-      "https://nycpermitbrief.com/topics/brooklyn-plumbing-permit-activity.html",
-      "https://nycpermitbrief.com/topics/manhattan-sprinkler-permit-activity.html",
-      "https://nycpermitbrief.com/topics/brooklyn-sprinkler-permit-activity.html",
-      "https://nycpermitbrief.com/topics/brooklyn-mechanical-systems-permit-activity.html",
       "https://nycpermitbrief.com/topics/manhattan-mechanical-systems-permit-activity.html",
-      "https://nycpermitbrief.com/topics/manhattan-supported-scaffold-permit-activity.html",
+      "https://nycpermitbrief.com/topics/brooklyn-plumbing-permit-activity.html",
+      "https://nycpermitbrief.com/topics/brooklyn-mechanical-systems-permit-activity.html",
+      "https://nycpermitbrief.com/topics/manhattan-structural-permit-activity.html",
+      "https://nycpermitbrief.com/topics/brooklyn-sprinkler-permit-activity.html",
+      "https://nycpermitbrief.com/topics/manhattan-sidewalk-shed-permit-activity.html",
+      "https://nycpermitbrief.com/topics/manhattan-sprinkler-permit-activity.html",
       "https://nycpermitbrief.com/topics/brooklyn-construction-fence-permit-activity.html",
       "https://nycpermitbrief.com/topics/brooklyn-structural-permit-activity.html",
-      "https://nycpermitbrief.com/topics/brooklyn-supported-scaffold-permit-activity.html",
-      "https://nycpermitbrief.com/topics/manhattan-structural-permit-activity.html",
+      "https://nycpermitbrief.com/topics/plumbing-permits-zip-10003.html",
+      "https://nycpermitbrief.com/topics/mechanical-systems-permits-zip-10011.html",
+      "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-11206.html",
       "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-10003.html",
       "https://nycpermitbrief.com/topics/plumbing-permits-zip-10011.html",
-      "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-10011.html",
-      "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-11211.html",
-      "https://nycpermitbrief.com/topics/mechanical-systems-permits-zip-10003.html",
-      "https://nycpermitbrief.com/topics/sprinkler-permits-zip-10011.html",
       "https://nycpermitbrief.com/topics/plumbing-permits-zip-11201.html",
       "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-11201.html",
       "https://nycpermitbrief.com/topics/sprinkler-permits-zip-11201.html",
-      "https://nycpermitbrief.com/topics/plumbing-permits-zip-10003.html",
-      "https://nycpermitbrief.com/topics/sprinkler-permits-zip-10003.html",
-      "https://nycpermitbrief.com/topics/supported-scaffold-permits-zip-10011.html",
-      "https://nycpermitbrief.com/topics/construction-fence-permits-zip-11206.html",
-      "https://nycpermitbrief.com/topics/supported-scaffold-permits-zip-10003.html",
+      "https://nycpermitbrief.com/topics/mechanical-systems-permits-zip-10003.html",
+      "https://nycpermitbrief.com/topics/structural-permits-zip-10011.html",
       "https://nycpermitbrief.com/topics/mechanical-systems-permits-zip-11201.html",
-      "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-11206.html",
-      "https://nycpermitbrief.com/topics/mechanical-systems-permits-zip-10011.html",
+      "https://nycpermitbrief.com/topics/sidewalk-shed-permits-zip-11211.html",
+      "https://nycpermitbrief.com/topics/structural-permits-zip-10003.html",
+      "https://nycpermitbrief.com/topics/sprinkler-permits-zip-10003.html",
+      "https://nycpermitbrief.com/topics/sprinkler-permits-zip-10011.html",
       "https://nycpermitbrief.com/topics/mechanical-systems-permits-zip-11206.html",
       "https://nycpermitbrief.com/topics/plumbing-permits-zip-11206.html",
-      "https://nycpermitbrief.com/topics/sprinkler-permits-zip-11206.html",
-      "https://nycpermitbrief.com/topics/structural-permits-zip-11206.html",
+      "https://nycpermitbrief.com/topics/construction-fence-permits-zip-11211.html",
       "https://nycpermitbrief.com/topics/plumbing-permits-zip-11211.html",
-      "https://nycpermitbrief.com/topics/structural-permits-zip-11211.html",
-      "https://nycpermitbrief.com/topics/nyc-sidewalk-shed-permit-csv-sample.html",
-      "https://nycpermitbrief.com/topics/sidewalk-shed-contractor-permit-research-nyc.html",
       "https://nycpermitbrief.com/topics/nyc-plumbing-permit-csv-sample.html",
       "https://nycpermitbrief.com/topics/plumbing-contractor-permit-research-nyc.html",
-      "https://nycpermitbrief.com/topics/nyc-sprinkler-permit-csv-sample.html",
-      "https://nycpermitbrief.com/topics/sprinkler-contractor-permit-research-nyc.html",
+      "https://nycpermitbrief.com/topics/nyc-sidewalk-shed-permit-csv-sample.html",
+      "https://nycpermitbrief.com/topics/sidewalk-shed-contractor-permit-research-nyc.html",
       "https://nycpermitbrief.com/topics/nyc-mechanical-systems-permit-csv-sample.html",
       "https://nycpermitbrief.com/topics/mechanical-systems-contractor-permit-research-nyc.html",
-      "https://nycpermitbrief.com/topics/nyc-supported-scaffold-permit-csv-sample.html",
-      "https://nycpermitbrief.com/topics/supported-scaffold-contractor-permit-research-nyc.html",
+      "https://nycpermitbrief.com/topics/nyc-sprinkler-permit-csv-sample.html",
+      "https://nycpermitbrief.com/topics/sprinkler-contractor-permit-research-nyc.html",
       "https://nycpermitbrief.com/topics/nyc-structural-permit-csv-sample.html",
       "https://nycpermitbrief.com/topics/structural-contractor-permit-research-nyc.html",
       "https://nycpermitbrief.com/topics/nyc-construction-fence-permit-csv-sample.html",
       "https://nycpermitbrief.com/topics/construction-fence-contractor-permit-research-nyc.html",
+      "https://nycpermitbrief.com/topics/nyc-supported-scaffold-permit-csv-sample.html",
+      "https://nycpermitbrief.com/topics/supported-scaffold-contractor-permit-research-nyc.html",
       "https://nycpermitbrief.com/topics/nyc-sidewalk-shed-vendor-permit-research.html",
       "https://nycpermitbrief.com/topics/nyc-plumbing-supplier-permit-research.html",
       "https://nycpermitbrief.com/topics/nyc-fire-protection-permit-research.html",
       "https://nycpermitbrief.com/topics/nyc-hvac-mechanical-permit-research.html",
       "https://nycpermitbrief.com/topics/nyc-construction-supplier-permit-research.html",
       "https://nycpermitbrief.com/topics/nyc-construction-permits-under-10k.html",
-      "https://nycpermitbrief.com/topics/nyc-construction-permits-10k-to-50k.html",
       "https://nycpermitbrief.com/topics/nyc-construction-permits-50k-to-100k.html",
+      "https://nycpermitbrief.com/topics/nyc-construction-permits-10k-to-50k.html",
       "https://nycpermitbrief.com/topics/nyc-construction-permits-100k-to-250k.html",
       "https://nycpermitbrief.com/topics/nyc-construction-permits-250k-to-1m.html",
       "https://nycpermitbrief.com/topics/nyc-construction-permits-1m-plus.html",
-      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-12.html",
-      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-11.html",
-      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-10.html",
-      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-09.html"
+      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-24.html",
+      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-23.html",
+      "https://nycpermitbrief.com/topics/nyc-dob-permits-issued-2026-06-22.html"
     ]
   },
   "boundaries": {

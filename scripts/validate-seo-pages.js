@@ -345,9 +345,10 @@ const coreTopCtaPages = [
   ['sample-segments.html', 'sample-segments-top'],
 ];
 
-assert.equal(manifest.sourceRows, 142, 'manifest source row count changed unexpectedly');
+assert.equal(manifest.sourceRows, 111, 'manifest source row count changed unexpectedly');
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
-assert.ok(manifest.generatedPages >= 65, 'expected at least 65 generated long-tail pages');
+assert.equal(manifest.generatedPages, generatedPages.length, 'manifest generated page count must match generated slugs');
+assert.ok(manifest.generatedPages > 0, 'expected generated long-tail pages');
 assert.equal(manifest.totalTopicPages, pages.length, 'manifest topic page count must match slugs');
 
 for (const page of pages) {
@@ -380,7 +381,7 @@ assert.match(index, new RegExp(`<meta name="twitter:image" content="${socialImag
 assert.match(index, /<script type="application\/ld\+json">[^<]+"@type":"Product"/, 'index needs Product structured data');
 assert.match(index, /https:\/\/nycpermitbrief\.com\/buy\.html\?source=home-schema/, 'index Product schema points to buy page');
 assert.match(index, /"@type":"Dataset","name":"NYC Weekly Construction Activity Brief public preview"/, 'index needs public preview Dataset structured data');
-assert.match(index, /"temporalCoverage":"2026-06-09\/2026-06-12"/, 'index Dataset schema needs current source date coverage');
+assert.match(index, /"temporalCoverage":"2026-06-22\/2026-06-24"/, 'index Dataset schema needs current source date coverage');
 assert.match(index, /"includedInDataCatalog":{"@type":"DataCatalog","name":"NYC Construction Activity Brief dataset catalog"/, 'index Dataset schema links data catalog');
 assert.match(index, /"identifier":"rbx6-tga4"/, 'index Dataset schema identifies source dataset');
 assert.match(index, /"@type":"DataDownload","encodingFormat":"text\/csv","contentUrl":"https:\/\/nycpermitbrief\.com\/sample\/nyc-construction-activity-preview\.csv"/, 'index Dataset schema links CSV preview');
@@ -418,7 +419,7 @@ assert.match(index, /Photo: <a href="https:\/\/unsplash\.com\/@miinrad">Mina Rad
 assert.match(index, /Photo: <a href="https:\/\/www\.pexels\.com\/@ai25-studio-334874531\/">AI25\.Studio<\/a>/, 'index credits hardhat goggles portrait');
 assert.match(index, /Photo: <a href="https:\/\/www\.pexels\.com\/@kindelmedia\/">Kindel Media<\/a>/, 'index credits female engineer portrait');
 assert.match(index, /What is in the paid ZIP/, 'index needs paid package contents');
-assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 142/, 'index needs free versus paid row counts');
+assert.match(index, /Free preview rows: 25\. Paid ZIP rows: 111/, 'index needs free versus paid row counts');
 assert.match(index, /src="\/assets\/current-issue-snapshot\.png"/, 'index needs current issue snapshot image');
 assert.match(index, /Buyer workbook with a fast review path/, 'index needs buyer workbook offer copy');
 assert.match(index, /Priority-slices CSV grouped by work type/, 'index needs priority-slices offer copy');
@@ -471,7 +472,7 @@ assert.match(index, /Explore the permit data/, 'index needs compact exploration 
 assert.match(index, /The full topic archive stays available through the segment hub and XML sitemap\./, 'index should route the archive through hub and sitemap');
 assert.match(index, /Quick answers before checkout/, 'index needs buyer FAQ section');
 assert.match(index, /After a completed Stripe checkout, the success page verifies the paid Checkout Session/, 'index FAQ explains automated delivery');
-assert.match(index, /The ZIP includes a 142-row source-linked CSV/, 'index FAQ explains paid ZIP contents');
+assert.match(index, /The ZIP includes a 111-row source-linked CSV/, 'index FAQ explains paid ZIP contents');
 assert.match(index, /The package excludes owner names, applicant names, phone numbers, emails/, 'index FAQ sets contact-data boundary');
 assert.match(index, /Use the <a href="\/preview\.html\?source=home-faq-paths">public preview<\/a>, <a href="\/csv-field-guide\.html\?source=home-faq-paths">CSV field guide<\/a>, and <a href="\/free-vs-paid\.html\?source=home-faq-paths">free-vs-paid page<\/a> before buying\./, 'index FAQ routes format inspection');
 assert.match(index, /href="\/delivery\.html\?source=home-faq-paths"/, 'index links delivery page from FAQ');
@@ -512,7 +513,7 @@ for (const boroughPage of [
   assert.match(html, new RegExp(`<link rel="canonical" href="${baseUrl}/${fileName}">`), `${fileName} needs canonical URL`);
   assert.match(html, new RegExp(`The current issue does not include ${boroughName} rows\\.`), `${fileName} must state current coverage gap`);
   assert.match(html, /Current boroughs/, `${fileName} must show current borough coverage`);
-  assert.match(html, /Manhattan 74 \| Brooklyn 68/, `${fileName} must show current Manhattan and Brooklyn coverage`);
+  assert.match(html, /(?:Manhattan 54 \| Brooklyn 57|Brooklyn 57 \| Manhattan 54)/, `${fileName} must show current Manhattan and Brooklyn coverage`);
   assert.match(html, new RegExp(`Do not buy it for ${boroughName} coverage unless the current issue page shows rows that fit your territory\\.`), `${fileName} must avoid unsupported purchase claims`);
   assert.match(html, new RegExp(`Request ${boroughName} sample cut`), `${fileName} must route searchers to sample request`);
   assert.match(html, new RegExp(`Request ${boroughName} sample</a>`), `${fileName} must keep sticky CTA request-focused`);
@@ -571,13 +572,13 @@ assert.doesNotMatch(checkout, /checkout_auto_redirect/, 'checkout page must not 
 assert.doesNotMatch(checkout, /window\.setTimeout\(async \(\) => \{[\s\S]*?window\.location\.replace/, 'checkout page must not auto-redirect to Stripe');
 assert.match(checkout, /Instant browser download after completed Stripe checkout\./, 'checkout page has buyer reassurance copy');
 assert.match(checkout, /This is a one-time ZIP purchase\. It does not create a subscription, account, or recurring charge\./, 'checkout page reassures buyers there is no subscription or account');
-assert.match(checkout, /Full 142-row CSV/, 'checkout page states paid row count before Stripe');
+assert.match(checkout, /Full 111-row CSV/, 'checkout page states paid row count before Stripe');
 assert.match(checkout, /data-checkout-source-fit="buy-page-source-sidewalk-shed" hidden/, 'checkout page has sidewalk shed source-fit panel');
-assert.match(checkout, /This checkout path is for the 40 selected sidewalk shed rows/, 'checkout page source-fit panel states sidewalk shed count');
+assert.match(checkout, /This checkout path is for the 25 selected sidewalk shed rows/, 'checkout page source-fit panel states sidewalk shed count');
 assert.match(checkout, /data-checkout-source-fit="buy-page-source-plumbing" hidden/, 'checkout page has plumbing source-fit panel');
-assert.match(checkout, /This checkout path is for the 29 selected plumbing rows/, 'checkout page source-fit panel states plumbing count');
+assert.match(checkout, /This checkout path is for the 27 selected plumbing rows/, 'checkout page source-fit panel states plumbing count');
 assert.match(checkout, /data-checkout-source-fit="buy-page-source-exterior-access" hidden/, 'checkout page has exterior-access source-fit panel');
-assert.match(checkout, /This checkout path is for the 74 selected exterior-access rows/, 'checkout page source-fit panel states exterior-access count');
+assert.match(checkout, /This checkout path is for the 47 selected exterior-access rows/, 'checkout page source-fit panel states exterior-access count');
 assert.match(checkout, /const checkoutSourceFitPanel = document\.querySelector\('\[data-checkout-source-fit="' \+ source \+ '"\]'\);/, 'checkout page finds source-fit panel from checkout source');
 assert.match(checkout, /checkout_source_fit_viewed/, 'checkout page tracks source-fit panel views');
 assert.match(checkout, /After Stripe confirms payment/, 'checkout page explains paid download before Stripe');
@@ -621,15 +622,15 @@ assert.match(buy, /<a class="button secondary" href="\/sample\/nyc-construction-
 assert.match(buy, /href="\/invoice-request\.html\?source=buy-page-top">Need invoice help\?<\/a>/, 'buy page gives procurement-blocked buyers an above-fold invoice CTA');
 assert.match(buy, /data-source-fit="product-feed-sidewalk-shed" hidden/, 'buy page has source-fit panel for sidewalk shed product-feed visitors');
 assert.match(buy, /You opened the sidewalk shed product-feed link\./, 'buy page names sidewalk shed product-feed source');
-assert.match(buy, /current ZIP includes 40 selected sidewalk shed rows/, 'buy page source-fit panel states sidewalk shed count');
+assert.match(buy, /current ZIP includes 25 selected sidewalk shed rows/, 'buy page source-fit panel states sidewalk shed count');
 assert.match(buy, /data-buy-link="source-sidewalk-shed" class="button" href="https:\/\/nycpermitbrief\.com\/checkout\.html\?source=buy-page-source-sidewalk-shed">Buy sidewalk shed ZIP<\/a>/, 'buy page source-fit panel has sidewalk shed purchase CTA');
 assert.match(buy, /data-source-fit="product-feed-plumbing" hidden/, 'buy page has source-fit panel for plumbing product-feed visitors');
 assert.match(buy, /You opened the plumbing product-feed link\./, 'buy page names plumbing product-feed source');
-assert.match(buy, /current ZIP includes 29 selected plumbing rows/, 'buy page source-fit panel states plumbing count');
+assert.match(buy, /current ZIP includes 27 selected plumbing rows/, 'buy page source-fit panel states plumbing count');
 assert.match(buy, /data-buy-link="source-plumbing" class="button" href="https:\/\/nycpermitbrief\.com\/checkout\.html\?source=buy-page-source-plumbing">Buy plumbing ZIP<\/a>/, 'buy page source-fit panel has plumbing purchase CTA');
 assert.match(buy, /data-source-fit="product-feed-exterior-access" hidden/, 'buy page has source-fit panel for exterior-access product-feed visitors');
 assert.match(buy, /You opened the exterior-access product-feed link\./, 'buy page names exterior-access product-feed source');
-assert.match(buy, /current ZIP includes 74 selected exterior-access rows/, 'buy page source-fit panel states exterior-access count');
+assert.match(buy, /current ZIP includes 47 selected exterior-access rows/, 'buy page source-fit panel states exterior-access count');
 assert.match(buy, /data-buy-link="source-exterior-access" class="button" href="https:\/\/nycpermitbrief\.com\/checkout\.html\?source=buy-page-source-exterior-access">Buy exterior-access ZIP<\/a>/, 'buy page source-fit panel has exterior-access purchase CTA');
 assert.match(buy, /const sourceFitPanel = document\.querySelector\('\[data-source-fit="' \+ pageSource \+ '"\]'\);/, 'buy page finds source-fit panel from entry source');
 assert.match(buy, /buy_source_fit_viewed/, 'buy page tracks source-fit panel views');
@@ -656,7 +657,7 @@ assert.match(buy, /<h2>Before you pay<\/h2>/, 'buy page names pre-checkout check
 assert.match(buy, /Open the free preview if you need to confirm the row shape first\./, 'buy page points uncertain buyers to the preview');
 assert.match(buy, /Use the support page for the refund boundary and download troubleshooting steps\./, 'buy page surfaces support and refund boundary before checkout');
 assert.match(buy, /Keep the Stripe receipt and success-page URL if the browser download is interrupted\./, 'buy page gives interrupted-download evidence steps before checkout');
-assert.match(buy, /Buy only if the full 142-row file saves enough manual sorting time\./, 'buy page gives a clear paid-value threshold');
+assert.match(buy, /Buy only if the full 111-row file saves enough manual sorting time\./, 'buy page gives a clear paid-value threshold');
 assert.match(buy, /data-buyer-fit-check/, 'buy page has a fast buyer-fit check before sample rows');
 assert.match(buy, /work type, borough, ZIP, issued date, status, cost bucket, short job description, and source URL/, 'buy page states the fields buyers can evaluate before paying');
 assert.match(buy, /It does not add private contacts or lead scoring\./, 'buy page keeps paid ZIP boundary near buyer-fit copy');
@@ -670,7 +671,7 @@ assert.match(buy, /data-buy-link="cancelled-plumbing" class="button" href="https
 assert.match(buy, /Request invoice help/, 'buy page routes procurement-blocked buyers to invoice help after cancelled checkout');
 assert.match(buy, /href="\/sample-request\.html\?source=buy-page-cancelled-sample">Request a different sample<\/a>/, 'buy page cancelled panel routes sample-fit blockers to sample request');
 assert.equal((buy.match(/data-buy-link="/g) || []).length, 11, 'buy page has top, source-fit, segment-fit, post-sample, and cancelled-checkout purchase CTAs');
-assert.match(buy, /Full 142-row CSV/, 'buy page states paid row count');
+assert.match(buy, /Full 111-row CSV/, 'buy page states paid row count');
 assert.match(buy, /breaks even at about 8 minutes/, 'buy page states launch price break-even');
 assert.match(buy, /No private contacts/, 'buy page states buyer boundary');
 assert.match(buy, /<h2>Sample rows before checkout<\/h2>/, 'buy page shows sample rows before Stripe');
@@ -790,7 +791,7 @@ assert.match(preview, /"@type":"Product"/, 'preview page needs Product structure
 assert.match(preview, /"@type":"Dataset"/, 'preview page needs Dataset structured data');
 assert.match(preview, /\/_vercel\/insights\/script\.js/, 'preview page needs Web Analytics script');
 assert.match(preview, /25-row browser preview/, 'preview page needs public preview count');
-assert.match(preview, /full 142-row ZIP/, 'preview page needs paid row count');
+assert.match(preview, /full 111-row ZIP/, 'preview page needs paid row count');
 assert.match(preview, /<h2>Sample rows<\/h2>/, 'preview page needs sample rows section');
 assert.match(preview, /data-preview-filter/, 'preview page needs filter UI');
 assert.match(preview, /data-preview-work-type/, 'preview page needs work type filter');
@@ -878,9 +879,9 @@ assert.match(currentIssuePage, /"@type":"FAQPage"/, 'current issue page needs FA
 assert.match(currentIssuePage, /"price":"9.50"/, 'current issue page needs current price structured data');
 assert.match(currentIssuePage, /\/_vercel\/insights\/script\.js/, 'current issue page needs Web Analytics script');
 assert.match(currentIssuePage, /Current NYC construction activity brief/, 'current issue page needs current issue headline');
-assert.match(currentIssuePage, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'current issue page needs row counts');
-assert.match(currentIssuePage, /Top work types: Sidewalk Shed 40/, 'current issue page needs work type mix');
-assert.match(currentIssuePage, /Top ZIPs: 10003 37/, 'current issue page needs ZIP mix');
+assert.match(currentIssuePage, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'current issue page needs row counts');
+assert.match(currentIssuePage, /Top work types: Plumbing 27/, 'current issue page needs work type mix');
+assert.match(currentIssuePage, /Top ZIPs: 10003 30/, 'current issue page needs ZIP mix');
 assert.match(currentIssuePage, /Status mix:/, 'current issue page needs status mix');
 assert.match(currentIssuePage, /Cost buckets:/, 'current issue page needs cost bucket mix');
 assert.match(currentIssuePage, /Buyer workbook for a fast review pass/, 'current issue page needs buyer workbook copy');
@@ -964,7 +965,7 @@ assert.match(whoShouldBuy, /Buy it if these are true/, 'who should buy page need
 assert.match(whoShouldBuy, /Do not buy it for these jobs/, 'who should buy page needs exclusion criteria');
 assert.match(whoShouldBuy, /Three-minute pre-purchase check/, 'who should buy page needs pre-purchase check');
 assert.match(whoShouldBuy, /Free preview rows: 25/, 'who should buy page needs free preview count');
-assert.match(whoShouldBuy, /142 paid rows/, 'who should buy page needs paid row count');
+assert.match(whoShouldBuy, /111 paid rows/, 'who should buy page needs paid row count');
 assert.match(whoShouldBuy, /No subscription and no promo code required/, 'who should buy page needs direct launch price copy');
 assert.match(whoShouldBuy, /href="\/preview\.html"/, 'who should buy page links public preview');
 assert.match(whoShouldBuy, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'who should buy page links sample CSV');
@@ -1000,7 +1001,7 @@ assert.match(insideZip, /\/_vercel\/insights\/script\.js/, 'inside ZIP page need
 assert.match(insideZip, /What is inside the current paid ZIP/, 'inside ZIP page needs package headline');
 assert.match(insideZip, /href="https:\/\/nycpermitbrief\.com\/checkout\.html\?source=inside-the-zip-top"/, 'inside ZIP page has above-fold checkout CTA');
 assert.match(insideZip, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'inside ZIP page explains top CTA checkout path');
-assert.match(insideZip, /142 source-linked rows/, 'inside ZIP page needs paid row count');
+assert.match(insideZip, /111 source-linked rows/, 'inside ZIP page needs paid row count');
 assert.match(insideZip, /25 rows for checking fields before purchase/, 'inside ZIP page needs preview row count');
 assert.match(insideZip, /\$9\.50/, 'inside ZIP page needs launch price');
 assert.match(insideZip, /<h2>File manifest<\/h2>/, 'inside ZIP page needs file manifest');
@@ -1044,7 +1045,7 @@ assert.match(csvFieldGuide, /<code>estimated_job_cost_bucket<\/code>/, 'CSV fiel
 assert.match(csvFieldGuide, /<code>job_description_short<\/code>/, 'CSV field guide explains short description');
 assert.match(csvFieldGuide, /Suggested sort order/, 'CSV field guide needs sort order');
 assert.match(csvFieldGuide, /Free preview rows: 25/, 'CSV field guide needs free preview count');
-assert.match(csvFieldGuide, /Paid ZIP rows: 142/, 'CSV field guide needs paid row count');
+assert.match(csvFieldGuide, /Paid ZIP rows: 111/, 'CSV field guide needs paid row count');
 assert.match(csvFieldGuide, /href="\/preview\.html"/, 'CSV field guide links preview');
 assert.match(csvFieldGuide, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'CSV field guide links sample CSV');
 assert.match(csvFieldGuide, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'CSV field guide links sample JSON');
@@ -1079,9 +1080,9 @@ assert.match(permitDataDownload, /"@type":"FAQPage"/, 'permit data download page
 assert.match(permitDataDownload, /"price":"9.50"/, 'permit data download page needs current price structured data');
 assert.match(permitDataDownload, /\/_vercel\/insights\/script\.js/, 'permit data download page needs Web Analytics script');
 assert.match(permitDataDownload, /NYC DOB permit data download for weekly CSV review/, 'permit data download page needs headline');
-assert.match(permitDataDownload, /Inspect the free 25-row preview, then buy the full 142-row current issue ZIP/, 'permit data download page needs free and paid row counts');
-assert.match(permitDataDownload, /Top work types: Sidewalk Shed 40/, 'permit data download page needs work type mix');
-assert.match(permitDataDownload, /Top ZIPs: 10003 37/, 'permit data download page needs ZIP mix');
+assert.match(permitDataDownload, /Inspect the free 25-row preview, then buy the full 111-row current issue ZIP/, 'permit data download page needs free and paid row counts');
+assert.match(permitDataDownload, /Top work types: Plumbing 27/, 'permit data download page needs work type mix');
+assert.match(permitDataDownload, /Top ZIPs: 10003 30/, 'permit data download page needs ZIP mix');
 assert.match(permitDataDownload, /Status mix:/, 'permit data download page needs status mix');
 assert.match(permitDataDownload, /href="\/preview\.html"/, 'permit data download page links preview');
 assert.match(permitDataDownload, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'permit data download page links sample CSV');
@@ -1119,10 +1120,10 @@ assert.match(buildingPermitData, /"price":"9.50"/, 'building permit data page ne
 assert.match(buildingPermitData, /\/_vercel\/insights\/script\.js/, 'building permit data page needs Web Analytics script');
 assert.match(buildingPermitData, /NYC building permit data for weekly construction research/, 'building permit data page needs headline');
 assert.match(buildingPermitData, /25 public sample rows/, 'building permit data page needs free preview count');
-assert.match(buildingPermitData, /142 source-linked rows/, 'building permit data page needs paid row count');
-assert.match(buildingPermitData, /Borough mix: Manhattan 74/, 'building permit data page needs borough mix');
-assert.match(buildingPermitData, /Top ZIPs: 10003 37/, 'building permit data page needs ZIP mix');
-assert.match(buildingPermitData, /Top work types: Sidewalk Shed 40/, 'building permit data page needs work type mix');
+assert.match(buildingPermitData, /111 source-linked rows/, 'building permit data page needs paid row count');
+assert.match(buildingPermitData, /Borough mix: (?:Manhattan 54 \| Brooklyn 57|Brooklyn 57 \| Manhattan 54)/, 'building permit data page needs borough mix');
+assert.match(buildingPermitData, /Top ZIPs: 10003 30/, 'building permit data page needs ZIP mix');
+assert.match(buildingPermitData, /Top work types: Plumbing 27/, 'building permit data page needs work type mix');
 assert.match(buildingPermitData, /href="\/preview\.html"/, 'building permit data page links preview');
 assert.match(buildingPermitData, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'building permit data page links sample CSV');
 assert.match(buildingPermitData, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'building permit data page links sample JSON');
@@ -1161,10 +1162,10 @@ assert.match(buildingPermits, /\/_vercel\/insights\/script\.js/, 'building permi
 assert.match(buildingPermits, /NYC building permits packaged for weekly CSV review/, 'building permits page needs headline');
 assert.match(buildingPermits, /NYC DOB NOW: Build - Approved Permits/, 'building permits page names source dataset');
 assert.match(buildingPermits, /Free preview rows: 25/, 'building permits page needs free preview count');
-assert.match(buildingPermits, /Paid ZIP rows: 142/, 'building permits page needs paid row count');
-assert.match(buildingPermits, /Borough mix: Manhattan 74/, 'building permits page needs borough mix');
-assert.match(buildingPermits, /Top ZIPs: 10003 37/, 'building permits page needs ZIP mix');
-assert.match(buildingPermits, /Top work types: Sidewalk Shed 40/, 'building permits page needs work type mix');
+assert.match(buildingPermits, /Paid ZIP rows: 111/, 'building permits page needs paid row count');
+assert.match(buildingPermits, /Borough mix: (?:Manhattan 54 \| Brooklyn 57|Brooklyn 57 \| Manhattan 54)/, 'building permits page needs borough mix');
+assert.match(buildingPermits, /Top ZIPs: 10003 30/, 'building permits page needs ZIP mix');
+assert.match(buildingPermits, /Top work types: Plumbing 27/, 'building permits page needs work type mix');
 assert.match(buildingPermits, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'building permits page needs private-data boundary');
 assert.match(buildingPermits, /href="\/preview\.html"/, 'building permits page links preview');
 assert.match(buildingPermits, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'building permits page links sample CSV');
@@ -1202,9 +1203,9 @@ assert.match(permitCsv, /"@type":"FAQPage"/, 'permit CSV page needs FAQ structur
 assert.match(permitCsv, /"price":"9.50"/, 'permit CSV page needs current price structured data');
 assert.match(permitCsv, /\/_vercel\/insights\/script\.js/, 'permit CSV page needs Web Analytics script');
 assert.match(permitCsv, /NYC DOB permit CSV for weekly construction activity research/, 'permit CSV page needs headline');
-assert.match(permitCsv, /Preview 25 public rows before buying the full 142-row current issue ZIP/, 'permit CSV page needs free and paid row counts');
-assert.match(permitCsv, /Top work types: Sidewalk Shed 40/, 'permit CSV page needs work type mix');
-assert.match(permitCsv, /Top ZIPs: 10003 37/, 'permit CSV page needs ZIP mix');
+assert.match(permitCsv, /Preview 25 public rows before buying the full 111-row current issue ZIP/, 'permit CSV page needs free and paid row counts');
+assert.match(permitCsv, /Top work types: Plumbing 27/, 'permit CSV page needs work type mix');
+assert.match(permitCsv, /Top ZIPs: 10003 30/, 'permit CSV page needs ZIP mix');
 assert.match(permitCsv, /href="\/preview\.html"/, 'permit CSV page links preview');
 assert.match(permitCsv, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'permit CSV page links sample CSV');
 assert.match(permitCsv, /href="\/sample\/nyc-construction-activity-preview\.json"/, 'permit CSV page links sample JSON');
@@ -1239,9 +1240,9 @@ assert.match(permitDataApiAlternative, /"@type":"FAQPage"/, 'permit data API alt
 assert.match(permitDataApiAlternative, /"price":"9.50"/, 'permit data API alternative page needs current price structured data');
 assert.match(permitDataApiAlternative, /\/_vercel\/insights\/script\.js/, 'permit data API alternative page needs Web Analytics script');
 assert.match(permitDataApiAlternative, /NYC permit data API alternative for weekly CSV research/, 'permit data API alternative page needs headline');
-assert.match(permitDataApiAlternative, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'permit data API alternative page needs row counts');
-assert.match(permitDataApiAlternative, /Top work types: Sidewalk Shed 40/, 'permit data API alternative page needs work type mix');
-assert.match(permitDataApiAlternative, /Top ZIPs: 10003 37/, 'permit data API alternative page needs ZIP mix');
+assert.match(permitDataApiAlternative, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'permit data API alternative page needs row counts');
+assert.match(permitDataApiAlternative, /Top work types: Plumbing 27/, 'permit data API alternative page needs work type mix');
+assert.match(permitDataApiAlternative, /Top ZIPs: 10003 30/, 'permit data API alternative page needs ZIP mix');
 assert.match(permitDataApiAlternative, /Status mix:/, 'permit data API alternative page needs status mix');
 assert.match(permitDataApiAlternative, /When the ZIP fits/, 'permit data API alternative page needs fit section');
 assert.match(permitDataApiAlternative, /Technical review pass/, 'permit data API alternative page needs technical review pass');
@@ -1283,8 +1284,8 @@ assert.match(weeklyPermitReport, /"price":"9.50"/, 'weekly permit report page ne
 assert.match(weeklyPermitReport, /\/_vercel\/insights\/script\.js/, 'weekly permit report page needs Web Analytics script');
 assert.match(weeklyPermitReport, /Weekly NYC construction permit report for source-linked review/, 'weekly permit report page needs headline');
 assert.match(weeklyPermitReport, /Free preview rows: 25/, 'weekly permit report page needs free preview count');
-assert.match(weeklyPermitReport, /Paid ZIP rows: 142/, 'weekly permit report page needs paid row count');
-assert.match(weeklyPermitReport, /Top work types: Sidewalk Shed 40/, 'weekly permit report page needs work type mix');
+assert.match(weeklyPermitReport, /Paid ZIP rows: 111/, 'weekly permit report page needs paid row count');
+assert.match(weeklyPermitReport, /Top work types: Plumbing 27/, 'weekly permit report page needs work type mix');
 assert.match(weeklyPermitReport, /href="\/current-issue\.html"/, 'weekly permit report page links current issue');
 assert.match(weeklyPermitReport, /href="\/preview\.html"/, 'weekly permit report page links preview');
 assert.match(weeklyPermitReport, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'weekly permit report page links sample CSV');
@@ -1316,9 +1317,9 @@ assert.match(dobPermitAlerts, /"@type":"FAQPage"/, 'DOB permit alerts page needs
 assert.match(dobPermitAlerts, /"price":"9.50"/, 'DOB permit alerts page needs current price structured data');
 assert.match(dobPermitAlerts, /\/_vercel\/insights\/script\.js/, 'DOB permit alerts page needs Web Analytics script');
 assert.match(dobPermitAlerts, /NYC DOB permit alerts alternative for weekly review/, 'DOB permit alerts page needs headline');
-assert.match(dobPermitAlerts, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'DOB permit alerts page needs row counts');
-assert.match(dobPermitAlerts, /Top work types: Sidewalk Shed 40/, 'DOB permit alerts page needs work type mix');
-assert.match(dobPermitAlerts, /Top ZIPs: 10003 37/, 'DOB permit alerts page needs ZIP mix');
+assert.match(dobPermitAlerts, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'DOB permit alerts page needs row counts');
+assert.match(dobPermitAlerts, /Top work types: Plumbing 27/, 'DOB permit alerts page needs work type mix');
+assert.match(dobPermitAlerts, /Top ZIPs: 10003 30/, 'DOB permit alerts page needs ZIP mix');
 assert.match(dobPermitAlerts, /This is not a live alert feed/, 'DOB permit alerts page states live-alert boundary');
 assert.match(dobPermitAlerts, /No guaranteed leads\./, 'DOB permit alerts page keeps claims boundary visible');
 assert.match(dobPermitAlerts, /href="\/current-issue\.html"/, 'DOB permit alerts page links current issue');
@@ -1353,10 +1354,10 @@ assert.match(dobPermitTracker, /"@type":"FAQPage"/, 'DOB permit tracker page nee
 assert.match(dobPermitTracker, /"price":"9.50"/, 'DOB permit tracker page needs current price structured data');
 assert.match(dobPermitTracker, /\/_vercel\/insights\/script\.js/, 'DOB permit tracker page needs Web Analytics script');
 assert.match(dobPermitTracker, /NYC DOB permit tracker alternative for weekly review/, 'DOB permit tracker page needs headline');
-assert.match(dobPermitTracker, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'DOB permit tracker page needs row counts');
-assert.match(dobPermitTracker, /Status mix: Permit Issued 141/, 'DOB permit tracker page needs status mix');
-assert.match(dobPermitTracker, /Top work types: Sidewalk Shed 40/, 'DOB permit tracker page needs work type mix');
-assert.match(dobPermitTracker, /Top ZIPs: 10003 37/, 'DOB permit tracker page needs ZIP mix');
+assert.match(dobPermitTracker, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'DOB permit tracker page needs row counts');
+assert.match(dobPermitTracker, /Status mix: Permit Issued 110/, 'DOB permit tracker page needs status mix');
+assert.match(dobPermitTracker, /Top work types: Plumbing 27/, 'DOB permit tracker page needs work type mix');
+assert.match(dobPermitTracker, /Top ZIPs: 10003 30/, 'DOB permit tracker page needs ZIP mix');
 assert.match(dobPermitTracker, /This is not live monitoring/, 'DOB permit tracker page states live-monitoring boundary');
 assert.match(dobPermitTracker, /No guaranteed leads\./, 'DOB permit tracker page keeps claims boundary visible');
 assert.match(dobPermitTracker, /href="\/current-issue\.html"/, 'DOB permit tracker page links current issue');
@@ -1392,10 +1393,10 @@ assert.match(dobPermitMonitoring, /"@type":"FAQPage"/, 'DOB permit monitoring pa
 assert.match(dobPermitMonitoring, /"price":"9.50"/, 'DOB permit monitoring page needs current price structured data');
 assert.match(dobPermitMonitoring, /\/_vercel\/insights\/script\.js/, 'DOB permit monitoring page needs Web Analytics script');
 assert.match(dobPermitMonitoring, /NYC DOB permit monitoring alternative for weekly review/, 'DOB permit monitoring page needs headline');
-assert.match(dobPermitMonitoring, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'DOB permit monitoring page needs row counts');
-assert.match(dobPermitMonitoring, /Status mix: Permit Issued 141/, 'DOB permit monitoring page needs status mix');
-assert.match(dobPermitMonitoring, /Top work types: Sidewalk Shed 40/, 'DOB permit monitoring page needs work type mix');
-assert.match(dobPermitMonitoring, /Top ZIPs: 10003 37/, 'DOB permit monitoring page needs ZIP mix');
+assert.match(dobPermitMonitoring, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'DOB permit monitoring page needs row counts');
+assert.match(dobPermitMonitoring, /Status mix: Permit Issued 110/, 'DOB permit monitoring page needs status mix');
+assert.match(dobPermitMonitoring, /Top work types: Plumbing 27/, 'DOB permit monitoring page needs work type mix');
+assert.match(dobPermitMonitoring, /Top ZIPs: 10003 30/, 'DOB permit monitoring page needs ZIP mix');
 assert.match(dobPermitMonitoring, /This is not live monitoring/, 'DOB permit monitoring page states live-monitoring boundary');
 assert.match(dobPermitMonitoring, /No guaranteed leads\./, 'DOB permit monitoring page keeps claims boundary visible');
 assert.match(dobPermitMonitoring, /href="\/current-issue\.html"/, 'DOB permit monitoring page links current issue');
@@ -1432,9 +1433,9 @@ assert.match(dobPermitWatchlist, /"@type":"FAQPage"/, 'DOB permit watchlist page
 assert.match(dobPermitWatchlist, /"price":"9.50"/, 'DOB permit watchlist page needs current price structured data');
 assert.match(dobPermitWatchlist, /\/_vercel\/insights\/script\.js/, 'DOB permit watchlist page needs Web Analytics script');
 assert.match(dobPermitWatchlist, /NYC DOB permit watchlist alternative for weekly review/, 'DOB permit watchlist page needs headline');
-assert.match(dobPermitWatchlist, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'DOB permit watchlist page needs row counts');
-assert.match(dobPermitWatchlist, /Top work types: Sidewalk Shed 40/, 'DOB permit watchlist page needs work type mix');
-assert.match(dobPermitWatchlist, /Top ZIPs: 10003 37/, 'DOB permit watchlist page needs ZIP mix');
+assert.match(dobPermitWatchlist, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'DOB permit watchlist page needs row counts');
+assert.match(dobPermitWatchlist, /Top work types: Plumbing 27/, 'DOB permit watchlist page needs work type mix');
+assert.match(dobPermitWatchlist, /Top ZIPs: 10003 30/, 'DOB permit watchlist page needs ZIP mix');
 assert.match(dobPermitWatchlist, /This is not a live watchlist/, 'DOB permit watchlist page states live-watchlist boundary');
 assert.match(dobPermitWatchlist, /No guaranteed leads\./, 'DOB permit watchlist page keeps claims boundary visible');
 assert.match(dobPermitWatchlist, /href="\/current-issue\.html"/, 'DOB permit watchlist page links current issue');
@@ -1473,9 +1474,9 @@ assert.match(dobNowAlternative, /"price":"9.50"/, 'DOB NOW alternative page need
 assert.match(dobNowAlternative, /\/_vercel\/insights\/script\.js/, 'DOB NOW alternative page needs Web Analytics script');
 assert.match(dobNowAlternative, /DOB NOW permit search alternative for weekly screening/, 'DOB NOW alternative page needs headline');
 assert.match(dobNowAlternative, /Free preview rows: 25/, 'DOB NOW alternative page needs free preview count');
-assert.match(dobNowAlternative, /Paid ZIP rows: 142/, 'DOB NOW alternative page needs paid row count');
-assert.match(dobNowAlternative, /Top work types: Sidewalk Shed 40/, 'DOB NOW alternative page needs work type mix');
-assert.match(dobNowAlternative, /Top ZIPs: 10003 37/, 'DOB NOW alternative page needs ZIP mix');
+assert.match(dobNowAlternative, /Paid ZIP rows: 111/, 'DOB NOW alternative page needs paid row count');
+assert.match(dobNowAlternative, /Top work types: Plumbing 27/, 'DOB NOW alternative page needs work type mix');
+assert.match(dobNowAlternative, /Top ZIPs: 10003 30/, 'DOB NOW alternative page needs ZIP mix');
 assert.match(dobNowAlternative, /Manual DOB NOW search/, 'DOB NOW alternative page compares manual source search');
 assert.match(dobNowAlternative, /href="\/current-issue\.html"/, 'DOB NOW alternative page links current issue');
 assert.match(dobNowAlternative, /href="\/preview\.html"/, 'DOB NOW alternative page links preview');
@@ -1511,10 +1512,10 @@ assert.match(dobPermitSearch, /"price":"9.50"/, 'DOB permit search page needs cu
 assert.match(dobPermitSearch, /\/_vercel\/insights\/script\.js/, 'DOB permit search page needs Web Analytics script');
 assert.match(dobPermitSearch, /NYC DOB permit search companion for weekly CSV screening/, 'DOB permit search page needs headline');
 assert.match(dobPermitSearch, /Free preview rows: 25/, 'DOB permit search page needs free preview count');
-assert.match(dobPermitSearch, /Paid ZIP rows: 142/, 'DOB permit search page needs paid row count');
-assert.match(dobPermitSearch, /Top work types: Sidewalk Shed 40/, 'DOB permit search page needs work type mix');
-assert.match(dobPermitSearch, /Top ZIPs: 10003 37/, 'DOB permit search page needs ZIP mix');
-assert.match(dobPermitSearch, /Status mix: Permit Issued 141/, 'DOB permit search page needs status mix');
+assert.match(dobPermitSearch, /Paid ZIP rows: 111/, 'DOB permit search page needs paid row count');
+assert.match(dobPermitSearch, /Top work types: Plumbing 27/, 'DOB permit search page needs work type mix');
+assert.match(dobPermitSearch, /Top ZIPs: 10003 30/, 'DOB permit search page needs ZIP mix');
+assert.match(dobPermitSearch, /Status mix: Permit Issued 110/, 'DOB permit search page needs status mix');
 assert.match(dobPermitSearch, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'DOB permit search page needs private-data boundary');
 assert.match(dobPermitSearch, /href="\/current-issue\.html"/, 'DOB permit search page links current issue');
 assert.match(dobPermitSearch, /href="\/dob-now-permit-search-alternative\.html"/, 'DOB permit search page links DOB NOW alternative');
@@ -1551,10 +1552,10 @@ assert.match(constructionPermitSearch, /"price":"9.50"/, 'construction permit se
 assert.match(constructionPermitSearch, /\/_vercel\/insights\/script\.js/, 'construction permit search page needs Web Analytics script');
 assert.match(constructionPermitSearch, /NYC construction permit search companion for weekly CSV screening/, 'construction permit search page needs headline');
 assert.match(constructionPermitSearch, /Free preview rows: 25/, 'construction permit search page needs free preview count');
-assert.match(constructionPermitSearch, /Paid ZIP rows: 142/, 'construction permit search page needs paid row count');
-assert.match(constructionPermitSearch, /Top work types: Sidewalk Shed 40/, 'construction permit search page needs work type mix');
-assert.match(constructionPermitSearch, /Top ZIPs: 10003 37/, 'construction permit search page needs ZIP mix');
-assert.match(constructionPermitSearch, /Status mix: Permit Issued 141/, 'construction permit search page needs status mix');
+assert.match(constructionPermitSearch, /Paid ZIP rows: 111/, 'construction permit search page needs paid row count');
+assert.match(constructionPermitSearch, /Top work types: Plumbing 27/, 'construction permit search page needs work type mix');
+assert.match(constructionPermitSearch, /Top ZIPs: 10003 30/, 'construction permit search page needs ZIP mix');
+assert.match(constructionPermitSearch, /Status mix: Permit Issued 110/, 'construction permit search page needs status mix');
 assert.match(constructionPermitSearch, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'construction permit search page needs private-data boundary');
 assert.match(constructionPermitSearch, /href="\/current-issue\.html"/, 'construction permit search page links current issue');
 assert.match(constructionPermitSearch, /href="\/dob-now-permit-search-alternative\.html"/, 'construction permit search page links DOB NOW alternative');
@@ -1591,10 +1592,10 @@ assert.match(dobPermitLookup, /"price":"9.50"/, 'DOB permit lookup page needs cu
 assert.match(dobPermitLookup, /\/_vercel\/insights\/script\.js/, 'DOB permit lookup page needs Web Analytics script');
 assert.match(dobPermitLookup, /NYC DOB permit lookup companion for weekly CSV screening/, 'DOB permit lookup page needs headline');
 assert.match(dobPermitLookup, /Free preview rows: 25/, 'DOB permit lookup page needs free preview count');
-assert.match(dobPermitLookup, /Paid ZIP rows: 142/, 'DOB permit lookup page needs paid row count');
-assert.match(dobPermitLookup, /Top work types: Sidewalk Shed 40/, 'DOB permit lookup page needs work type mix');
-assert.match(dobPermitLookup, /Top ZIPs: 10003 37/, 'DOB permit lookup page needs ZIP mix');
-assert.match(dobPermitLookup, /Status mix: Permit Issued 141/, 'DOB permit lookup page needs status mix');
+assert.match(dobPermitLookup, /Paid ZIP rows: 111/, 'DOB permit lookup page needs paid row count');
+assert.match(dobPermitLookup, /Top work types: Plumbing 27/, 'DOB permit lookup page needs work type mix');
+assert.match(dobPermitLookup, /Top ZIPs: 10003 30/, 'DOB permit lookup page needs ZIP mix');
+assert.match(dobPermitLookup, /Status mix: Permit Issued 110/, 'DOB permit lookup page needs status mix');
 assert.match(dobPermitLookup, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'DOB permit lookup page needs private-data boundary');
 assert.match(dobPermitLookup, /href="\/current-issue\.html"/, 'DOB permit lookup page links current issue');
 assert.match(dobPermitLookup, /href="\/dob-now-permit-search-alternative\.html"/, 'DOB permit lookup page links DOB NOW alternative');
@@ -1632,11 +1633,11 @@ assert.match(dobApprovedPermits, /\/_vercel\/insights\/script\.js/, 'DOB approve
 assert.match(dobApprovedPermits, /NYC DOB approved permits packaged for weekly CSV review/, 'DOB approved permits page needs headline');
 assert.match(dobApprovedPermits, /NYC DOB NOW: Build - Approved Permits/, 'DOB approved permits page names source dataset');
 assert.match(dobApprovedPermits, /Free preview rows: 25/, 'DOB approved permits page needs free preview count');
-assert.match(dobApprovedPermits, /Paid ZIP rows: 142/, 'DOB approved permits page needs paid row count');
-assert.match(dobApprovedPermits, /Borough mix: Manhattan 74/, 'DOB approved permits page needs borough mix');
-assert.match(dobApprovedPermits, /Top ZIPs: 10003 37/, 'DOB approved permits page needs ZIP mix');
-assert.match(dobApprovedPermits, /Top work types: Sidewalk Shed 40/, 'DOB approved permits page needs work type mix');
-assert.match(dobApprovedPermits, /Status mix: Permit Issued 141/, 'DOB approved permits page needs status mix');
+assert.match(dobApprovedPermits, /Paid ZIP rows: 111/, 'DOB approved permits page needs paid row count');
+assert.match(dobApprovedPermits, /Borough mix: (?:Manhattan 54 \| Brooklyn 57|Brooklyn 57 \| Manhattan 54)/, 'DOB approved permits page needs borough mix');
+assert.match(dobApprovedPermits, /Top ZIPs: 10003 30/, 'DOB approved permits page needs ZIP mix');
+assert.match(dobApprovedPermits, /Top work types: Plumbing 27/, 'DOB approved permits page needs work type mix');
+assert.match(dobApprovedPermits, /Status mix: Permit Issued 110/, 'DOB approved permits page needs status mix');
 assert.match(dobApprovedPermits, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'DOB approved permits page needs private-data boundary');
 assert.match(dobApprovedPermits, /href="\/current-issue\.html"/, 'DOB approved permits page links current issue');
 assert.match(dobApprovedPermits, /href="\/nyc-dob-permit-search\.html"/, 'DOB approved permits page links DOB permit search page');
@@ -1674,11 +1675,11 @@ assert.match(dobNowApprovedPermits, /\/_vercel\/insights\/script\.js/, 'DOB NOW 
 assert.match(dobNowApprovedPermits, /NYC DOB NOW approved permits packaged for weekly CSV review/, 'DOB NOW approved permits page needs headline');
 assert.match(dobNowApprovedPermits, /NYC DOB NOW: Build - Approved Permits/, 'DOB NOW approved permits page names source dataset');
 assert.match(dobNowApprovedPermits, /Free preview rows: 25/, 'DOB NOW approved permits page needs free preview count');
-assert.match(dobNowApprovedPermits, /Paid ZIP rows: 142/, 'DOB NOW approved permits page needs paid row count');
-assert.match(dobNowApprovedPermits, /Borough mix: Manhattan 74/, 'DOB NOW approved permits page needs borough mix');
-assert.match(dobNowApprovedPermits, /Top ZIPs: 10003 37/, 'DOB NOW approved permits page needs ZIP mix');
-assert.match(dobNowApprovedPermits, /Top work types: Sidewalk Shed 40/, 'DOB NOW approved permits page needs work type mix');
-assert.match(dobNowApprovedPermits, /Status mix: Permit Issued 141/, 'DOB NOW approved permits page needs status mix');
+assert.match(dobNowApprovedPermits, /Paid ZIP rows: 111/, 'DOB NOW approved permits page needs paid row count');
+assert.match(dobNowApprovedPermits, /Borough mix: (?:Manhattan 54 \| Brooklyn 57|Brooklyn 57 \| Manhattan 54)/, 'DOB NOW approved permits page needs borough mix');
+assert.match(dobNowApprovedPermits, /Top ZIPs: 10003 30/, 'DOB NOW approved permits page needs ZIP mix');
+assert.match(dobNowApprovedPermits, /Top work types: Plumbing 27/, 'DOB NOW approved permits page needs work type mix');
+assert.match(dobNowApprovedPermits, /Status mix: Permit Issued 110/, 'DOB NOW approved permits page needs status mix');
 assert.match(dobNowApprovedPermits, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'DOB NOW approved permits page needs private-data boundary');
 assert.match(dobNowApprovedPermits, /href="\/nyc-dob-permit-search\.html"/, 'DOB NOW approved permits page links DOB permit search page');
 assert.match(dobNowApprovedPermits, /href="\/dob-now-permit-search-alternative\.html"/, 'DOB NOW approved permits page links DOB NOW alternative');
@@ -1708,11 +1709,11 @@ assert.match(dobNowBuildApprovedPermits, /\/_vercel\/insights\/script\.js/, 'DOB
 assert.match(dobNowBuildApprovedPermits, /DOB NOW: Build approved permits packaged for weekly CSV review/, 'DOB NOW Build approved permits page needs headline');
 assert.match(dobNowBuildApprovedPermits, /NYC DOB NOW: Build - Approved Permits/, 'DOB NOW Build approved permits page names source dataset');
 assert.match(dobNowBuildApprovedPermits, /Free preview rows: 25/, 'DOB NOW Build approved permits page needs free preview count');
-assert.match(dobNowBuildApprovedPermits, /Paid ZIP rows: 142/, 'DOB NOW Build approved permits page needs paid row count');
-assert.match(dobNowBuildApprovedPermits, /Borough mix: Manhattan 74/, 'DOB NOW Build approved permits page needs borough mix');
-assert.match(dobNowBuildApprovedPermits, /Top ZIPs: 10003 37/, 'DOB NOW Build approved permits page needs ZIP mix');
-assert.match(dobNowBuildApprovedPermits, /Top work types: Sidewalk Shed 40/, 'DOB NOW Build approved permits page needs work type mix');
-assert.match(dobNowBuildApprovedPermits, /Status mix: Permit Issued 141/, 'DOB NOW Build approved permits page needs status mix');
+assert.match(dobNowBuildApprovedPermits, /Paid ZIP rows: 111/, 'DOB NOW Build approved permits page needs paid row count');
+assert.match(dobNowBuildApprovedPermits, /Borough mix: (?:Manhattan 54 \| Brooklyn 57|Brooklyn 57 \| Manhattan 54)/, 'DOB NOW Build approved permits page needs borough mix');
+assert.match(dobNowBuildApprovedPermits, /Top ZIPs: 10003 30/, 'DOB NOW Build approved permits page needs ZIP mix');
+assert.match(dobNowBuildApprovedPermits, /Top work types: Plumbing 27/, 'DOB NOW Build approved permits page needs work type mix');
+assert.match(dobNowBuildApprovedPermits, /Status mix: Permit Issued 110/, 'DOB NOW Build approved permits page needs status mix');
 assert.match(dobNowBuildApprovedPermits, /No owner names, applicant names, phone numbers, email addresses, full street addresses/, 'DOB NOW Build approved permits page needs private-data boundary');
 assert.match(dobNowBuildApprovedPermits, /href="\/nyc-dob-permit-search\.html"/, 'DOB NOW Build approved permits page links DOB permit search page');
 assert.match(dobNowBuildApprovedPermits, /href="\/dob-now-permit-search-alternative\.html"/, 'DOB NOW Build approved permits page links DOB NOW alternative');
@@ -1742,9 +1743,9 @@ assert.match(permitLeads, /"price":"9.50"/, 'permit leads page needs current pri
 assert.match(permitLeads, /\/_vercel\/insights\/script\.js/, 'permit leads page needs Web Analytics script');
 assert.match(permitLeads, /NYC construction permit leads alternative/, 'permit leads page needs headline');
 assert.match(permitLeads, /Free preview rows: 25/, 'permit leads page needs free preview count');
-assert.match(permitLeads, /Paid ZIP rows: 142/, 'permit leads page needs paid row count');
-assert.match(permitLeads, /Top work types: Sidewalk Shed 40/, 'permit leads page needs work type mix');
-assert.match(permitLeads, /Top ZIPs: 10003 37/, 'permit leads page needs ZIP mix');
+assert.match(permitLeads, /Paid ZIP rows: 111/, 'permit leads page needs paid row count');
+assert.match(permitLeads, /Top work types: Plumbing 27/, 'permit leads page needs work type mix');
+assert.match(permitLeads, /Top ZIPs: 10003 30/, 'permit leads page needs ZIP mix');
 assert.match(permitLeads, /No private contact data/, 'permit leads page needs contact boundary');
 assert.match(permitLeads, /No lead scores/, 'permit leads page needs lead-score boundary');
 assert.match(permitLeads, /href="\/current-issue\.html"/, 'permit leads page links current issue');
@@ -1783,8 +1784,8 @@ assert.match(zipActivity, /NYC permit activity by ZIP in the current issue/, 'ZI
 assert.match(zipActivity, /ZIP codes covered/, 'ZIP activity page needs ZIP count card');
 assert.match(zipActivity, /5 ZIP codes in the paid issue/, 'ZIP activity page needs current ZIP code count');
 assert.match(zipActivity, /Free preview rows: 25/, 'ZIP activity page needs free preview count');
-assert.match(zipActivity, /Paid ZIP rows: 142/, 'ZIP activity page needs paid row count');
-assert.match(zipActivity, /Top ZIPs: 10003 37 \| 10011 37 \| 11201 26 \| 11206 22 \| 11211 20/, 'ZIP activity page needs top ZIP mix');
+assert.match(zipActivity, /Paid ZIP rows: 111/, 'ZIP activity page needs paid row count');
+assert.match(zipActivity, /Top ZIPs: 10003 30 \| 11201 25 \| 10011 24 \| 11206 18 \| 11211 14/, 'ZIP activity page needs top ZIP mix');
 assert.match(zipActivity, /href="\/topics\/nyc-dob-permits-zip-10003\.html"/, 'ZIP activity page links 10003 slice');
 assert.match(zipActivity, /href="\/topics\/nyc-dob-permits-zip-11201\.html"/, 'ZIP activity page links 11201 slice');
 assert.match(zipActivity, /href="\/manhattan-construction-permit-activity\.html"/, 'ZIP activity page links Manhattan page');
@@ -1808,9 +1809,9 @@ const boroughLandingPages = [
     path: 'manhattan-construction-permit-activity.html',
     title: 'Manhattan Construction Permit Activity | Current DOB Brief',
     headline: 'Manhattan construction permit activity in the current issue',
-    rowText: 'Manhattan rows: 74',
-    zipText: 'ZIP mix: 10003 37',
-    workTypeText: 'Work type mix: Sidewalk Shed 23',
+    rowText: 'Manhattan rows: 54',
+    zipText: 'ZIP mix: 10003 30',
+    workTypeText: 'Work type mix: Plumbing 15',
     topicHref: '/topics/manhattan-construction-permit-activity.html',
     checkoutSource: 'manhattan-permit-activity',
   },
@@ -1818,9 +1819,9 @@ const boroughLandingPages = [
     path: 'brooklyn-construction-permit-activity.html',
     title: 'Brooklyn Construction Permit Activity | Current DOB Brief',
     headline: 'Brooklyn construction permit activity in the current issue',
-    rowText: 'Brooklyn rows: 68',
-    zipText: 'ZIP mix: 11201 26',
-    workTypeText: 'Work type mix: Sidewalk Shed 17',
+    rowText: 'Brooklyn rows: 57',
+    zipText: 'ZIP mix: 11201 25',
+    workTypeText: 'Work type mix: Sidewalk Shed 18',
     topicHref: '/topics/brooklyn-construction-permit-activity.html',
     checkoutSource: 'brooklyn-permit-activity',
   },
@@ -1840,7 +1841,7 @@ for (const page of boroughLandingPages) {
   assert.match(html, /\/_vercel\/insights\/script\.js/, `${label} page needs Web Analytics script`);
   assert.match(html, new RegExp(page.headline), `${label} page needs headline`);
   assert.match(html, /Free preview rows: 25/, `${label} page needs free preview count`);
-  assert.match(html, /Paid ZIP rows: 142/, `${label} page needs paid row count`);
+  assert.match(html, /Paid ZIP rows: 111/, `${label} page needs paid row count`);
   assert.match(html, new RegExp(page.rowText), `${label} page needs borough row count`);
   assert.match(html, new RegExp(page.zipText), `${label} page needs ZIP mix`);
   assert.match(html, new RegExp(page.workTypeText), `${label} page needs work-type mix`);
@@ -1875,8 +1876,8 @@ assert.match(sidewalkShedPermits, /"price":"9.50"/, 'sidewalk shed permits page 
 assert.match(sidewalkShedPermits, /\/_vercel\/insights\/script\.js/, 'sidewalk shed permits page needs Web Analytics script');
 assert.match(sidewalkShedPermits, /NYC sidewalk shed permits in the current issue/, 'sidewalk shed permits page needs headline');
 assert.match(sidewalkShedPermits, /Free preview rows: 25/, 'sidewalk shed permits page needs free preview count');
-assert.match(sidewalkShedPermits, /Paid ZIP rows: 142/, 'sidewalk shed permits page needs paid row count');
-assert.match(sidewalkShedPermits, /Sidewalk shed rows: 40/, 'sidewalk shed permits page needs sidewalk shed row count');
+assert.match(sidewalkShedPermits, /Paid ZIP rows: 111/, 'sidewalk shed permits page needs paid row count');
+assert.match(sidewalkShedPermits, /Sidewalk shed rows: 25/, 'sidewalk shed permits page needs sidewalk shed row count');
 assert.match(sidewalkShedPermits, /Top ZIPs for sidewalk shed rows:/, 'sidewalk shed permits page needs ZIP mix');
 assert.match(sidewalkShedPermits, /href="\/topics\/nyc-sidewalk-shed-permits\.html"/, 'sidewalk shed permits page links topic page');
 assert.match(sidewalkShedPermits, /href="\/topics\/sidewalk-shed-contractor-permit-research-nyc\.html"/, 'sidewalk shed permits page links contractor topic page');
@@ -1904,7 +1905,7 @@ assert.match(sidewalkShedPermitLeads, /"@type":"Product"/, 'sidewalk shed permit
 assert.match(sidewalkShedPermitLeads, /"@type":"Dataset"/, 'sidewalk shed permit leads page needs Dataset structured data');
 assert.match(sidewalkShedPermitLeads, /"@type":"FAQPage"/, 'sidewalk shed permit leads page needs FAQ structured data');
 assert.match(sidewalkShedPermitLeads, /NYC sidewalk shed permit leads from public DOB signals/, 'sidewalk shed permit leads page needs headline');
-assert.match(sidewalkShedPermitLeads, /Sidewalk shed rows: 40/, 'sidewalk shed permit leads page needs current sidewalk shed row count');
+assert.match(sidewalkShedPermitLeads, /Sidewalk shed rows: 25/, 'sidewalk shed permit leads page needs current sidewalk shed row count');
 assert.match(sidewalkShedPermitLeads, /Top ZIPs for sidewalk shed rows:/, 'sidewalk shed permit leads page needs ZIP mix');
 assert.match(sidewalkShedPermitLeads, /Use it for manual lead research/, 'sidewalk shed permit leads page needs use-case section');
 assert.match(sidewalkShedPermitLeads, /This is a public-record screening file, not a finished lead list\./, 'sidewalk shed permit leads page keeps claims boundary visible');
@@ -1928,7 +1929,7 @@ assert.match(supportedScaffoldPermitLeads, /"@type":"Product"/, 'supported scaff
 assert.match(supportedScaffoldPermitLeads, /"@type":"Dataset"/, 'supported scaffold permit leads page needs Dataset structured data');
 assert.match(supportedScaffoldPermitLeads, /"@type":"FAQPage"/, 'supported scaffold permit leads page needs FAQ structured data');
 assert.match(supportedScaffoldPermitLeads, /NYC supported scaffold permit leads from public DOB signals/, 'supported scaffold permit leads page needs headline');
-assert.match(supportedScaffoldPermitLeads, /Supported scaffold rows: 13/, 'supported scaffold permit leads page needs current supported scaffold row count');
+assert.match(supportedScaffoldPermitLeads, /Supported scaffold rows: 3/, 'supported scaffold permit leads page needs current supported scaffold row count');
 assert.match(supportedScaffoldPermitLeads, /Top ZIPs for supported scaffold rows:/, 'supported scaffold permit leads page needs ZIP mix');
 assert.match(supportedScaffoldPermitLeads, /Use it for manual lead research/, 'supported scaffold permit leads page needs use-case section');
 assert.match(supportedScaffoldPermitLeads, /This is a public-record screening file, not a finished lead list\./, 'supported scaffold permit leads page keeps claims boundary visible');
@@ -1952,7 +1953,7 @@ assert.match(plumbingPermitLeads, /"@type":"Product"/, 'plumbing permit leads pa
 assert.match(plumbingPermitLeads, /"@type":"Dataset"/, 'plumbing permit leads page needs Dataset structured data');
 assert.match(plumbingPermitLeads, /"@type":"FAQPage"/, 'plumbing permit leads page needs FAQ structured data');
 assert.match(plumbingPermitLeads, /NYC plumbing permit leads from public DOB signals/, 'plumbing permit leads page needs headline');
-assert.match(plumbingPermitLeads, /Plumbing rows: 29/, 'plumbing permit leads page needs current plumbing row count');
+assert.match(plumbingPermitLeads, /Plumbing rows: 27/, 'plumbing permit leads page needs current plumbing row count');
 assert.match(plumbingPermitLeads, /Top ZIPs for plumbing rows:/, 'plumbing permit leads page needs ZIP mix');
 assert.match(plumbingPermitLeads, /Use it for manual lead research/, 'plumbing permit leads page needs use-case section');
 assert.match(plumbingPermitLeads, /This is a public-record screening file, not a finished lead list\./, 'plumbing permit leads page keeps claims boundary visible');
@@ -1976,7 +1977,7 @@ assert.match(sprinklerPermitLeads, /"@type":"Product"/, 'sprinkler permit leads 
 assert.match(sprinklerPermitLeads, /"@type":"Dataset"/, 'sprinkler permit leads page needs Dataset structured data');
 assert.match(sprinklerPermitLeads, /"@type":"FAQPage"/, 'sprinkler permit leads page needs FAQ structured data');
 assert.match(sprinklerPermitLeads, /NYC sprinkler permit leads from public DOB signals/, 'sprinkler permit leads page needs headline');
-assert.match(sprinklerPermitLeads, /Sprinkler rows: 21/, 'sprinkler permit leads page needs current sprinkler row count');
+assert.match(sprinklerPermitLeads, /Sprinkler rows: 13/, 'sprinkler permit leads page needs current sprinkler row count');
 assert.match(sprinklerPermitLeads, /Top ZIPs for sprinkler rows:/, 'sprinkler permit leads page needs ZIP mix');
 assert.match(sprinklerPermitLeads, /Use it for manual lead research/, 'sprinkler permit leads page needs use-case section');
 assert.match(sprinklerPermitLeads, /This is a public-record screening file, not a finished lead list\./, 'sprinkler permit leads page keeps claims boundary visible');
@@ -1997,7 +1998,7 @@ const tradePermitLeadPages = [
     file: 'nyc-mechanical-systems-permit-leads.html',
     label: 'mechanical systems',
     title: 'NYC Mechanical Systems Permit Leads | Public DOB Signals',
-    rowText: 'Mechanical Systems rows: 18',
+    rowText: 'Mechanical Systems rows: 24',
     permitsHref: '/nyc-mechanical-systems-permits.html',
     topicHref: '/topics/nyc-mechanical-systems-permit-csv-sample.html',
     source: 'mechanical-systems-permit-leads',
@@ -2006,7 +2007,7 @@ const tradePermitLeadPages = [
     file: 'nyc-structural-permit-leads.html',
     label: 'structural',
     title: 'NYC Structural Permit Leads | Public DOB Signals',
-    rowText: 'Structural rows: 12',
+    rowText: 'Structural rows: 13',
     permitsHref: '/nyc-structural-permits.html',
     topicHref: '/topics/nyc-structural-permit-activity.html',
     source: 'structural-permit-leads',
@@ -2015,7 +2016,7 @@ const tradePermitLeadPages = [
     file: 'nyc-construction-fence-permit-leads.html',
     label: 'construction fence',
     title: 'NYC Construction Fence Permit Leads | Public DOB Signals',
-    rowText: 'Construction Fence rows: 9',
+    rowText: 'Construction Fence rows: 6',
     permitsHref: '/nyc-construction-fence-permits.html',
     topicHref: '/topics/nyc-construction-fence-permits.html',
     source: 'construction-fence-permit-leads',
@@ -2059,8 +2060,8 @@ assert.match(plumbingPermits, /"price":"9.50"/, 'plumbing permits page needs cur
 assert.match(plumbingPermits, /\/_vercel\/insights\/script\.js/, 'plumbing permits page needs Web Analytics script');
 assert.match(plumbingPermits, /NYC plumbing permits in the current issue/, 'plumbing permits page needs headline');
 assert.match(plumbingPermits, /Free preview rows: 25/, 'plumbing permits page needs free preview count');
-assert.match(plumbingPermits, /Paid ZIP rows: 142/, 'plumbing permits page needs paid row count');
-assert.match(plumbingPermits, /Plumbing rows: 29/, 'plumbing permits page needs plumbing row count');
+assert.match(plumbingPermits, /Paid ZIP rows: 111/, 'plumbing permits page needs paid row count');
+assert.match(plumbingPermits, /Plumbing rows: 27/, 'plumbing permits page needs plumbing row count');
 assert.match(plumbingPermits, /Top ZIPs for plumbing rows:/, 'plumbing permits page needs ZIP mix');
 assert.match(plumbingPermits, /href="\/topics\/nyc-plumbing-permit-activity\.html"/, 'plumbing permits page links topic page');
 assert.match(plumbingPermits, /href="\/topics\/plumbing-contractor-permit-research-nyc\.html"/, 'plumbing permits page links contractor topic page');
@@ -2092,8 +2093,8 @@ assert.match(sprinklerPermits, /"price":"9.50"/, 'sprinkler permits page needs c
 assert.match(sprinklerPermits, /\/_vercel\/insights\/script\.js/, 'sprinkler permits page needs Web Analytics script');
 assert.match(sprinklerPermits, /NYC sprinkler permits in the current issue/, 'sprinkler permits page needs headline');
 assert.match(sprinklerPermits, /Free preview rows: 25/, 'sprinkler permits page needs free preview count');
-assert.match(sprinklerPermits, /Paid ZIP rows: 142/, 'sprinkler permits page needs paid row count');
-assert.match(sprinklerPermits, /Sprinkler rows: 21/, 'sprinkler permits page needs sprinkler row count');
+assert.match(sprinklerPermits, /Paid ZIP rows: 111/, 'sprinkler permits page needs paid row count');
+assert.match(sprinklerPermits, /Sprinkler rows: 13/, 'sprinkler permits page needs sprinkler row count');
 assert.match(sprinklerPermits, /Top ZIPs for sprinkler rows:/, 'sprinkler permits page needs ZIP mix');
 assert.match(sprinklerPermits, /href="\/topics\/nyc-sprinkler-permit-activity\.html"/, 'sprinkler permits page links topic page');
 assert.match(sprinklerPermits, /href="\/topics\/sprinkler-contractor-permit-research-nyc\.html"/, 'sprinkler permits page links contractor topic page');
@@ -2118,7 +2119,7 @@ const workTypeLandingPages = [
     path: 'nyc-mechanical-systems-permits.html',
     title: 'NYC Mechanical Systems Permits | Current DOB Activity',
     headline: 'NYC mechanical systems permits in the current issue',
-    rowText: 'Mechanical systems rows: 18',
+    rowText: 'Mechanical systems rows: 24',
     zipHeading: 'Top ZIPs for mechanical systems rows:',
     topicHref: '/topics/nyc-mechanical-permit-activity.html',
     contractorHref: '/topics/mechanical-systems-contractor-permit-research-nyc.html',
@@ -2128,7 +2129,7 @@ const workTypeLandingPages = [
     path: 'nyc-supported-scaffold-permits.html',
     title: 'NYC Supported Scaffold Permits | Current DOB Activity',
     headline: 'NYC supported scaffold permits in the current issue',
-    rowText: 'Supported scaffold rows: 13',
+    rowText: 'Supported scaffold rows: 3',
     zipHeading: 'Top ZIPs for supported scaffold rows:',
     topicHref: '/topics/nyc-supported-scaffold-permits.html',
     contractorHref: '/topics/supported-scaffold-contractor-permit-research-nyc.html',
@@ -2138,7 +2139,7 @@ const workTypeLandingPages = [
     path: 'nyc-structural-permits.html',
     title: 'NYC Structural Permits | Current DOB Activity',
     headline: 'NYC structural permits in the current issue',
-    rowText: 'Structural rows: 12',
+    rowText: 'Structural rows: 13',
     zipHeading: 'Top ZIPs for structural rows:',
     topicHref: '/topics/nyc-structural-permit-activity.html',
     contractorHref: '/topics/structural-contractor-permit-research-nyc.html',
@@ -2148,7 +2149,7 @@ const workTypeLandingPages = [
     path: 'nyc-construction-fence-permits.html',
     title: 'NYC Construction Fence Permits | Current DOB Activity',
     headline: 'NYC construction fence permits in the current issue',
-    rowText: 'Construction fence rows: 9',
+    rowText: 'Construction fence rows: 6',
     zipHeading: 'Top ZIPs for construction fence rows:',
     topicHref: '/topics/nyc-construction-fence-permits.html',
     contractorHref: '/topics/construction-fence-contractor-permit-research-nyc.html',
@@ -2170,7 +2171,7 @@ for (const page of workTypeLandingPages) {
   assert.match(html, /\/_vercel\/insights\/script\.js/, `${label} page needs Web Analytics script`);
   assert.match(html, new RegExp(page.headline), `${label} page needs headline`);
   assert.match(html, /Free preview rows: 25/, `${label} page needs free preview count`);
-  assert.match(html, /Paid ZIP rows: 142/, `${label} page needs paid row count`);
+  assert.match(html, /Paid ZIP rows: 111/, `${label} page needs paid row count`);
   assert.match(html, new RegExp(page.rowText), `${label} page needs work-type row count`);
   assert.match(html, new RegExp(page.zipHeading), `${label} page needs ZIP mix`);
   assert.match(html, new RegExp(`href="${page.topicHref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${label} page links topic page`);
@@ -2242,7 +2243,7 @@ assert.match(freeVsPaid, /When the paid ZIP is worth it/, 'free vs paid page nee
 assert.match(freeVsPaid, /break-even is about 8 minutes/, 'free vs paid page needs launch price break-even copy');
 assert.match(freeVsPaid, /free-vs-paid-break-even/, 'free vs paid page needs tracked break-even checkout link');
 assert.match(freeVsPaid, /25 sample rows/, 'free vs paid page needs preview row count');
-assert.match(freeVsPaid, /142 source-linked rows/, 'free vs paid page needs paid row count');
+assert.match(freeVsPaid, /111 source-linked rows/, 'free vs paid page needs paid row count');
 assert.match(freeVsPaid, /buyer-workbook\.md/, 'free vs paid page mentions buyer workbook');
 assert.match(freeVsPaid, /buyer-priority-slices\.csv/, 'free vs paid page mentions priority slices');
 assert.match(freeVsPaid, /Use this order/, 'free vs paid page needs decision order');
@@ -2319,8 +2320,8 @@ assert.match(contractor, /Useful contractor research pages/, 'contractor guide n
 assert.match(contractor, /buyer-workbook\.md/, 'contractor guide mentions buyer workbook');
 assert.match(contractor, /buyer-priority-slices\.csv/, 'contractor guide mentions priority slices');
 assert.match(contractor, /source_url/, 'contractor guide mentions source_url');
-assert.match(contractor, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'contractor guide needs row counts');
-assert.match(contractor, /Top work types: Sidewalk Shed 40/, 'contractor guide needs work type mix');
+assert.match(contractor, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'contractor guide needs row counts');
+assert.match(contractor, /Top work types: Plumbing 27/, 'contractor guide needs work type mix');
 assert.match(contractor, /Status mix:/, 'contractor guide needs status mix');
 assert.match(contractor, /Cost buckets:/, 'contractor guide needs cost bucket mix');
 assert.match(contractor, /href="\/topics\/nyc-dob-permit-data-for-contractors\.html"/, 'contractor guide links contractor data topic');
@@ -2372,8 +2373,8 @@ assert.match(contractorSupplier, /Useful buyer pages/, 'contractor and supplier 
 assert.match(contractorSupplier, /buyer-workbook\.md/, 'contractor and supplier guide mentions buyer workbook');
 assert.match(contractorSupplier, /buyer-priority-slices\.csv/, 'contractor and supplier guide mentions priority slices');
 assert.match(contractorSupplier, /source_url/, 'contractor and supplier guide mentions source_url');
-assert.match(contractorSupplier, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'contractor and supplier guide needs row counts');
-assert.match(contractorSupplier, /Top work types: Sidewalk Shed 40/, 'contractor and supplier guide needs work type mix');
+assert.match(contractorSupplier, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'contractor and supplier guide needs row counts');
+assert.match(contractorSupplier, /Top work types: Plumbing 27/, 'contractor and supplier guide needs work type mix');
 assert.match(contractorSupplier, /href="\/topics\/nyc-construction-supplier-permit-research\.html"/, 'contractor and supplier guide links construction supplier topic');
 assert.match(contractorSupplier, /href="\/topics\/nyc-plumbing-supplier-permit-research\.html"/, 'contractor and supplier guide links plumbing supplier topic');
 assert.match(contractorSupplier, /href="\/topics\/nyc-hvac-mechanical-permit-research\.html"/, 'contractor and supplier guide links HVAC topic');
@@ -2417,8 +2418,8 @@ assert.match(materialSupplier, /Useful supplier research pages/, 'material suppl
 assert.match(materialSupplier, /buyer-workbook\.md/, 'material supplier guide mentions buyer workbook');
 assert.match(materialSupplier, /buyer-priority-slices\.csv/, 'material supplier guide mentions priority slices');
 assert.match(materialSupplier, /source_url/, 'material supplier guide mentions source_url');
-assert.match(materialSupplier, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'material supplier guide needs row counts');
-assert.match(materialSupplier, /Top work types: Sidewalk Shed 40/, 'material supplier guide needs work type mix');
+assert.match(materialSupplier, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'material supplier guide needs row counts');
+assert.match(materialSupplier, /Top work types: Plumbing 27/, 'material supplier guide needs work type mix');
 assert.match(materialSupplier, /Cost buckets:/, 'material supplier guide needs cost bucket mix');
 assert.match(materialSupplier, /href="\/topics\/nyc-construction-material-suppliers\.html"/, 'material supplier guide links material supplier topic');
 assert.match(materialSupplier, /href="\/topics\/nyc-construction-supplier-permit-research\.html"/, 'material supplier guide links construction supplier topic');
@@ -2468,8 +2469,8 @@ assert.match(brokerDeveloper, /Useful research pages/, 'broker and developer gui
 assert.match(brokerDeveloper, /buyer-workbook\.md/, 'broker and developer guide mentions buyer workbook');
 assert.match(brokerDeveloper, /buyer-priority-slices\.csv/, 'broker and developer guide mentions priority slices');
 assert.match(brokerDeveloper, /source_url/, 'broker and developer guide mentions source_url');
-assert.match(brokerDeveloper, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'broker and developer guide needs row counts');
-assert.match(brokerDeveloper, /Top work types: Sidewalk Shed 40/, 'broker and developer guide needs work type mix');
+assert.match(brokerDeveloper, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'broker and developer guide needs row counts');
+assert.match(brokerDeveloper, /Top work types: Plumbing 27/, 'broker and developer guide needs work type mix');
 assert.match(brokerDeveloper, /href="\/topics\/nyc-commercial-renovation-permits\.html"/, 'broker and developer guide links commercial renovation topic');
 assert.match(brokerDeveloper, /href="\/topics\/nyc-contractor-market-research\.html"/, 'broker and developer guide links contractor market research topic');
 assert.match(brokerDeveloper, /href="\/topics\/nyc-dob-permit-monitoring\.html"/, 'broker and developer guide links DOB monitoring topic');
@@ -2515,9 +2516,9 @@ assert.match(realEstateInvestor, /Useful investor research pages/, 'real estate 
 assert.match(realEstateInvestor, /buyer-workbook\.md/, 'real estate investor guide mentions buyer workbook');
 assert.match(realEstateInvestor, /buyer-priority-slices\.csv/, 'real estate investor guide mentions priority slices');
 assert.match(realEstateInvestor, /source_url/, 'real estate investor guide mentions source_url');
-assert.match(realEstateInvestor, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'real estate investor guide needs row counts');
-assert.match(realEstateInvestor, /Top work types: Sidewalk Shed 40/, 'real estate investor guide needs work type mix');
-assert.match(realEstateInvestor, /Top ZIPs: 10003 37/, 'real estate investor guide needs ZIP mix');
+assert.match(realEstateInvestor, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'real estate investor guide needs row counts');
+assert.match(realEstateInvestor, /Top work types: Plumbing 27/, 'real estate investor guide needs work type mix');
+assert.match(realEstateInvestor, /Top ZIPs: 10003 30/, 'real estate investor guide needs ZIP mix');
 assert.match(realEstateInvestor, /Cost buckets:/, 'real estate investor guide needs cost bucket mix');
 assert.match(realEstateInvestor, /href="\/topics\/nyc-real-estate-investor-permit-research\.html"/, 'real estate investor guide links investor topic');
 assert.match(realEstateInvestor, /href="\/topics\/nyc-commercial-renovation-permits\.html"/, 'real estate investor guide links commercial renovation topic');
@@ -2567,9 +2568,9 @@ assert.match(constructionConsultant, /Useful consultant research pages/, 'constr
 assert.match(constructionConsultant, /buyer-workbook\.md/, 'construction consultant guide mentions buyer workbook');
 assert.match(constructionConsultant, /buyer-priority-slices\.csv/, 'construction consultant guide mentions priority slices');
 assert.match(constructionConsultant, /source_url/, 'construction consultant guide mentions source_url');
-assert.match(constructionConsultant, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'construction consultant guide needs row counts');
-assert.match(constructionConsultant, /Top work types: Sidewalk Shed 40/, 'construction consultant guide needs work type mix');
-assert.match(constructionConsultant, /Top ZIPs: 10003 37/, 'construction consultant guide needs ZIP mix');
+assert.match(constructionConsultant, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'construction consultant guide needs row counts');
+assert.match(constructionConsultant, /Top work types: Plumbing 27/, 'construction consultant guide needs work type mix');
+assert.match(constructionConsultant, /Top ZIPs: 10003 30/, 'construction consultant guide needs ZIP mix');
 assert.match(constructionConsultant, /Cost buckets:/, 'construction consultant guide needs cost bucket mix');
 assert.match(constructionConsultant, /href="\/topics\/nyc-permit-data-for-construction-consultants\.html"/, 'construction consultant guide links consultant topic');
 assert.match(constructionConsultant, /href="\/topics\/nyc-construction-market-research-csv\.html"/, 'construction consultant guide links market research CSV topic');
@@ -2619,9 +2620,9 @@ assert.match(constructionRisk, /Useful risk research pages/, 'construction risk 
 assert.match(constructionRisk, /buyer-workbook\.md/, 'construction risk guide mentions buyer workbook');
 assert.match(constructionRisk, /buyer-priority-slices\.csv/, 'construction risk guide mentions priority slices');
 assert.match(constructionRisk, /source_url/, 'construction risk guide mentions source_url');
-assert.match(constructionRisk, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'construction risk guide needs row counts');
-assert.match(constructionRisk, /Top work types: Sidewalk Shed 40/, 'construction risk guide needs work type mix');
-assert.match(constructionRisk, /Top ZIPs: 10003 37/, 'construction risk guide needs ZIP mix');
+assert.match(constructionRisk, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'construction risk guide needs row counts');
+assert.match(constructionRisk, /Top work types: Plumbing 27/, 'construction risk guide needs work type mix');
+assert.match(constructionRisk, /Top ZIPs: 10003 30/, 'construction risk guide needs ZIP mix');
 assert.match(constructionRisk, /Status mix:/, 'construction risk guide needs status mix');
 assert.match(constructionRisk, /Cost buckets:/, 'construction risk guide needs cost bucket mix');
 assert.match(constructionRisk, /href="\/topics\/nyc-construction-risk-permit-research\.html"/, 'construction risk guide links risk topic');
@@ -2675,8 +2676,8 @@ assert.match(permitExpediter, /Useful filing research pages/, 'permit expediter 
 assert.match(permitExpediter, /buyer-workbook\.md/, 'permit expediter guide mentions buyer workbook');
 assert.match(permitExpediter, /buyer-priority-slices\.csv/, 'permit expediter guide mentions priority slices');
 assert.match(permitExpediter, /source_url/, 'permit expediter guide mentions source_url');
-assert.match(permitExpediter, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'permit expediter guide needs row counts');
-assert.match(permitExpediter, /Top work types: Sidewalk Shed 40/, 'permit expediter guide needs work type mix');
+assert.match(permitExpediter, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'permit expediter guide needs row counts');
+assert.match(permitExpediter, /Top work types: Plumbing 27/, 'permit expediter guide needs work type mix');
 assert.match(permitExpediter, /href="\/topics\/nyc-dob-now-public-records\.html"/, 'permit expediter guide links DOB NOW public records topic');
 assert.match(permitExpediter, /href="\/topics\/nyc-dob-permit-monitoring\.html"/, 'permit expediter guide links DOB monitoring topic');
 assert.match(permitExpediter, /href="\/topics\/nyc-dob-approved-permits-open-data\.html"/, 'permit expediter guide links approved permits open data topic');
@@ -2724,8 +2725,8 @@ assert.match(propertyManager, /Useful property research pages/, 'property manage
 assert.match(propertyManager, /buyer-workbook\.md/, 'property manager guide mentions buyer workbook');
 assert.match(propertyManager, /buyer-priority-slices\.csv/, 'property manager guide mentions priority slices');
 assert.match(propertyManager, /source_url/, 'property manager guide mentions source_url');
-assert.match(propertyManager, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'property manager guide needs row counts');
-assert.match(propertyManager, /Top work types: Sidewalk Shed 40/, 'property manager guide needs work type mix');
+assert.match(propertyManager, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'property manager guide needs row counts');
+assert.match(propertyManager, /Top work types: Plumbing 27/, 'property manager guide needs work type mix');
 assert.match(propertyManager, /href="\/topics\/nyc-property-manager-permit-research\.html"/, 'property manager guide links property manager topic');
 assert.match(propertyManager, /href="\/topics\/nyc-building-services-permit-research\.html"/, 'property manager guide links building services topic');
 assert.match(propertyManager, /href="\/topics\/nyc-building-permit-alerts-by-zip\.html"/, 'property manager guide links building permit alerts topic');
@@ -2773,8 +2774,8 @@ assert.match(buildingServiceVendor, /Useful building-service research pages/, 'b
 assert.match(buildingServiceVendor, /buyer-workbook\.md/, 'building-service vendor guide mentions buyer workbook');
 assert.match(buildingServiceVendor, /buyer-priority-slices\.csv/, 'building-service vendor guide mentions priority slices');
 assert.match(buildingServiceVendor, /source_url/, 'building-service vendor guide mentions source_url');
-assert.match(buildingServiceVendor, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'building-service vendor guide needs row counts');
-assert.match(buildingServiceVendor, /Top work types: Sidewalk Shed 40/, 'building-service vendor guide needs work type mix');
+assert.match(buildingServiceVendor, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'building-service vendor guide needs row counts');
+assert.match(buildingServiceVendor, /Top work types: Plumbing 27/, 'building-service vendor guide needs work type mix');
 assert.match(buildingServiceVendor, /Status mix:/, 'building-service vendor guide needs status mix');
 assert.match(buildingServiceVendor, /Cost buckets:/, 'building-service vendor guide needs cost bucket mix');
 assert.match(buildingServiceVendor, /href="\/topics\/nyc-building-services-permit-research\.html"/, 'building-service vendor guide links building services topic');
@@ -2826,8 +2827,8 @@ assert.match(subcontractor, /Useful subcontractor research pages/, 'subcontracto
 assert.match(subcontractor, /buyer-workbook\.md/, 'subcontractor guide mentions buyer workbook');
 assert.match(subcontractor, /buyer-priority-slices\.csv/, 'subcontractor guide mentions priority slices');
 assert.match(subcontractor, /source_url/, 'subcontractor guide mentions source_url');
-assert.match(subcontractor, /Paid ZIP rows: 142\. Free preview rows: 25\./, 'subcontractor guide needs row counts');
-assert.match(subcontractor, /Top work types: Sidewalk Shed 40/, 'subcontractor guide needs work type mix');
+assert.match(subcontractor, /Paid ZIP rows: 111\. Free preview rows: 25\./, 'subcontractor guide needs row counts');
+assert.match(subcontractor, /Top work types: Plumbing 27/, 'subcontractor guide needs work type mix');
 assert.match(subcontractor, /Status mix:/, 'subcontractor guide needs status mix');
 assert.match(subcontractor, /Cost buckets:/, 'subcontractor guide needs cost bucket mix');
 assert.match(subcontractor, /href="\/topics\/nyc-dob-permit-alerts-for-subcontractors\.html"/, 'subcontractor guide links subcontractor alerts topic');
@@ -2876,7 +2877,7 @@ assert.match(buyerGuide, /\/_vercel\/insights\/script\.js/, 'buyer guide needs W
 assert.match(buyerGuide, /href="https:\/\/nycpermitbrief\.com\/checkout\.html\?source=buyer-guide-top"/, 'buyer guide has above-fold checkout CTA');
 assert.match(buyerGuide, /Stripe checkout opens after your click\. Use the CSV preview first if you need to confirm the row shape\./, 'buyer guide explains top CTA checkout path');
 assert.match(buyerGuide, /Free preview rows: 25\./, 'buyer guide needs free preview count');
-assert.match(buyerGuide, /Paid ZIP rows: 142\./, 'buyer guide needs paid row count');
+assert.match(buyerGuide, /Paid ZIP rows: 111\./, 'buyer guide needs paid row count');
 assert.match(buyerGuide, /Buyer workbook for a fast review pass/, 'buyer guide needs buyer workbook copy');
 assert.match(buyerGuide, /Priority-slices CSV grouped by work type/, 'buyer guide needs priority-slices copy');
 assert.match(buyerGuide, /href="\/preview\.html"/, 'buyer guide links public preview page');
@@ -2920,7 +2921,7 @@ assert.match(delivery, /Payment Link kept as fallback/, 'delivery page explains 
 assert.doesNotMatch(delivery, /Payment Link is product-scoped/, 'delivery page must not describe Payment Link as the primary path');
 assert.match(delivery, /success\.html\?session_id=\{CHECKOUT_SESSION_ID\}/, 'delivery page explains success redirect');
 assert.match(delivery, /\/api\/download/, 'delivery page explains download endpoint');
-assert.match(delivery, /Paid ZIP rows: 142\./, 'delivery page needs paid row count');
+assert.match(delivery, /Paid ZIP rows: 111\./, 'delivery page needs paid row count');
 assert.match(delivery, /Free preview rows: 25\./, 'delivery page needs free preview count');
 assert.match(delivery, /nyc-weekly-construction-activity-brief-current\.zip/, 'delivery page names ZIP file');
 assert.match(delivery, /rejects missing, invalid, or unpaid sessions/i, 'delivery page explains download gate');
@@ -2990,8 +2991,8 @@ assert.match(sampleRequest, /Request a future sample cut/, 'sample request page 
 assert.match(sampleRequest, /Product-specific request only/, 'sample request page needs product-specific meta copy');
 assert.match(sampleRequest, /work type, territory, or buyer view/, 'sample request page explains request scope');
 assert.match(sampleRequest, /Requests are used only for this product's buyer segment/, 'sample request page states product-only routing');
-assert.match(sampleRequest, /142 source-linked rows for the 2026-06-09 to 2026-06-15 source window\. Latest issued row in the file: 2026-06-12\./, 'sample request page states source window and latest issued row consistently');
-assert.doesNotMatch(sampleRequest, /142 source-linked rows for 2026-06-09 through 2026-06-12/, 'sample request page must not confuse source window with latest issued row');
+assert.match(sampleRequest, /111 source-linked rows for the 2026-06-22 to 2026-06-25 source window\. Latest issued row in the file: 2026-06-24\./, 'sample request page states source window and latest issued row consistently');
+assert.doesNotMatch(sampleRequest, /111 source-linked rows for 2026-06-22 through 2026-06-24/, 'sample request page must not confuse source window with latest issued row');
 assert.match(sampleRequest, /Do not send private account details/, 'sample request page warns against sensitive data');
 assert.match(sampleRequest, /href="\/preview\.html"/, 'sample request page links preview');
 assert.match(sampleRequest, /href="\/sample-segments\.html"/, 'sample request page links segment hub');
@@ -3130,7 +3131,7 @@ assert.match(datasetCatalog, /<title>NYC Construction Permit Dataset Catalog \| 
 assert.match(datasetCatalog, /<link rel="canonical" href="https:\/\/nycpermitbrief\.com\/dataset-catalog\.html">/, 'dataset catalog needs canonical');
 assert.match(datasetCatalog, /"@type":"Dataset"/, 'dataset catalog needs Dataset structured data');
 assert.match(datasetCatalog, /"identifier":"rbx6-tga4"/, 'dataset catalog names source dataset id');
-assert.match(datasetCatalog, /"temporalCoverage":"2026-06-09\/2026-06-12"/, 'dataset catalog needs current source date range');
+assert.match(datasetCatalog, /"temporalCoverage":"2026-06-22\/2026-06-24"/, 'dataset catalog needs current source date range');
 assert.match(datasetCatalog, /"@type":"DataDownload"/, 'dataset catalog needs DataDownload structured data');
 assert.match(datasetCatalog, /href="\/sample\/nyc-construction-activity-preview\.csv"/, 'dataset catalog links CSV preview');
 assert.match(datasetCatalog, /href="\/data-package\.json"/, 'dataset catalog links data package JSON');
@@ -3468,7 +3469,7 @@ assert.equal(currentIssue.generatedPages.totalTopicPages, pages.length, 'current
 const feed = read('feed.xml');
 assert.match(feed, /<rss version="2\.0">/, 'RSS feed has rss root');
 assert.match(feed, /<title>NYC Weekly Construction Activity Brief<\/title>/, 'RSS feed names product');
-assert.match(feed, /Current NYC construction activity brief: 142 paid issue rows/, 'RSS feed describes current issue');
+assert.match(feed, /Current NYC construction activity brief: 111 paid issue rows/, 'RSS feed describes current issue');
 assert.match(feed, /https:\/\/nycpermitbrief\.com\/current-issue\.html/, 'RSS feed links current issue page');
 assert.match(feed, /The free CSV preview has 25 rows/, 'RSS feed describes free preview size');
 assert.match(feed, /Launch price is \$9\.50/, 'RSS feed describes launch price');
@@ -3556,22 +3557,22 @@ assert.match(productFeed, /<link>https:\/\/nycpermitbrief\.com\/buy\.html\?sourc
 assert.match(productFeed, /<g:id>nyc-construction-activity-brief-sidewalk-shed<\/g:id>/, 'product feed has sidewalk shed segment product');
 assert.match(productFeed, /<title>NYC sidewalk shed permit activity ZIP<\/title>/, 'product feed names sidewalk shed segment product');
 assert.match(productFeed, /<link>https:\/\/nycpermitbrief\.com\/buy\.html\?source=product-feed-sidewalk-shed<\/link>/, 'product feed links tracked sidewalk shed buy page');
-assert.match(productFeed, /40 selected NYC sidewalk shed permit rows/, 'product feed describes sidewalk shed row count');
-assert.match(productFeed, /<g:custom_label_1>sidewalk-shed-permit-activity-40-rows<\/g:custom_label_1>/, 'product feed labels sidewalk shed row count');
+assert.match(productFeed, /25 selected NYC sidewalk shed permit rows/, 'product feed describes sidewalk shed row count');
+assert.match(productFeed, /<g:custom_label_1>sidewalk-shed-permit-activity-25-rows<\/g:custom_label_1>/, 'product feed labels sidewalk shed row count');
 assert.match(productFeed, /<g:id>nyc-construction-activity-brief-plumbing<\/g:id>/, 'product feed has plumbing segment product');
 assert.match(productFeed, /<title>NYC plumbing permit activity ZIP<\/title>/, 'product feed names plumbing segment product');
 assert.match(productFeed, /<link>https:\/\/nycpermitbrief\.com\/buy\.html\?source=product-feed-plumbing<\/link>/, 'product feed links tracked plumbing buy page');
-assert.match(productFeed, /29 selected NYC plumbing permit rows/, 'product feed describes plumbing row count');
-assert.match(productFeed, /<g:custom_label_1>plumbing-permit-activity-29-rows<\/g:custom_label_1>/, 'product feed labels plumbing row count');
+assert.match(productFeed, /27 selected NYC plumbing permit rows/, 'product feed describes plumbing row count');
+assert.match(productFeed, /<g:custom_label_1>plumbing-permit-activity-27-rows<\/g:custom_label_1>/, 'product feed labels plumbing row count');
 assert.match(productFeed, /<g:id>nyc-construction-activity-brief-exterior-access<\/g:id>/, 'product feed has exterior-access segment product');
 assert.match(productFeed, /<title>NYC exterior-access permit activity ZIP<\/title>/, 'product feed names exterior-access segment product');
 assert.match(productFeed, /<link>https:\/\/nycpermitbrief\.com\/buy\.html\?source=product-feed-exterior-access<\/link>/, 'product feed links tracked exterior-access buy page');
-assert.match(productFeed, /74 selected NYC exterior-access permit rows/, 'product feed describes exterior-access row count');
-assert.match(productFeed, /<g:custom_label_1>exterior-access-permit-activity-74-rows<\/g:custom_label_1>/, 'product feed labels exterior-access row count');
+assert.match(productFeed, /47 selected NYC exterior-access permit rows/, 'product feed describes exterior-access row count');
+assert.match(productFeed, /<g:custom_label_1>exterior-access-permit-activity-47-rows<\/g:custom_label_1>/, 'product feed labels exterior-access row count');
 assert.match(productFeed, /<g:image_link>https:\/\/nycpermitbrief\.com\/assets\/social-share-card\.png<\/g:image_link>/, 'product feed links social image');
 assert.match(productFeed, /<g:availability>in_stock<\/g:availability>/, 'product feed marks availability');
 assert.match(productFeed, /<g:price>9\.50 USD<\/g:price>/, 'product feed exposes launch price');
-assert.match(productFeed, /current 142-row NYC DOB permit CSV/, 'product feed describes paid row count');
+assert.match(productFeed, /current 111-row NYC DOB permit CSV/, 'product feed describes paid row count');
 assert.match(productFeed, /free preview has 25 rows/, 'product feed describes preview row count');
 assert.match(productFeed, /<g:identifier_exists>no<\/g:identifier_exists>/, 'product feed avoids unsupported product identifiers');
 
@@ -3617,7 +3618,7 @@ assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-journalists.html'), 'JSON Feed links journalist permit data topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-insurance.html'), 'JSON Feed links insurance permit data topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-real-estate-investor-permit-research.html'), 'JSON Feed links real estate investor topic page');
-assert.ok(jsonFeed.items.some((item) => /142 source-linked rows|142 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
+assert.ok(jsonFeed.items.some((item) => /111 source-linked rows|111 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
 assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
 
 const llms = read('llms.txt');
@@ -3700,7 +3701,7 @@ assert.match(llms, /NYC permit research for project managers: https:\/\/nycpermi
 assert.match(llms, /NYC construction permit data for proptech: https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-permit-data-for-proptech\.html/, 'llms.txt links proptech topic page');
 assert.match(llms, /NYC construction market research CSV: https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-market-research-csv\.html/, 'llms.txt links market research CSV topic page');
 assert.match(llms, /NYC construction due diligence permit research: https:\/\/nycpermitbrief\.com\/topics\/nyc-construction-due-diligence-permit-research\.html/, 'llms.txt links due diligence topic page');
-assert.match(llms, /Paid ZIP rows: 142/, 'llms.txt has paid ZIP row count');
+assert.match(llms, /Paid ZIP rows: 111/, 'llms.txt has paid ZIP row count');
 assert.match(llms, /Promo code required: no/, 'llms.txt states promo code is not required');
 assert.match(llms, /Stripe fallback link: https:\/\/buy\.stripe\.com\/bJe3cveXL6Hw9mLdLFcAo0Q/, 'llms.txt labels Stripe URL as fallback');
 assert.match(llms, /Social image: https:\/\/nycpermitbrief\.com\/assets\/social-share-card\.png/, 'llms.txt links social image');
@@ -3722,7 +3723,7 @@ assert.equal(dataPackage.public_preview.sample_urls.csv, 'https://nycpermitbrief
 assert.equal(dataPackage.public_preview.sample_urls.json, 'https://nycpermitbrief.com/sample/nyc-construction-activity-preview.json', 'data package JSON links JSON sample');
 assert.equal(dataPackage.public_preview.sample_urls.jsonl, 'https://nycpermitbrief.com/sample/nyc-construction-activity-preview.jsonl', 'data package JSON links JSONL sample');
 assert.equal(dataPackage.public_preview.sample_urls.markdown_brief, 'https://nycpermitbrief.com/sample/nyc-weekly-construction-activity-sample.md', 'data package JSON links Markdown sample');
-assert.equal(dataPackage.paid_zip.rows, 142, 'data package JSON paid ZIP row count matches full issue');
+assert.equal(dataPackage.paid_zip.rows, 111, 'data package JSON paid ZIP row count matches full issue');
 assert.equal(dataPackage.paid_zip.price_usd, '9.50', 'data package JSON exposes launch price');
 assert.equal(dataPackage.paid_zip.buy_url, 'https://nycpermitbrief.com/buy.html?source=data-package', 'data package JSON links tracked buy page');
 assert.equal(dataPackage.paid_zip.checkout_bridge_url, 'https://nycpermitbrief.com/checkout.html?source=data-package', 'data package JSON links tracked checkout bridge');
@@ -3777,10 +3778,10 @@ assert.match(publicMarkdown, /Support and refunds: https:\/\/nycpermitbrief\.com
 assert.match(publicMarkdown, /Current launch price: \$9\.50/, 'public Markdown sample states current launch price');
 assert.match(publicMarkdown, /buyer workbook, priority-slices CSV/, 'public Markdown sample lists buyer files');
 assert.match(publicMarkdown, /Rows in free public preview: 25/, 'public Markdown sample keeps preview row count');
-assert.match(publicMarkdown, /Rows in paid ZIP: 142/, 'public Markdown sample keeps paid ZIP row count');
+assert.match(publicMarkdown, /Rows in paid ZIP: 111/, 'public Markdown sample keeps paid ZIP row count');
 const publicJson = JSON.parse(read('sample/nyc-construction-activity-preview.json'));
 assert.equal(publicJson.public_preview_rows, 25, 'public JSON preview declares 25 preview rows');
-assert.equal(publicJson.paid_zip_rows, 142, 'public JSON preview declares paid ZIP row count');
+assert.equal(publicJson.paid_zip_rows, 111, 'public JSON preview declares paid ZIP row count');
 assert.equal(publicJson.purchase.buy_url, 'https://nycpermitbrief.com/buy.html?source=sample-json', 'public JSON preview links tracked buy page');
 assert.equal(publicJson.purchase.pricing_url, 'https://nycpermitbrief.com/pricing.html', 'public JSON preview links pricing page');
 assert.equal(publicJson.purchase.support_url, 'https://nycpermitbrief.com/support.html', 'public JSON preview links support page');
@@ -3789,7 +3790,7 @@ assert.equal(publicJson.sample_urls.csv, 'https://nycpermitbrief.com/sample/nyc-
 assert.equal(publicJson.sample_urls.json, 'https://nycpermitbrief.com/sample/nyc-construction-activity-preview.json', 'public JSON preview links JSON sample');
 assert.equal(publicJson.sample_urls.jsonl, 'https://nycpermitbrief.com/sample/nyc-construction-activity-preview.jsonl', 'public JSON preview links JSONL sample');
 assert.equal(publicJson.sample_urls.markdown_brief, 'https://nycpermitbrief.com/sample/nyc-weekly-construction-activity-sample.md', 'public JSON preview links Markdown brief sample');
-assert.equal(publicJson.paid_zip.rows, 142, 'public JSON preview repeats paid ZIP row count');
+assert.equal(publicJson.paid_zip.rows, 111, 'public JSON preview repeats paid ZIP row count');
 assert.ok(publicJson.paid_zip.files.includes('buyer-workbook.md'), 'public JSON preview lists buyer workbook');
 assert.ok(publicJson.paid_zip.files.includes('buyer-priority-slices.csv'), 'public JSON preview lists priority slices');
 assert.equal(publicJson.rows.length, 25, 'public JSON preview must stay limited to 25 rows');
