@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "title": "Liber AL vel Legis — Research Status",
+    "researcher": "Jason Louv",
+    "lastUpdated": "2026-06-30",
+    "overallProgress": 22
+  },
+  "summary": "Ongoing investigative research into the historical, textual, cryptographic, and esoteric dimensions of Liber AL vel Legis (The Book of the Law), received by Aleister Crowley in Cairo, April 1904.",
+  "areas": [
+    {
+      "id": "historical-context",
+      "title": "Historical Context & Cairo Working",
+      "status": "in-progress",
+      "progress": 60,
+      "priority": "high",
+      "findings": [
+        "Rose Crowley's role as unwitting channel: she identified the intelligence as 'Aiwass, the minister of Hoor-paar-kraat' after passing tests about Horus drawn from the Budge Egyptian dictionary",
+        "The Cairo Working took place April 7–9, 1904 — exactly one hour per day at noon — in the Bolak district apartment",
+        "The Stele of Revealing (Stele of Ankh-ef-en-Khonsu) was exhibit 666 in the Boulaq Museum — Crowley claimed this was beyond coincidence",
+        "Rose had no known background in Egyptian religion prior to the working"
+      ],
+      "gaps": [
+        "Verify exact Boulaq Museum exhibit numbering records — is '666' independently documented?",
+        "Primary sources on Rose Crowley's psychological state during this period",
+        "Cross-reference with Crowley's diaries vs. later autobiographical accounts for discrepancies"
+      ]
+    },
+    {
+      "id": "manuscript-analysis",
+      "title": "Manuscript & Textual Analysis",
+      "status": "in-progress",
+      "progress": 35,
+      "priority": "high",
+      "findings": [
+        "The original handwritten manuscript is held at the Warburg Institute, London — 65 pages in Crowley's hand",
+        "Chapter III line 47 famously contains the instruction 'the comment' which has been interpreted as forbidding commentary",
+        "Multiple published editions contain variant readings — the 1909 'Equinox' publication vs. later OTO editions differ in punctuation and capitalization",
+        "The manuscript contains marginal annotations added by Crowley at later dates, creating layered textual strata"
+      ],
+      "gaps": [
+        "Full collation of all published editions against the Warburg manuscript — not yet complete",
+        "Dating of the marginal annotations — which are contemporaneous (1904) vs. retrospective?",
+        "Analysis of the grid/cipher in Chapter III (v. 47) — does it correspond to any known cipher system?"
+      ]
+    },
+    {
+      "id": "egyptian-sources",
+      "title": "Egyptian Religious Sources",
+      "status": "in-progress",
+      "progress": 40,
+      "priority": "high",
+      "findings": [
+        "Nuit (Ch. I), Hadit (Ch. II), and Ra-Hoor-Khuit (Ch. III) correspond to Nut, Behedti/Hadit, and Ra-Horakhty in Egyptian religion",
+        "The Stele dates to the 26th Dynasty (c. 680 BCE) and depicts Ankh-ef-en-Khonsu before Ra-Hoor-Khuit",
+        "The 'Adoration of the Stele' (Chapter I, verses 24–30) closely parallels the funerary text on the actual stele",
+        "Hadit as a form of Horus-Behedti (the winged disk) appears in Edfu temple texts — connection to the 'point within the circle' symbolism"
+      ],
+      "gaps": [
+        "Comparative analysis with the Pyramid Texts and Coffin Texts for Nuit / Nut theology",
+        "Is the 'Khabs am Pekht' (Ch. III) traceable to a specific Egyptian source or is it Crowley's invention?",
+        "Academic Egyptological assessment of Crowley's Egyptian attributions"
+      ]
+    },
+    {
+      "id": "cryptographic-elements",
+      "title": "Cryptographic & Cipher Elements",
+      "status": "not-started",
+      "progress": 5,
+      "priority": "medium",
+      "findings": [
+        "Chapter III v. 47 contains a 7×7 grid with the instruction 'fill the grid' — the intended method remains disputed"
+      ],
+      "gaps": [
+        "Survey all published attempts to solve the cipher (Gunther, Duquette, etc.)",
+        "Apply modern cryptanalytic methods to the grid",
+        "Investigate whether the grid relates to Enochian or Cabalistic systems"
+      ]
+    },
+    {
+      "id": "commentary-history",
+      "title": "Commentary Tradition",
+      "status": "in-progress",
+      "progress": 50,
+      "priority": "medium",
+      "findings": [
+        "Crowley produced at least three major commentaries: the 1909 notes, the 'Old Comment', and the 'New Comment' (1920s)",
+        "The 'New Comment' was suppressed by Crowley himself for years, calling it potentially dangerous",
+        "Frieda Harris (artist of the Thoth Tarot) corresponded with Crowley extensively about Ch. I geometry",
+        "Kenneth Grant's commentary tradition (Typhonian OTO) significantly diverges from Thelemic orthodoxy"
+      ],
+      "gaps": [
+        "Locate and review the 'AB' (Aleister Blackwood?) commentary fragments at the Yorke Collection",
+        "Assess Jane Wolfe's diary notes on the Book from Cefalu",
+        "Map the full lineage of unauthorized/marginal commentaries"
+      ]
+    },
+    {
+      "id": "prophetic-claims",
+      "title": "Prophetic & Aeonics Claims",
+      "status": "in-progress",
+      "progress": 30,
+      "priority": "medium",
+      "findings": [
+        "Crowley interpreted the Book as heralding the Aeon of Horus, replacing the Aeon of Osiris (Christianity)",
+        "The 'word of the law is Thelema' (Greek: θέλημα = will) — Rabelais' Thélème was a known source",
+        "The Book's declaration 'Every man and every woman is a star' has been read as proto-individualist philosophy",
+        "Crowley's identification with the Beast 666 and Babalon developed substantially AFTER the Cairo Working — were these retroactive?"
+      ],
+      "gaps": [
+        "Timeline of Crowley's development of the Aeonics doctrine — how much changed between 1904 and 1913?",
+        "Comparison with other 'received texts' of the era (Oahspe, Urantia Book, Vatinian Oracle) for structural parallels",
+        "Critical assessment of fulfilled vs. unfulfilled prophecies"
+      ]
+    },
+    {
+      "id": "reception-history",
+      "title": "Reception & Cultural Impact",
+      "status": "not-started",
+      "progress": 0,
+      "priority": "low",
+      "findings": [],
+      "gaps": [
+        "Trace the Book's influence on 20th-century counterculture (Jack Parsons, L. Ron Hubbard, Kenneth Anger, Jimmy Page)",
+        "Academic reception — when did scholars begin treating Liber AL as a serious object of study?",
+        "Legal history — OTO intellectual property disputes over the text"
+      ]
+    },
+    {
+      "id": "philosophical-analysis",
+      "title": "Philosophical & Ethical Analysis",
+      "status": "in-progress",
+      "progress": 20,
+      "priority": "medium",
+      "findings": [
+        "'Do what thou wilt shall be the whole of the Law' — the 'True Will' doctrine distinguishes this from libertinism",
+        "The Book explicitly endorses a warrior ethic and rejects pity/compassion in ways that are ethically problematic",
+        "Chapter II's nihilistic passages ('There is no bond that can unite the divided but love') sit in tension with Chapter III's militarism"
+      ],
+      "gaps": [
+        "Systematic comparison with Nietzsche (whom Crowley read) — similarities and divergences in Will doctrine",
+        "How do contemporary Thelemites reconcile Ch. III's violence with modern ethics?",
+        "Is there a coherent ontology in the three chapters or are they intentionally contradictory?"
+      ]
+    }
+  ],
+  "keyQuestions": [
+    "Did the Cairo Working represent a genuine anomalous experience, psychological event, literary fabrication, or some combination?",
+    "What is the relationship between the Book's theology and Crowley's prior study of Kabbalah, Freemasonry, and Golden Dawn material?",
+    "Can the cipher in Chapter III be definitively solved, and what does this reveal about the text's authorship?",
+    "How should the Book be read: as prophecy, as poetry, as magical instruction, or as a philosophical treatise?",
+    "What is the status of the Warburg manuscript and can a definitive critical edition be produced?"
+  ],
+  "sources": [
+    { "type": "primary", "ref": "Crowley, A. (1909). Liber AL vel Legis. The Equinox I(1). [First publication]", "accessed": true },
+    { "type": "primary", "ref": "Crowley, A. 'The Paris Working' diaries (1914). Yorke Collection, Warburg Institute.", "accessed": false },
+    { "type": "primary", "ref": "The Warburg MS of Liber AL. Warburg Institute, London.", "accessed": false },
+    { "type": "secondary", "ref": "Sutin, L. (2000). Do What Thou Wilt: A Life of Aleister Crowley. St. Martin's Press.", "accessed": true },
+    { "type": "secondary", "ref": "Kaczynski, R. (2010). Perdurabo: The Life of Aleister Crowley. North Atlantic Books.", "accessed": true },
+    { "type": "secondary", "ref": "Bogdan, H. & Starr, M.P. eds. (2012). Aleister Crowley and Western Esotericism. Oxford University Press.", "accessed": false },
+    { "type": "secondary", "ref": "Suster, G. (1990). The Legacy of the Beast. Samuel Weiser.", "accessed": false },
+    { "type": "secondary", "ref": "Regardie, I. (1939). The Eye in the Triangle. Llewellyn.", "accessed": true }
+  ]
+}

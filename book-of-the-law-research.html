@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liber AL vel Legis — Research Status</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --border: #2a2a3d;
+      --gold: #c9a84c;
+      --gold-dim: #8a6e30;
+      --red: #b84040;
+      --text: #e8e4d8;
+      --text-dim: #8a8478;
+      --text-faint: #4a4840;
+      --done: #3a7a5a;
+      --done-bright: #5abf8a;
+      --inprog: #5a6e9a;
+      --inprog-bright: #8aabdf;
+      --todo: #3d3d3d;
+      --todo-bright: #6a6a6a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(180deg, #0a0a10 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '☽ ✦ ☉ ✦ ☾';
+      display: block;
+      font-size: 1.1rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.6em;
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+
+    .header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: normal;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .header h1 em {
+      display: block;
+      font-size: 0.55em;
+      font-style: normal;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .header-meta {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-family: 'Courier New', monospace;
+    }
+
+    .header-meta span { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+    .header-meta .label { color: var(--text-faint); text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.1em; }
+
+    /* ── Overall Progress ── */
+    .overall-progress {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+    }
+
+    .progress-bar-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .progress-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 0.6rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+
+    /* ── Summary Banner ── */
+    .summary-banner {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+    }
+
+    .summary-banner p {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+      font-family: 'Courier New', monospace;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Research Areas Grid ── */
+    .areas-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .area-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .area-card:hover { border-color: var(--gold-dim); }
+
+    .area-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .area-header::-webkit-details-marker { display: none; }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-done .status-dot { background: var(--done-bright); box-shadow: 0 0 6px var(--done-bright); }
+    .status-in-progress .status-dot {
+      background: var(--inprog-bright);
+      box-shadow: 0 0 6px var(--inprog-bright);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .status-not-started .status-dot { background: var(--todo-bright); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .area-title {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: normal;
+      color: var(--text);
+    }
+
+    .area-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .priority-badge {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: 'Courier New', monospace;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    .priority-high { background: #3d1a1a; color: #c07070; border: 1px solid #5d2a2a; }
+    .priority-medium { background: #2a2a1a; color: #a09050; border: 1px solid #4a4a2a; }
+    .priority-low { background: #1a1a2a; color: #6070a0; border: 1px solid #2a2a4a; }
+
+    .pct {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: 'Courier New', monospace;
+      min-width: 2.5rem;
+      text-align: right;
+    }
+
+    .expand-icon {
+      color: var(--text-faint);
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+
+    details[open] .expand-icon { transform: rotate(90deg); }
+
+    .mini-bar {
+      height: 2px;
+      background: var(--surface2);
+    }
+
+    .mini-bar-fill {
+      height: 100%;
+      transition: width 0.8s ease;
+    }
+
+    .status-done .mini-bar-fill { background: var(--done-bright); }
+    .status-in-progress .mini-bar-fill { background: var(--inprog-bright); }
+    .status-not-started .mini-bar-fill { background: var(--todo-bright); }
+
+    .area-body {
+      padding: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .subsection {
+      margin-bottom: 1.25rem;
+    }
+
+    .subsection:last-child { margin-bottom: 0; }
+
+    .subsection-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-family: 'Courier New', monospace;
+      color: var(--text-faint);
+      margin-bottom: 0.6rem;
+    }
+
+    .findings-list, .gaps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .findings-list li {
+      padding-left: 1.1rem;
+      position: relative;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .findings-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+      font-size: 0.65rem;
+      top: 0.25rem;
+    }
+
+    .gaps-list li {
+      padding-left: 1.1rem;
+      position: relative;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+
+    .gaps-list li::before {
+      content: '○';
+      position: absolute;
+      left: 0;
+      color: var(--text-faint);
+      font-size: 0.6rem;
+      top: 0.3rem;
+    }
+
+    .empty-note {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-style: italic;
+    }
+
+    /* ── Key Questions ── */
+    .questions-section { margin-bottom: 3rem; }
+
+    .questions-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .questions-list li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold-dim);
+      padding: 0.875rem 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* ── Sources ── */
+    .sources-section { margin-bottom: 3rem; }
+
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .source-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      border-radius: 2px;
+    }
+
+    .source-type {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: 'Courier New', monospace;
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .source-type-primary { background: #1a2a1a; color: #70a070; border: 1px solid #2a4a2a; }
+    .source-type-secondary { background: #1a1a2a; color: #7080b0; border: 1px solid #2a2a4a; }
+
+    .source-ref {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text-dim);
+      flex: 1;
+    }
+
+    .source-accessed {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.35rem;
+    }
+
+    .source-accessed-yes { background: var(--done-bright); }
+    .source-accessed-no { background: var(--todo-bright); }
+
+    /* ── Status Legend ── */
+    .legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-family: 'Courier New', monospace;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    .footer a { color: var(--text-faint); text-decoration: none; }
+    .footer a:hover { color: var(--gold-dim); }
+
+    /* ── Responsive ── */
+    @media (min-width: 700px) {
+      .areas-grid { grid-template-columns: 1fr 1fr; }
+      .area-card { display: flex; flex-direction: column; }
+    }
+
+    @media (min-width: 700px) {
+      details.area-card summary { display: flex; }
+    }
+
+    /* make full-width cards for large ones */
+    .area-card.wide { grid-column: 1 / -1; }
+
+    /* ── Timestamp ── */
+    #live-clock {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>
+    Liber AL vel Legis
+    <em>Research Status Dashboard</em>
+  </h1>
+  <div class="header-meta">
+    <span>
+      <span class="label">Researcher</span>
+      Jason Louv
+    </span>
+    <span>
+      <span class="label">Last Updated</span>
+      <span id="last-updated">—</span>
+    </span>
+    <span>
+      <span class="label">Local Time</span>
+      <span id="live-clock">—</span>
+    </span>
+  </div>
+</div>
+
+<div class="overall-progress">
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-label">
+      <span>Overall Research Progress</span>
+      <span id="overall-pct">—</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="overall-fill" style="width: 0%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="summary-banner">
+  <p id="summary-text">Loading…</p>
+</div>
+
+<div class="container">
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--done-bright)"></div> Complete</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--inprog-bright)"></div> In Progress</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--todo-bright)"></div> Not Started</div>
+    <div class="legend-item" style="margin-left:auto;"><div class="legend-dot" style="background:var(--done-bright)"></div> Source accessed &nbsp;&nbsp; <div class="legend-dot" style="background:var(--todo-bright)"></div> Not yet accessed</div>
+  </div>
+
+  <!-- Research Areas -->
+  <div class="section-title">Research Areas</div>
+  <div class="areas-grid" id="areas-grid">
+    <!-- populated by JS -->
+  </div>
+
+  <!-- Key Questions -->
+  <div class="questions-section">
+    <div class="section-title">Open Research Questions</div>
+    <ul class="questions-list" id="questions-list">
+      <!-- populated by JS -->
+    </ul>
+  </div>
+
+  <!-- Sources -->
+  <div class="sources-section">
+    <div class="section-title">Sources &amp; References</div>
+    <div class="sources-grid" id="sources-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Data source: <a href="book-of-the-law-research.json">book-of-the-law-research.json</a> &nbsp;·&nbsp; Refresh page to reload data &nbsp;·&nbsp; Last fetch: <span id="fetch-time">—</span></p>
+</div>
+
+<script>
+  // ── Clock ──
+  function tick() {
+    const now = new Date();
+    document.getElementById('live-clock').textContent =
+      now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ── Helpers ──
+  function statusClass(s) {
+    if (s === 'complete') return 'status-done';
+    if (s === 'in-progress') return 'status-in-progress';
+    return 'status-not-started';
+  }
+
+  function priorityBadge(p) {
+    return `<span class="priority-badge priority-${p}">${p}</span>`;
+  }
+
+  function statusLabel(s) {
+    if (s === 'complete') return 'Complete';
+    if (s === 'in-progress') return 'In Progress';
+    return 'Not Started';
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ── Render ──
+  function render(data) {
+    // Header meta
+    document.getElementById('last-updated').textContent = data.meta.lastUpdated || '—';
+    document.getElementById('fetch-time').textContent = new Date().toLocaleString();
+    document.getElementById('summary-text').textContent = data.summary || '';
+
+    // Overall progress
+    const pct = data.meta.overallProgress || 0;
+    document.getElementById('overall-pct').textContent = pct + '%';
+    document.getElementById('overall-fill').style.width = pct + '%';
+
+    // Areas
+    const grid = document.getElementById('areas-grid');
+    grid.innerHTML = '';
+    (data.areas || []).forEach(area => {
+      const sc = statusClass(area.status);
+      const wide = area.findings.length > 2 || area.gaps.length > 2 ? ' wide' : '';
+
+      const findingsHtml = area.findings.length
+        ? `<ul class="findings-list">${area.findings.map(f => `<li>${escHtml(f)}</li>`).join('')}</ul>`
+        : `<p class="empty-note">No findings documented yet.</p>`;
+
+      const gapsHtml = area.gaps.length
+        ? `<ul class="gaps-list">${area.gaps.map(g => `<li>${escHtml(g)}</li>`).join('')}</ul>`
+        : `<p class="empty-note">No open gaps noted.</p>`;
+
+      const card = document.createElement('details');
+      card.className = `area-card ${sc}${wide}`;
+
+      card.innerHTML = `
+        <summary class="area-header">
+          <span class="status-dot"></span>
+          <span class="area-title">${escHtml(area.title)}</span>
+          <div class="area-badges">
+            ${priorityBadge(area.priority || 'low')}
+            <span class="pct">${area.progress || 0}%</span>
+            <span class="expand-icon">▶</span>
+          </div>
+        </summary>
+        <div class="mini-bar"><div class="mini-bar-fill" style="width: ${area.progress || 0}%"></div></div>
+        <div class="area-body">
+          <div class="subsection">
+            <div class="subsection-label">Findings</div>
+            ${findingsHtml}
+          </div>
+          <div class="subsection">
+            <div class="subsection-label">Open Gaps &amp; Next Steps</div>
+            ${gapsHtml}
+          </div>
+        </div>`;
+
+      grid.appendChild(card);
+    });
+
+    // Key Questions
+    const ql = document.getElementById('questions-list');
+    ql.innerHTML = (data.keyQuestions || [])
+      .map(q => `<li>${escHtml(q)}</li>`)
+      .join('');
+
+    // Sources
+    const sg = document.getElementById('sources-grid');
+    sg.innerHTML = (data.sources || []).map(s => `
+      <div class="source-item">
+        <span class="source-type source-type-${escHtml(s.type)}">${escHtml(s.type)}</span>
+        <span class="source-ref">${escHtml(s.ref)}</span>
+        <span class="source-accessed ${s.accessed ? 'source-accessed-yes' : 'source-accessed-no'}" title="${s.accessed ? 'Accessed' : 'Not yet accessed'}"></span>
+      </div>`).join('');
+  }
+
+  // ── Load ──
+  async function load() {
+    try {
+      const res = await fetch('book-of-the-law-research.json?t=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      render(data);
+    } catch (e) {
+      document.getElementById('summary-text').textContent =
+        'Could not load research data. Open this file via a local server (e.g. npx serve .) rather than directly from disk. Error: ' + e.message;
+    }
+  }
+
+  load();
+
+  // Auto-refresh every 60 seconds
+  setInterval(load, 60000);
+</script>
+</body>
+</html>
