@@ -3,11 +3,11 @@
 Source-linked weekly NYC DOB NOW construction permit activity brief.
 
 Current issue:
-- Paid issue rows: 111
-- Paid ZIP rows: 111
+- Paid issue rows: 118
+- Paid ZIP rows: 118
 - Free CSV preview rows: 25
-- Source fetch date: 2026-06-25
-- Issued dates in preview: 2026-06-22 to 2026-06-24
+- Source fetch date: 2026-07-02
+- Issued dates in preview: 2026-06-26 to 2026-07-01
 - Primary purchase page: https://nycpermitbrief.com/buy.html
 - Buy page: https://nycpermitbrief.com/buy.html
 - Checkout bridge: https://nycpermitbrief.com/checkout.html?source=current-issue
@@ -102,13 +102,13 @@ Primary pages:
 - Methodology: https://nycpermitbrief.com/methodology.html
 
 Current counts:
-- Plumbing: 27
-- Sidewalk Shed: 25
-- Mechanical Systems: 24
-- Sprinklers: 13
-- Structural: 13
-- Construction Fence: 6
-- Supported Scaffold: 3
+- Plumbing: 23
+- Sidewalk Shed: 23
+- Mechanical Systems: 22
+- Structural: 17
+- Supported Scaffold: 16
+- Sprinklers: 12
+- Construction Fence: 5
 
 High-intent topic pages:
 - NYC permit data for architects: https://nycpermitbrief.com/topics/nyc-permit-data-for-architects.html
@@ -136,4 +136,4 @@ Boundaries:
 - Not affiliated with or endorsed by NYC, DOB, or any agency.
 - Source records can be incomplete, delayed, revised, duplicated, or mislabeled.
 
-Generated topic page count: 122
+Generated topic page count: 128

@@ -11,7 +11,7 @@ function readPackage(file) {
 
 const workbook = readPackage('buyer-workbook.md');
 assert.match(workbook, /# Buyer Workbook/, 'buyer workbook needs title');
-assert.match(workbook, /Public preview rows in package: 111/, 'buyer workbook needs current row count');
+assert.match(workbook, /Public preview rows in package: 118/, 'buyer workbook needs current row count');
 assert.match(workbook, /buyer-priority-slices\.csv/, 'buyer workbook points to priority slices');
 assert.match(workbook, /No owner names|does not include owner names/i, 'buyer workbook needs privacy boundary');
 assert.doesNotMatch(workbook, /\bguaranteed leads\b/i, 'buyer workbook must not imply lead guarantees except in negative boundary copy');
