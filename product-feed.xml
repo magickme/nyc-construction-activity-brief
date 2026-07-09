@@ -7,7 +7,7 @@
     <item>
       <g:id>nyc-construction-activity-brief-current</g:id>
       <title>NYC Weekly Construction Activity Brief current ZIP</title>
-      <description>One-time $9.50 digital ZIP download with the current 118-row NYC DOB permit CSV, buyer workbook, priority-slices CSV, source registry, QA report, and public-record boundary notes. The free preview has 25 rows.</description>
+      <description>One-time $9.50 digital ZIP download with the current 96-row NYC DOB permit CSV, buyer workbook, priority-slices CSV, source registry, QA report, and public-record boundary notes. The free preview has 25 rows.</description>
       <link>https://nycpermitbrief.com/buy.html?source=product-feed</link>
       <g:image_link>https://nycpermitbrief.com/assets/social-share-card.png</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -18,13 +18,13 @@
       <g:identifier_exists>no</g:identifier_exists>
       <g:custom_label_0>public-record-permit-data</g:custom_label_0>
       <g:custom_label_1>current-issue</g:custom_label_1>
-      <g:custom_label_2>118-row-paid-zip</g:custom_label_2>
+      <g:custom_label_2>96-row-paid-zip</g:custom_label_2>
       <g:custom_label_3>25-row-free-preview</g:custom_label_3>
     </item>
     <item>
       <g:id>nyc-construction-activity-brief-sidewalk-shed</g:id>
       <title>NYC sidewalk shed permit activity ZIP</title>
-      <description>One-time $9.50 digital ZIP download for buyers screening 23 selected NYC sidewalk shed permit rows inside the current 118-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
+      <description>One-time $9.50 digital ZIP download for buyers screening 21 selected NYC sidewalk shed permit rows inside the current 96-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
       <link>https://nycpermitbrief.com/buy.html?source=product-feed-sidewalk-shed</link>
       <g:image_link>https://nycpermitbrief.com/assets/social-share-card.png</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -34,14 +34,14 @@
       <g:product_type>Digital data download &gt; NYC permit activity &gt; Sidewalk shed</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:custom_label_0>public-record-permit-data</g:custom_label_0>
-      <g:custom_label_1>sidewalk-shed-permit-activity-23-rows</g:custom_label_1>
-      <g:custom_label_2>118-row-paid-zip</g:custom_label_2>
+      <g:custom_label_1>sidewalk-shed-permit-activity-21-rows</g:custom_label_1>
+      <g:custom_label_2>96-row-paid-zip</g:custom_label_2>
       <g:custom_label_3>25-row-free-preview</g:custom_label_3>
     </item>
     <item>
       <g:id>nyc-construction-activity-brief-plumbing</g:id>
       <title>NYC plumbing permit activity ZIP</title>
-      <description>One-time $9.50 digital ZIP download for buyers screening 23 selected NYC plumbing permit rows inside the current 118-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
+      <description>One-time $9.50 digital ZIP download for buyers screening 17 selected NYC plumbing permit rows inside the current 96-row public-record permit activity package. Includes source links, CSV files, buyer workbook, priority slices, QA report, and boundary notes.</description>
       <link>https://nycpermitbrief.com/buy.html?source=product-feed-plumbing</link>
       <g:image_link>https://nycpermitbrief.com/assets/social-share-card.png</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -51,14 +51,14 @@
       <g:product_type>Digital data download &gt; NYC permit activity &gt; Plumbing</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:custom_label_0>public-record-permit-data</g:custom_label_0>
-      <g:custom_label_1>plumbing-permit-activity-23-rows</g:custom_label_1>
-      <g:custom_label_2>118-row-paid-zip</g:custom_label_2>
+      <g:custom_label_1>plumbing-permit-activity-17-rows</g:custom_label_1>
+      <g:custom_label_2>96-row-paid-zip</g:custom_label_2>
       <g:custom_label_3>25-row-free-preview</g:custom_label_3>
     </item>
     <item>
       <g:id>nyc-construction-activity-brief-exterior-access</g:id>
       <title>NYC exterior-access permit activity ZIP</title>
-      <description>One-time $9.50 digital ZIP download for buyers screening 61 selected NYC exterior-access permit rows, including sidewalk shed, supported scaffold, construction fence, and structural activity inside the current 118-row public-record permit package.</description>
+      <description>One-time $9.50 digital ZIP download for buyers screening 57 selected NYC exterior-access permit rows, including sidewalk shed, supported scaffold, construction fence, and structural activity inside the current 96-row public-record permit package.</description>
       <link>https://nycpermitbrief.com/buy.html?source=product-feed-exterior-access</link>
       <g:image_link>https://nycpermitbrief.com/assets/social-share-card.png</g:image_link>
       <g:availability>in_stock</g:availability>
@@ -68,8 +68,8 @@
       <g:product_type>Digital data download &gt; NYC permit activity &gt; Exterior access</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:custom_label_0>public-record-permit-data</g:custom_label_0>
-      <g:custom_label_1>exterior-access-permit-activity-61-rows</g:custom_label_1>
-      <g:custom_label_2>118-row-paid-zip</g:custom_label_2>
+      <g:custom_label_1>exterior-access-permit-activity-57-rows</g:custom_label_1>
+      <g:custom_label_2>96-row-paid-zip</g:custom_label_2>
       <g:custom_label_3>25-row-free-preview</g:custom_label_3>
     </item>
   </channel>

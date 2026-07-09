@@ -9,9 +9,17 @@ function readPackage(file) {
   return fs.readFileSync(path.join(packageDir, file), 'utf8');
 }
 
+function packageRowCount() {
+  return readPackage('nyc-construction-activity-preview.csv').trim().split(/\r?\n/).length - 1;
+}
+
 const workbook = readPackage('buyer-workbook.md');
 assert.match(workbook, /# Buyer Workbook/, 'buyer workbook needs title');
-assert.match(workbook, /Public preview rows in package: 118/, 'buyer workbook needs current row count');
+assert.match(
+  workbook,
+  new RegExp(`Public preview rows in package: ${packageRowCount()}`),
+  'buyer workbook needs current row count'
+);
 assert.match(workbook, /buyer-priority-slices\.csv/, 'buyer workbook points to priority slices');
 assert.match(workbook, /No owner names|does not include owner names/i, 'buyer workbook needs privacy boundary');
 assert.doesNotMatch(workbook, /\bguaranteed leads\b/i, 'buyer workbook must not imply lead guarantees except in negative boundary copy');

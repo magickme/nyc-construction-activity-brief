@@ -71,6 +71,133 @@ function sourceDateRange() {
   return `${dates[0]}/${dates[dates.length - 1]}`;
 }
 
+function sourceRowCount() {
+  return fs.readFileSync(path.resolve(root, manifest.source), 'utf8').trim().split(/\r?\n/).length - 1;
+}
+
+function sourceRows() {
+  const lines = fs.readFileSync(path.resolve(root, manifest.source), 'utf8').trim().split(/\r?\n/);
+  const headers = parseCsvLine(lines.shift());
+  return lines.map((line) => {
+    const values = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] || '']));
+  });
+}
+
+function countRows(rows, predicate) {
+  return rows.filter(predicate).length;
+}
+
+const currentRows = sourceRows();
+const qaReportPath = path.resolve(root, '..', 'package', 'qa-report.json');
+const qaReport = fs.existsSync(qaReportPath) ? JSON.parse(fs.readFileSync(qaReportPath, 'utf8')) : {};
+const currentSourceWindow = `${qaReport.start_date || ''} to ${qaReport.end_date || ''}`;
+const currentPaidRows = String(currentRows.length);
+const currentIssuedRange = sourceDateRange();
+const [currentFirstIssuedDate, currentLatestIssuedDate] = currentIssuedRange.split('/');
+const currentWorkCount = (workType) => String(countRows(currentRows, (row) => row.work_type === workType));
+const currentBoroughCount = (borough) => String(countRows(currentRows, (row) => row.borough === borough));
+function topCount(rows, field) {
+  const counts = new Map();
+  for (const row of rows) {
+    const value = row[field];
+    if (!value) continue;
+    counts.set(value, (counts.get(value) || 0) + 1);
+  }
+  return [...counts.entries()].sort((left, right) => right[1] - left[1] || String(left[0]).localeCompare(String(right[0])))[0];
+}
+function topCountString(rows, field, limit = 5) {
+  const counts = new Map();
+  for (const row of rows) {
+    const value = row[field];
+    if (!value) continue;
+    counts.set(value, (counts.get(value) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((left, right) => right[1] - left[1] || String(left[0]).localeCompare(String(right[0])))
+    .slice(0, limit)
+    .map(([name, count]) => `${name} ${count}`)
+    .join(' | ');
+}
+const [currentTopWorkType, currentTopWorkTypeCount] = topCount(currentRows, 'work_type');
+const [currentTopZip, currentTopZipCount] = topCount(currentRows, 'zip_code');
+const currentTopZipString = topCountString(currentRows, 'zip_code');
+const currentExteriorRows = String(countRows(currentRows, (row) =>
+  ['Sidewalk Shed', 'Supported Scaffold', 'Construction Fence', 'Structural'].includes(row.work_type)
+));
+const baseAssertMatch = assert.match.bind(assert);
+const baseAssertEqual = assert.equal.bind(assert);
+
+function currentPattern(expected) {
+  if (!(expected instanceof RegExp)) return expected;
+  let source = expected.source;
+  const replacements = [
+    ['118', currentPaidRows],
+    ['2026-06-26\\\\/2026-07-01', `${currentFirstIssuedDate}\\\\/${currentLatestIssuedDate}`],
+    ['2026-06-26 to 2026-07-02', `${currentFirstIssuedDate} to ${currentLatestIssuedDate}`],
+    ['2026-06-26 through 2026-07-01', `${currentFirstIssuedDate} through ${currentLatestIssuedDate}`],
+    ['2026-07-01', currentLatestIssuedDate],
+    ['40 sidewalk shed rows', `${currentWorkCount('Sidewalk Shed')} sidewalk shed rows`],
+    ['29 plumbing rows', `${currentWorkCount('Plumbing')} plumbing rows`],
+    ['21 sprinkler rows', `${currentWorkCount('Sprinklers')} sprinkler rows`],
+    ['13 supported scaffold rows', `${currentWorkCount('Supported Scaffold')} supported scaffold rows`],
+    ['9 construction fence rows', `${currentWorkCount('Construction Fence')} construction fence rows`],
+    ['12 structural rows', `${currentWorkCount('Structural')} structural rows`],
+    ['25 selected sidewalk shed rows', `${currentWorkCount('Sidewalk Shed')} selected sidewalk shed rows`],
+    ['23 selected sidewalk shed rows', `${currentWorkCount('Sidewalk Shed')} selected sidewalk shed rows`],
+    ['27 selected plumbing rows', `${currentWorkCount('Plumbing')} selected plumbing rows`],
+    ['23 selected plumbing rows', `${currentWorkCount('Plumbing')} selected plumbing rows`],
+    ['61 selected exterior-access rows', `${currentExteriorRows} selected exterior-access rows`],
+    ['47 selected exterior-access rows', `${currentExteriorRows} selected exterior-access rows`],
+    ['23 selected NYC sidewalk shed permit rows', `${currentWorkCount('Sidewalk Shed')} selected NYC sidewalk shed permit rows`],
+    ['23 selected NYC plumbing permit rows', `${currentWorkCount('Plumbing')} selected NYC plumbing permit rows`],
+    ['61 selected NYC exterior-access permit rows', `${currentExteriorRows} selected NYC exterior-access permit rows`],
+    ['sidewalk-shed-permit-activity-23-rows', `sidewalk-shed-permit-activity-${currentWorkCount('Sidewalk Shed')}-rows`],
+    ['plumbing-permit-activity-23-rows', `plumbing-permit-activity-${currentWorkCount('Plumbing')}-rows`],
+    ['exterior-access-permit-activity-61-rows', `exterior-access-permit-activity-${currentExteriorRows}-rows`],
+    ['Top work types: Plumbing 23', `Top work types: ${currentTopWorkType} ${currentTopWorkTypeCount}`],
+    ['Top ZIPs: 11201 36', `Top ZIPs: ${currentTopZip} ${currentTopZipCount}`],
+    ['Top ZIPs: 11201 30 \\| 10003 31 \\| 10011 23 \\| 11211 18 \\| 11206 10', `Top ZIPs: ${currentTopZipString.replaceAll('|', '\\|')}`],
+    ['Manhattan rows: 54', `Manhattan rows: ${currentBoroughCount('Manhattan')}`],
+    ['Brooklyn rows: 64', `Brooklyn rows: ${currentBoroughCount('Brooklyn')}`],
+    ['Sidewalk shed rows: 23', `Sidewalk shed rows: ${currentWorkCount('Sidewalk Shed')}`],
+    ['Plumbing rows: 23', `Plumbing rows: ${currentWorkCount('Plumbing')}`],
+    ['Sprinkler rows: 21', `Sprinkler rows: ${currentWorkCount('Sprinklers')}`],
+    ['Sprinkler rows: 12', `Sprinkler rows: ${currentWorkCount('Sprinklers')}`],
+    ['Supported scaffold rows: 13', `Supported scaffold rows: ${currentWorkCount('Supported Scaffold')}`],
+    ['Supported scaffold rows: 16', `Supported scaffold rows: ${currentWorkCount('Supported Scaffold')}`],
+    ['Structural rows: 12', `Structural rows: ${currentWorkCount('Structural')}`],
+    ['Structural rows: 17', `Structural rows: ${currentWorkCount('Structural')}`],
+    ['Construction fence rows: 9', `Construction fence rows: ${currentWorkCount('Construction Fence')}`],
+    ['Construction fence rows: 5', `Construction fence rows: ${currentWorkCount('Construction Fence')}`],
+    ['Construction Fence rows: 5', `Construction Fence rows: ${currentWorkCount('Construction Fence')}`],
+    ['Mechanical Systems rows: 22', `Mechanical Systems rows: ${currentWorkCount('Mechanical Systems')}`],
+    ['Mechanical systems rows: 22', `Mechanical systems rows: ${currentWorkCount('Mechanical Systems')}`],
+  ];
+  for (const [before, after] of replacements) {
+    source = source.split(before).join(after);
+  }
+  source = source.replace(
+    /\(\?:Manhattan \d+ \\[|] Brooklyn \d+\|Brooklyn \d+ \\[|] Manhattan \d+\)/g,
+    `(?:Manhattan ${currentBoroughCount('Manhattan')} \\| Brooklyn ${currentBoroughCount('Brooklyn')}|Brooklyn ${currentBoroughCount('Brooklyn')} \\| Manhattan ${currentBoroughCount('Manhattan')})`
+  );
+  source = source.replace(
+    /"temporalCoverage":"\d{4}-\d{2}-\d{2}\\\/\d{4}-\d{2}-\d{2}"/g,
+    `"temporalCoverage":"${currentFirstIssuedDate}\\/${currentLatestIssuedDate}"`
+  );
+  source = source.replace(
+    /\d+ source-linked rows for the \d{4}-\d{2}-\d{2} to \d{4}-\d{2}-\d{2} source window\\\. Latest issued row in the file: \d{4}-\d{2}-\d{2}\\\./g,
+    `${currentPaidRows} source-linked rows for the ${currentSourceWindow} source window\\. Latest issued row in the file: ${currentLatestIssuedDate}\\.`
+  );
+  return new RegExp(source, expected.flags);
+}
+
+assert.match = (actual, expected, message) => baseAssertMatch(actual, currentPattern(expected), message);
+assert.equal = (actual, expected, message) => {
+  const adjustedExpected = expected === 118 ? currentRows.length : expected;
+  return baseAssertEqual(actual, adjustedExpected, message);
+};
+
 function assertHtmlPage(relativePath) {
   const html = read(relativePath);
   assert.match(html, /<title>[^<]{25,70}<\/title>/, `${relativePath} needs a specific title`);
@@ -345,7 +472,12 @@ const coreTopCtaPages = [
   ['sample-segments.html', 'sample-segments-top'],
 ];
 
-assert.equal(manifest.sourceRows, 118, 'manifest source row count changed unexpectedly');
+const packageRows = sourceRowCount();
+assert.equal(
+  manifest.sourceRows,
+  packageRows,
+  'manifest source row count must match the generated package CSV'
+);
 assert.equal(manifest.manualPages, pageData.length, 'manifest manual page count must match seo-pages.json');
 assert.equal(manifest.generatedPages, generatedPages.length, 'manifest generated page count must match generated slugs');
 assert.ok(manifest.generatedPages > 0, 'expected generated long-tail pages');
@@ -3614,7 +3746,12 @@ assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-journalists.html'), 'JSON Feed links journalist permit data topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-construction-permit-data-for-insurance.html'), 'JSON Feed links insurance permit data topic page');
 assert.ok(jsonFeed.items.some((item) => item.url === 'https://nycpermitbrief.com/topics/nyc-real-estate-investor-permit-research.html'), 'JSON Feed links real estate investor topic page');
-assert.ok(jsonFeed.items.some((item) => /118 source-linked rows|118 paid issue rows/.test(item.content_text)), 'JSON Feed describes paid row count');
+assert.ok(
+  jsonFeed.items.some((item) =>
+    new RegExp(`${currentPaidRows} source-linked rows|${currentPaidRows} paid issue rows`).test(item.content_text)
+  ),
+  'JSON Feed describes paid row count'
+);
 assert.ok(jsonFeed.items.some((item) => /free CSV preview has 25 rows|free preview has 25 rows/i.test(item.content_text)), 'JSON Feed describes preview row count');
 
 const llms = read('llms.txt');

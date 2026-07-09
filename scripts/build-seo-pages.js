@@ -66,6 +66,165 @@ function updateGeneratedPageMetadata(pages) {
   }
 }
 
+function countRows(rows, predicate) {
+  return rows.filter(predicate).length;
+}
+
+function currentIssueCopyValues(rows) {
+  const qaPath = path.resolve(root, '..', 'package', 'qa-report.json');
+  const qa = fs.existsSync(qaPath) ? JSON.parse(fs.readFileSync(qaPath, 'utf8')) : {};
+  const workCount = (workType) => countRows(rows, (row) => row.work_type === workType);
+  const exteriorCount = countRows(rows, (row) =>
+    ['Sidewalk Shed', 'Supported Scaffold', 'Construction Fence', 'Structural'].includes(row.work_type)
+  );
+  const issuedDates = rows.map((row) => String(row.issued_date || '').slice(0, 10)).filter(Boolean).sort();
+  return {
+    paidRows: String(rows.length),
+    previewRows: '25',
+    sourceWindow: `${qa.start_date || issuedDates[0]} to ${qa.end_date || issuedDates[issuedDates.length - 1]}`,
+    latestIssuedDate: issuedDates[issuedDates.length - 1] || qa.end_date || '',
+    sidewalkRows: String(workCount('Sidewalk Shed')),
+    plumbingRows: String(workCount('Plumbing')),
+    sprinklerRows: String(workCount('Sprinklers')),
+    supportedScaffoldRows: String(workCount('Supported Scaffold')),
+    constructionFenceRows: String(workCount('Construction Fence')),
+    structuralRows: String(workCount('Structural')),
+    exteriorRows: String(exteriorCount),
+  };
+}
+
+function normalizeCurrentIssueCopy(rows, pages) {
+  const values = currentIssueCopyValues(rows);
+  const files = [
+    '',
+    'current-issue.html',
+    'dataset-catalog.html',
+    'share-kit.html',
+    'partner-inquiry.html',
+    'team-license.html',
+    'custom-research.html',
+    'preview.html',
+    'buy.html',
+    'checkout.html',
+    'pricing.html',
+    'time-saved-calculator.html',
+    'who-should-buy.html',
+    'faq.html',
+    'free-vs-paid.html',
+    'permit-research-workflow.html',
+    'contractor-permit-research.html',
+    'contractor-supplier-permit-research.html',
+    'material-supplier-permit-research.html',
+    'building-service-vendor-permit-research.html',
+    'subcontractor-permit-research.html',
+    'broker-developer-permit-research.html',
+    'real-estate-investor-permit-research.html',
+    'construction-consultant-permit-research.html',
+    'construction-risk-permit-research.html',
+    'permit-expediter-research.html',
+    'property-manager-permit-research.html',
+    'inside-the-zip.html',
+    'csv-field-guide.html',
+    'nyc-dob-permit-data-download.html',
+    'nyc-building-permits.html',
+    'nyc-building-permit-data.html',
+    'nyc-dob-approved-permits.html',
+    'nyc-dob-now-approved-permits.html',
+    'dob-now-build-approved-permits.html',
+    'nyc-dob-permit-alerts.html',
+    'nyc-dob-permit-tracker.html',
+    'nyc-dob-permit-monitoring.html',
+    'nyc-dob-permit-watchlist.html',
+    'nyc-dob-permit-search.html',
+    'nyc-construction-permit-search.html',
+    'nyc-dob-permit-lookup.html',
+    'nyc-dob-permit-csv.html',
+    'nyc-permit-data-api-alternative.html',
+    'weekly-nyc-construction-permit-report.html',
+    'dob-now-permit-search-alternative.html',
+    'nyc-construction-permit-leads.html',
+    'nyc-permit-activity-by-zip.html',
+    'manhattan-construction-permit-activity.html',
+    'brooklyn-construction-permit-activity.html',
+    'queens-construction-permit-activity.html',
+    'bronx-construction-permit-activity.html',
+    'staten-island-construction-permit-activity.html',
+    'nyc-sidewalk-shed-permits.html',
+    'nyc-sidewalk-shed-permit-leads.html',
+    'nyc-supported-scaffold-permit-leads.html',
+    'nyc-plumbing-permit-leads.html',
+    'nyc-plumbing-permits.html',
+    'nyc-sprinkler-permit-leads.html',
+    'nyc-sprinkler-permits.html',
+    'nyc-mechanical-systems-permit-leads.html',
+    'nyc-mechanical-systems-permits.html',
+    'nyc-supported-scaffold-permits.html',
+    'nyc-structural-permit-leads.html',
+    'nyc-structural-permits.html',
+    'nyc-construction-fence-permit-leads.html',
+    'nyc-construction-fence-permits.html',
+    'buyer-guide.html',
+    'delivery.html',
+    'support.html',
+    'sample-request.html',
+    'invoice-request.html',
+    'sample-segments.html',
+    'methodology.html',
+    'feed.xml',
+    'feed.json',
+    'product-feed.xml',
+    'llms.txt',
+    'sample/nyc-weekly-construction-activity-sample.md',
+    ...pages.map((page) => `topics/${page.slug}.html`),
+  ];
+  const replacements = [
+    [/118-row/g, `${values.paidRows}-row`],
+    [/118 paid issue rows/g, `${values.paidRows} paid issue rows`],
+    [/118 paid rows/g, `${values.paidRows} paid rows`],
+    [/118 source-linked rows/g, `${values.paidRows} source-linked rows`],
+    [/118 selected rows/g, `${values.paidRows} selected rows`],
+    [/118 rows/g, `${values.paidRows} rows`],
+    [/Paid ZIP rows: 118/g, `Paid ZIP rows: ${values.paidRows}`],
+    [/Status mix: Permit Issued 118/g, `Status mix: Permit Issued ${values.paidRows}`],
+    [/full 118-row/g, `full ${values.paidRows}-row`],
+    [/Full 118-row/g, `Full ${values.paidRows}-row`],
+    [/current 118-row/g, `current ${values.paidRows}-row`],
+    [/current paid issue includes 118/g, `current paid issue includes ${values.paidRows}`],
+    [/paid ZIP includes 118/g, `paid ZIP includes ${values.paidRows}`],
+    [/paid issue includes 118/g, `paid issue includes ${values.paidRows}`],
+    [/full issue CSV/g, `full ${values.paidRows}-row current issue CSV`],
+    [/2026-06-19 to 2026-06-25/g, values.sourceWindow],
+    [/2026-06-26 to 2026-07-02/g, values.sourceWindow],
+    [/2026-06-26 through 2026-07-01/g, values.sourceWindow],
+    [/Latest issued row in the file: 2026-07-01/g, `Latest issued row in the file: ${values.latestIssuedDate}`],
+    [/25 selected sidewalk shed rows/g, `${values.sidewalkRows} selected sidewalk shed rows`],
+    [/23 selected sidewalk shed rows/g, `${values.sidewalkRows} selected sidewalk shed rows`],
+    [/27 selected plumbing rows/g, `${values.plumbingRows} selected plumbing rows`],
+    [/23 selected plumbing rows/g, `${values.plumbingRows} selected plumbing rows`],
+    [/29 current plumbing rows/g, `${values.plumbingRows} current plumbing rows`],
+    [/21 selected sprinkler rows/g, `${values.sprinklerRows} selected sprinkler rows`],
+    [/21 current sprinkler rows/g, `${values.sprinklerRows} current sprinkler rows`],
+    [/61 selected exterior-access rows/g, `${values.exteriorRows} selected exterior-access rows`],
+    [/47 selected exterior-access rows/g, `${values.exteriorRows} selected exterior-access rows`],
+    [/40 sidewalk shed rows/g, `${values.sidewalkRows} sidewalk shed rows`],
+    [/29 plumbing rows/g, `${values.plumbingRows} plumbing rows`],
+    [/21 sprinkler rows/g, `${values.sprinklerRows} sprinkler rows`],
+    [/13 supported scaffold rows/g, `${values.supportedScaffoldRows} supported scaffold rows`],
+    [/13 current supported scaffold rows/g, `${values.supportedScaffoldRows} current supported scaffold rows`],
+    [/12 structural rows/g, `${values.structuralRows} structural rows`],
+    [/source-linked rows for the \d{4}-\d{2}-\d{2} to \d{4}-\d{2}-\d{2} source window/g, `source-linked rows for the ${values.sourceWindow} source window`],
+  ];
+  for (const relativePath of files) {
+    const filePath = path.join(root, relativePath || 'index.html');
+    if (!fs.existsSync(filePath)) continue;
+    let text = fs.readFileSync(filePath, 'utf8');
+    for (const [pattern, replacement] of replacements) {
+      text = text.replace(pattern, replacement);
+    }
+    fs.writeFileSync(filePath, text);
+  }
+}
+
 const workTypeCopy = {
   'Construction Fence': {
     slug: 'construction-fence',
@@ -11028,5 +11187,6 @@ updateGeneratedPageMetadata(pages);
 updateIndex(manualPages, generatedPages);
 applyCoreConversionBars();
 applyCoreTopCtas();
+normalizeCurrentIssueCopy(rows, pages);
 
 console.log(`generated ${pages.length} SEO pages from ${rows.length} source rows`);
